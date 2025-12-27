@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Создано Microsoft Visio, экспорт SVG hexagon_events.svg Страница-1 -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+		xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" width="1.8849in" height="1.66259in"
+		viewBox="0 0 135.713 119.707" xml:space="preserve" color-interpolation-filters="sRGB" class="st7">
+	<v:documentProperties v:langID="1049" v:metric="true" v:viewMarkup="false"/>
+
+	<style type="text/css">
+	<![CDATA[
+		.st1 {visibility:visible}
+		.st2 {fill:#000000;fill-opacity:0.36;filter:url(#filter_4.6666669845581);stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:0.36}
+		.st3 {fill:#1c4b57;stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:1}
+		.st4 {fill:none;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2.25}
+		.st5 {fill:#ffffff;font-family:Calibri;font-size:1.00001em}
+		.st6 {font-size:1em}
+		.st7 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+	]]>
+	</style>
+
+	<defs id="Filters">
+		<filter id="filter_4.6666669845581">
+			<feGaussianBlur stdDeviation="4.6666669845581"/>
+		</filter>
+	</defs>
+	<g v:mID="0" v:index="1" v:groupContext="foregroundPage">
+		<title>Страница-1</title>
+		<v:pageProperties v:drawingScale="0.0393701" v:pageScale="0.0393701" v:drawingUnits="24" v:shadowOffsetX="8.50394"
+				v:shadowOffsetY="-8.50394"/>
+		<g id="group37-1" transform="translate(0.500007,-15.2782)" v:mID="37" v:groupContext="group">
+			<title>Лист.37</title>
+			<g id="shape38-2" v:mID="38" v:groupContext="shape">
+				<title>Лист.38</title>
+				<g id="shadow38-3" v:groupContext="shadow" v:shadowOffsetX="7.77817" v:shadowOffsetY="-7.77817" v:shadowType="1"
+						transform="matrix(1,0,0,1,7.77817,7.77817)" class="st1">
+					<path d="M29.95 15.78 L89.95 15.79 L119.93 67.77 L89.95 119.7 L29.94 119.71 L0 67.77 L29.95 15.78 Z"
+							class="st2"/>
+				</g>
+				<path d="M29.95 15.78 L89.95 15.79 L119.93 67.77 L89.95 119.7 L29.94 119.71 L0 67.77 L29.95 15.78 Z" class="st3"/>
+			</g>
+			<g id="shape39-7" v:mID="39" v:groupContext="shape" transform="translate(10.0692,-31.836)">
+				<title>Прямоугольник со скругленными углами.631</title>
+				<desc>Помощь в Мероприятиях и Услуги</desc>
+				<v:userDefs>
+					<v:ud v:nameU="CTypeTopLeftSnip" v:prompt="" v:val="VT0(0):5"/>
+					<v:ud v:nameU="CTypeTopRightSnip" v:prompt="" v:val="VT0(0):5"/>
+					<v:ud v:nameU="CTypeBotLeftSnip" v:prompt="" v:val="VT0(0):5"/>
+					<v:ud v:nameU="CTypeBotRightSnip" v:prompt="" v:val="VT0(0):5"/>
+					<v:ud v:nameU="CornerLockHoriz" v:prompt="" v:val="VT0(0):5"/>
+					<v:ud v:nameU="CornerLockVert" v:prompt="" v:val="VT0(0):5"/>
+					<v:ud v:nameU="CornerLockDiag" v:prompt="" v:val="VT0(0):5"/>
+					<v:ud v:nameU="TopLeftOffset" v:prompt="" v:val="VT0(0.15748031496063):24"/>
+					<v:ud v:nameU="TopRightOffset" v:prompt="" v:val="VT0(0.15748031496063):24"/>
+					<v:ud v:nameU="BotLeftOffset" v:prompt="" v:val="VT0(0.15748031496063):24"/>
+					<v:ud v:nameU="BotRightOffset" v:prompt="" v:val="VT0(0.15748031496063):24"/>
+					<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+					<v:ud v:nameU="TopLeftOffset" v:prompt="" v:val="VT0(0.041213311585276):1"/>
+					<v:ud v:nameU="TopRightOffset" v:prompt="" v:val="VT0(0.034802352005341):1"/>
+					<v:ud v:nameU="BotLeftOffset" v:prompt="" v:val="VT0(0.041213311585276):1"/>
+					<v:ud v:nameU="BotRightOffset" v:prompt="" v:val="VT0(0.034802352005341):1"/>
+				</v:userDefs>
+				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+				<v:textRect cx="50.3462" cy="99.5683" width="100.7" height="40.2769"/>
+				<path d="M2.97 119.71 L98.19 119.71 A2.50573 2.50573 -180 0 0 100.69 117.2 L100.69 81.94 A2.50573 2.50573 -180 0
+							 0 98.19 79.43 L2.97 79.43 A2.96731 2.96731 -180 0 0 -0 82.4 L0 116.74 A2.96731 2.96731 -180 0 0 2.97
+							 119.71 Z" class="st4"/>
+				<text x="24.69" y="88.77" class="st5" v:langID="1049"><v:paragraph v:horizAlign="1"/><v:tabList/>Помощь в <tspan
+							x="7.94" dy="1.2em" class="st6">Мероприятиях и </tspan><tspan x="33.55" dy="1.2em" class="st6">Услуги</tspan></text>			</g>
+		</g>
+	</g>
+</svg>

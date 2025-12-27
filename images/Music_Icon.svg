@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Создано Microsoft Visio, экспорт SVG MusicIcon.svg Страница-1 -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+		xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" width="0.256689in" height="0.317538in"
+		viewBox="0 0 18.4816 22.8627" xml:space="preserve" color-interpolation-filters="sRGB" class="st2">
+	<v:documentProperties v:langID="1049" v:metric="true" v:viewMarkup="false"/>
+
+	<style type="text/css">
+	<![CDATA[
+		.st1 {fill:#ffffff;stroke:none;stroke-linecap:butt;stroke-width:0.75}
+		.st2 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+	]]>
+	</style>
+
+	<g v:mID="0" v:index="1" v:groupContext="foregroundPage">
+		<title>Страница-1</title>
+		<v:pageProperties v:drawingScale="0.0393701" v:pageScale="0.0393701" v:drawingUnits="24" v:shadowOffsetX="8.50394"
+				v:shadowOffsetY="-8.50394"/>
+		<g id="shape33-1" v:mID="33" v:groupContext="shape">
+			<title>Музыка</title>
+			<v:userDefs>
+				<v:ud v:nameU="msvShapeCategories" v:prompt="" v:val="VT4(Icon)"/>
+				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<path d="M12.51 4.79 A310.668 305.775 -180 0 0 9.24 2.28 A7.41644 7.29965 0 0 1 7.71 0.96 L7.71 0.93 a0.785768 0.773394
+						 -180 0 0 -0.724199 -0.934473 a0.788188 0.775776 -180 0 0 -0.728544 0.934473 L6.25 16.14 A4.73712 4.66252
+						 -180 0 0 2.62 16.39 A3.88783 3.82661 -180 0 0 0.18 21.14 A3.88722 3.826 -180 0 0 5.46 22.3 A3.87494 3.81392
+						 -180 0 0 7.7 18.74 L7.71 18.69 L7.71 5.14 A10.1746 10.0144 0 0 1 10.68 6.71 A4.39422 4.32502 0 0 1 12.26
+						 9.65 A8.36608 8.23433 0 0 1 10.35 14.24 L10.72 14.57 a0.967942 0.952699 -180 0 0 0.694507 -0.329311 A17.8055
+						 17.5251 -180 0 0 12.26 13.2 A8.59757 8.46218 -180 0 0 14.48 8.27 A4.97257 4.89426 -180 0 0 12.51 4.79 Z"
+					class="st1"/>
+		</g>
+	</g>
+</svg>

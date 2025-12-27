@@ -1,0 +1,362 @@
+/* ПРАВАЯ часть - Избранное, Заметки, Закладки */
+.communications-right {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    position: absolute; /* Абсолютное позиционирование */
+    right: 150px; /* 150px от правого края шапки */
+    top: 80px; /* По центру вертикали */
+    transform: translateY(-50%); /* Центрирование */
+    z-index: 5;
+    backdrop-filter: blur(3px);
+}
+
+/* ЛЕВАЯ часть - Иконки для текущей страницы */
+.page-communication-icons {
+    display: flex;
+    gap: 15px;
+    /* padding: 8px 15px;
+    border-radius: 8px;
+    border: 1px solid white; */
+    background-color: rgba(0, 43, 77, 0.3);
+    backdrop-filter: blur(3px);
+    margin-left: auto;
+    position: absolute; /* Абсолютное позиционирование */
+    left: 70px; /* 70px от левого края шапки */
+    top: 80px; /* По центру вертикали */
+    transform: translateY(-50%); /* Центрирование */
+    z-index: 5;
+    white-space: nowrap; /* Не переносить текст */
+}
+
+/* Обновляем стили для кнопок шапки */
+.header-buttons {
+    position: relative;
+    z-index: 11; /* Выше других элементов */
+}
+
+.communication-icon-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s;
+    min-width: 60px;
+}
+
+.communication-icon-group:hover {
+    transform: translateY(-2px);
+}
+
+.communication-icon {
+    width: 15px;
+    height: 15px;
+    margin-bottom: 2px;
+    transition: filter 0.2s;
+}
+
+.communication-icon:hover {
+    filter: brightness(1.2);
+}
+
+.communication-count {
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    min-height: 16px;
+}
+
+.page-icon-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    transition: background-color 0.2s;
+    min-width: 70px;
+}
+
+.page-icon-button:hover {
+    background-color: rgba(168, 228, 10, 0.1);
+}
+
+.page-icon-button.active {
+    background-color: rgba(168, 228, 10, 0.2);
+    border: 1px solid #A8E40A;
+}
+
+.page-icon {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 4px;
+}
+
+.page-icon-label {
+    color: white;
+    font-size: 11px;
+    margin-top: 4px;
+}
+
+/* Стили для форм заметок и сообщений */
+.communication-form {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 28, 51, 0.95);
+    border: 2px solid #A8E40A;
+    border-radius: 10px;
+    padding: 20px;
+    z-index: 10001;
+    width: 400px;
+    max-width: 90vw;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+.communication-form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #A8E40A;
+}
+
+.communication-form-header h3 {
+    color: white;
+    margin: 0;
+    font-size: 18px;
+}
+
+.close-form {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0 5px;
+    transition: color 0.2s;
+}
+
+.close-form:hover {
+    color: #A8E40A;
+}
+
+.communication-textarea {
+    width: 100%;
+    min-height: 150px;
+    padding: 12px;
+    background-color: rgba(0, 43, 77, 0.3);
+    border: 1px solid #A8E40A;
+    color: white;
+    border-radius: 5px;
+    font-size: 14px;
+    resize: vertical;
+    margin-bottom: 15px;
+}
+
+.communication-textarea:focus {
+    outline: none;
+    border-color: #8BC34A;
+    box-shadow: 0 0 5px rgba(168, 228, 10, 0.3);
+}
+
+.communication-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.communication-submit-btn,
+.communication-cancel-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.communication-submit-btn {
+    background-color: #A8E40A;
+    color: #001C33;
+}
+
+.communication-submit-btn:hover {
+    background-color: #8BC34A;
+}
+
+.communication-cancel-btn {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.communication-cancel-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Оверлей для форм */
+.form-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 10000;
+    backdrop-filter: blur(3px);
+}
+
+/* Стили для отображения заметок/сообщений */
+.communication-display {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 28, 51, 0.95);
+    border: 2px solid #A8E40A;
+    border-radius: 10px;
+    padding: 20px;
+    z-index: 10001;
+    width: 500px;
+    max-width: 90vw;
+    max-height: 80vh;
+    overflow-y: auto;
+    backdrop-filter: blur(10px);
+}
+
+.communication-content {
+    color: white;
+    font-size: 14px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    padding: 10px;
+    background-color: rgba(0, 43, 77, 0.3);
+    border-radius: 5px;
+    border: 1px solid rgba(168, 228, 10, 0.3);
+}
+
+.communication-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(168, 228, 10, 0.3);
+    color: #ccc;
+    font-size: 12px;
+}
+
+/* Стили для списка закладок */
+.bookmarks-container {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.bookmark-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    margin-bottom: 5px;
+    background-color: rgba(0, 43, 77, 0.3);
+    border-radius: 4px;
+    border: 1px solid rgba(168, 228, 10, 0.2);
+    transition: background-color 0.2s;
+}
+
+.bookmark-item:hover {
+    background-color: rgba(168, 228, 10, 0.1);
+}
+
+.bookmark-name {
+    color: white;
+    font-size: 14px;
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.bookmark-type {
+    color: #A8E40A;
+    font-size: 12px;
+    margin-right: 10px;
+}
+
+.remove-bookmark {
+    background: none;
+    border: none;
+    color: #F44336;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.remove-bookmark:hover {
+    background-color: rgba(244, 67, 54, 0.1);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .communications-right, 
+    .page-communication-icons {
+        position: static;
+        transform: none;
+        margin: 10px auto;
+        width: 90%;
+        left: auto;
+        top: auto;
+        justify-content: center;
+    }
+    
+    .communications-right {
+        order: 4; /* ДОБАВЛЕНО: порядок в мобильной версии */
+    }
+    
+    .page-communication-icons {
+        order: 3; /* ДОБАВЛЕНО: порядок в мобильной версии */
+    }
+    
+    .page-communication-icons {
+        flex-wrap: wrap;
+    }
+    
+    .page-icon-button {
+        min-width: 60px;
+    }
+    
+    /* ДОБАВЛЕНО: Медиа-запрос для мобильных устройств */
+    @media (max-width: 600px) {
+        .communications-right,
+        .page-communication-icons {
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 10px;
+        }
+        
+        .page-icon-button {
+            min-width: 50px;
+            padding: 6px;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .communications-right,
+        .page-communication-icons {
+            gap: 8px;
+        }
+        
+        .page-icon-button {
+            min-width: 45px;
+            padding: 4px;
+        }
+        
+        .page-icon-label {
+            font-size: 10px;
+        }
+    }
+}

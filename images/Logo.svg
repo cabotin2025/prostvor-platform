@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Создано Microsoft Visio, экспорт SVG Logo.svg Страница-1 -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+		xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" width="1.1708in" height="0.233334in"
+		viewBox="0 0 84.2976 16.8" xml:space="preserve" color-interpolation-filters="sRGB" class="st4">
+	<v:documentProperties v:langID="1049" v:metric="true" v:viewMarkup="false"/>
+
+	<style type="text/css">
+	<![CDATA[
+		.st1 {fill:none;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st2 {fill:#ffffff;font-family:Calibri;font-size:1.16666em}
+		.st3 {fill:#ea700d;stroke:#595959;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.25}
+		.st4 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+	]]>
+	</style>
+
+	<g v:mID="0" v:index="1" v:groupContext="foregroundPage">
+		<title>Страница-1</title>
+		<v:pageProperties v:drawingScale="0.0393701" v:pageScale="0.0393701" v:drawingUnits="24" v:shadowOffsetX="8.50394"
+				v:shadowOffsetY="-8.50394"/>
+		<g id="group1-1" transform="translate(0.235517,-1.10418)" v:mID="1" v:groupContext="group">
+			<title>Лист.1</title>
+			<g id="shape2-2" v:mID="2" v:groupContext="shape" transform="translate(5.30327,1.24345E-13)">
+				<title>Лист.2</title>
+				<desc>PROSTVOR</desc>
+				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+				<v:textRect cx="39.1919" cy="9.50403" width="78.39" height="14.592"/>
+				<rect x="0" y="2.20803" width="78.3838" height="14.592" class="st1"/>
+				<text x="8.11" y="13.7" class="st2" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>PROSTVOR</text>			</g>
+			<g id="group3-5" transform="translate(6.99441E-15,-1.89289)" v:mID="3" v:groupContext="group">
+				<title>Лист.3</title>
+				<g id="shape4-6" v:mID="4" v:groupContext="shape" transform="translate(3.82696,-6.95463)">
+					<title>Лист.4</title>
+					<path d="M1.29 12.34 L3.86 12.34 L5.15 14.57 L3.86 16.8 L1.28 16.8 L0 14.57 L1.29 12.34 Z" class="st3"/>
+				</g>
+				<g id="shape5-8" v:mID="5" v:groupContext="shape" transform="translate(3.82696,-2.42143)">
+					<title>Лист.5</title>
+					<path d="M1.29 12.34 L3.86 12.34 L5.15 14.57 L3.86 16.8 L1.28 16.8 L0 14.57 L1.29 12.34 Z" class="st3"/>
+				</g>
+				<g id="shape6-10" v:mID="6" v:groupContext="shape" transform="translate(7.75927,-0.159004)">
+					<title>Лист.6</title>
+					<path d="M1.29 12.34 L3.86 12.34 L5.15 14.57 L3.86 16.8 L1.28 16.8 L0 14.57 L1.29 12.34 Z" class="st3"/>
+				</g>
+				<g id="shape7-12" v:mID="7" v:groupContext="shape" transform="translate(-0.110517,-0.159004)">
+					<title>Лист.7</title>
+					<path d="M1.29 12.34 L3.86 12.34 L5.15 14.57 L3.86 16.8 L1.28 16.8 L0 14.57 L1.29 12.34 Z" class="st3"/>
+				</g>
+			</g>
+		</g>
+	</g>
+</svg>

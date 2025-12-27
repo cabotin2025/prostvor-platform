@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Создано Microsoft Visio, экспорт SVG Гость.svg Страница-1 -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+		xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" width="0.889702in" height="0.549043in"
+		viewBox="0 0 64.0585 39.5311" xml:space="preserve" color-interpolation-filters="sRGB" class="st11">
+	<v:documentProperties v:langID="1049" v:metric="true" v:viewMarkup="false"/>
+
+	<style type="text/css">
+	<![CDATA[
+		.st1 {visibility:visible}
+		.st2 {fill:none;filter:url(#filter_2.6666667461395);stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:0.4}
+		.st3 {fill:none;stroke:#c4f73c;stroke-linecap:round;stroke-linejoin:round;stroke-width:1}
+		.st4 {fill:none;filter:url(#filter_2.6666667461395);stroke:none;stroke-linecap:round;stroke-linejoin:round}
+		.st5 {fill:#000000;filter:url(#filter_2.6666667461395);font-family:Calibri;font-size:0.499992em;opacity:0.4}
+		.st6 {font-size:1em;text-decoration:underline}
+		.st7 {fill:none;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st8 {fill:#ffffff;font-family:Calibri;font-size:0.499992em}
+		.st9 {fill:#000000;filter:url(#filter_2.6666667461395);font-family:Calibri;font-size:1.33333em;opacity:0.4}
+		.st10 {fill:#ffffff;font-family:Calibri;font-size:1.33333em}
+		.st11 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+	]]>
+	</style>
+
+	<defs id="Filters">
+		<filter id="filter_2.6666667461395">
+			<feGaussianBlur stdDeviation="2.6666667461395"/>
+		</filter>
+	</defs>
+	<g v:mID="0" v:index="1" v:groupContext="foregroundPage">
+		<title>Страница-1</title>
+		<v:pageProperties v:drawingScale="0.0393701" v:pageScale="0.0393701" v:drawingUnits="24" v:shadowOffsetX="8.50394"
+				v:shadowOffsetY="-8.50394"/>
+		<g id="group1139-1" transform="translate(5.5802,-9.91728)" v:mID="1139" v:groupContext="group">
+			<title>Лист.1139</title>
+			<g id="shape1053-2" v:mID="1053" v:groupContext="shape">
+				<title>Лист.1053</title>
+				<g id="shadow1053-3" v:groupContext="shadow" v:shadowOffsetX="2.12132" v:shadowOffsetY="-2.12132" v:shadowType="1"
+						transform="matrix(1,0,0,1,2.12132,2.12132)" class="st1">
+					<rect x="0" y="15.3665" width="51.857" height="24.1646" rx="2.83465" ry="2.83465" class="st2"/>
+				</g>
+				<rect x="0" y="15.3665" width="51.857" height="24.1646" rx="2.83465" ry="2.83465" class="st3"/>
+			</g>
+			<g id="shape1054-7" v:mID="1054" v:groupContext="shape" transform="translate(20.2066,-13.017)">
+				<title>Лист.1054</title>
+				<desc>Гость</desc>
+				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+				<v:textRect cx="15.0719" cy="36.0592" width="30.15" height="6.94386"/>
+				<g id="shadow1054-8" v:groupContext="shadow" v:shadowOffsetX="2.12132" v:shadowOffsetY="-2.12132" v:shadowType="1"
+						transform="matrix(1,0,0,1,2.12132,2.12132)" class="st1">
+					<rect x="0" y="32.5873" width="30.1438" height="6.94386" class="st4"/>
+					<text x="8.36" y="37.86" class="st5" v:langID="1049"><v:paragraph v:horizAlign="1"/><v:tabList/><tspan
+								class="st6">Гость</tspan></text>				</g>
+				<rect x="0" y="32.5873" width="30.1438" height="6.94386" class="st7"/>
+				<text x="8.36" y="37.86" class="st8" v:langID="1049"><v:paragraph v:horizAlign="1"/><v:tabList/><tspan class="st6">Гость</tspan></text>			</g>
+			<g id="shape1055-17" v:mID="1055" v:groupContext="shape" transform="translate(20.2066,-4.74463)">
+				<title>Лист.1055</title>
+				<desc>Гость</desc>
+				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+				<v:textRect cx="14.0184" cy="36.0592" width="28.04" height="6.94386"/>
+				<g id="shadow1055-18" v:groupContext="shadow" v:shadowOffsetX="2.12132" v:shadowOffsetY="-2.12132" v:shadowType="1"
+						transform="matrix(1,0,0,1,2.12132,2.12132)" class="st1">
+					<rect x="0" y="32.5873" width="28.0368" height="6.94386" class="st4"/>
+					<text x="7.31" y="37.86" class="st5" v:langID="1049"><v:paragraph v:horizAlign="1"/><v:tabList/>Гость</text>				</g>
+				<rect x="0" y="32.5873" width="28.0368" height="6.94386" class="st7"/>
+				<text x="7.31" y="37.86" class="st8" v:langID="1049"><v:paragraph v:horizAlign="1"/><v:tabList/>Гость</text>			</g>
+			<g id="shape1056-25" v:mID="1056" v:groupContext="shape" transform="translate(0.298328,-2.33994)">
+				<title>Лист.1056</title>
+				<desc>?</desc>
+				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+				<v:textRect cx="3.91477" cy="28.5698" width="7.83" height="21.9227"/>
+				<g id="shadow1056-26" v:groupContext="shadow" v:shadowOffsetX="2.12132" v:shadowOffsetY="-2.12132" v:shadowType="1"
+						transform="matrix(1,0,0,1,2.12132,2.12132)" class="st1">
+					<rect x="0" y="17.6084" width="7.82955" height="21.9227" class="st4"/>
+					<text x="4" y="33.37" class="st9" v:langID="1049"><v:paragraph v:horizAlign="1"/><v:tabList/>?</text>				</g>
+				<rect x="0" y="17.6084" width="7.82955" height="21.9227" class="st7"/>
+				<text x="4" y="33.37" class="st10" v:langID="1049"><v:paragraph v:horizAlign="1"/><v:tabList/>?</text>			</g>
+		</g>
+	</g>
+</svg>

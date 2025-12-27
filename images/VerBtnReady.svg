@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Создано Microsoft Visio, экспорт SVG VerBtnReady.svg Страница-1 -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+		xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" width="0.171441in" height="0.166668in"
+		viewBox="0 0 12.3438 12.0001" xml:space="preserve" color-interpolation-filters="sRGB" class="st4">
+	<v:documentProperties v:langID="1049" v:metric="true" v:viewMarkup="false"/>
+
+	<style type="text/css">
+	<![CDATA[
+		.st1 {fill:none;stroke:#a5a5a5;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st2 {fill:none;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st3 {fill:#4bacc6;font-family:Calibri;font-size:0.833336em;font-weight:bold}
+		.st4 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+	]]>
+	</style>
+
+	<g v:mID="0" v:index="1" v:groupContext="foregroundPage">
+		<title>Страница-1</title>
+		<v:pageProperties v:drawingScale="0.0393701" v:pageScale="0.0393701" v:drawingUnits="24" v:shadowOffsetX="8.50394"
+				v:shadowOffsetY="-8.50394"/>
+		<g id="group21-1" transform="translate(0.857099,-1.2996)" v:mID="21" v:groupContext="group">
+			<title>Лист.21</title>
+			<g id="group22-2" transform="translate(1.75734,0)" v:mID="22" v:groupContext="group">
+				<title>Лист.22</title>
+				<g id="shape23-3" v:mID="23" v:groupContext="shape">
+					<title>Лист.23</title>
+					<ellipse cx="4.67717" cy="7.05643" rx="4.67717" ry="4.94366" class="st1"/>
+				</g>
+			</g>
+			<g id="shape24-5" v:mID="24" v:groupContext="shape" transform="translate(-0.482099,-0.532985)">
+				<title>Лист.24</title>
+				<desc>V</desc>
+				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+				<v:textRect cx="2.72119" cy="7.83246" width="5.45" height="8.33526"/>
+				<rect x="0" y="3.66483" width="5.44238" height="8.33526" class="st2"/>
+				<text x="4" y="10.83" class="st3" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>V</text>			</g>
+		</g>
+	</g>
+</svg>

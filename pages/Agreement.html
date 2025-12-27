@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROSTVOR - Соглашение</title>
+    <meta name="description" content="PROSTVOR - Соглашение.">
+    <link rel="stylesheet" href="../css/style.css">
+  <style>
+        .agreement-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(0, 43, 77, 0.3);
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .agreement-title {
+            color: #A8E40A;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .agreement-section {
+            margin-bottom: 20px;
+        }
+        
+        .agreement-section h3 {
+            color: #A8E40A;
+            margin-bottom: 10px;
+        }
+        
+        .agreement-text {
+            line-height: 1.6;
+            text-align: justify;
+        }
+        
+        .back-button {
+            display: block;
+            width: 200px;
+            margin: 30px auto;
+            padding: 10px 20px;
+            background-color: #A8E40A;
+            color: #001C33;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .back-button:hover {
+            background-color: #8BC34A;
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header class="header">
+        <div class="logo-section">
+            <div>
+                <img src="../images/logo.svg" alt="PROSTVOR" class="logo">
+                <div class="city-selector">
+                    <div class="city-name" id="cityName" aria-haspopup="true" aria-expanded="false">Улан-Удэ</div>
+                    <div class="city-dropdown" id="cityDropdown" role="listbox">
+                        <div class="city-item" data-city="Москва" role="option">Москва</div>
+                        <div class="city-item" data-city="Санкт-Петербург" role="option">Санкт-Петербург</div>
+                        <div class="city-item" data-city="Казань" role="option">Казань</div>
+                        <div class="city-item" data-city="Уфа" role="option">Уфа</div>
+                        <div class="city-item" data-city="Екатеринбург" role="option">Екатеринбург</div>
+                        <div class="city-item" data-city="Красноярск" role="option">Красноярск</div>
+                        <div class="city-item" data-city="Новосибирск" role="option">Новосибирск</div>
+                        <div class="city-item" data-city="Иркутск" role="option">Иркутск</div>
+                        <div class="city-item" data-city="Чита" role="option">Чита</div>
+                        <div class="city-item" data-city="Хабаровск" role="option">Хабаровск</div>
+                        <div class="city-item" data-city="Владивосток" role="option">Владивосток</div>
+                        <div class="add-city">
+                            <input type="text" id="newCityInput" placeholder="Добавить город" aria-label="Введите название города">
+                            <button id="addCityBtn" aria-label="Добавить город">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="nav-container" aria-label="Основная навигация">
+            <div class="active-indicator" id="activeIndicator"></div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="../index.html" class="nav-link active" aria-current="page">Главная</a>
+                    <div class="nav-dropdown">
+                        <a href="../pages/HowItWorks.html" class="dropdown-item">Как это работает</a>
+                        <a href="#" class="dropdown-item">Творческие направления</a>
+                        <a href="#" class="dropdown-item">Руководители и Кураторы</a>
+                        <a href="#" class="dropdown-item">Контакты</a>
+                        <a href="#" class="dropdown-item">Статистика и отчеты</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="../pages/News.html" class="nav-link">Новости</a>
+                    <div class="nav-dropdown">
+                        <a href="#" class="dropdown-item">Анонсы</a>
+                        <a href="#" class="dropdown-item">События</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="../pages/Projects.html" class="nav-link active">Проекты</a>
+                    <div class="nav-dropdown">
+                        <a href="#" class="dropdown-item">Создать новый Проект</a>
+                        <a href="#" class="dropdown-item">Мои проекты</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="../pages/Ideas.html" class="nav-link">Идеи</a>
+                    <div class="nav-dropdown">
+                        <a href="#" class="dropdown-item">Предложить Идею</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="../pages/resources.html" class="nav-link">Ресурсы</a>
+                    <div class="nav-dropdown">
+                        <a href="#" class="dropdown-item">Материальные ресурсы</a>
+                        <a href="#" class="dropdown-item">Финансовые ресурсы</a>
+                        <a href="#" class="dropdown-item">Локации</a>
+                        <a href="#" class="dropdown-item">Предложить ресурс</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="../pages/events.html" class="nav-link">События</a>
+                    <div class="nav-dropdown">
+                        <a href="#" class="dropdown-item">Создать Событие</a>
+                        <a href="#" class="dropdown-item">Календарь событий</a>
+                        <a href="#" class="dropdown-item">Мои события</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="../pages/events.html" class="nav-link">Услуги</a>
+                    <div class="nav-dropdown">
+                        <a href="#" class="dropdown-item">Предложить Услуги</a>
+                        <a href="#" class="dropdown-item">Запросить Услуги</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="../pages/actors.html" class="nav-link">Участники</a>
+                    <div class="nav-dropdown">
+                        <a href="#" class="dropdown-item">Руководители и Кураторы</a>
+                        <a href="#" class="dropdown-item">Стать Участником</a>
+                        <a href="#" class="dropdown-item">Поиск участников</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="../pages/topics.html" class="nav-link">Темы</a>
+                    <div class="nav-dropdown">
+                        <a href="#" class="dropdown-item">Создать Тему</a>
+                        <a href="#" class="dropdown-item">Получить консультацию</a>
+                        <a href="#" class="dropdown-item">Популярные темы</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        
+        <div class="header-buttons">
+            <button class="header-button help-button" aria-label="Поддержать PROSTVOR">
+                <img src="../images/HelpProstvor.svg" alt="Поддержать PROSTVOR" class="help-button-img">
+            </button>
+            <button class="header-button enter-button" aria-label="Войти или зарегистрироваться">
+                <img src="../images/enter-reg.svg" alt="Войти/Зарегистрироваться" class="enter-button-img">
+            </button>
+        </div>
+    </header>
+    
+    <!-- Основной контент -->
+    <main class="main-content">
+        <h1 class="platform-title">Пользовательское соглашение</h1>
+        
+        <div class="agreement-container">
+            <h2 class="agreement-title">Условия использования платформы PROSTVOR</h2>
+            
+            <div class="agreement-section">
+                <h3>1. Общие положения</h3>
+                <p class="agreement-text">
+                    Настоящее Пользовательское соглашение (далее — Соглашение) регулирует отношения между Администрацией платформы PROSTVOR (далее — Администрация) и Пользователем (далее — Пользователь) по использованию платформы для создания творческих проектов.
+                </p>
+            </div>
+            
+            <div class="agreement-section">
+                <h3>2. Регистрация на платформе</h3>
+                <p class="agreement-text">
+                    Для получения доступа к функционалу платформы Пользователь должен пройти процедуру регистрации, предоставив достоверную информацию о себе. Пользователь обязуется не передавать свои учетные данные третьим лицам.
+                </p>
+            </div>
+            
+            <div class="agreement-section">
+                <h3>3. Правила использования</h3>
+                <p class="agreement-text">
+                    Пользователь обязуется использовать платформу только в законных целях, уважая права других пользователей. Запрещается размещение контента, нарушающего законодательство Российской Федерации.
+                </p>
+            </div>
+            
+            <div class="agreement-section">
+                <h3>4. Конфиденциальность</h3>
+                <p class="agreement-text">
+                    Администрация обязуется не разглашать персональные данные Пользователя третьим лицам, за исключением случаев, предусмотренных законодательством РФ.
+                </p>
+            </div>
+            
+            <div class="agreement-section">
+                <h3>5. Ответственность</h3>
+                <p class="agreement-text">
+                    Пользователь самостоятельно несет ответственность за все действия, совершаемые под его учетной записью. Администрация не несет ответственности за убытки, причиненные в результате использования платформы.
+                </p>
+            </div>
+            
+            <a href="../pages/enter-reg.html" class="back-button">Вернуться к регистрации</a>
+        </div>
+    </main>
+
+    <!-- Уведомления -->
+    <div id="notification" class="notification" aria-live="polite"></div>
+
+    <!-- Прелоадер -->
+    <div id="preloader" class="preloader">
+        <div class="preloader-spinner"></div>
+    </div>
+
+    <script src="../js/cities-database.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/auth.js"></script>
+</body>
+</html>

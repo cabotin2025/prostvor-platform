@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Создано Microsoft Visio, экспорт SVG VideoIcon.svg Страница-1 -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+		xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" width="0.373094in" height="0.312537in"
+		viewBox="0 0 26.8627 22.5027" xml:space="preserve" color-interpolation-filters="sRGB" class="st2">
+	<v:documentProperties v:langID="1049" v:metric="true" v:viewMarkup="false"/>
+
+	<style type="text/css">
+	<![CDATA[
+		.st1 {fill:#ffffff;stroke:none;stroke-linecap:butt;stroke-width:0.75}
+		.st2 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+	]]>
+	</style>
+
+	<g v:mID="0" v:index="1" v:groupContext="foregroundPage">
+		<title>Страница-1</title>
+		<v:pageProperties v:drawingScale="0.0393701" v:pageScale="0.0393701" v:drawingUnits="24" v:shadowOffsetX="8.50394"
+				v:shadowOffsetY="-8.50394"/>
+		<g id="shape32-1" v:mID="32" v:groupContext="shape">
+			<title>Видео</title>
+			<v:userDefs>
+				<v:ud v:nameU="msvShapeCategories" v:prompt="" v:val="VT4(Icon)"/>
+				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<path d="M21.43 -0 L21.43 1.45 L19.29 1.45 L19.29 -0 L17.86 -0 L17.86 0.73 L5 0.73 L5 -0 L3.57 -0 L3.57 1.45 L1.43 1.45
+						 L1.43 -0 L0 -0 L0 22.5 L1.43 22.5 L1.43 21.05 L3.57 21.05 L3.57 22.5 L5 22.5 L5 21.78 L17.86 21.78 L17.86
+						 22.5 L19.29 22.5 L19.29 21.05 L21.43 21.05 L21.43 22.5 L22.86 22.5 L22.86 -0 L21.43 -0 ZM3.57 19.6 L1.43
+						 19.6 L1.43 17.42 L3.57 17.42 L3.57 19.6 ZM3.57 15.97 L1.43 15.97 L1.43 13.79 L3.57 13.79 L3.57 15.97 ZM3.57
+						 12.34 L1.43 12.34 L1.43 10.16 L3.57 10.16 L3.57 12.34 ZM3.57 8.71 L1.43 8.71 L1.43 6.53 L3.57 6.53 L3.57
+						 8.71 ZM3.57 5.08 L1.43 5.08 L1.43 2.9 L3.57 2.9 L3.57 5.08 ZM17.86 21.05 L5 21.05 L5 11.61 L17.86 11.61
+						 L17.86 21.05 ZM17.86 10.89 L5 10.89 L5 1.45 L17.86 1.45 L17.86 10.89 ZM21.43 19.6 L19.29 19.6 L19.29 17.42
+						 L21.43 17.42 L21.43 19.6 ZM21.43 15.97 L19.29 15.97 L19.29 13.79 L21.43 13.79 L21.43 15.97 ZM21.43 12.34
+						 L19.29 12.34 L19.29 10.16 L21.43 10.16 L21.43 12.34 ZM21.43 8.71 L19.29 8.71 L19.29 6.53 L21.43 6.53 L21.43
+						 8.71 ZM21.43 5.08 L19.29 5.08 L19.29 2.9 L21.43 2.9 L21.43 5.08 Z" class="st1"/>
+		</g>
+	</g>
+</svg>

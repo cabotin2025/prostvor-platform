@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Создано Microsoft Visio, экспорт SVG GrantButton1.svg Page-1 -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+		xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" width="8.26772in" height="11.6929in"
+		viewBox="0 0 595.276 841.89" xml:space="preserve" color-interpolation-filters="sRGB" class="st7">
+	<v:documentProperties v:langID="1049" v:metric="true" v:viewMarkup="false">
+		<v:userDefs>
+			<v:ud v:nameU="msvNoSubprocess" v:prompt="" v:val="VT0(1):26"/>
+			<v:ud v:nameU="msvNoAutoConnect" v:val="VT0(0):26"/>
+		</v:userDefs>
+	</v:documentProperties>
+
+	<style type="text/css">
+	<![CDATA[
+		.st1 {fill:none;stroke:#ffc000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2.25}
+		.st2 {fill:#ffffff;font-family:Calibri;font-size:1.00001em}
+		.st3 {font-size:1em}
+		.st4 {fill:#595959;stroke:#a5a5a5;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.25}
+		.st5 {fill:none;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st6 {fill:#a5a5a5;font-family:Calibri;font-size:0.499992em}
+		.st7 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+	]]>
+	</style>
+
+	<g v:mID="0" v:index="1" v:groupContext="foregroundPage">
+		<v:custProps>
+			<v:cp v:nameU="ConnOffset" v:lbl="Смещение соединительной линии"
+					v:prompt="Set the offset for web site diagram connectors." v:sortKey="3" v:langID="1049" v:cal="0"
+					v:val="VT0(0.11811023622047):24"/>
+		</v:custProps>
+		<v:userDefs>
+			<v:ud v:nameU="msvThemeOrder" v:val="VT0(0):26"/>
+		</v:userDefs>
+		<title>Страница-1</title>
+		<v:pageProperties v:drawingScale="0.0393701" v:pageScale="0.0393701" v:drawingUnits="24" v:shadowOffsetX="8.50394"
+				v:shadowOffsetY="-8.50394"/>
+		<g id="shape1-1" v:mID="1" v:groupContext="shape" transform="translate(256.246,-406.527)">
+			<title>Лист.1</title>
+			<desc>Подать на грант</desc>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="41.1024" cy="826.691" width="82.21" height="30.3971"/>
+			<rect x="0" y="811.493" width="82.2047" height="30.3971" rx="2.83465" ry="2.83465" class="st1"/>
+			<text x="15.41" y="823.09" class="st2" v:langID="1049"><v:paragraph v:horizAlign="1"/><v:tabList/>Подать на <tspan
+						x="27.47" dy="1.2em" class="st3">грант</tspan></text>		</g>
+		<g id="group2-5" transform="translate(258.372,-425.621)" v:mID="2" v:groupContext="group">
+			<title>Лист.2</title>
+			<g id="shape3-6" v:mID="3" v:groupContext="shape" transform="translate(1.29337,0)">
+				<title>Лист.3</title>
+				<path d="M2.01 834.9 L6.05 834.91 L8.06 838.4 L6.05 841.89 L2.01 841.89 L0 838.4 L2.01 834.9 Z" class="st4"/>
+			</g>
+			<g id="shape4-8" v:mID="4" v:groupContext="shape" transform="translate(1.14908E-14,-2.28153)">
+				<title>Лист.4</title>
+				<desc>F</desc>
+				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+				<v:textRect cx="1.81441" cy="840.983" width="3.63" height="1.81441"/>
+				<rect x="0" y="840.075" width="3.62881" height="1.81441" class="st5"/>
+				<text x="4" y="842.78" class="st6" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>F</text>			</g>
+		</g>
+	</g>
+</svg>

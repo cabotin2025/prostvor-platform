@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Создано Microsoft Visio, экспорт SVG MessIcon.svg Страница-1 -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+		xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" width="0.177501in" height="0.119754in"
+		viewBox="0 0 12.7801 8.62228" xml:space="preserve" color-interpolation-filters="sRGB" class="st2">
+	<v:documentProperties v:langID="1049" v:metric="true" v:viewMarkup="false"/>
+
+	<style type="text/css">
+	<![CDATA[
+		.st1 {fill:#ffffff;stroke:none;stroke-linecap:butt;stroke-width:0.75}
+		.st2 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+	]]>
+	</style>
+
+	<g v:mID="0" v:index="1" v:groupContext="foregroundPage">
+		<title>Страница-1</title>
+		<v:pageProperties v:drawingScale="0.0393701" v:pageScale="0.0393701" v:drawingUnits="24" v:shadowOffsetX="8.50394"
+				v:shadowOffsetY="-8.50394"/>
+		<g id="shape1-1" v:mID="1" v:groupContext="shape" transform="translate(1.70655E-08,-6.75016E-14)">
+			<title>Чат</title>
+			<v:userDefs>
+				<v:ud v:nameU="msvShapeCategories" v:prompt="" v:val="VT4(Icon)"/>
+				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<path d="M7.21 0 L1.57 0 A1.56764 1.59272 -180 0 0 -0 1.59 L0 4.78 A1.56764 1.59272 -180 0 0 1.57 6.37 L2.98 6.37 L2.47
+						 8.28 a0.185938 0.188913 -180 1 0 0.28253 0.21027 L5.83 6.37 L7.21 6.37 A1.56764 1.59272 -180 0 0 8.78 4.78
+						 L8.78 1.59 A1.56764 1.59272 -180 0 0 7.21 0 ZM8.15 4.78 a0.941869 0.956939 0 0 1 -0.94072 0.955772 L5.64
+						 5.73 L3.39 7.28 L3.8 5.73 L1.57 5.73 a0.941869 0.956939 0 0 1 -0.94072 -0.955772 L0.63 1.59 a0.941869 0.956939
+						 0 0 1 0.94072 -0.955772 L7.21 0.64 a0.941869 0.956939 0 0 1 0.94072 0.955772 L8.15 4.78 Z" class="st1"/>
+		</g>
+	</g>
+</svg>

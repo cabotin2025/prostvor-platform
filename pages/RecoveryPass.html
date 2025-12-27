@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROSTVOR - Восстановление пароля</title>
+    <meta name="description" content="PROSTVOR - Восстановление пароля.">
+    <link rel="stylesheet" href="../css/style.css">
+  <style>
+        .recovery-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 40px;
+            background-color: rgba(0, 43, 77, 0.3);
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .recovery-title {
+            color: #A8E40A;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #A8E40A;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: rgba(0, 28, 51, 0.3);
+            border: 1px solid #A8E40A;
+            color: white;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #8BC34A;
+            box-shadow: 0 0 5px rgba(168, 228, 10, 0.3);
+        }
+        
+        .recovery-button {
+            width: 100%;
+            padding: 15px;
+            background-color: #A8E40A;
+            color: #001C33;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+        
+        .recovery-button:hover {
+            background-color: #8BC34A;
+        }
+        
+        .back-link {
+            display: block;
+            text-align: center;
+            color: #A8E40A;
+            margin-top: 20px;
+            text-decoration: none;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .recovery-message {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: rgba(168, 228, 10, 0.1);
+            border-radius: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header class="header">
+        <div class="logo-section">
+            <div>
+                <img src="../images/logo.svg" alt="PROSTVOR" class="logo">
+                <div class="city-selector">
+                    <div class="city-name" id="cityName" aria-haspopup="true" aria-expanded="false">Улан-Удэ</div>
+                    <div class="city-dropdown" id="cityDropdown" role="listbox">
+                        <div class="city-item" data-city="Москва" role="option">Москва</div>
+                        <div class="city-item" data-city="Санкт-Петербург" role="option">Санкт-Петербург</div>
+                        <div class="city-item" data-city="Казань" role="option">Казань</div>
+                        <div class="city-item" data-city="Уфа" role="option">Уфа</div>
+                        <div class="city-item" data-city="Екатеринбург" role="option">Екатеринбург</div>
+                        <div class="city-item" data-city="Красноярск" role="option">Красноярск</div>
+                        <div class="city-item" data-city="Новосибирск" role="option">Новосибирск</div>
+                        <div class="city-item" data-city="Иркутск" role="option">Иркутск</div>
+                        <div class="city-item" data-city="Чита" role="option">Чита</div>
+                        <div class="city-item" data-city="Хабаровск" role="option">Хабаровск</div>
+                        <div class="city-item" data-city="Владивосток" role="option">Владивосток</div>
+                        <div class="add-city">
+                            <input type="text" id="newCityInput" placeholder="Добавить город" aria-label="Введите название города">
+                            <button id="addCityBtn" aria-label="Добавить город">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="nav-container" aria-label="Основная навигация">
+            <div class="active-indicator" id="activeIndicator"></div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="../index.html" class="nav-link active" aria-current="page">Главная</a>
+                    <div class="nav-dropdown">
+                        <a href="../pages/HowItWorks.html" class="dropdown-item">Как это работает</a>
+                        <a href="#" class="dropdown-item">Творческие направления</a>
+                        <a href="#" class="dropdown-item">Руководители и Кураторы</a>
+                        <a href="#" class="dropdown-item">Контакты</a>
+                        <a href="#" class="dropdown-item">Статистика и отчеты</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="../pages/News.html" class="nav-link">Новости</a>
+                    <div class="nav-dropdown">
+                        <a href="#" class="dropdown-item">Анонсы</a>
+                        <a href="#" class="dropdown-item">События</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="../pages/Projects.html" class="nav-link active">Проекты</a>
+                    <div class="nav-dropdown">
+                        <a href="#" class="dropdown-item">Создать новый Проект</a>
+                        <a href="#" class="dropdown-item">Мои проекты</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="../pages/Ideas.html" class="nav-link">Идеи</a>
+                    <div class="nav-dropdown">
+                        <a href="#" class="dropdown-item">Предложить Идею</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="../pages/resources.html" class="nav-link">Ресурсы</a>
+                    <div class="nav-dropdown">
+                        <a href="#" class="dropdown-item">Материальные ресурсы</a>
+                        <a href="#" class="dropdown-item">Финансовые ресурсы</a>
+                        <a href="#" class="dropdown-item">Локации</a>
+                        <a href="#" class="dropdown-item">Предложить ресурс</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="../pages/events.html" class="nav-link">События</a>
+                    <div class="nav-dropdown">
+                        <a href="#" class="dropdown-item">Создать Событие</a>
+                        <a href="#" class="dropdown-item">Календарь событий</a>
+                        <a href="#" class="dropdown-item">Мои события</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="../pages/events.html" class="nav-link">Услуги</a>
+                    <div class="nav-dropdown">
+                        <a href="#" class="dropdown-item">Предложить Услуги</a>
+                        <a href="#" class="dropdown-item">Запросить Услуги</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="../pages/actors.html" class="nav-link">Участники</a>
+                    <div class="nav-dropdown">
+                        <a href="#" class="dropdown-item">Руководители и Кураторы</a>
+                        <a href="#" class="dropdown-item">Стать Участником</a>
+                        <a href="#" class="dropdown-item">Поиск участников</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="../pages/topics.html" class="nav-link">Темы</a>
+                    <div class="nav-dropdown">
+                        <a href="#" class="dropdown-item">Создать Тему</a>
+                        <a href="#" class="dropdown-item">Получить консультацию</a>
+                        <a href="#" class="dropdown-item">Популярные темы</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        
+        <div class="header-buttons">
+            <button class="header-button help-button" aria-label="Поддержать PROSTVOR">
+                <img src="../images/HelpProstvor.svg" alt="Поддержать PROSTVOR" class="help-button-img">
+            </button>
+            <button class="header-button enter-button" aria-label="Войти или зарегистрироваться">
+                <img src="../images/enter-reg.svg" alt="Войти/Зарегистрироваться" class="enter-button-img">
+            </button>
+        </div>
+    </header>
+    
+    <!-- Основной контент -->
+    <main class="main-content">
+        <h1 class="platform-title">Восстановление пароля</h1>
+        
+        <div class="recovery-container">
+            <h2 class="recovery-title">Восстановление доступа к аккаунту</h2>
+            
+            <div class="form-group">
+                <label class="form-label">Введите ваш E-mail</label>
+                <input type="email" id="recoveryEmail" class="form-input" placeholder="example@mail.ru" required>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Или введите ваш псевдоним</label>
+                <input type="text" id="recoveryNickname" class="form-input" placeholder="Ваш псевдоним">
+            </div>
+            
+            <button class="recovery-button" id="sendRecoveryBtn">Отправить ссылку для восстановления</button>
+            
+            <div class="recovery-message" id="recoveryMessage">
+                На указанный E-mail отправлена ссылка для восстановления пароля. Проверьте вашу почту.
+            </div>
+            
+            <a href="../pages/enter-reg.html" class="back-link">Вернуться к странице входа</a>
+        </div>
+    </main>
+
+    <!-- Уведомления -->
+    <div id="notification" class="notification" aria-live="polite"></div>
+
+    <!-- Прелоадер -->
+    <div id="preloader" class="preloader">
+        <div class="preloader-spinner"></div>
+    </div>
+
+    <script src="../js/cities-database.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/auth.js"></script>
+	
+        
+        function showNotification(message, type = 'info') {
+            const notification = document.getElementById('notification');
+            if (notification) {
+                notification.textContent = message;
+                notification.className = `notification ${type} show`;
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+            }
+        }
+    });
+</script>
+</body>
+</html>

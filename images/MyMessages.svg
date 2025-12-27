@@ -1,0 +1,655 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Создано Microsoft Visio, экспорт SVG MyMessages.svg Страница-1 -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+		xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" width="4.00509in" height="2.68225in"
+		viewBox="0 0 288.366 193.122" xml:space="preserve" color-interpolation-filters="sRGB" class="st19">
+	<v:documentProperties v:langID="1049" v:metric="true" v:viewMarkup="false"/>
+
+	<style type="text/css">
+	<![CDATA[
+		.st1 {fill:none;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st2 {fill:#ffd965;font-family:Calibri;font-size:0.833336em}
+		.st3 {fill:#001c33;stroke:#595959;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st4 {stroke:#a5a5a5;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.5}
+		.st5 {fill:#c00000;stroke:#c00000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2.25}
+		.st6 {fill:#ffffff;font-family:Calibri;font-size:0.666664em}
+		.st7 {stroke:#a5a5a5;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.237638}
+		.st8 {fill:#ffffff;font-family:Calibri;font-size:0.499992em}
+		.st9 {fill:#595959;stroke:#ffc000;stroke-linecap:round;stroke-linejoin:round;stroke-width:1}
+		.st10 {fill:#ffffff;font-family:Calibri;font-size:0.333344em}
+		.st11 {font-size:1em;text-decoration:underline}
+		.st12 {stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.5}
+		.st13 {fill:none;stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.5}
+		.st14 {fill:#595959;stroke:#005695;stroke-linecap:round;stroke-linejoin:round;stroke-width:1}
+		.st15 {fill:#595959;stroke:#00b0f0;stroke-linecap:round;stroke-linejoin:round;stroke-width:1}
+		.st16 {font-size:1em}
+		.st17 {fill:#595959;stroke:#f59d56;stroke-linecap:round;stroke-linejoin:round;stroke-width:1}
+		.st18 {fill:#595959;stroke:#b5de87;stroke-linecap:round;stroke-linejoin:round;stroke-width:1}
+		.st19 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+	]]>
+	</style>
+
+	<g v:mID="0" v:index="1" v:groupContext="foregroundPage">
+		<title>Страница-1</title>
+		<v:pageProperties v:drawingScale="0.0393701" v:pageScale="0.0393701" v:drawingUnits="24" v:shadowOffsetX="8.50394"
+				v:shadowOffsetY="-8.50394"/>
+		<g id="shape103-1" v:mID="103" v:groupContext="shape" transform="translate(-181.22,157.076) rotate(-89.6)">
+			<title>Лист.103</title>
+			<desc>Личные сообщения</desc>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="55.2742" cy="187.953" width="110.55" height="10.3376"/>
+			<rect x="0" y="182.784" width="110.548" height="10.3376" class="st1"/>
+			<text x="13.52" y="190.95" class="st2" v:langID="1049"><v:paragraph v:horizAlign="1"/><v:tabList/>Личные сообщения</text>		</g>
+		<g id="shape104-4" v:mID="104" v:groupContext="shape" transform="translate(13.529,-0.75)">
+			<title>Лист.104</title>
+			<rect x="0" y="1.5" width="274.087" height="191.622" rx="5.66929" ry="5.66929" class="st3"/>
+		</g>
+		<g id="shape105-6" v:mID="105" v:groupContext="shape" transform="translate(287.616,193.872) rotate(180)">
+			<title>Лист.105</title>
+			<path d="M274.09 181.08 L274.09 187.45 A5.66929 5.66929 0 0 1 268.42 193.12 L5.67 193.12 A5.66929 5.66929 0 0 1 -0 187.45
+						 L0 7.17 A5.66929 5.66929 0 0 1 5.67 1.5 L268.42 1.5 A5.66929 5.66929 0 0 1 274.09 7.17 L274.09 29.97"
+					class="st4"/>
+		</g>
+		<g id="group106-9" transform="translate(15.5726,252.14) rotate(-179.6)" v:mID="106" v:groupContext="group">
+			<title>Лист.106</title>
+		</g>
+		<g id="shape107-10" v:mID="107" v:groupContext="shape" transform="translate(12.2202,332.624) rotate(-179.6)">
+			<title>Лист.107</title>
+			<path d="M0 162.93 L0 169.44 A5.66929 5.66929 -180 0 0 3.56 174.71 L9.18 176.96 A5.66929 5.66929 0 0 1 12.74 182.22 L12.74
+						 193.12" class="st4"/>
+		</g>
+		<g id="shape108-13" v:mID="108" v:groupContext="shape" transform="translate(-192.299,141.117) rotate(-90)">
+			<title>Лист.108</title>
+			<path d="M0 193.12 L76.59 193.12" class="st4"/>
+		</g>
+		<g id="shape109-16" v:mID="109" v:groupContext="shape" transform="translate(12.1219,231.564) rotate(-179.6)">
+			<title>Лист.109</title>
+			<path d="M12.43 166.62 L12.43 173.87 A5.66929 5.66929 0 0 1 8.38 179.3 L4.06 180.58 A5.66929 5.66929 -180 0 0 0 186.02
+						 L0 193.12" class="st4"/>
+		</g>
+		<g id="group110-19" transform="translate(1.29883,-140.681)" v:mID="110" v:groupContext="group">
+			<title>Лист.110</title>
+			<g id="shape111-20" v:mID="111" v:groupContext="shape" transform="translate(0.293115,0)">
+				<title>Лист.111</title>
+				<ellipse cx="5.75165" cy="187.545" rx="5.75165" ry="5.57736" class="st5"/>
+			</g>
+			<g id="shape112-22" v:mID="112" v:groupContext="shape" transform="translate(1.28897E-13,-0.418352)">
+				<title>Лист.112</title>
+				<desc>5</desc>
+				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+				<v:textRect cx="6.44882" cy="187.963" width="12.9" height="10.318"/>
+				<rect x="0" y="182.804" width="12.8976" height="10.318" class="st1"/>
+				<text x="4.42" y="190.36" class="st6" v:langID="1049"><v:paragraph v:horizAlign="1"/><v:tabList/>5</text>			</g>
+		</g>
+		<g id="shape113-25" v:mID="113" v:groupContext="shape" transform="translate(206.539,11.6382) rotate(89.9505)">
+			<title>Лист.113</title>
+			<path d="M0 193.12 L30.49 193.12" class="st4"/>
+		</g>
+		<g id="shape114-28" v:mID="114" v:groupContext="shape" transform="translate(281.947,240.691) rotate(180)">
+			<title>Лист.114</title>
+			<path d="M0 193.12 L218.24 193.12" class="st7"/>
+		</g>
+		<g id="shape115-31" v:mID="115" v:groupContext="shape" transform="translate(281.327,261.478) rotate(180)">
+			<title>Лист.115</title>
+			<path d="M0 193.12 L218.24 193.12" class="st7"/>
+		</g>
+		<g id="shape116-34" v:mID="116" v:groupContext="shape" transform="translate(280.5,282.502) rotate(180)">
+			<title>Лист.116</title>
+			<path d="M0 193.12 L218.24 193.12" class="st7"/>
+		</g>
+		<g id="shape117-37" v:mID="117" v:groupContext="shape" transform="translate(279.801,303.762) rotate(180)">
+			<title>Лист.117</title>
+			<path d="M0 193.12 L218.24 193.12" class="st7"/>
+		</g>
+		<g id="shape118-40" v:mID="118" v:groupContext="shape" transform="translate(281.096,324.549) rotate(180)">
+			<title>Лист.118</title>
+			<path d="M0 193.12 L221.96 193.12" class="st7"/>
+		</g>
+		<g id="group119-43" transform="translate(273.948,-71.6161)" v:mID="119" v:groupContext="group">
+			<title>Лист.119</title>
+			<g id="group120-44" transform="translate(1.41732,0)" v:mID="120" v:groupContext="group">
+				<title>Лист.120</title>
+				<g id="shape121-45" v:mID="121" v:groupContext="shape" transform="translate(0.201114,0)">
+					<title>Лист.121</title>
+					<ellipse cx="3.94636" cy="189.295" rx="3.94636" ry="3.82677" class="st5"/>
+				</g>
+			</g>
+			<g id="group122-47" transform="translate(0,-0.382554)" v:mID="122" v:groupContext="group">
+				<title>Лист.122</title>
+				<g id="shape123-48" v:mID="123" v:groupContext="shape">
+					<title>Лист.123</title>
+					<desc>1</desc>
+					<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+					<v:textRect cx="4.4247" cy="189.582" width="8.85" height="7.07946"/>
+					<rect x="0" y="186.043" width="8.84941" height="7.07946" class="st1"/>
+					<text x="4" y="191.38" class="st8" v:langID="1049"><v:paragraph v:horizAlign="1"/><v:tabList/>1</text>				</g>
+			</g>
+		</g>
+		<g id="group124-51" transform="translate(273.861,-133.978)" v:mID="124" v:groupContext="group">
+			<title>Лист.124</title>
+			<g id="group125-52" transform="translate(1.41732,0)" v:mID="125" v:groupContext="group">
+				<title>Лист.125</title>
+				<g id="shape126-53" v:mID="126" v:groupContext="shape" transform="translate(0.201114,0)">
+					<title>Лист.126</title>
+					<ellipse cx="3.94636" cy="189.295" rx="3.94636" ry="3.82677" class="st5"/>
+				</g>
+			</g>
+			<g id="group127-55" transform="translate(0,-0.382554)" v:mID="127" v:groupContext="group">
+				<title>Лист.127</title>
+				<g id="shape128-56" v:mID="128" v:groupContext="shape">
+					<title>Лист.128</title>
+					<desc>3</desc>
+					<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+					<v:textRect cx="4.4247" cy="189.582" width="8.85" height="7.07946"/>
+					<rect x="0" y="186.043" width="8.84941" height="7.07946" class="st1"/>
+					<text x="4" y="191.38" class="st8" v:langID="1049"><v:paragraph v:horizAlign="1"/><v:tabList/>3</text>				</g>
+			</g>
+		</g>
+		<g id="group129-59" transform="translate(273.948,-156.23)" v:mID="129" v:groupContext="group">
+			<title>Лист.129</title>
+			<g id="group130-60" transform="translate(1.41732,0)" v:mID="130" v:groupContext="group">
+				<title>Лист.130</title>
+				<g id="shape131-61" v:mID="131" v:groupContext="shape" transform="translate(0.201114,0)">
+					<title>Лист.131</title>
+					<ellipse cx="3.94636" cy="189.295" rx="3.94636" ry="3.82677" class="st5"/>
+				</g>
+			</g>
+			<g id="group132-63" transform="translate(0,-0.382554)" v:mID="132" v:groupContext="group">
+				<title>Лист.132</title>
+				<g id="shape133-64" v:mID="133" v:groupContext="shape">
+					<title>Лист.133</title>
+					<desc>1</desc>
+					<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+					<v:textRect cx="4.4247" cy="189.582" width="8.85" height="7.07946"/>
+					<rect x="0" y="186.043" width="8.84941" height="7.07946" class="st1"/>
+					<text x="4" y="191.38" class="st8" v:langID="1049"><v:paragraph v:horizAlign="1"/><v:tabList/>1</text>				</g>
+			</g>
+		</g>
+		<g id="group134-67" transform="translate(22.7158,-146.734)" v:mID="134" v:groupContext="group">
+			<title>Лист.134</title>
+			<g id="shape135-68" v:mID="135" v:groupContext="shape">
+				<title>Лист.135</title>
+				<rect x="0" y="175.625" width="37.5491" height="17.4973" rx="2.83465" ry="2.83465" class="st9"/>
+			</g>
+			<g id="shape136-70" v:mID="136" v:groupContext="shape" transform="translate(6.01865,-10.8101)">
+				<title>Лист.136</title>
+				<desc>McCartney</desc>
+				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+				<v:textRect cx="15.874" cy="190.608" width="31.75" height="5.02797"/>
+				<rect x="0" y="188.094" width="31.748" height="5.02797" class="st1"/>
+				<text x="6.98" y="191.81" class="st10" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/><tspan
+							class="st11">McCartney</tspan></text>			</g>
+			<g id="shape137-74" v:mID="137" v:groupContext="shape" transform="translate(8.97243,-4.77657)">
+				<title>Лист.137</title>
+				<desc>Участник</desc>
+				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+				<v:textRect cx="13.6939" cy="190.608" width="27.39" height="5.02797"/>
+				<rect x="0" y="188.094" width="27.3878" height="5.02797" class="st1"/>
+				<text x="6.05" y="191.81" class="st10" v:langID="1049"><v:paragraph v:horizAlign="1"/><v:tabList/>Участник</text>			</g>
+			<g id="group138-77" transform="translate(2.81215,-1.79496)" v:mID="138" v:groupContext="group">
+				<title>Лист.138</title>
+				<g id="shape139-78" v:mID="139" v:groupContext="shape" transform="translate(-0.0460957,-3.91229)">
+					<title>Лист.139</title>
+					<path d="M0 188.18 L0 193.12 L1.02 193.12 L1.02 190.16" class="st12"/>
+				</g>
+				<g id="shape140-81" v:mID="140" v:groupContext="shape" transform="translate(4.39657,-3.91229)">
+					<title>Лист.140</title>
+					<path d="M0 190.16 L0 193.12 L0.98 193.12 L0.98 188.18" class="st12"/>
+				</g>
+				<g id="shape141-84" v:mID="141" v:groupContext="shape" transform="translate(1.17242,-10.3367)">
+					<title>Лист.141</title>
+					<path d="M0 193.12 L2.87 193.12 L3.22 193.12" class="st12"/>
+				</g>
+				<g id="shape142-87" v:mID="142" v:groupContext="shape" transform="translate(-155.396,69.5746) rotate(-53.5535)">
+					<title>Лист.142</title>
+					<path d="M-0 193.12 A2.01453 1.25464 115.75 0 1 1.89 193.12" class="st12"/>
+				</g>
+				<g id="shape143-90" v:mID="143" v:groupContext="shape" transform="translate(-155.377,290.203) rotate(-123.385)">
+					<title>Лист.143</title>
+					<path d="M-0 192.52 A2.14919 1.20643 -109.54 0 0 1.78 192.52" class="st12"/>
+				</g>
+				<g id="shape144-93" v:mID="144" v:groupContext="shape" transform="translate(-190.484,193.122) rotate(-90)">
+					<title>Лист.144</title>
+					<path d="M0 193.12 L4.36 193.12" class="st12"/>
+				</g>
+				<g id="shape145-96" v:mID="145" v:groupContext="shape" transform="translate(-192.145,186.269) rotate(-90)">
+					<title>Лист.145</title>
+					<path d="M0 193.12 L0.89 193.12" class="st12"/>
+				</g>
+				<g id="shape146-99" v:mID="146" v:groupContext="shape" transform="translate(-192.145,186.269) rotate(-90)">
+					<title>Лист.146</title>
+					<path d="M0 193.12 L0.89 193.12" class="st12"/>
+				</g>
+				<g id="shape147-102" v:mID="147" v:groupContext="shape" transform="translate(-188.725,186.269) rotate(-90)">
+					<title>Лист.147</title>
+					<path d="M0 193.12 L0.89 193.12" class="st12"/>
+				</g>
+				<g id="shape148-105" v:mID="148" v:groupContext="shape" transform="translate(-188.725,186.368) rotate(-90)">
+					<title>Лист.148</title>
+					<path d="M0 193.12 L0.99 193.12" class="st12"/>
+				</g>
+				<g id="shape149-108" v:mID="149" v:groupContext="shape" transform="translate(1.17242,-10.9792)">
+					<title>Лист.149</title>
+					<ellipse cx="1.51438" cy="191.59" rx="1.51438" ry="1.53198" class="st13"/>
+				</g>
+				<g id="shape150-110" v:mID="150" v:groupContext="shape" transform="translate(-192.155,193.122) rotate(-90)">
+					<title>Лист.150</title>
+					<path d="M0 193.12 L3.91 193.12" class="st12"/>
+				</g>
+				<g id="shape151-113" v:mID="151" v:groupContext="shape" transform="translate(-188.725,193.122) rotate(-90)">
+					<title>Лист.151</title>
+					<path d="M0 193.12 L3.91 193.12" class="st12"/>
+				</g>
+				<g id="shape152-116" v:mID="152" v:groupContext="shape" transform="translate(4.39657,386.244) rotate(180)">
+					<title>Лист.152</title>
+					<path d="M0 193.12 L3.43 193.12" class="st12"/>
+				</g>
+			</g>
+		</g>
+		<g id="group153-119" transform="translate(22.2246,-126.116)" v:mID="153" v:groupContext="group">
+			<title>Лист.153</title>
+			<g id="shape154-120" v:mID="154" v:groupContext="shape">
+				<title>Лист.154</title>
+				<rect x="0" y="175.338" width="38.2579" height="17.7837" rx="2.83465" ry="2.83465" class="st14"/>
+			</g>
+			<g id="group155-122" transform="translate(2.39046,-1.5949)" v:mID="155" v:groupContext="group">
+				<title>Лист.155</title>
+				<g id="shape156-123" v:mID="156" v:groupContext="shape" transform="translate(1.77072,-11.4019)">
+					<title>Лист.156</title>
+					<ellipse cx="1.56835" cy="191.526" rx="1.56835" ry="1.59598" class="st13"/>
+				</g>
+				<g id="shape157-125" v:mID="157" v:groupContext="shape" transform="translate(0.607104,-4.73482)">
+					<title>Лист.157</title>
+					<path d="M0 193.12 L0 188.54 A1.49386 1.01184 90 0 1 1.01 187.05" class="st12"/>
+				</g>
+				<g id="shape158-128" v:mID="158" v:groupContext="shape" transform="translate(-154.946,289.409) rotate(-123.23)">
+					<title>Лист.158</title>
+					<path d="M0 192.61 A1.86963 1.21022 -119.49 0 0 1.85 192.61" class="st12"/>
+				</g>
+				<g id="shape159-131" v:mID="159" v:groupContext="shape" transform="translate(-191.504,185.798) rotate(-89.9681)">
+					<title>Лист.159</title>
+					<path d="M0 193.12 L0.89 193.12" class="st12"/>
+				</g>
+				<g id="shape160-134" v:mID="160" v:groupContext="shape" transform="translate(-187.962,185.813) rotate(-90)">
+					<title>Лист.160</title>
+					<path d="M0 193.12 L0.8 193.12" class="st12"/>
+				</g>
+				<g id="shape161-137" v:mID="161" v:groupContext="shape" transform="translate(0,-3.19032)">
+					<title>Лист.161</title>
+					<path d="M1.62 189.09 L0 193.12 L6.68 193.12 L5.16 189" class="st12"/>
+				</g>
+				<g id="shape162-140" v:mID="162" v:groupContext="shape" transform="translate(199.294,183.857) rotate(90)">
+					<title>Лист.162</title>
+					<path d="M0 193.12 L4.63 193.12" class="st12"/>
+				</g>
+				<g id="shape163-143" v:mID="163" v:groupContext="shape" transform="translate(1.72013,-10.8099)">
+					<title>Лист.163</title>
+					<path d="M0 193.12 L3.44 193.12" class="st12"/>
+				</g>
+				<g id="shape164-146" v:mID="164" v:groupContext="shape" transform="translate(198.069,190.057) rotate(90)">
+					<title>Лист.164</title>
+					<path d="M0 193.12 L3.04 193.12" class="st12"/>
+				</g>
+				<g id="shape165-149" v:mID="165" v:groupContext="shape" transform="translate(1.44882,-0.015458) rotate(-0.12327)">
+					<title>Лист.165</title>
+					<path d="M0 193.12 L3.08 193.12" class="st12"/>
+				</g>
+				<g id="shape166-152" v:mID="166" v:groupContext="shape" transform="translate(194.991,190.365) rotate(90.0909)">
+					<title>Лист.166</title>
+					<path d="M0 193.12 L3.06 193.12" class="st12"/>
+				</g>
+				<g id="shape167-155" v:mID="167" v:groupContext="shape" transform="translate(196.534,189.449) rotate(89.8187)">
+					<title>Лист.167</title>
+					<path d="M0 193.12 L3.05 193.12" class="st12"/>
+				</g>
+			</g>
+			<g id="shape168-158" v:mID="168" v:groupContext="shape" transform="translate(7.58642,-10.371)">
+				<title>Лист.168</title>
+				<desc>FreeDa</desc>
+				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+				<v:textRect cx="14.2557" cy="190.608" width="28.52" height="5.02797"/>
+				<rect x="0" y="188.094" width="28.5114" height="5.02797" class="st1"/>
+				<text x="8.46" y="191.81" class="st10" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/><tspan
+							class="st11">FreeDa</tspan></text>			</g>
+			<g id="shape169-162" v:mID="169" v:groupContext="shape" transform="translate(8.37408,-4.33746)">
+				<title>Лист.169</title>
+				<desc>Куратор</desc>
+				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+				<v:textRect cx="13.7108" cy="190.608" width="27.43" height="5.02797"/>
+				<rect x="0" y="188.094" width="27.4217" height="5.02797" class="st1"/>
+				<text x="6.83" y="191.81" class="st10" v:langID="1049"><v:paragraph v:horizAlign="1"/><v:tabList/>Куратор</text>			</g>
+		</g>
+		<g id="group170-165" transform="translate(21.7731,-84.873)" v:mID="170" v:groupContext="group">
+			<title>Лист.170</title>
+			<g id="shape171-166" v:mID="171" v:groupContext="shape">
+				<title>Лист.171</title>
+				<rect x="0" y="175.625" width="37.5491" height="17.4973" rx="2.83465" ry="2.83465" class="st15"/>
+			</g>
+			<g id="shape172-168" v:mID="172" v:groupContext="shape" transform="translate(8.18574,-10.8101)">
+				<title>Лист.172</title>
+				<desc>BrullOff</desc>
+				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+				<v:textRect cx="14.2381" cy="190.608" width="28.48" height="5.02797"/>
+				<rect x="0" y="188.094" width="28.4761" height="5.02797" class="st1"/>
+				<text x="7.94" y="191.81" class="st10" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/><tspan
+							class="st11">BrullOff</tspan></text>			</g>
+			<g id="shape173-172" v:mID="173" v:groupContext="shape" transform="translate(8.97243,-4.77657)">
+				<title>Лист.173</title>
+				<desc>Руководи-тель ТЦ</desc>
+				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+				<v:textRect cx="13.6939" cy="190.608" width="27.39" height="5.02797"/>
+				<rect x="0" y="188.094" width="27.3878" height="5.02797" class="st1"/>
+				<text x="4.95" y="189.41" class="st10" v:langID="1049"><v:paragraph v:horizAlign="1"/><v:tabList/>Руководи-<tspan
+							x="7.26" dy="1.2em" class="st16">тель ТЦ</tspan></text>			</g>
+			<g id="group174-176" transform="translate(2.81215,-1.79496)" v:mID="174" v:groupContext="group">
+				<title>Лист.174</title>
+				<g id="shape175-177" v:mID="175" v:groupContext="shape" transform="translate(-0.0460957,-3.91229)">
+					<title>Лист.175</title>
+					<path d="M0 188.18 L0 193.12 L1.02 193.12 L1.02 190.16" class="st12"/>
+				</g>
+				<g id="shape176-180" v:mID="176" v:groupContext="shape" transform="translate(4.39657,-3.91229)">
+					<title>Лист.176</title>
+					<path d="M0 190.16 L0 193.12 L0.98 193.12 L0.98 188.18" class="st12"/>
+				</g>
+				<g id="shape177-183" v:mID="177" v:groupContext="shape" transform="translate(1.17242,-10.3367)">
+					<title>Лист.177</title>
+					<path d="M0 193.12 L2.87 193.12 L3.22 193.12" class="st12"/>
+				</g>
+				<g id="shape178-186" v:mID="178" v:groupContext="shape" transform="translate(-155.396,69.5746) rotate(-53.5535)">
+					<title>Лист.178</title>
+					<path d="M-0 193.12 A1.58093 1.06236 144.76 0 1 1.89 193.12" class="st12"/>
+				</g>
+				<g id="shape179-189" v:mID="179" v:groupContext="shape" transform="translate(-155.557,290.322) rotate(-123.385)">
+					<title>Лист.179</title>
+					<path d="M0 192.73 A1.55889 1.07043 -135.96 0 0 1.78 192.73" class="st12"/>
+				</g>
+				<g id="shape180-192" v:mID="180" v:groupContext="shape" transform="translate(-190.484,193.122) rotate(-90)">
+					<title>Лист.180</title>
+					<path d="M0 193.12 L4.36 193.12" class="st12"/>
+				</g>
+				<g id="shape181-195" v:mID="181" v:groupContext="shape" transform="translate(-192.145,186.269) rotate(-90)">
+					<title>Лист.181</title>
+					<path d="M0 193.12 L0.89 193.12" class="st12"/>
+				</g>
+				<g id="shape182-198" v:mID="182" v:groupContext="shape" transform="translate(-192.145,186.269) rotate(-90)">
+					<title>Лист.182</title>
+					<path d="M0 193.12 L0.89 193.12" class="st12"/>
+				</g>
+				<g id="shape183-201" v:mID="183" v:groupContext="shape" transform="translate(-188.725,186.269) rotate(-90)">
+					<title>Лист.183</title>
+					<path d="M0 193.12 L0.89 193.12" class="st12"/>
+				</g>
+				<g id="shape184-204" v:mID="184" v:groupContext="shape" transform="translate(-188.725,186.368) rotate(-90)">
+					<title>Лист.184</title>
+					<path d="M0 193.12 L0.99 193.12" class="st12"/>
+				</g>
+				<g id="shape185-207" v:mID="185" v:groupContext="shape" transform="translate(1.17242,-10.9792)">
+					<title>Лист.185</title>
+					<ellipse cx="1.51438" cy="191.59" rx="1.51438" ry="1.53198" class="st13"/>
+				</g>
+				<g id="shape186-209" v:mID="186" v:groupContext="shape" transform="translate(-192.155,193.122) rotate(-90)">
+					<title>Лист.186</title>
+					<path d="M0 193.12 L3.91 193.12" class="st12"/>
+				</g>
+				<g id="shape187-212" v:mID="187" v:groupContext="shape" transform="translate(-188.725,193.122) rotate(-90)">
+					<title>Лист.187</title>
+					<path d="M0 193.12 L3.91 193.12" class="st12"/>
+				</g>
+				<g id="shape188-215" v:mID="188" v:groupContext="shape" transform="translate(4.39657,386.244) rotate(180)">
+					<title>Лист.188</title>
+					<path d="M0 193.12 L3.43 193.12" class="st12"/>
+				</g>
+			</g>
+		</g>
+		<g id="group189-218" transform="translate(21.6643,-63.9735)" v:mID="189" v:groupContext="group">
+			<title>Лист.189</title>
+			<g id="shape190-219" v:mID="190" v:groupContext="shape">
+				<title>Лист.190</title>
+				<rect x="0" y="175.625" width="37.5491" height="17.4973" rx="2.83465" ry="2.83465" class="st17"/>
+			</g>
+			<g id="group191-221" transform="translate(2.81215,-1.79496)" v:mID="191" v:groupContext="group">
+				<title>Лист.191</title>
+				<g id="shape192-222" v:mID="192" v:groupContext="shape" transform="translate(-0.0460957,-3.91229)">
+					<title>Лист.192</title>
+					<path d="M0 188.18 L0 193.12 L1.02 193.12 L1.02 190.16" class="st12"/>
+				</g>
+				<g id="shape193-225" v:mID="193" v:groupContext="shape" transform="translate(4.39657,-3.91229)">
+					<title>Лист.193</title>
+					<path d="M0 190.16 L0 193.12 L0.98 193.12 L0.98 188.18" class="st12"/>
+				</g>
+				<g id="shape194-228" v:mID="194" v:groupContext="shape" transform="translate(1.17242,-10.3367)">
+					<title>Лист.194</title>
+					<path d="M0 193.12 L2.87 193.12 L3.22 193.12" class="st12"/>
+				</g>
+				<g id="shape195-231" v:mID="195" v:groupContext="shape" transform="translate(-155.396,69.5746) rotate(-53.5535)">
+					<title>Лист.195</title>
+					<path d="M-0 193.12 A2.01453 1.25464 115.75 0 1 1.89 193.12" class="st12"/>
+				</g>
+				<g id="shape196-234" v:mID="196" v:groupContext="shape" transform="translate(-155.377,290.203) rotate(-123.385)">
+					<title>Лист.196</title>
+					<path d="M-0 192.52 A2.14919 1.20643 -109.54 0 0 1.78 192.52" class="st12"/>
+				</g>
+				<g id="shape197-237" v:mID="197" v:groupContext="shape" transform="translate(-190.484,193.122) rotate(-90)">
+					<title>Лист.197</title>
+					<path d="M0 193.12 L4.36 193.12" class="st12"/>
+				</g>
+				<g id="shape198-240" v:mID="198" v:groupContext="shape" transform="translate(-192.145,186.269) rotate(-90)">
+					<title>Лист.198</title>
+					<path d="M0 193.12 L0.89 193.12" class="st12"/>
+				</g>
+				<g id="shape199-243" v:mID="199" v:groupContext="shape" transform="translate(-192.145,186.269) rotate(-90)">
+					<title>Лист.199</title>
+					<path d="M0 193.12 L0.89 193.12" class="st12"/>
+				</g>
+				<g id="shape200-246" v:mID="200" v:groupContext="shape" transform="translate(-188.725,186.269) rotate(-90)">
+					<title>Лист.200</title>
+					<path d="M0 193.12 L0.89 193.12" class="st12"/>
+				</g>
+				<g id="shape201-249" v:mID="201" v:groupContext="shape" transform="translate(-188.725,186.368) rotate(-90)">
+					<title>Лист.201</title>
+					<path d="M0 193.12 L0.99 193.12" class="st12"/>
+				</g>
+				<g id="shape202-252" v:mID="202" v:groupContext="shape" transform="translate(1.17242,-10.9792)">
+					<title>Лист.202</title>
+					<ellipse cx="1.51438" cy="191.59" rx="1.51438" ry="1.53198" class="st13"/>
+				</g>
+				<g id="shape203-254" v:mID="203" v:groupContext="shape" transform="translate(-192.155,193.122) rotate(-90)">
+					<title>Лист.203</title>
+					<path d="M0 193.12 L3.91 193.12" class="st12"/>
+				</g>
+				<g id="shape204-257" v:mID="204" v:groupContext="shape" transform="translate(-188.725,193.122) rotate(-90)">
+					<title>Лист.204</title>
+					<path d="M0 193.12 L3.91 193.12" class="st12"/>
+				</g>
+				<g id="shape205-260" v:mID="205" v:groupContext="shape" transform="translate(4.39657,386.244) rotate(180)">
+					<title>Лист.205</title>
+					<path d="M0 193.12 L3.43 193.12" class="st12"/>
+				</g>
+			</g>
+			<g id="shape206-263" v:mID="206" v:groupContext="shape" transform="translate(6.01865,-10.8101)">
+				<title>Лист.206</title>
+				<desc>Мейерхольд</desc>
+				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+				<v:textRect cx="15.874" cy="190.608" width="31.75" height="5.02797"/>
+				<rect x="0" y="188.094" width="31.748" height="5.02797" class="st1"/>
+				<text x="5.04" y="191.81" class="st10" v:langID="1049"><v:paragraph v:horizAlign="1"/><v:tabList/><tspan
+							class="st11">Мейерхольд</tspan></text>			</g>
+			<g id="shape207-267" v:mID="207" v:groupContext="shape" transform="translate(8.97243,-4.77657)">
+				<title>Лист.207</title>
+				<desc>Куратор</desc>
+				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+				<v:textRect cx="13.6939" cy="190.608" width="27.39" height="5.02797"/>
+				<rect x="0" y="188.094" width="27.3878" height="5.02797" class="st1"/>
+				<text x="6.81" y="191.81" class="st10" v:langID="1049"><v:paragraph v:horizAlign="1"/><v:tabList/>Куратор</text>			</g>
+		</g>
+		<g id="group208-270" transform="translate(22.5479,-105.772)" v:mID="208" v:groupContext="group">
+			<title>Лист.208</title>
+			<g id="shape209-271" v:mID="209" v:groupContext="shape">
+				<title>Лист.209</title>
+				<rect x="0" y="175.338" width="36.7718" height="17.7837" rx="2.83465" ry="2.83465" class="st18"/>
+			</g>
+			<g id="group210-273" transform="translate(1.40928,-2.21912)" v:mID="210" v:groupContext="group">
+				<title>Лист.210</title>
+				<g id="shape211-274" v:mID="211" v:groupContext="shape" transform="translate(1.20295,-10.3945)">
+					<title>Лист.211</title>
+					<ellipse cx="1.28591" cy="191.762" rx="1.28591" ry="1.3603" class="st13"/>
+				</g>
+				<g id="shape212-276" v:mID="212" v:groupContext="shape" transform="translate(0.248886,-4.52546)">
+					<title>Лист.212</title>
+					<path d="M0 193.12 L0 189.08 a1.31911 0.829619 90 0 1 0.829619 -1.31911" class="st12"/>
+				</g>
+				<g id="shape213-279" v:mID="213" v:groupContext="shape" transform="translate(-192.044,186.326) rotate(-90)">
+					<title>Лист.213</title>
+					<path d="M0 193.12 L0.79 193.12" class="st12"/>
+				</g>
+				<g id="shape214-282" v:mID="214" v:groupContext="shape" transform="translate(1.16147,-9.88985)">
+					<title>Лист.214</title>
+					<path d="M0 193.12 L2.82 193.12" class="st12"/>
+				</g>
+				<g id="shape215-285" v:mID="215" v:groupContext="shape" transform="translate(137.971,44.1526) rotate(43.9319)">
+					<title>Лист.215</title>
+					<path d="M0 193.12 a0.574966 0.395665 172.94 0 1 0.80639 2.84217E-14" class="st12"/>
+				</g>
+				<g id="shape216-288" v:mID="216" v:groupContext="shape" transform="translate(-2.2482E-15,-3.38457)">
+					<title>Лист.216</title>
+					<path d="M4.33 193.12 L0 193.12 L1.08 189.7" class="st12"/>
+				</g>
+				<g id="shape217-291" v:mID="217" v:groupContext="shape" transform="translate(3.52588,-3.47233)">
+					<title>Лист.217</title>
+					<path d="M0 188.73 L0 193.12 L0.83 193.12 L0.83 190.49" class="st12"/>
+				</g>
+				<g id="shape218-294" v:mID="218" v:groupContext="shape" transform="translate(7.25917,-3.47233)">
+					<title>Лист.218</title>
+					<path d="M0 190.49 L0 193.12 L0.83 193.12 L0.83 188.73" class="st12"/>
+				</g>
+				<g id="shape219-297" v:mID="219" v:groupContext="shape" transform="translate(4.52142,-9.1768)">
+					<title>Лист.219</title>
+					<path d="M0 193.12 L2.43 193.12 L2.74 193.12" class="st12"/>
+				</g>
+				<g id="shape220-300" v:mID="220" v:groupContext="shape" transform="translate(-156.033,76.4854) rotate(-55.7112)">
+					<title>Лист.220</title>
+					<path d="M-0 193.12 a1.39194 0.951261 139.73 0 1 1.61988 -2.84217E-14" class="st12"/>
+				</g>
+				<g id="shape221-303" v:mID="221" v:groupContext="shape" transform="translate(-154.948,288.009) rotate(-122.22)">
+					<title>Лист.221</title>
+					<path d="M0 192.71 A1.52593 1.0083 -122.23 0 0 1.56 192.71" class="st12"/>
+				</g>
+				<g id="shape222-306" v:mID="222" v:groupContext="shape" transform="translate(-188.767,187.039) rotate(-90)">
+					<title>Лист.222</title>
+					<path d="M0 193.12 L0.79 193.12" class="st12"/>
+				</g>
+				<g id="shape223-309" v:mID="223" v:groupContext="shape" transform="translate(-188.767,187.039) rotate(-90)">
+					<title>Лист.223</title>
+					<path d="M0 193.12 L0.79 193.12" class="st12"/>
+				</g>
+				<g id="shape224-312" v:mID="224" v:groupContext="shape" transform="translate(-185.863,187.039) rotate(-90)">
+					<title>Лист.224</title>
+					<path d="M0 193.12 L0.79 193.12" class="st12"/>
+				</g>
+				<g id="shape225-315" v:mID="225" v:groupContext="shape" transform="translate(-185.863,187.127) rotate(-90)">
+					<title>Лист.225</title>
+					<path d="M0 193.12 L0.88 193.12" class="st12"/>
+				</g>
+				<g id="shape226-318" v:mID="226" v:groupContext="shape" transform="translate(4.52142,-9.74724)">
+					<title>Лист.226</title>
+					<ellipse cx="1.28591" cy="191.762" rx="1.28591" ry="1.3603" class="st13"/>
+				</g>
+				<g id="shape227-320" v:mID="227" v:groupContext="shape" transform="translate(10.5776,-4.34994)">
+					<title>Лист.227</title>
+					<path d="M0 190.49 L0 193.12 L0.83 193.12 L0.83 188.73" class="st12"/>
+				</g>
+				<g id="shape228-323" v:mID="228" v:groupContext="shape" transform="translate(7.8399,-10.0544)">
+					<title>Лист.228</title>
+					<path d="M0 193.12 L2.43 193.12 L2.74 193.12" class="st12"/>
+				</g>
+				<g id="shape229-326" v:mID="229" v:groupContext="shape" transform="translate(-151.58,287.101) rotate(-122.22)">
+					<title>Лист.229</title>
+					<path d="M0 192.65 A1.69113 1.03883 -114.68 0 0 1.56 192.65" class="st12"/>
+				</g>
+				<g id="shape230-329" v:mID="230" v:groupContext="shape" transform="translate(-182.544,186.161) rotate(-90)">
+					<title>Лист.230</title>
+					<path d="M0 193.12 L0.79 193.12" class="st12"/>
+				</g>
+				<g id="shape231-332" v:mID="231" v:groupContext="shape" transform="translate(-182.544,186.249) rotate(-90)">
+					<title>Лист.231</title>
+					<path d="M0 193.12 L0.88 193.12" class="st12"/>
+				</g>
+				<g id="shape232-335" v:mID="232" v:groupContext="shape" transform="translate(7.8399,-10.6249)">
+					<title>Лист.232</title>
+					<ellipse cx="1.28591" cy="191.762" rx="1.28591" ry="1.3603" class="st13"/>
+				</g>
+				<g id="shape233-337" v:mID="233" v:groupContext="shape" transform="translate(130.788,331.577) rotate(140.379)">
+					<title>Лист.233</title>
+					<path d="M-0 192.8 a1.15149 0.840383 -114.32 0 0 1.23859 0" class="st12"/>
+				</g>
+				<g id="shape234-340" v:mID="234" v:groupContext="shape" transform="translate(196.924,189.895) rotate(90)">
+					<title>Лист.234</title>
+					<path d="M0 193.12 L2.59 193.12" class="st12"/>
+				</g>
+				<g id="shape235-343" v:mID="235" v:groupContext="shape" transform="translate(0.842002,-0.6274) rotate(-0.128143)">
+					<title>Лист.235</title>
+					<path d="M0 193.12 L2.53 193.12" class="st12"/>
+				</g>
+				<g id="shape236-346" v:mID="236" v:groupContext="shape" transform="translate(194.4,190.192) rotate(90.0875)">
+					<title>Лист.236</title>
+					<path d="M0 193.12 L2.61 193.12" class="st12"/>
+				</g>
+				<g id="shape237-349" v:mID="237" v:groupContext="shape" transform="translate(195.665,189.31) rotate(89.8256)">
+					<title>Лист.237</title>
+					<path d="M0 193.12 L2.6 193.12" class="st12"/>
+				</g>
+				<g id="shape238-352" v:mID="238" v:groupContext="shape" transform="translate(-187.368,193.122) rotate(-90)">
+					<title>Лист.238</title>
+					<path d="M0 193.12 L3.87 193.12" class="st12"/>
+				</g>
+				<g id="shape239-355" v:mID="239" v:groupContext="shape" transform="translate(-188.787,193.122) rotate(-90)">
+					<title>Лист.239</title>
+					<path d="M0 193.12 L3.47 193.12" class="st12"/>
+				</g>
+				<g id="shape240-358" v:mID="240" v:groupContext="shape" transform="translate(-185.875,193.122) rotate(-90)">
+					<title>Лист.240</title>
+					<path d="M0 193.12 L3.47 193.12" class="st12"/>
+				</g>
+				<g id="shape241-361" v:mID="241" v:groupContext="shape" transform="translate(7.24716,386.244) rotate(180)">
+					<title>Лист.241</title>
+					<path d="M0 193.12 L2.91 193.12" class="st12"/>
+				</g>
+				<g id="shape242-364" v:mID="242" v:groupContext="shape" transform="translate(-184.041,192.069) rotate(-90)">
+					<title>Лист.242</title>
+					<path d="M0 193.12 L3.87 193.12" class="st12"/>
+				</g>
+				<g id="shape243-367" v:mID="243" v:groupContext="shape" transform="translate(-185.46,192.069) rotate(-90)">
+					<title>Лист.243</title>
+					<path d="M0 193.12 L2.42 193.12" class="st12"/>
+				</g>
+				<g id="shape244-370" v:mID="244" v:groupContext="shape" transform="translate(-182.548,192.069) rotate(-90)">
+					<title>Лист.244</title>
+					<path d="M0 193.12 L3.47 193.12" class="st12"/>
+				</g>
+				<g id="shape245-373" v:mID="245" v:groupContext="shape" transform="translate(10.5739,385.191) rotate(180)">
+					<title>Лист.245</title>
+					<path d="M0 193.12 L2.91 193.12" class="st12"/>
+				</g>
+			</g>
+			<g id="group246-376" transform="translate(11.0239,-3.77716)" v:mID="246" v:groupContext="group">
+				<title>Лист.246</title>
+				<g id="shape247-377" v:mID="247" v:groupContext="shape" transform="translate(0,-6.03357)">
+					<title>Лист.247</title>
+					<desc>«Граффити»</desc>
+					<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+					<v:textRect cx="14.3849" cy="190.608" width="28.77" height="5.02797"/>
+					<rect x="0" y="188.094" width="28.7698" height="5.02797" class="st1"/>
+					<text x="4.04" y="191.81" class="st10" v:langID="1049"><v:paragraph v:horizAlign="1"/><v:tabList/><tspan
+								class="st11">«</tspan><tspan class="st11">Граффити</tspan><tspan class="st11">»</tspan></text>				</g>
+				<g id="shape248-383" v:mID="248" v:groupContext="shape" transform="translate(0.635092,5.68434E-14)">
+					<title>Лист.248</title>
+					<desc>Участник</desc>
+					<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+					<v:textRect cx="12.9451" cy="190.608" width="25.9" height="5.02797"/>
+					<rect x="0" y="188.094" width="25.8901" height="5.02797" class="st1"/>
+					<text x="5.3" y="191.81" class="st10" v:langID="1049"><v:paragraph v:horizAlign="1"/><v:tabList/>Участник</text>				</g>
+			</g>
+		</g>
+	</g>
+</svg>

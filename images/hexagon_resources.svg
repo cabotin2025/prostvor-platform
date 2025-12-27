@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Создано Microsoft Visio, экспорт SVG hexagon_resources.svg Страница-1 -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+		xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" width="2.81724in" height="2.4705in"
+		viewBox="0 0 202.841 177.876" xml:space="preserve" color-interpolation-filters="sRGB" class="st8">
+	<v:documentProperties v:langID="1049" v:metric="true" v:viewMarkup="false"/>
+
+	<style type="text/css">
+	<![CDATA[
+		.st1 {visibility:visible}
+		.st2 {fill:#000000;fill-opacity:0.36;filter:url(#filter_4.6666669845581);stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:0.36}
+		.st3 {fill:#425122;stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:1}
+		.st4 {fill:none;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st5 {fill:#ffffff;font-family:Calibri;font-size:1.16666em;font-weight:bold}
+		.st6 {fill:#ffffff;stroke:#ffffff;stroke-linecap:butt;stroke-width:0.75}
+		.st7 {fill:#50632a;stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:1}
+		.st8 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+	]]>
+	</style>
+
+	<defs id="Filters">
+		<filter id="filter_4.6666669845581">
+			<feGaussianBlur stdDeviation="4.6666669845581"/>
+		</filter>
+	</defs>
+	<g v:mID="0" v:index="1" v:groupContext="foregroundPage">
+		<title>Страница-1</title>
+		<v:pageProperties v:drawingScale="0.0393701" v:pageScale="0.0393701" v:drawingUnits="24" v:shadowOffsetX="8.50394"
+				v:shadowOffsetY="-8.50394"/>
+		<g id="group12-1" transform="translate(0.500005,-15.2782)" v:mID="12" v:groupContext="group">
+			<title>Лист.12</title>
+			<g id="shape13-2" v:mID="13" v:groupContext="shape">
+				<title>Лист.13</title>
+				<g id="shadow13-3" v:groupContext="shadow" v:shadowOffsetX="7.77817" v:shadowOffsetY="-7.77817" v:shadowType="1"
+						transform="matrix(1,0,0,1,7.77817,7.77817)" class="st1">
+					<path d="M46.71 15.78 L140.29 15.8 L187.06 96.87 L140.3 177.86 L46.7 177.88 L0 96.87 L46.71 15.78 Z"
+							class="st2"/>
+				</g>
+				<path d="M46.71 15.78 L140.29 15.8 L187.06 96.87 L140.3 177.86 L46.7 177.88 L0 96.87 L46.71 15.78 Z" class="st3"/>
+			</g>
+			<g id="shape14-7" v:mID="14" v:groupContext="shape" transform="translate(42.0321,-13.5298)">
+				<title>Лист.14</title>
+				<desc>РЕСУРСЫ</desc>
+				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+				<v:textRect cx="52.4278" cy="164.789" width="104.86" height="26.1743"/>
+				<rect x="0" y="151.702" width="104.856" height="26.1743" class="st4"/>
+				<text x="24.73" y="168.99" class="st5" v:langID="1049"><v:paragraph v:horizAlign="1"/><v:tabList/>РЕСУРСЫ</text>			</g>
+			<g id="group15-10" transform="translate(46.9898,-48.5465)" v:mID="15" v:groupContext="group">
+				<title>Лист.15</title>
+				<g id="group16-11" v:mID="16" v:groupContext="group">
+					<title>Лист.16</title>
+					<g id="shape17-12" v:mID="17" v:groupContext="shape" transform="translate(4.23661E-13,-43.9791)">
+						<title>Музыка</title>
+						<v:userDefs>
+							<v:ud v:nameU="msvShapeCategories" v:prompt="" v:val="VT4(Icon)"/>
+							<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+						</v:userDefs>
+						<path d="M26.74 139.24 A664.25 653.79 -180 0 0 19.75 133.87 A15.8574 15.6077 0 0 1 16.48 131.04 L16.48 130.99
+									 A1.68008 1.65362 -180 0 0 14.93 128.99 A1.68526 1.65872 -180 0 0 13.37 130.99 L13.37 163.5 A10.1286
+									 9.96911 -180 0 0 5.59 164.03 A8.31272 8.18181 -180 0 0 0.38 174.19 A8.31141 8.18052 -180 0 0
+									 11.67 176.67 A8.28516 8.15469 -180 0 0 16.45 169.06 L16.48 168.94 L16.48 139.98 A21.7548 21.4122
+									 0 0 1 22.84 143.34 A9.39545 9.24749 0 0 1 26.22 149.62 A17.8878 17.6061 0 0 1 22.12 159.45 L22.91
+									 160.15 A2.06959 2.037 -180 0 0 24.4 159.45 A38.0707 37.4711 -180 0 0 26.21 157.21 A18.3828 18.0933
+									 -180 0 0 30.96 146.67 A10.632 10.4646 -180 0 0 26.74 139.24 Z" class="st6"/>
+					</g>
+					<g id="shape18-14" v:mID="18" v:groupContext="shape" transform="translate(49.511,-64.9365)">
+						<title>Фотографии</title>
+						<v:userDefs>
+							<v:ud v:nameU="msvShapeCategories" v:prompt="" v:val="VT4(Icon)"/>
+							<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+						</v:userDefs>
+						<path d="M18.62 157.85 A7.66718 7.78985 -180 0 0 10.95 165.64 A7.66718 7.78985 -180 0 0 18.62 173.42 A7.66718
+									 7.78985 -180 0 0 26.29 165.64 A7.66718 7.78985 -180 0 0 18.62 157.85 ZM23.27 170.36 A6.53129
+									 6.63579 0 0 1 18.62 172.31 A6.53129 6.63579 0 0 1 13.97 170.36 A6.53129 6.63579 0 0 1 12.05
+									 165.64 A6.57849 6.68375 0 0 1 18.62 158.96 A6.57849 6.68375 0 0 1 25.19 165.64 A6.53129 6.63579
+									 0 0 1 23.27 170.36 ZM18.62 161.18 A4.38145 4.45155 -180 0 0 14.24 165.64 A4.38145 4.45155 -180
+									 0 0 18.62 170.09 A4.38145 4.45155 -180 0 0 23 165.64 A4.38145 4.45155 -180 0 0 18.62 161.18
+									 ZM18.62 168.97 A3.28995 3.34259 0 0 1 15.33 165.64 A3.28995 3.34259 0 0 1 18.62 162.3 A3.28995
+									 3.34259 0 0 1 21.91 165.64 A3.28995 3.34259 0 0 1 18.62 168.97 ZM31.76 153.39 L10.95 153.39
+									 L10.95 152.28 L5.48 152.28 L5.48 153.39 L3.29 153.39 A3.2956 3.34833 -180 0 0 -0 156.73 L0 174.54
+									 A3.2956 3.34833 -180 0 0 3.29 177.88 L31.76 177.88 A3.2956 3.34833 -180 0 0 35.05 174.54 L35.05
+									 156.73 A3.2956 3.34833 -180 0 0 31.76 153.39 ZM2.19 158.96 L5.48 158.96 A1.09641 1.11396 0 0
+									 1 6.57 160.07 L6.57 171.2 L6.25 171.98 L5.48 172.31 L2.19 172.31 L2.19 158.96 ZM32.86 174.54
+									 A1.11007 1.12783 0 0 1 31.76 175.65 L3.29 175.65 A1.11007 1.12783 0 0 1 2.19 174.54 L2.19 173.42
+									 L5.48 173.42 A2.19707 2.23222 -180 0 0 7.67 171.2 L7.67 160.07 A2.19707 2.23222 -180 0 0 5.48
+									 157.85 L2.19 157.85 L2.19 156.73 A1.11007 1.12783 0 0 1 3.29 155.62 L26.29 155.62 L26.29 157.85
+									 A2.19707 2.23222 -180 0 0 28.48 160.07 L32.86 160.07 L32.86 174.54 ZM32.86 158.96 L28.48 158.96
+									 L27.71 158.63 L27.38 157.85 L27.38 155.62 L31.76 155.62 A1.11007 1.12783 0 0 1 32.86 156.73
+									 L32.86 158.96 Z" class="st6"/>
+					</g>
+					<g id="shape19-16" v:mID="19" v:groupContext="shape" transform="translate(49.3453,-1.66926)">
+						<title>Тележка для покупок</title>
+						<v:userDefs>
+							<v:ud v:nameU="msvShapeCategories" v:prompt="" v:val="VT4(Icon)"/>
+							<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+						</v:userDefs>
+						<path d="M26.31 171.71 L10.32 171.71 L9.11 168.62 L28.55 168.62 L29.19 167.74 L32.39 154.23 L6.08 154.23
+									 L5.25 149.62 L4.93 149.08 L0 149.08 L0 151.14 L3.32 151.14 L6.84 168.75 L8.82 173.38 L9.13 173.76
+									 L10.13 173.76 A2.50639 2.54649 -180 0 0 9.61 175.31 A2.52982 2.5703 -180 0 0 12.14 177.88 A2.52982
+									 2.5703 -180 0 0 14.68 175.31 A2.50639 2.54649 -180 0 0 14.16 173.76 L21.77 173.76 A2.50553 2.54562
+									 -180 0 0 21.25 175.31 A2.52982 2.5703 -180 0 0 23.78 177.88 A2.52982 2.5703 -180 0 0 26.31 175.31
+									 A2.49994 2.53994 -180 0 0 25.8 173.76 L27.2 173.76 L29.22 172.89 L28.46 170.9 L26.31 171.71
+									 ZM8.47 166.57 L6.48 156.28 L29.8 156.28 L27.3 166.57 L8.47 166.57 Z" class="st6"/>
+					</g>
+					<g id="shape20-18" v:mID="20" v:groupContext="shape" transform="translate(26.0249,-34.4402)">
+						<title>Журнал</title>
+						<v:userDefs>
+							<v:ud v:nameU="msvShapeCategories" v:prompt="" v:val="VT4(Icon)"/>
+							<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+						</v:userDefs>
+						<path d="M14.74 148.87 A14.7379 14.5058 -180 0 0 -0 163.37 A14.7373 14.5052 -180 0 0 14.74 177.88 A14.7367
+									 14.5046 -180 0 0 29.47 163.37 A14.7373 14.5052 -180 0 0 14.74 148.87 ZM14.74 175.16 A11.9878
+									 11.799 0 0 1 2.76 163.37 A11.9878 11.799 0 0 1 14.74 151.59 A11.9878 11.799 0 0 1 26.71 163.37
+									 A11.9878 11.799 0 0 1 14.74 175.16 ZM14.74 153.4 L12.9 160.65 L14.74 163.37 L16.58 160.65 L14.74
+									 153.4 ZM14.74 163.37 L16.58 166.09 L24.87 168.81 L17.96 163.37 L14.74 163.37 Z" class="st6"/>
+					</g>
+					<g id="group21-20" transform="translate(60.3682,-38.8393)" v:mID="21" v:groupContext="group">
+						<title>Лист.21</title>
+						<g id="shape22-21" v:mID="22" v:groupContext="shape">
+							<title>Бублик.761</title>
+							<v:userDefs>
+								<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+							</v:userDefs>
+							<path d="M23.37 174.97 A11.6837 2.90761 -180 1 0 0 174.97 A11.6837 2.90761 -180 1 0 23.37 174.97 ZM11.68
+										 174.97 a0 0 0 1 1 0 0 a0 0 0 1 1 0 0 Z" class="st7"/>
+						</g>
+						<g id="shape23-23" v:mID="23" v:groupContext="shape" transform="translate(0,-3.11566)">
+							<title>Бублик.757</title>
+							<v:userDefs>
+								<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+							</v:userDefs>
+							<path d="M23.37 174.97 A11.6837 2.90761 -180 1 0 0 174.97 A11.6837 2.90761 -180 1 0 23.37 174.97 ZM11.68
+										 174.97 a0 0 0 1 1 0 0 a0 0 0 1 1 0 0 Z" class="st7"/>
+						</g>
+						<g id="shape24-25" v:mID="24" v:groupContext="shape" transform="translate(0,-6.23132)">
+							<title>Бублик.756</title>
+							<v:userDefs>
+								<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+							</v:userDefs>
+							<path d="M23.37 174.97 A11.6837 2.90761 -180 1 0 0 174.97 A11.6837 2.90761 -180 1 0 23.37 174.97 ZM11.68
+										 174.97 a0 0 0 1 1 0 0 a0 0 0 1 1 0 0 Z" class="st7"/>
+						</g>
+						<g id="shape25-27" v:mID="25" v:groupContext="shape" transform="translate(0,-9.76308)">
+							<title>Бублик.755</title>
+							<v:userDefs>
+								<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+							</v:userDefs>
+							<path d="M23.37 174.97 A11.6837 2.90761 -180 1 0 0 174.97 A11.6837 2.90761 -180 1 0 23.37 174.97 ZM11.68
+										 174.97 a0 0 0 1 1 0 0 a0 0 0 1 1 0 0 Z" class="st7"/>
+						</g>
+						<g id="shape26-29" v:mID="26" v:groupContext="shape" transform="translate(0,-12.8787)">
+							<title>Бублик</title>
+							<v:userDefs>
+								<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+							</v:userDefs>
+							<path d="M23.37 174.97 A11.6837 2.90761 -180 1 0 0 174.97 A11.6837 2.90761 -180 1 0 23.37 174.97 ZM11.68
+										 174.97 a0 0 0 1 1 0 0 a0 0 0 1 1 0 0 Z" class="st7"/>
+						</g>
+					</g>
+				</g>
+				<g id="shape27-31" v:mID="27" v:groupContext="shape" transform="translate(2.02412,-2.92137)">
+					<title>Домой.203</title>
+					<v:userDefs>
+						<v:ud v:nameU="msvShapeCategories" v:prompt="" v:val="VT4(Icon)"/>
+						<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+					</v:userDefs>
+					<path d="M19.81 142.66 L11.14 151.49 L11.14 146.43 L8.67 146.43 L8.67 154.01 L0 162.85 L1.86 164.67 L4.95 161.52
+								 L4.95 177.88 L34.67 177.88 L34.67 161.52 L37.76 164.67 L39.62 162.85 L19.81 142.66 ZM27.24 175.36
+								 L21.05 175.36 L21.05 161.52 L27.24 161.52 L27.24 175.36 ZM32.19 175.36 L28.48 175.36 L28.48 160.27
+								 L19.81 160.27 L19.81 175.36 L7.43 175.36 L7.43 159.01 L19.81 146.43 L32.19 159.01 L32.19 175.36
+								 ZM11.14 166.56 L17.33 166.56 L17.33 160.27 L11.14 160.27 L11.14 166.56 ZM12.38 161.52 L16.09 161.52
+								 L16.09 165.3 L12.38 165.3 L12.38 161.52 ZM23.52 170.33 A1.23692 1.25671 -180 0 0 24.76 169.07 A1.23692
+								 1.25671 -180 0 0 23.52 167.81 A1.23692 1.25671 -180 0 0 22.28 169.07 A1.23692 1.25671 -180 0 0 23.52
+								 170.33 Z" class="st6"/>
+				</g>
+			</g>
+		</g>
+	</g>
+</svg>

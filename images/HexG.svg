@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Создано Microsoft Visio, экспорт SVG HexG.svg Страница-1 -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+		xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" width="0.143959in" height="0.104975in"
+		viewBox="0 0 10.365 7.55822" xml:space="preserve" color-interpolation-filters="sRGB" class="st4">
+	<v:documentProperties v:langID="1049" v:metric="true" v:viewMarkup="false"/>
+
+	<style type="text/css">
+	<![CDATA[
+		.st1 {fill:#ffc000;stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.25}
+		.st2 {fill:none;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st3 {fill:#ffffff;font-family:Calibri;font-size:0.499992em}
+		.st4 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+	]]>
+	</style>
+
+	<g v:mID="0" v:index="1" v:groupContext="foregroundPage">
+		<title>Страница-1</title>
+		<v:pageProperties v:drawingScale="0.0393701" v:pageScale="0.0393701" v:drawingUnits="24" v:shadowOffsetX="8.50394"
+				v:shadowOffsetY="-8.50394"/>
+		<g id="group23-1" transform="translate(0.375,-0.447757)" v:mID="23" v:groupContext="group">
+			<title>Лист.23</title>
+			<g id="shape24-2" v:mID="24" v:groupContext="shape" transform="translate(1.80374,-1.42109E-14)">
+				<title>Лист.24</title>
+				<path d="M2.01 0.57 L6.05 0.57 L8.06 4.07 L6.05 7.56 L2.01 7.56 L0 4.07 L2.01 0.57 Z" class="st1"/>
+			</g>
+			<g id="shape25-4" v:mID="25" v:groupContext="shape" transform="translate(-5.2458E-14,-2.24525)">
+				<title>Лист.25</title>
+				<desc>G</desc>
+				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+				<v:textRect cx="1.81441" cy="6.65101" width="3.63" height="1.81441"/>
+				<rect x="0" y="5.74381" width="3.62881" height="1.81441" class="st2"/>
+				<text x="4" y="8.45" class="st3" v:langID="1033"><v:paragraph v:horizAlign="1"/><v:tabList/>G</text>			</g>
+		</g>
+	</g>
+</svg>

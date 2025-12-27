@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Создано Microsoft Visio, экспорт SVG hexagon_actors.svg Страница-1 -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+		xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" width="2.81724in" height="2.4705in"
+		viewBox="0 0 202.841 177.876" xml:space="preserve" color-interpolation-filters="sRGB" class="st7">
+	<v:documentProperties v:langID="1049" v:metric="true" v:viewMarkup="false"/>
+
+	<style type="text/css">
+	<![CDATA[
+		.st1 {visibility:visible}
+		.st2 {fill:#000000;fill-opacity:0.36;filter:url(#filter_4.6666669845581);stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:0.36}
+		.st3 {fill:#612621;stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:1}
+		.st4 {fill:#ffffff;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st5 {fill:none;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st6 {fill:#ffffff;font-family:Calibri;font-size:1.16666em;font-weight:bold}
+		.st7 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+	]]>
+	</style>
+
+	<defs id="Filters">
+		<filter id="filter_4.6666669845581">
+			<feGaussianBlur stdDeviation="4.6666669845581"/>
+		</filter>
+	</defs>
+	<g v:mID="0" v:index="1" v:groupContext="foregroundPage">
+		<title>Страница-1</title>
+		<v:pageProperties v:drawingScale="0.0393701" v:pageScale="0.0393701" v:drawingUnits="24" v:shadowOffsetX="8.50394"
+				v:shadowOffsetY="-8.50394"/>
+		<v:layer v:name="Блок-схема" v:index="0"/>
+		<g id="group28-1" transform="translate(0.5,-15.2782)" v:mID="28" v:groupContext="group">
+			<title>Лист.28</title>
+			<g id="shape29-2" v:mID="29" v:groupContext="shape">
+				<title>Лист.29</title>
+				<g id="shadow29-3" v:groupContext="shadow" v:shadowOffsetX="7.77817" v:shadowOffsetY="-7.77817" v:shadowType="1"
+						transform="matrix(1,0,0,1,7.77817,7.77817)" class="st1">
+					<path d="M46.71 15.78 L140.29 15.8 L187.06 96.87 L140.3 177.86 L46.7 177.88 L0 96.87 L46.71 15.78 Z"
+							class="st2"/>
+				</g>
+				<path d="M46.71 15.78 L140.29 15.8 L187.06 96.87 L140.3 177.86 L46.7 177.88 L0 96.87 L46.71 15.78 Z" class="st3"/>
+			</g>
+			<g id="group30-7" transform="translate(51.251,-50.0986)" v:mID="30" v:groupContext="group" v:layerMember="0">
+				<v:userDefs>
+					<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+					<v:ud v:nameU="ConnGap" v:prompt="" v:val="VT0(0.00012908222537757):24"/>
+				</v:userDefs>
+				<title>Рабочая группа</title>
+				<g id="shape31-8" v:mID="31" v:groupContext="shape" v:layerMember="0">
+					<title>Лист.31</title>
+					<path d="M64.44 96.98 A8.57993 8.48968 -180 1 0 47.29 96.98 A8.57993 8.48968 -180 1 0 64.44 96.98 ZM51.84 130.42
+								 C52.52 130.42 53.18 130.51 53.81 130.68 C53.93 130.4 54.07 130.13 54.22 129.87 C54.91 128.67 55.91
+								 127.66 57.13 126.97 C58.24 126.33 59.54 125.96 60.91 125.96 L64.1 125.96 A10.7477 10.6347 0 0 1
+								 64.44 108 L46.76 108 C45.46 108 44.27 108.46 43.31 109.23 C42.73 109.7 42.24 110.29 41.87 110.96
+								 A10.7477 10.6347 0 0 1 48.84 130.42 L51.84 130.42 ZM33.81 132.56 C32.52 132.56 31.32 133.02 30.37
+								 133.79 C29.71 134.33 29.16 135.02 28.78 135.81 C28.4 136.59 28.19 137.48 28.19 138.42 L28.19 160.68
+								 L33.12 160.68 L33.12 148.83 L34.18 148.83 L34.18 177.88 L42.3 177.88 L42.3 164.14 L43.35 164.14
+								 L43.35 177.88 L51.28 177.88 L51.28 148.83 L52.34 148.83 L52.34 160.68 L57.46 160.68 L57.46 138.42
+								 C57.46 137.07 57.02 135.82 56.28 134.83 C55.76 134.14 55.1 133.57 54.35 133.18 C53.59 132.78 52.74
+								 132.56 51.84 132.56 L33.81 132.56 ZM51.41 121.54 A8.57993 8.48968 -180 1 0 34.25 121.54 A8.57993
+								 8.48968 -180 1 0 51.41 121.54 ZM23.31 112.32 A8.57993 8.48968 -180 1 0 6.15 112.32 A8.57993 8.48968
+								 -180 1 0 23.31 112.32 ZM29.28 129.21 C29.28 127.85 28.84 126.61 28.09 125.61 C27.58 124.92 26.92
+								 124.36 26.16 123.96 C25.4 123.57 24.55 123.35 23.65 123.34 L5.63 123.34 C4.33 123.34 3.14 123.8
+								 2.18 124.57 C1.52 125.11 0.97 125.8 0.59 126.59 C0.21 127.38 0 128.26 0 129.21 L0 151.47 L4.93 151.47
+								 L4.93 139.6 L5.99 139.6 L5.99 168.66 L14.11 168.66 L14.11 154.92 L15.17 154.92 L15.17 168.66 L23.1
+								 168.66 L23.1 139.61 L24.16 139.61 L24.16 151.47 L26.02 151.47 L26.02 138.42 C26.02 136.94 26.42
+								 135.53 27.12 134.33 C27.67 133.38 28.4 132.56 29.28 131.91 L29.28 129.21 Z" class="st4"/>
+				</g>
+				<g id="shape32-10" v:mID="32" v:groupContext="shape" v:layerMember="0" transform="translate(18.2462,-4.45427)">
+					<title>Лист.32</title>
+					<path d="M20.79 94.73 A8.57993 8.48968 -180 1 0 3.64 94.73 A8.57993 8.48968 -180 1 0 20.79 94.73 ZM13.2 135.25
+								 C13.95 135.01 14.75 134.87 15.57 134.87 L18.75 134.87 A10.7477 10.6347 0 0 1 21.06 115.98 C21.24
+								 115.36 21.5 114.77 21.82 114.22 C22.52 113.01 23.51 112.01 24.73 111.32 C25.33 110.97 25.98 110.71
+								 26.66 110.54 C26.5 109.6 26.12 108.74 25.57 108.02 C25.06 107.33 24.4 106.76 23.64 106.37 C22.89
+								 105.97 22.03 105.75 21.13 105.75 L3.11 105.75 C1.96 105.75 0.89 106.11 0 106.73 A10.7477 10.6347
+								 0 0 1 2.41 125.65 L2.41 125.65 L5.4 125.65 C6.75 125.65 8.02 126.01 9.12 126.62 C10.22 127.24 11.15
+								 128.11 11.84 129.15 C12.7 130.44 13.2 132 13.2 133.66 L13.2 135.25 ZM42.67 132.56 C41.37 132.56
+								 40.17 133.02 39.22 133.79 C38.56 134.33 38.01 135.02 37.63 135.81 C37.6 135.86 37.58 135.92 37.55
+								 135.98 C38.55 136.58 39.39 137.4 40.03 138.37 C40.89 139.66 41.39 141.22 41.39 142.88 L41.39 160.68
+								 L41.97 160.68 L41.97 148.83 L43.03 148.83 L43.03 177.88 L51.15 177.88 L51.15 164.14 L52.21 164.14
+								 L52.21 177.88 L60.14 177.88 L60.14 148.83 L61.19 148.83 L61.19 160.68 L66.31 160.68 L66.31 138.42
+								 C66.31 137.07 65.87 135.82 65.13 134.83 C64.62 134.14 63.95 133.57 63.2 133.18 C62.44 132.78 61.59
+								 132.56 60.69 132.56 L42.67 132.56 ZM60.35 121.54 A8.57993 8.48968 -180 1 0 43.19 121.54 A8.57993
+								 8.48968 -180 1 0 60.35 121.54 Z" class="st4"/>
+				</g>
+			</g>
+			<g id="shape33-12" v:mID="33" v:groupContext="shape" transform="translate(39.9268,-13.777)">
+				<title>Лист.33</title>
+				<desc>УЧАСТНИКИ</desc>
+				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+				<v:textRect cx="52.4278" cy="164.789" width="104.86" height="26.1743"/>
+				<rect x="0" y="151.702" width="104.856" height="26.1743" class="st5"/>
+				<text x="15.72" y="168.99" class="st6" v:langID="1049"><v:paragraph v:horizAlign="1"/><v:tabList/>УЧАСТНИКИ</text>			</g>
+		</g>
+	</g>
+</svg>

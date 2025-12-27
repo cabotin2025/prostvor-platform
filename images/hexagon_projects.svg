@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Создано Microsoft Visio, экспорт SVG hexagon_projects.svg Страница-1 -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+		xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" width="2.81724in" height="2.4705in"
+		viewBox="0 0 202.841 177.876" xml:space="preserve" color-interpolation-filters="sRGB" class="st7">
+	<v:documentProperties v:langID="1049" v:metric="true" v:viewMarkup="false"/>
+
+	<style type="text/css">
+	<![CDATA[
+		.st1 {visibility:visible}
+		.st2 {fill:#000000;fill-opacity:0.36;filter:url(#filter_4.6666669845581);stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:0.36}
+		.st3 {fill:#cb620c;stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:1}
+		.st4 {fill:#ffffff;stroke:#ffffff;stroke-linecap:butt;stroke-width:0.75}
+		.st5 {fill:none;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st6 {fill:#ffffff;font-family:Calibri;font-size:1.16666em;font-weight:bold}
+		.st7 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+	]]>
+	</style>
+
+	<defs id="Filters">
+		<filter id="filter_4.6666669845581">
+			<feGaussianBlur stdDeviation="4.6666669845581"/>
+		</filter>
+	</defs>
+	<g v:mID="0" v:index="1" v:groupContext="foregroundPage">
+		<title>Страница-1</title>
+		<v:pageProperties v:drawingScale="0.0393701" v:pageScale="0.0393701" v:drawingUnits="24" v:shadowOffsetX="8.50394"
+				v:shadowOffsetY="-8.50394"/>
+		<g id="group1-1" transform="translate(0.5,-15.2782)" v:mID="1" v:groupContext="group">
+			<title>Лист.1</title>
+			<g id="shape2-2" v:mID="2" v:groupContext="shape">
+				<title>Лист.2</title>
+				<g id="shadow2-3" v:groupContext="shadow" v:shadowOffsetX="7.77817" v:shadowOffsetY="-7.77817" v:shadowType="1"
+						transform="matrix(1,0,0,1,7.77817,7.77817)" class="st1">
+					<path d="M46.71 15.78 L140.29 15.8 L187.06 96.87 L140.3 177.86 L46.7 177.88 L0 96.87 L46.71 15.78 Z"
+							class="st2"/>
+				</g>
+				<path d="M46.71 15.78 L140.29 15.8 L187.06 96.87 L140.3 177.86 L46.7 177.88 L0 96.87 L46.71 15.78 Z" class="st3"/>
+			</g>
+			<g id="shape3-7" v:mID="3" v:groupContext="shape" transform="translate(50.5748,-51.7443)">
+				<title>Интернет</title>
+				<v:userDefs>
+					<v:ud v:nameU="msvShapeCategories" v:prompt="" v:val="VT4(Icon)"/>
+					<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+				</v:userDefs>
+				<path d="M42.28 94.65 A42.2824 41.6165 -180 0 0 0 136.26 A42.2807 41.6148 -180 0 0 42.28 177.88 A42.279 41.6132 -180
+							 0 0 84.56 136.26 A42.2807 41.6148 -180 0 0 42.28 94.65 ZM43.59 172.61 L43.59 171.25 L43.59 155.77 L57.89
+							 155.77 L56.98 157.64 A47.7835 47.031 0 0 1 47.75 170.47 L46.34 171.74 L45.46 172.52 L43.59 172.61 ZM44.99
+							 99.98 L45.8 100.7 A47.8669 47.1131 0 0 1 56.67 114.87 L57.62 116.75 L43.59 116.75 L43.59 99.91 L44.99
+							 99.98 ZM73.47 116.75 L60.51 116.75 L60.16 115.97 A50.7036 49.9051 -180 0 0 51 102.06 L49.6 100.57 A37.0718
+							 36.488 0 0 1 73.47 116.75 ZM43.59 134.98 L43.59 119.36 L58.68 119.36 L58.99 120.22 A49.7209 48.9379
+							 0 0 1 61.73 133.6 L61.81 134.98 L43.59 134.98 L43.59 134.98 ZM61.84 137.58 L61.77 138.94 A49.4231 48.6448
+							 0 0 1 59.18 152.29 L58.88 153.17 L43.59 153.17 L43.59 137.58 L61.84 137.58 ZM51.41 170.4 A50.4242 49.6301
+							 -180 0 0 60.34 156.56 L60.68 155.77 L73.47 155.77 A37.0704 36.4866 0 0 1 50.09 171.84 L51.41 170.4 ZM61.7
+							 153.17 L62.22 151.49 A52.1825 51.3607 -180 0 0 64.44 138.83 L64.5 137.58 L79.21 137.58 A36.7526 36.1738
+							 0 0 1 75.02 153.17 L61.7 153.17 ZM64.48 134.98 L64.42 133.75 A52.4658 51.6395 -180 0 0 62.1 121.05 L61.56
+							 119.36 L75.02 119.36 A36.6947 36.1168 0 0 1 79.21 134.98 L64.48 134.98 ZM40.95 101.79 L40.95 116.75
+							 L26.96 116.75 L27.9 114.88 A48.0004 47.2445 0 0 1 36.93 102.45 L36.96 102.43 L36.94 102.45 L38.19 101.31
+							 L39.72 99.98 L40.95 99.91 L40.95 101.79 ZM35.12 100.55 L33.74 102.02 A50.5611 49.7649 -180 0 0 24.53
+							 115.97 L24.18 116.75 L11.09 116.75 A37.0562 36.4726 0 0 1 35.12 100.55 ZM23.13 119.36 L22.59 121.05
+							 A52.1728 51.3512 -180 0 0 20.27 133.75 L20.21 134.98 L5.35 134.98 A36.7315 36.1531 0 0 1 9.54 119.36
+							 L23.13 119.36 ZM5.35 137.58 L20.2 137.58 L20.25 138.83 A51.8672 51.0504 -180 0 0 22.46 151.49 L22.99
+							 153.17 L9.54 153.17 A36.7503 36.1715 0 0 1 5.35 137.58 ZM24.01 155.77 L24.35 156.56 A50.476 49.6811
+							 -180 0 0 33.32 170.45 L34.65 171.89 A37.0783 36.4944 0 0 1 11.09 155.77 L24.01 155.77 L24.01 155.77
+							 ZM25.55 152.29 A49.6664 48.8843 0 0 1 22.94 138.95 L22.87 137.58 L40.95 137.58 L40.95 153.17 L25.86
+							 153.17 L25.55 152.29 ZM22.85 134.98 L22.93 133.61 A49.3255 48.5487 0 0 1 25.64 120.22 L25.95 119.36
+							 L40.95 119.36 L40.95 134.98 L22.85 134.98 ZM39.23 172.52 L38.74 172.08 A48.0897 47.3324 0 0 1 27.83
+							 157.64 L26.9 155.77 L40.95 155.77 L40.95 172.61 L39.23 172.52 Z" class="st4"/>
+			</g>
+			<g id="shape4-9" v:mID="4" v:groupContext="shape" transform="translate(39.9933,-13.2058)">
+				<title>Лист.4</title>
+				<desc>ПРОЕКТЫ</desc>
+				<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+				<v:textRect cx="52.4278" cy="164.789" width="104.86" height="26.1743"/>
+				<rect x="0" y="151.702" width="104.856" height="26.1743" class="st5"/>
+				<text x="23.15" y="168.99" class="st6" v:langID="1049"><v:paragraph v:horizAlign="1"/><v:tabList/>ПРОЕКТЫ</text>			</g>
+		</g>
+	</g>
+</svg>

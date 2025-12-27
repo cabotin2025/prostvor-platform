@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROSTVOR - Платформа для создания творческих проектов</title>
+    <meta name="description" content="PROSTVOR - платформа для создания творческих проектов. Найдите участников, ресурсы и идеи для ваших творческих начинаний.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/user-display.css">
+    <link rel="stylesheet" href="css/calendar-styles.css">
+    <link rel="stylesheet" href="css/tasks-styles.css">
+    <link rel="stylesheet" href="css/panels-styles-updated.css">
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header class="header">
+       <!-- Боковые выпадающие вкладки -->
+<div id="sidebarPanels" class="sidebar-panels" style="display: none;">
+    <!-- Левая сторона -->
+    <div class="sidebar-panels-left">
+        <!-- Мой календарь -->
+        <div class="sidebar-panel" data-panel="calendar">
+            <div class="panel-label" data-panel="calendar" data-count="0" 
+                 role="button" aria-label="Мой календарь" tabindex="0">
+                Мой календарь
+            </div>
+            <div class="panel-content" data-panel="calendar">  
+                <div class="panel-body" id="calendarPanelBody">
+                    <!-- Контент инициализируется скриптом -->
+                    <div class="calendar-placeholder">
+                        <div class="calendar-header-row">
+                            <span class="current-year"><2024></span>
+                            <span class="current-month">Ноябрь</span>
+                            <div class="calendar-view-switcher">
+                                <span class="view-option" data-view="year">год</span>
+                                <span class="view-option" data-view="month">месяц</span>
+                                <span class="view-option active" data-view="week">неделя</span>
+                                <span class="view-option" data-view="day">день</span>
+                                <div class="active-indicator" id="calendarActiveIndicator"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Недельный вид (по умолчанию) -->
+                        <div class="week-view-container" id="weekView">
+                            <div class="week-grid">
+                                <!-- Даты -->
+                                <div class="dates-column">
+                                    <div class="date-cell">18</div>
+                                    <div class="date-cell">19</div>
+                                    <div class="date-cell">20</div>
+                                    <div class="date-cell">21</div>
+                                    <div class="date-cell">22</div>
+                                    <div class="date-cell">23</div>
+                                    <div class="date-cell">24</div>
+                                </div>
+                                
+                                <!-- Дни недели -->
+                                <div class="days-column">
+                                    <div class="day-cell">Пн.</div>
+                                    <div class="day-cell">Вт.</div>
+                                    <div class="day-cell">Ср</div>
+                                    <div class="day-cell">Чт</div>
+                                    <div class="day-cell">Пт.</div>
+                                    <div class="day-cell">Сб</div>
+                                    <div class="day-cell">Вс.</div>
+                                </div>
+                                
+                                <!-- События -->
+                                <div class="events-grid">
+                                    <!-- Понедельник -->
+                                    <div class="event-cell">
+                                        <span class="event-time">09:00-10:30</span>
+                                        <span class="event-text">Совещание по проекту</span>
+                                    </div>
+                                    <div class="event-cell empty"></div>
+                                    
+                                    <!-- Вторник -->
+                                    <div class="event-cell">
+                                        <span class="event-time">14:00-16:00</span>
+                                        <span class="event-text">Презентация новых идей</span>
+                                    </div>
+                                    <div class="event-cell empty"></div>
+                                    
+                                    <!-- Среда -->
+                                    <div class="event-cell empty"></div>
+                                    <div class="event-cell empty"></div>
+                                    
+                                    <!-- Четверг -->
+                                    <div class="event-cell">
+                                        <span class="event-time">11:00-12:30</span>
+                                        <span class="event-text">Встреча с клиентом</span>
+                                    </div>
+                                    <div class="event-cell empty"></div>
+                                    
+                                    <!-- Пятница -->
+                                    <div class="event-cell">
+                                        <span class="event-time">15:00-18:00</span>
+                                        <span class="event-text">Работа над документацией</span>
+                                    </div>
+                                    <div class="event-cell">
+                                        <span class="event-time">19:00-21:00</span>
+                                        <span class="event-text">Творческая встреча</span>
+                                    </div>
+                                    
+                                    <!-- Суббота -->
+                                    <div class="event-cell empty"></div>
+                                    <div class="event-cell empty"></div>
+                                    
+                                    <!-- Воскресенье -->
+                                    <div class="event-cell">
+                                        <span class="event-time">10:00-12:00</span>
+                                        <span class="event-text">Планирование на неделю</span>
+                                    </div>
+                                    <div class="event-cell empty"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Годовой вид (скрыт по умолчанию) -->
+                        <div class="year-view-container" id="yearView" style="display: none;">
+                            <!-- Содержимое заполняется динамически -->
+                        </div>
+                        
+                        <!-- Месячный вид (скрыт по умолчанию) -->
+                        <div class="month-view-container" id="monthView" style="display: none;">
+                            <!-- Содержимое заполняется динамически -->
+                        </div>
+                        
+                        <!-- Дневной вид (скрыт по умолчанию) -->
+                        <div class="day-view-container" id="dayView" style="display: none;">
+                            <!-- Содержимое заполняется динамически -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Мои задачи -->
+        <div class="sidebar-panel" data-panel="tasks">
+            <div class="panel-label" data-panel="tasks" data-count="0"
+                 role="button" aria-label="Мои задачи" tabindex="0">
+                Мои задачи
+            </div>
+            <div class="panel-content" data-panel="tasks">
+                <div class="panel-body">
+    <div class="tasks-container-updated">
+        <div class="tasks-columns-updated">
+            <div class="tasks-column-updated" data-column="Планируется">
+                <div class="column-header-updated">
+                    <h4>Планируется</h4>
+                    <span class="task-count-updated">0</span>
+                </div>
+                <div class="tasks-list-updated" data-column="Планируется">
+                    <!-- Задачи появятся здесь -->
+                </div>
+                <div class="add-task-area" data-column="Планируется">
+                    <!-- Кнопка + появится здесь -->
+                </div>
+            </div>
+            <div class="tasks-column-updated" data-column="В работе">
+                <div class="column-header-updated">
+                    <h4>В работе</h4>
+                    <span class="task-count-updated">0</span>
+                </div>
+                <div class="tasks-list-updated" data-column="В работе">
+                    <!-- Задачи появятся здесь -->
+                </div>
+            </div>
+            <div class="tasks-column-updated" data-column="Приостановлено">
+                <div class="column-header-updated">
+                    <h4>Приостановлено</h4>
+                    <span class="task-count-updated">0</span>
+                </div>
+                <div class="tasks-list-updated" data-column="Приостановлено">
+                    <!-- Задачи появятся здесь -->
+                </div>
+            </div>
+            <div class="tasks-column-updated" data-column="Завершено">
+                <div class="column-header-updated">
+                    <h4>Завершено</h4>
+                    <span class="task-count-updated">0</span>
+                </div>
+                <div class="tasks-list-updated" data-column="Завершено">
+                    <!-- Задачи появятся здесь -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </div>
+        
+        <!-- Уведомления -->
+        <div class="sidebar-panel" data-panel="notifications">
+            <div class="panel-label" data-panel="notifications" data-count="0"
+                 role="button" aria-label="Уведомления" tabindex="0">
+                Уведомления
+            </div>
+            <div class="panel-content" data-panel="notifications">
+                <div class="panel-body">
+                    <!-- Контент будет загружен динамически -->
+                    <div class="notifications-placeholder">
+                        <p style="text-align: center; color: #ccc; padding: 20px;">
+                            Уведомления появятся здесь
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Правая сторона -->
+    <div class="sidebar-panels-right">
+        <!-- Сообщения -->
+        <div class="sidebar-panel" data-panel="messages">
+            <div class="panel-label" data-panel="messages" data-count="0"
+                 role="button" aria-label="Сообщения" tabindex="0">
+                Сообщения
+            </div>
+            <div class="panel-content" data-panel="messages">
+                <div class="panel-body">
+                    <!-- Контент будет загружен динамически -->
+                    <div class="messages-placeholder">
+                        <p style="text-align: center; color: #ccc; padding: 20px;">
+                            Сообщения появятся здесь
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Беседы в проектах -->
+        <div class="sidebar-panel" data-panel="conversations">
+            <div class="panel-label" data-panel="conversations" data-count="0"
+                 role="button" aria-label="Беседы в проектах" tabindex="0">
+                Беседы в проектах
+            </div>
+            <div class="panel-content" data-panel="conversations">
+                <div class="panel-body">
+                    <!-- Контент будет загружен динамически -->
+                    <div class="conversations-placeholder">
+                        <p style="text-align: center; color: #ccc; padding: 20px;">
+                            Беседы появятся здесь
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Обсуждения в темах -->
+        <div class="sidebar-panel" data-panel="themes">
+            <div class="panel-label" data-panel="themes" data-count="0"
+                 role="button" aria-label="Обсуждения в темах" tabindex="0">
+                Обсуждения в темах
+            </div>
+            <div class="panel-content" data-panel="themes">
+                <div class="panel-body">
+                    <!-- Контент будет загружен динамически -->
+                    <div class="themes-placeholder">
+                        <p style="text-align: center; color: #ccc; padding: 20px;">
+                            Обсуждения появятся здесь
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        <div class="logo-section">
+            <div>
+                <img src="images/logo.svg" alt="PROSTVOR" class="logo">
+                <div class="city-selector">
+                    <div class="city-name" id="cityName" aria-haspopup="true" aria-expanded="false">Улан-Удэ</div>
+                    <div class="city-dropdown" id="cityDropdown" role="listbox">
+                        <div class="city-item" data-city="Москва" role="option">Москва</div>
+                        <div class="city-item" data-city="Санкт-Петербург" role="option">Санкт-Петербург</div>
+                        <div class="city-item" data-city="Казань" role="option">Казань</div>
+                        <div class="city-item" data-city="Уфа" role="option">Уфа</div>
+                        <div class="city-item" data-city="Екатеринбург" role="option">Екатеринбург</div>
+                        <div class="city-item" data-city="Красноярск" role="option">Красноярск</div>
+                        <div class="city-item" data-city="Новосибирск" role="option">Новосибирск</div>
+                        <div class="city-item" data-city="Иркутск" role="option">Иркутск</div>
+                        <div class="city-item" data-city="Чита" role="option">Чита</div>
+                        <div class="city-item" data-city="Хабаровск" role="option">Хабаровск</div>
+                        <div class="city-item" data-city="Владивосток" role="option">Владивосток</div>
+                        <div class="add-city">
+                            <input type="text" id="newCityInput" placeholder="Добавить город" aria-label="Введите название города">
+                            <button id="addCityBtn" aria-label="Добавить город">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="nav-container" aria-label="Основная навигация">
+            <div class="active-indicator" id="activeIndicator"></div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link active" aria-current="page">Главная</a>
+                    <div class="nav-dropdown">
+                        <a href="pages/HowItWorks.html" class="dropdown-item">Как это работает</a>
+                        <a href="#" class="dropdown-item">Творческие направления</a>
+                        <a href="#" class="dropdown-item">Руководители и Кураторы</a>
+                        <a href="#" class="dropdown-item">Контакты</a>
+                        <a href="#" class="dropdown-item">Статистика и отчеты</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="pages/News.html" class="nav-link">Новости</a>
+                    <div class="nav-dropdown">
+                        <a href="#" class="dropdown-item">Анонсы</a>
+                        <a href="#" class="dropdown-item">События</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="pages/Projects.html" class="nav-link">Проекты</a>
+                    <div class="nav-dropdown">
+                        <a href="/pages/ProjectMain.html" class="dropdown-item">Создать новый Проект</a>
+                        <a href="#" class="dropdown-item">Мои проекты</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="pages/Ideas.html" class="nav-link">Идеи</a>
+                    <div class="nav-dropdown">
+                        <a href="#" class="dropdown-item">Предложить Идею</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="pages/resources.html" class="nav-link">Ресурсы</a>
+                    <div class="nav-dropdown">
+                        <a href="#" class="dropdown-item">Материальные ресурсы</a>
+                        <a href="#" class="dropdown-item">Финансовые ресурсы</a>
+                        <a href="#" class="dropdown-item">Локации</a>
+                        <a href="#" class="dropdown-item">Предложить ресурс</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="pages/events.html" class="nav-link">События</a>
+                    <div class="nav-dropdown">
+                        <a href="#" class="dropdown-item">Создать Событие</a>
+                        <a href="#" class="dropdown-item">Календарь событий</a>
+                        <a href="#" class="dropdown-item">Мои события</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="pages/services.html" class="nav-link">Услуги</a>
+                    <div class="nav-dropdown">
+                        <a href="#" class="dropdown-item">Предложить Услуги</a>
+                        <a href="#" class="dropdown-item">Запросить Услуги</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="pages/actors.html" class="nav-link">Участники</a>
+                    <div class="nav-dropdown">
+                        <a href="#" class="dropdown-item">Руководители и Кураторы</a>
+                        <a href="#" class="dropdown-item">Стать Участником</a>
+                        <a href="#" class="dropdown-item">Поиск участников</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="pages/topics.html" class="nav-link">Темы</a>
+                    <div class="nav-dropdown">
+                        <a href="#" class="dropdown-item">Создать Тему</a>
+                        <a href="#" class="dropdown-item">Получить консультацию</a>
+                        <a href="#" class="dropdown-item">Популярные темы</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        
+        <div class="header-buttons">
+            <button class="header-button help-button" aria-label="Поддержать PROSTVOR">
+                <img src="images/HelpProstvor.svg" alt="Поддержать PROSTVOR" class="help-button-img">
+            </button>
+            <button class="header-button enter-button" aria-label="Войти или зарегистрироваться"
+                onclick="window.location.href='pages/enter-reg.html'">
+                <img src="images/enter-reg.svg" alt="Войти/Зарегистрироваться" class="enter-button-img">
+            </button>
+        </div>
+    </header>
+    
+        <!-- Основной контент -->
+    <main class="main-content">
+        <h1 class="platform-title">Платформа для создания творческих проектов</h1>
+        
+        <div class="content-frame">
+            <h2 class="frame-title">PROSTVOR</h2>
+                        <div class="hexagon-container">
+                <!-- Центральная кнопка ПРОЕКТЫ -->
+                <button class="hexagon-button hexagon-large hexagon-projects" id="projectsBtn" aria-label="Перейти к проектам">
+                    <img src="images/hexagon_projects.svg" alt="ПРОЕКТЫ" class="hexagon-img">
+                    
+                </button>
+                
+                <!-- Верхняя кнопка ИДЕИ -->
+                <button class="hexagon-button hexagon-large hexagon-ideas" id="ideasBtn" aria-label="Перейти к идеям">
+                    <img src="images/hexagon_ideas.svg" alt="ИДЕИ" class="hexagon-img">
+                </button>
+                
+                <!-- Нижняя правая кнопка УЧАСТНИКИ -->
+                <button class="hexagon-button hexagon-large hexagon-actors" id="actorsBtn" aria-label="Перейти к участникам">
+                    <img src="images/hexagon_actors.svg" alt="УЧАСТНИКИ" class="hexagon-img">
+                </button>
+                
+                <!-- Нижняя левая кнопка РЕСУРСЫ -->
+                <button class="hexagon-button hexagon-large hexagon-resources" id="resourcesBtn" aria-label="Перейти к ресурсам">
+                    <img src="images/hexagon_resources.svg" alt="РЕСУРСЫ" class="hexagon-img">
+                </button>
+                
+                <!-- Левая кнопка Консультации и обсуждение Тем -->
+                <button class="hexagon-button hexagon-medium hexagon-topics" id="topicsBtn" aria-label="Перейти к консультациям и темам">
+                    <img src="images/hexagon_topics.svg" alt="Консультации и обсуждение Тем" class="hexagon-img">
+                </button>
+                
+                <!-- Правая кнопка Помощь в Мероприятиях и Услуги -->
+                <button class="hexagon-button hexagon-medium hexagon-events" id="eventsBtn" aria-label="Перейти к мероприятиям и услугам">
+                    <img src="images/hexagon_events.svg" alt="Помощь в Мероприятиях и Услуги" class="hexagon-img">
+                </button>
+            </div>
+            
+            <div class="how-it-works">
+                <a href="pages/HowItWorks.html" class="how-it-works-link" id="howItWorksLink">Как это работает</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Уведомления -->
+    <div id="notification" class="notification" aria-live="polite"></div>
+
+    <!-- Прелоадер -->
+    <div id="preloader" class="preloader">
+        <div class="preloader-spinner"></div>
+    </div>
+
+    <script src="js/actors-database.js"></script>
+    <script src="js/cities-database.js"></script>
+    <script src="js/main-updated.js"></script>
+    <script src="js/auth-updated.js"></script>
+    <script src="js/calendar-panel.js"></script>
+    <script src="js/calendar-updated.js"></script>
+    <script>
+     document.addEventListener('DOMContentLoaded', function() {
+     // Инициализация календаря при наличии авторизованного пользователя
+      const currentUser = sessionStorage.getItem('current_user');
+       if (currentUser && typeof CalendarUpdated !== 'undefined') {
+        setTimeout(() => {
+            CalendarUpdated.init();
+        }, 1000);
+       }
+    });
+</script>
+    <script src="js/tasks-panel.js"></script>
+    <script src="js/tasks-base.js"></script>
+    <script src="js/tasks-panel-updated.js"></script>
+    <script>
+    // Инициализация панели задач при наличии авторизованного пользователя
+    document.addEventListener('DOMContentLoaded', function() {
+        const currentUser = sessionStorage.getItem('current_user');
+        if (currentUser && typeof TasksPanelUpdated !== 'undefined') {
+            console.log('Инициализация панели задач для пользователя:', currentUser);
+            setTimeout(() => {
+                TasksPanelUpdated.init();
+            }, 1000);
+        } else {
+            console.log('Пользователь не авторизован или TasksPanelUpdated не загружен');
+        }
+    });
+</script>
+    <script src="js/notifications-panel.js"></script>
+    <script src="js/main-updated-panels.js"></script>
+    <script src="js/calendar-panel-updated.js"></script>
+    <script>
+    // Проверка загрузки скрипта календаря
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('CalendarPanelUpdated доступен:', typeof CalendarPanelUpdated !== 'undefined');
+        
+        // Если есть авторизованный пользователь, принудительно инициализируем календарь
+        setTimeout(() => {
+            const currentUser = sessionStorage.getItem('current_user');
+            if (currentUser && typeof CalendarPanelUpdated !== 'undefined') {
+                console.log('Принудительная инициализация календаря для авторизованного пользователя');
+                CalendarPanelUpdated.init();
+            }
+        }, 1000);
+    });
+    </script>
+
+</body>
+</html>

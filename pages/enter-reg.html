@@ -1,0 +1,214 @@
+<!-- enter-reg-updated.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROSTVOR - Вход и регистрация</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/user-display.css">
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header class="header">
+        <!-- ... существующий код шапки ... -->
+    </header>
+    
+    <!-- Основной контент -->
+    <main class="main-content">
+        <h1 class="platform-title">Вход и регистрация</h1>
+        
+        <div class="content-frame">
+            <div class="auth-container">
+                <!-- Левая колонка - Вход -->
+                <div class="auth-section">
+                    <h2 class="auth-title">Вход для зарегистрированного Участника</h2>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Псевдоним, E-mail или телефон</label>
+                        <input type="text" id="loginField" class="form-input" 
+                               placeholder="Введите ваш псевдоним, email или телефон" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Пароль</label>
+                        <input type="password" id="passwordField" class="form-input" 
+                               placeholder="Введите ваш пароль" required>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="rememberMeCheckbox" class="checkbox-input">
+                        <label for="rememberMeCheckbox" class="checkbox-label">
+                            Оставаться в системе
+                        </label>
+                    </div>
+                    
+                    <button id="loginButton" class="svg-button">
+                        <img src="../images/enter.svg" alt="Войти" class="button-svg">
+                    </button>
+                    
+                    <a href="RecoveryPass.html" id="forgotPasswordLink" class="forgot-link">
+                        Не помню пароль
+                    </a>
+                </div>
+                
+                <!-- Правая колонка - Регистрация -->
+                <div class="auth-section">
+                    <h2 class="auth-title">Регистрация нового Участника</h2>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Тип участника *</label>
+                        <select class="form-input gender-select" id="regTypeSelect">
+                            <option value="Человек">Человек</option>
+                            <option value="Организация">Организация</option>
+                            <option value="Сообщество">Сообщество</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Псевдоним (1-12 символов) *</label>
+                        <input type="text" id="regNickname" class="form-input" 
+                               placeholder="Придумайте псевдоним" maxlength="12" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">E-mail *</label>
+                        <input type="email" id="regEmail" class="form-input" 
+                               placeholder="example@mail.ru" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Телефон</label>
+                        <input type="tel" id="regPhone" class="form-input" 
+                               placeholder="+7 (XXX) XXX-XX-XX">
+                    </div>
+                    <div id="dynamicFields">
+                    <!-- Динамические поля будут добавлены здесь -->
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Ввести пароль (мин. 6 символов) *</label>
+                        <input type="password" id="regPassword" class="form-input" 
+                               placeholder="Не менее 6 символов" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Повторить пароль *</label>
+                        <input type="password" id="regConfirmPassword" class="form-input" 
+                               placeholder="Повторите пароль" required>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="regAgreementCheckbox" class="checkbox-input">
+                        <label for="regAgreementCheckbox" class="checkbox-label">
+                            С <span id="agreementLink" class="agreement-link">Условиями</span> регистрации согласен
+                        </label>
+                    </div>
+
+                    <button id="regButton" class="svg-button">
+                        <img src="../images/reg.svg" alt="Зарегистрироваться" class="button-svg">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Скрипты -->
+    <script src="../js/actors-database.js"></script>
+    <script src="../js/auth-updated.js"></script>
+    <script src="../js/main-updated.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const typeSelect = document.getElementById('regTypeSelect');
+    if (typeSelect) {
+        typeSelect.addEventListener('change', function() {
+            updateRegistrationForm(this.value);
+        });
+        // Инициализируем форму с текущим значением
+        updateRegistrationForm(typeSelect.value);
+    }
+    });
+
+function updateRegistrationForm(type) {
+    const dynamicFields = document.getElementById('dynamicFields');
+    if (!dynamicFields) return;
+    
+    // Очищаем предыдущие поля
+    dynamicFields.innerHTML = '';
+    
+    switch(type) {
+        case 'Человек':
+            dynamicFields.innerHTML = `
+                <div class="form-group">
+                    <label class="form-label" for="regGender">Пол</label>
+                    <div class="select-wrapper">
+                        <select class="gender-select" id="regGender" name="gender">
+                            <option value="муж.">Мужской</option>
+                            <option value="жен.">Женский</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="regName">Имя</label>
+                    <input type="text" class="form-input" id="regName" name="name" placeholder="Введите ваше имя">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="regPatronymic">Отчество</label>
+                    <input type="text" class="form-input" id="regPatronymic" name="patronymic" placeholder="Введите ваше отчество">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="regSurname">Фамилия</label>
+                    <input type="text" class="form-input" id="regSurname" name="surname" placeholder="Введите вашу фамилию">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="regCity">Город</label>
+                    <input type="text" class="form-input" id="regCity" name="city" placeholder="Ваш город" list="citiesList">
+                    <datalist id="citiesList">
+                        <option value="Москва">
+                        <option value="Санкт-Петербург">
+                        <option value="Улан-Удэ">
+                    </datalist>
+                </div>
+            `;
+            break;
+            
+        case 'Организация':
+            dynamicFields.innerHTML = `
+                <div class="form-group">
+                    <label class="form-label" for="regOrganizationName">Название организации *</label>
+                    <input type="text" class="form-input" id="regOrganizationName" name="organizationName" 
+                           placeholder="Введите название организации" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="regCity">Город</label>
+                    <input type="text" class="form-input" id="regCity" name="city" placeholder="Город организации" list="citiesList">
+                    <datalist id="citiesList">
+                        <option value="Москва">
+                        <option value="Санкт-Петербург">
+                        <option value="Улан-Удэ">
+                    </datalist>
+                </div>
+            `;
+            break;
+            
+        case 'Сообщество':
+            dynamicFields.innerHTML = `
+                <div class="form-group">
+                    <label class="form-label" for="regCommunityName">Название сообщества *</label>
+                    <input type="text" class="form-input" id="regCommunityName" name="communityName" 
+                           placeholder="Введите название сообщества" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="regCity">Город</label>
+                    <input type="text" class="form-input" id="regCity" name="city" placeholder="Город сообщества" list="citiesList">
+                    <datalist id="citiesList">
+                        <option value="Москва">
+                        <option value="Санкт-Петербург">
+                        <option value="Улан-Удэ">
+                    </datalist>
+                </div>
+            `;
+            break;
+    }
+}
+</script>
+</body>
+</html>

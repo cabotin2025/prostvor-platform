@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Создано Microsoft Visio, экспорт SVG HelpProstvor.svg Страница-1 -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+		xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" width="0.96813in" height="0.421804in"
+		viewBox="0 0 69.7054 30.3699" xml:space="preserve" color-interpolation-filters="sRGB" class="st6">
+	<v:documentProperties v:langID="1049" v:metric="true" v:viewMarkup="false"/>
+
+	<style type="text/css">
+	<![CDATA[
+		.st1 {visibility:visible}
+		.st2 {fill:#000000;fill-opacity:0.4;filter:url(#filter_2.6666667461395);stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:0.4}
+		.st3 {fill:#6ca62d;stroke:#5c8e26;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.75}
+		.st4 {fill:#ffffff;font-family:Calibri;font-size:0.666664em}
+		.st5 {font-size:1em}
+		.st6 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+	]]>
+	</style>
+
+	<defs id="Filters">
+		<filter id="filter_2.6666667461395">
+			<feGaussianBlur stdDeviation="2.6666667461395"/>
+		</filter>
+	</defs>
+	<g v:mID="0" v:index="1" v:groupContext="foregroundPage">
+		<title>Страница-1</title>
+		<v:pageProperties v:drawingScale="0.0393701" v:pageScale="0.0393701" v:drawingUnits="24" v:shadowOffsetX="8.50394"
+				v:shadowOffsetY="-8.50394"/>
+		<g id="shape51-1" v:mID="51" v:groupContext="shape" transform="translate(2.25367,-6.49633)">
+			<title>Лист.51</title>
+			<desc>Поддержать PROSTVOR</desc>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="30.4777" cy="19.5599" width="60.96" height="21.6198"/>
+			<g id="shadow51-2" v:groupContext="shadow" v:shadowOffsetX="2.12132" v:shadowOffsetY="-2.12132" v:shadowType="1"
+					transform="matrix(1,0,0,1,2.12132,2.12132)" class="st1">
+				<rect x="0" y="8.75" width="60.9554" height="21.6198" rx="5.66929" ry="5.66929" class="st2"/>
+			</g>
+			<rect x="0" y="8.75" width="60.9554" height="21.6198" rx="5.66929" ry="5.66929" class="st3"/>
+			<text x="9.23" y="17.16" class="st4" v:langID="1049"><v:paragraph v:horizAlign="1"/><v:tabList/>Поддержать <tspan
+						x="12.71" dy="1.2em" class="st5" v:langID="1033">PROSTVOR</tspan></text>		</g>
+		<g id="shape52-8" v:mID="52" v:groupContext="shape" transform="translate(2.25367,-6.49633)">
+			<title>Лист.52</title>
+			<desc>Поддержать PROSTVOR</desc>
+			<v:textBlock v:margins="rect(4,4,4,4)" v:tabSpace="42.5197"/>
+			<v:textRect cx="30.4777" cy="19.5599" width="60.96" height="21.6198"/>
+			<g id="shadow52-9" v:groupContext="shadow" v:shadowOffsetX="2.12132" v:shadowOffsetY="-2.12132" v:shadowType="1"
+					transform="matrix(1,0,0,1,2.12132,2.12132)" class="st1">
+				<rect x="0" y="8.75" width="60.9554" height="21.6198" rx="5.66929" ry="5.66929" class="st2"/>
+			</g>
+			<rect x="0" y="8.75" width="60.9554" height="21.6198" rx="5.66929" ry="5.66929" class="st3"/>
+			<text x="9.23" y="17.16" class="st4" v:langID="1049"><v:paragraph v:horizAlign="1"/><v:tabList/>Поддержать <tspan
+						x="12.71" dy="1.2em" class="st5" v:langID="1033">PROSTVOR</tspan></text>		</g>
+	</g>
+</svg>
