@@ -1,540 +1,331 @@
-// auth-updated.js - Модуль аутентификации
+// auth-updated.js - Обновленный модуль аутентификации с поддержкой ActorsDatabase
 const AuthUpdated = (function() {
     // Конфигурация
     const config = {
-        minPasswordLength: 6,
-        currentUserKey: 'prostvor_current_user'
+        sessionKey: 'prostvor_auth_session',
+        tokenKey: 'prostvor_auth_token',
+        userKey: 'prostvor_current_user'
     };
 
-    // Элементы DOM для страницы enter-reg.html
-    const elements = {
-        // Элементы для входа
-        loginField: null,
-        passwordField: null,
-        rememberMeCheckbox: null,
-        loginButton: null,
-        forgotPasswordLink: null,
-        
-        // Элементы для регистрации
-        regTypeSelect: null,
-        regNickname: null,
-        regEmail: null,
-        regPhone: null,
-        regPassword: null,
-        regConfirmPassword: null,
-        regAgreementCheckbox: null,
-        regButton: null,
-        agreementLink: null,
-        
-        // Дополнительные поля для разных типов
-        regGender: null,
-        regName: null,
-        regSurname: null,
-        regPatronymic: null,
-        regOrganizationName: null,
-        regCommunityName: null,
-        regCity: null,
-        
-        // Общие
-        notification: document.getElementById('notification'),
-        
-        // Элементы для отображения пользователя после входа
-        userDisplay: null,
-        logoutLink: null
+    // Состояние аутентификации
+    let authState = {
+        isAuthenticated: false,
+        currentUser: null,
+        token: null
     };
 
-    // Инициализация модуля
+    // Инициализация
     function init() {
         try {
-            // Проверяем, авторизован ли пользователь
-            const currentUser = getCurrentUser();
+            restoreSession();
+            console.log('🔐 AuthUpdated инициализирован');
+            return true;
+        } catch (error) {
+            console.error('Ошибка инициализации AuthUpdated:', error);
+            return false;
+        }
+    }
+
+    // Восстановление сессии
+    function restoreSession() {
+        try {
+            const token = localStorage.getItem(config.tokenKey);
+            const userData = sessionStorage.getItem(config.userKey);
             
-            if (currentUser) {
-                // Если пользователь авторизован, обновляем UI
-                updateUIForLoggedInUser(currentUser);
-            } else if (window.location.pathname.includes('enter-reg')) {
-                // Если на странице входа/регистрации и пользователь не авторизован
-                setupElements();
-                setupEventListeners();
-                setupRegistrationForm();
-                checkRememberedUser();
+            if (token && userData) {
+                authState.token = token;
+                authState.currentUser = JSON.parse(userData);
+                authState.isAuthenticated = true;
+                console.log('🔐 Сессия восстановлена:', authState.currentUser?.nickname);
+                return true;
             }
         } catch (error) {
-            console.error('Ошибка инициализации модуля аутентификации:', error);
+            console.error('Ошибка восстановления сессии:', error);
+        }
+        
+        authState.isAuthenticated = false;
+        authState.currentUser = null;
+        authState.token = null;
+        return false;
+    }
+
+    // Аутентификация пользователя
+    function authenticate(login, password) {
+        try {
+            console.log('🔐 Попытка аутентификации:', login);
+            
+            // Проверяем доступность ActorsDatabase
+            if (typeof ActorsDatabase === 'undefined') {
+                throw new Error('База данных участников не загружена');
+            }
+            
+            // Выполняем аутентификацию через ActorsDatabase
+            const user = ActorsDatabase.authenticate(login, password);
+            
+            if (!user) {
+                throw new Error('Ошибка аутентификации');
+            }
+            
+            // Создаем токен (в реальном приложении получали бы с сервера)
+            const token = generateToken(user.ActorID);
+            
+            // Подготавливаем данные пользователя для хранения
+            const userData = {
+                id: user.ActorID,
+                nickname: user.ActorNikname,
+                type: user.ActorType,
+                status: Array.isArray(user.ActorStatus) ? user.ActorStatus[0] : user.ActorStatus,
+                locacity: user.ActorLocacity,
+                email: user.email || null,
+                frameColor: user.frameColor || '#A8E40A',
+                registrationDate: user.registrationDate,
+                lastLogin: new Date().toISOString()
+            };
+            
+            // Сохраняем сессию
+            saveSession(token, userData);
+            
+            // Обновляем состояние
+            authState.isAuthenticated = true;
+            authState.currentUser = userData;
+            authState.token = token;
+            
+            console.log('✅ Успешная аутентификация:', user.ActorNikname);
+            return {
+                success: true,
+                user: userData,
+                token: token
+            };
+            
+        } catch (error) {
+            console.error('❌ Ошибка аутентификации:', error.message);
+            
+            // Пробуем альтернативный метод (для обратной совместимости)
+            return attemptLegacyAuth(login, password) || {
+                success: false,
+                error: error.message || 'Неверный логин или пароль'
+            };
         }
     }
 
-    // Настройка элементов DOM
-    function setupElements() {
-        // Элементы для входа
-        elements.loginField = document.getElementById('loginField');
-        elements.passwordField = document.getElementById('passwordField');
-        elements.rememberMeCheckbox = document.getElementById('rememberMeCheckbox');
-        elements.loginButton = document.getElementById('loginButton');
-        elements.forgotPasswordLink = document.getElementById('forgotPasswordLink');
-        
-        // Элементы для регистрации
-        elements.regTypeSelect = document.querySelector('.gender-select');
-        elements.regNickname = document.getElementById('regNickname');
-        elements.regEmail = document.getElementById('regEmail');
-        elements.regPhone = document.getElementById('regPhone');
-        elements.regPassword = document.getElementById('regPassword');
-        elements.regConfirmPassword = document.getElementById('regConfirmPassword');
-        elements.regAgreementCheckbox = document.getElementById('regAgreementCheckbox');
-        elements.regButton = document.getElementById('regButton');
-        elements.agreementLink = document.getElementById('agreementLink');
-        
-        // Находим дополнительные элементы
-        const container = document.querySelector('.auth-section:last-child');
-        if (container) {
-            // Поля для человека
-            elements.regGender = container.querySelector('.gender-select');
-            elements.regName = container.querySelector('input[name="name"]');
-            elements.regPatronymic = container.querySelector('input[name="patronymic"]');
-            elements.regSurname = container.querySelector('input[name="surname"]');
-                        
-            // Поля для организации/сообщества будут добавлены динамически
+    // Альтернативный метод аутентификации (для обратной совместимости)
+    function attemptLegacyAuth(login, password) {
+        try {
+            // Проверяем наличие локальных данных пользователей
+            const users = getLocalUsers();
+            const user = users.find(u => 
+                (u.email && u.email.toLowerCase() === login.toLowerCase()) ||
+                (u.nickname && u.nickname.toLowerCase() === login.toLowerCase())
+            );
+            
+            if (user && user.password === password) {
+                console.log('⚠️ Использована локальная аутентификация');
+                
+                const token = generateToken(user.id || 'local_' + Date.now());
+                const userData = {
+                    id: user.id || 'local_user',
+                    nickname: user.nickname || login,
+                    type: 'Человек',
+                    status: 'Участник ТЦ',
+                    locacity: user.city || 'Улан-Удэ',
+                    email: user.email || null,
+                    frameColor: user.frameColor || '#A8E40A',
+                    registrationDate: user.registrationDate || new Date().toISOString(),
+                    lastLogin: new Date().toISOString()
+                };
+                
+                saveSession(token, userData);
+                authState.isAuthenticated = true;
+                authState.currentUser = userData;
+                authState.token = token;
+                
+                return {
+                    success: true,
+                    user: userData,
+                    token: token,
+                    isLocal: true
+                };
+            }
+        } catch (error) {
+            console.warn('Локальная аутентификация не удалась:', error);
         }
+        
+        return null;
     }
 
-    // Настройка формы регистрации
-function setupRegistrationForm() {
-    if (!elements.regTypeSelect) return;
-    
-    // Обработчик изменения типа участника
-    elements.regTypeSelect.addEventListener('change', function() {
-        updateRegistrationForm(this.value);
-    });
-    
-    // Инициализируем форму с выбранным типом
-    updateRegistrationForm(elements.regTypeSelect.value);
-}
-
-// Обновление формы регистрации в зависимости от типа
-function updateRegistrationForm(type) {
-    const dynamicFields = document.getElementById('dynamicFields');
-    if (!dynamicFields) return;
-    
-    // Очищаем предыдущие поля
-    dynamicFields.innerHTML = '';
-    
-    switch(type) {
-        case 'Человек':
-            dynamicFields.innerHTML = `
-                <div class="form-group">
-                    <label class="form-label" for="regGender">Пол</label>
-                    <div class="select-wrapper">
-                        <select class="gender-select" id="regGender" name="gender">
-                            <option value="муж.">Мужской</option>
-                            <option value="жен.">Женский</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="regName">Имя</label>
-                    <input type="text" class="form-input" id="regName" name="name" placeholder="Введите ваше имя">
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="regPatronymic">Отчество</label>
-                    <input type="text" class="form-input" id="regPatronymic" name="patronymic" placeholder="Введите ваше отчество">
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="regSurname">Фамилия</label>
-                    <input type="text" class="form-input" id="regSurname" name="surname" placeholder="Введите вашу фамилию">
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="regCity">Город</label>
-                    <input type="text" class="form-input" id="regCity" name="city" placeholder="Ваш город" list="citiesList">
-                    <datalist id="citiesList">
-                        <option value="Москва">
-                        <option value="Санкт-Петербург">
-                        <option value="Улан-Удэ">
-                        <!-- Добавьте другие города -->
-                    </datalist>
-                </div>
-            `;
-            break;
+    // Регистрация нового пользователя
+    function register(registrationData) {
+        try {
+            console.log('📝 Попытка регистрации:', registrationData.email);
             
-        case 'Организация':
-            dynamicFields.innerHTML = `
-                <div class="form-group">
-                    <label class="form-label" for="regOrganizationName">Название организации *</label>
-                    <input type="text" class="form-input" id="regOrganizationName" name="organizationName" 
-                           placeholder="Введите название организации" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="regCity">Город</label>
-                    <input type="text" class="form-input" id="regCity" name="city" placeholder="Город организации" list="citiesList">
-                    <datalist id="citiesList">
-                        <option value="Москва">
-                        <option value="Санкт-Pетербург">
-                        <option value="Улан-Удэ">
-                    </datalist>
-                </div>
-            `;
-            break;
+            // Проверяем доступность ActorsDatabase
+            if (typeof ActorsDatabase === 'undefined') {
+                throw new Error('База данных участников не загружена');
+            }
             
-        case 'Сообщество':
-            dynamicFields.innerHTML = `
-                <div class="form-group">
-                    <label class="form-label" for="regCommunityName">Название сообщества *</label>
-                    <input type="text" class="form-input" id="regCommunityName" name="communityName" 
-                           placeholder="Введите название сообщества" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="regCity">Город</label>
-                    <input type="text" class="form-input" id="regCity" name="city" placeholder="Город сообщества" list="citiesList">
-                    <datalist id="citiesList">
-                        <option value="Москва">
-                        <option value="Санкт-Петербург">
-                        <option value="Улан-Удэ">
-                    </datalist>
-                </div>
-            `;
-            break;
-    }
-    
-    // Обновляем ссылки на элементы
-    setupElements();
-}
-
-// Добавим обработчик изменения типа участника
-document.addEventListener('DOMContentLoaded', function() {
-    const typeSelect = document.getElementById('regTypeSelect');
-    if (typeSelect) {
-        typeSelect.addEventListener('change', function() {
-            updateRegistrationForm(this.value);
-        });
-        // Инициализируем форму с текущим значением
-        updateRegistrationForm(typeSelect.value);
-    }
-});
-
-
-    // Вспомогательная функция для добавления поля формы
-    function addFormField(afterElement, id, label, type, options = []) {
-        const formGroup = document.createElement('div');
-        formGroup.className = 'form-group dynamic-field';
-        
-        const labelElement = document.createElement('label');
-        labelElement.className = 'form-label';
-        labelElement.textContent = label;
-        labelElement.htmlFor = id;
-        
-        let inputElement;
-        
-        if (type === 'select') {
-            inputElement = document.createElement('select');
-            inputElement.className = 'form-input';
-            inputElement.id = id;
-            
-            options.forEach(option => {
-                const optionElement = document.createElement('option');
-                optionElement.value = option.value;
-                optionElement.textContent = option.text;
-                inputElement.appendChild(optionElement);
+            // Выполняем регистрацию через ActorsDatabase
+            const user = ActorsDatabase.registerActor({
+                email: registrationData.email,
+                password: registrationData.password,
+                nickname: registrationData.nickname || registrationData.email.split('@')[0],
+                type: registrationData.type || 'Человек',
+                locacity: registrationData.city || 'Улан-Удэ',
+                name: registrationData.name,
+                surname: registrationData.surname,
+                phone: registrationData.phone
             });
-        } else {
-            inputElement = document.createElement('input');
-            inputElement.type = type;
-            inputElement.className = 'form-input';
-            inputElement.id = id;
-            inputElement.placeholder = `Введите ${label.toLowerCase()}`;
-        }
-        
-        formGroup.appendChild(labelElement);
-        formGroup.appendChild(inputElement);
-        
-        afterElement.parentNode.insertBefore(formGroup, afterElement.nextSibling);
-    }
-
-    // Функция для добавления поля города
-    function addCityField(afterElement) {
-        const formGroup = document.createElement('div');
-        formGroup.className = 'form-group dynamic-field';
-        
-        const labelElement = document.createElement('label');
-        labelElement.className = 'form-label';
-        labelElement.textContent = 'Город';
-        labelElement.htmlFor = 'regCity';
-        
-        const inputElement = document.createElement('input');
-        inputElement.type = 'text';
-        inputElement.className = 'form-input';
-        inputElement.id = 'regCity';
-        inputElement.placeholder = 'Ваш город';
-        inputElement.list = 'citiesList';
-        
-        const datalist = document.createElement('datalist');
-        datalist.id = 'citiesList';
-        
-        // Добавляем популярные города
-        const popularCities = [
-            'Москва', 'Санкт-Петербург', 'Новосибирск', 'Екатеринбург', 
-            'Казань', 'Нижний Новгород', 'Челябинск', 'Самара',
-            'Омск', 'Ростов-на-Дону', 'Уфа', 'Красноярск',
-            'Воронеж', 'Пермь', 'Волгоград', 'Улан-Удэ'
-        ];
-        
-        popularCities.forEach(city => {
-            const option = document.createElement('option');
-            option.value = city;
-            datalist.appendChild(option);
-        });
-        
-        formGroup.appendChild(labelElement);
-        formGroup.appendChild(inputElement);
-        formGroup.appendChild(datalist);
-        
-        afterElement.parentNode.insertBefore(formGroup, afterElement.nextSibling);
-    }
-
-    // Настройка обработчиков событий
-    function setupEventListeners() {
-        // Кнопка входа
-        if (elements.loginButton) {
-            elements.loginButton.addEventListener('click', handleLogin);
-        }
-        
-        // Кнопка регистрации
-        if (elements.regButton) {
-            elements.regButton.addEventListener('click', handleRegistration);
-        }
-        
-        // Ссылка "Не помню пароль"
-        if (elements.forgotPasswordLink) {
-            elements.forgotPasswordLink.addEventListener('click', handleForgotPassword);
-        }
-        
-        // Ссылка на соглашение
-        if (elements.agreementLink) {
-            elements.agreementLink.addEventListener('click', handleAgreementClick);
-        }
-        
-        // Проверка паролей при вводе
-        if (elements.regPassword && elements.regConfirmPassword) {
-            elements.regPassword.addEventListener('input', validatePasswords);
-            elements.regConfirmPassword.addEventListener('input', validatePasswords);
-        }
-    }
-
-    // Проверка запомненного пользователя
-    function checkRememberedUser() {
-        try {
-            const rememberMe = localStorage.getItem('prostvor_remember_me');
-            const userData = localStorage.getItem('prostvor_user_data');
             
-            if (rememberMe === 'true' && userData) {
-                const user = JSON.parse(userData);
-                
-                if (elements.loginField) {
-                    elements.loginField.value = user.login || '';
-                }
-                
-                if (elements.passwordField) {
-                    elements.passwordField.value = user.password || '';
-                }
-                
-                if (elements.rememberMeCheckbox) {
-                    elements.rememberMeCheckbox.checked = true;
-                }
-                
-                showNotification('Данные для входа загружены', 'info');
-            }
+            // Автоматическая аутентификация после регистрации
+            return authenticate(registrationData.email, registrationData.password);
+            
         } catch (error) {
-            console.error('Ошибка при проверке запомненного пользователя:', error);
+            console.error('❌ Ошибка регистрации:', error);
+            return {
+                success: false,
+                error: error.message || 'Ошибка регистрации'
+            };
         }
     }
 
-    // Обработка входа
-    function handleLogin() {
-        // Получаем значения полей
-        const login = elements.loginField ? elements.loginField.value.trim() : '';
-        const password = elements.passwordField ? elements.passwordField.value.trim() : '';
-        const rememberMe = elements.rememberMeCheckbox ? elements.rememberMeCheckbox.checked : false;
-                
-        // Валидация
-        if (!login || !password) {
-            showNotification('Заполните все обязательные поля', 'warning');
-            return;
-        }
-        
+    // Выход из системы
+    function logout() {
         try {
-            // Используем новую базу данных участников
-            const actor = ActorsItemBase.authenticate(login, password);
+            const userName = authState.currentUser?.nickname;
             
-            if (actor) {
-                // Успешный вход
-                if (rememberMe) {
-                    // Сохраняем данные для запоминания
-                    localStorage.setItem('prostvor_remember_me', 'true');
-                    localStorage.setItem('prostvor_user_data', JSON.stringify({
-                        login: login,
-                        password: password
-                    }));
-                } else {
-                    // Удаляем сохраненные данные
-                    localStorage.removeItem('prostvor_remember_me');
-                    localStorage.removeItem('prostvor_user_data');
-                }
-                
-                // Сохраняем текущую сессию
-                setCurrentUser(actor);
-                
-                showNotification('Вход выполнен успешно!', 'success');
-                
-                setTimeout(() => {
-                    // Перенаправляем на главную страницу
-                    window.location.href = '../index.html';
-                }, 1500);
-            }
-        } catch (error) {
-            showNotification(error.message, 'error');
-        }
-    }
-
-    // Обработка регистрации
-    function handleRegistration() {
-        // Получаем значения основных полей
-        const type = elements.regTypeSelect ? elements.regTypeSelect.value : 'Человек';
-        const nickname = elements.regNickname ? elements.regNickname.value.trim() : '';
-        const email = elements.regEmail ? elements.regEmail.value.trim() : '';
-        const phone = elements.regPhone ? elements.regPhone.value.trim() : '';
-        const password = elements.regPassword ? elements.regPassword.value.trim() : '';
-        const confirmPassword = elements.regConfirmPassword ? elements.regConfirmPassword.value.trim() : '';
-        const agreementAccepted = elements.regAgreementCheckbox ? elements.regAgreementCheckbox.checked : false;
-        
-        // Валидация обязательных полей
-        if (!nickname || !email || !password || !confirmPassword) {
-            showNotification('Заполните все обязательные поля', 'warning');
-            return;
-        }
-        
-        // Проверка согласия с условиями
-        if (!agreementAccepted) {
-            showNotification('Необходимо согласиться с условиями регистрации', 'warning');
-            return;
-        }
-        
-        // Валидация email
-        if (!validateEmail(email)) {
-            showNotification('Введите корректный email', 'warning');
-            return;
-        }
-        
-        // Валидация пароля
-        if (password.length < config.minPasswordLength) {
-            showNotification(`Пароль должен содержать не менее ${config.minPasswordLength} символов`, 'warning');
-            return;
-        }
-        
-        if (password !== confirmPassword) {
-            showNotification('Пароли не совпадают', 'error');
-            return;
-        }
-        
-       // Собираем данные в зависимости от типа
-        const actorData = {
-            type: type,
-            nickname: nickname,
-            email: email,
-            telNumber: phone || null,
-            password: password,
-            statusOfActor: 'Участник' // По умолчанию
-        };
-        
-        // Добавляем специфичные поля
-        if (type === 'Человек') {
-            actorData.gender = elements.regGender ? elements.regGender.value : null;
-            actorData.name = elements.regName ? elements.regName.value.trim() : null;
-            actorData.surname = elements.regSurname ? elements.regSurname.value.trim() : null;
-            actorData.patronymic = elements.regPatronymic ? elements.regPatronymic.value.trim() : null;
-            actorData.city = elements.regCity ? elements.regCity.value.trim() : null;
-        } else if (type === 'Организация') {
-            const orgName = elements.regOrganizationName ? elements.regOrganizationName.value.trim() : '';
-            if (!orgName) {
-                showNotification('Введите название организации', 'warning');
-                return;
-            }
-            actorData.organizationName = orgName;
-            actorData.city = elements.regCity ? elements.regCity.value.trim() : null;
-        } else if (type === 'Сообщество') {
-            const communityName = elements.regCommunityName ? elements.regCommunityName.value.trim() : '';
-            if (!communityName) {
-                showNotification('Введите название сообщества', 'warning');
-                return;
-            }
-            actorData.communityName = communityName;
-            actorData.city = elements.regCity ? elements.regCity.value.trim() : null;
-        }
-        
-        try {
-            // Используем новую базу данных участников
-            const newActor = ActorsItemBase.createActor(actorData);
+            // Очищаем все данные аутентификации
+            localStorage.removeItem(config.tokenKey);
+            sessionStorage.removeItem(config.userKey);
+            sessionStorage.removeItem('current_user');
+            sessionStorage.removeItem('current_user_id');
             
-            // Автоматический вход после регистрации
-            setCurrentUser(newActor);
+            // Сбрасываем состояние
+            authState.isAuthenticated = false;
+            authState.currentUser = null;
+            authState.token = null;
             
-            showNotification('Регистрация прошла успешно! Добро пожаловать на PROSTVOR!', 'success');
+            console.log('👋 Пользователь вышел:', userName);
             
-            // Перенаправление на главную страницу
+            // Перезагружаем страницу
             setTimeout(() => {
-                window.location.href = '../index.html';
-            }, 2000);
+                window.location.reload();
+            }, 500);
+            
+            return true;
         } catch (error) {
-            showNotification(error.message, 'error');
+            console.error('Ошибка при выходе:', error);
+            return false;
         }
     }
 
-    // Обновление UI для авторизованного пользователя
-    function updateUIForLoggedInUser(user) {
-        // Находим кнопку входа в шапке
-        const enterButton = document.querySelector('.enter-button');
-        if (enterButton) {
-            // Создаем новый элемент для отображения пользователя
-            const userContainer = document.createElement('div');
-            userContainer.className = 'user-display-container';
+    // Получить текущего пользователя
+    function getCurrentUser() {
+        // Если пользователь уже в памяти, возвращаем его
+        if (authState.currentUser) {
+            return authState.currentUser;
+        }
+        
+        // Пробуем восстановить из sessionStorage
+        try {
+            const userData = sessionStorage.getItem(config.userKey);
+            if (userData) {
+                authState.currentUser = JSON.parse(userData);
+                authState.isAuthenticated = true;
+                return authState.currentUser;
+            }
+        } catch (error) {
+            console.warn('Не удалось восстановить пользователя:', error);
+        }
+        
+        // Пробуем получить из старого формата (для обратной совместимости)
+        try {
+            const oldUserData = sessionStorage.getItem('current_user');
+            if (oldUserData) {
+                const oldUser = JSON.parse(oldUserData);
+                const userData = {
+                    id: oldUser.id || 'legacy_user',
+                    nickname: oldUser.nickname || 'Пользователь',
+                    type: oldUser.type || 'Человек',
+                    status: oldUser.status || 'Участник ТЦ',
+                    locacity: oldUser.city || 'Улан-Удэ',
+                    email: oldUser.email || null,
+                    frameColor: oldUser.frameColor || '#A8E40A'
+                };
+                
+                // Сохраняем в новом формате
+                sessionStorage.setItem(config.userKey, JSON.stringify(userData));
+                authState.currentUser = userData;
+                authState.isAuthenticated = true;
+                
+                return userData;
+            }
+        } catch (error) {
+            console.warn('Не удалось преобразовать старого пользователя:', error);
+        }
+        
+        return null;
+    }
+
+    // Проверить статус аутентификации
+    function isAuthenticated() {
+        return authState.isAuthenticated || !!getCurrentUser();
+    }
+
+    // Получить токен
+    function getToken() {
+        return authState.token || localStorage.getItem(config.tokenKey);
+    }
+
+    // Генерация токена (упрощенная)
+    function generateToken(userId) {
+        const timestamp = Date.now();
+        const random = Math.random().toString(36).substring(2);
+        return btoa(`${userId}_${timestamp}_${random}`).replace(/=/g, '');
+    }
+
+    // Сохранение сессии
+    function saveSession(token, userData) {
+        try {
+            localStorage.setItem(config.tokenKey, token);
+            sessionStorage.setItem(config.userKey, JSON.stringify(userData));
             
-            const userDisplay = document.createElement('div');
-            userDisplay.className = 'user-display';
+            // Также сохраняем для обратной совместимости
+            sessionStorage.setItem('current_user', JSON.stringify({
+                id: userData.id,
+                nickname: userData.nickname,
+                statusOfActor: userData.status,
+                city: userData.locacity
+            }));
+            sessionStorage.setItem('current_user_id', userData.id);
             
-            const nicknameSpan = document.createElement('span');
-            nicknameSpan.className = 'user-nickname';
-            nicknameSpan.textContent = user.nickname;
-            
-            const statusSpan = document.createElement('span');
-            statusSpan.className = 'user-status';
-            statusSpan.textContent = user.statusOfActor;
-            
-            userDisplay.appendChild(nicknameSpan);
-            userDisplay.appendChild(statusSpan);
-            
-            const logoutLink = document.createElement('a');
-            logoutLink.href = '#';
-            logoutLink.className = 'logout-link';
-            logoutLink.textContent = 'Выйти';
-            logoutLink.style.color = '#00B0F0';
-            logoutLink.addEventListener('click', handleLogout);
-            
-            userContainer.appendChild(userDisplay);
-            userContainer.appendChild(logoutLink);
-            
-            // Заменяем кнопку входа
-            enterButton.parentNode.replaceChild(userContainer, enterButton);
-            
-            // Сохраняем ссылки на элементы
-            elements.userDisplay = userDisplay;
-            elements.logoutLink = logoutLink;
-            
-            // Показываем боковые панели
-            showSidebarPanels();
+            console.log('💾 Сессия сохранена:', userData.nickname);
+            return true;
+        } catch (error) {
+            console.error('Ошибка сохранения сессии:', error);
+            return false;
         }
     }
 
-    // Обработка выхода
-    function handleLogout(e) {
-        e.preventDefault();
-        logout();
+    // Получение локальных пользователей (для обратной совместимости)
+    function getLocalUsers() {
+        try {
+            const users = localStorage.getItem('prostvor_local_users');
+            return users ? JSON.parse(users) : [];
+        } catch (error) {
+            return [];
+        }
+    }
+
+    // Сохранение локальных пользователей
+    function saveLocalUser(userData) {
+        try {
+            const users = getLocalUsers();
+            users.push(userData);
+            localStorage.setItem('prostvor_local_users', JSON.stringify(users));
+            return true;
+        } catch (error) {
+            console.error('Ошибка сохранения локального пользователя:', error);
+            return false;
+        }
     }
 
     // Валидация email
@@ -543,99 +334,93 @@ document.addEventListener('DOMContentLoaded', function() {
         return emailRegex.test(email);
     }
 
-    // Валидация паролей
-    function validatePasswords() {
-        if (elements.regPassword && elements.regConfirmPassword) {
-            const password = elements.regPassword.value;
-            const confirmPassword = elements.regConfirmPassword.value;
-            
-            if (confirmPassword && password !== confirmPassword) {
-                elements.regConfirmPassword.style.borderColor = '#F44336';
-                elements.regPassword.style.borderColor = '#F44336';
-            } else {
-                elements.regConfirmPassword.style.borderColor = '#A8E40A';
-                elements.regPassword.style.borderColor = '#A8E40A';
+    // Валидация пароля
+    function validatePassword(password) {
+        if (!password || password.length < 6) {
+            return { valid: false, error: 'Пароль должен содержать не менее 6 символов' };
+        }
+        return { valid: true, error: null };
+    }
+
+    // Обновить данные пользователя
+    function updateUser(userId, updates) {
+        try {
+            if (typeof ActorsDatabase === 'undefined') {
+                throw new Error('База данных участников не загружена');
             }
-        }
-    }
-
-    // Обработка восстановления пароля
-    function handleForgotPassword(e) {
-        e.preventDefault();
-        window.location.href = 'RecoveryPass.html';
-    }
-
-    // Обработка клика по ссылке на соглашение
-    function handleAgreementClick(e) {
-        e.preventDefault();
-        window.location.href = 'Agreement.html';
-    }
-
-    // Управление текущим пользователем
-    function setCurrentUser(user) {
-        try {
-            sessionStorage.setItem(config.currentUserKey, JSON.stringify(user));
-        } catch (error) {
-            console.error('Ошибка сохранения пользователя:', error);
-        }
-    }
-
-    function getCurrentUser() {
-        try {
-            const user = sessionStorage.getItem(config.currentUserKey);
-            return user ? JSON.parse(user) : null;
-        } catch (error) {
-            console.error('Ошибка получения пользователя:', error);
-            return null;
-        }
-    }
-
-    function logout() {
-        sessionStorage.removeItem(config.currentUserKey);
-        localStorage.removeItem('prostvor_remember_me');
-        localStorage.removeItem('prostvor_user_data');
-        
-        showNotification('Вы вышли из системы', 'info');
-        
-        // Перезагружаем страницу
-        setTimeout(() => {
-            window.location.reload();
-        }, 1000);
-    }
-
-    // Функция для отображения боковых панелей
-    function showSidebarPanels() {
-        // Эта функция будет реализована в main.js
-        if (typeof App !== 'undefined' && App.showSidebarPanels) {
-            App.showSidebarPanels();
-        }
-    }
-
-    // Показать уведомление
-    function showNotification(message, type = 'info') {
-        if (elements.notification) {
-            elements.notification.textContent = message;
-            elements.notification.className = `notification ${type} show`;
             
-            setTimeout(() => {
-                elements.notification.classList.remove('show');
-            }, 3000);
-        } else {
-            alert(message);
+            const updatedUser = ActorsDatabase.updateActor(userId, updates);
+            
+            // Обновляем данные в сессии
+            if (authState.currentUser && authState.currentUser.id === userId) {
+                authState.currentUser = {
+                    ...authState.currentUser,
+                    ...updates
+                };
+                sessionStorage.setItem(config.userKey, JSON.stringify(authState.currentUser));
+            }
+            
+            return {
+                success: true,
+                user: updatedUser
+            };
+            
+        } catch (error) {
+            console.error('Ошибка обновления пользователя:', error);
+            return {
+                success: false,
+                error: error.message
+            };
+        }
+    }
+
+    // Проверить существование пользователя по email
+    function checkUserExists(email) {
+        try {
+            if (typeof ActorsDatabase !== 'undefined') {
+                const users = ActorsDatabase.findActorsByEmail(email);
+                return users.length > 0;
+            }
+            
+            // Проверка в локальных данных
+            const users = getLocalUsers();
+            return users.some(u => u.email && u.email.toLowerCase() === email.toLowerCase());
+            
+        } catch (error) {
+            console.warn('Ошибка проверки пользователя:', error);
+            return false;
         }
     }
 
     // Публичные методы
     return {
-        init: init,
-        getCurrentUser: getCurrentUser,
-        logout: logout,
-        isAuthenticated: function() {
-            return !!getCurrentUser();
-        },
-        updateUIForLoggedInUser: updateUIForLoggedInUser
+        init,
+        authenticate,
+        register,
+        logout,
+        getCurrentUser,
+        isAuthenticated,
+        getToken,
+        validateEmail,
+        validatePassword,
+        updateUser,
+        checkUserExists,
+        
+        // Для отладки
+        getState: () => ({ ...authState })
     };
 })();
 
-// Инициализация приложения после загрузки DOM
-document.addEventListener('DOMContentLoaded', AuthUpdated.init);
+// Автоматическая инициализация
+if (typeof document !== 'undefined') {
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(() => {
+            AuthUpdated.init();
+        }, 100);
+    });
+}
+
+// Экспорт
+if (typeof window !== 'undefined') {
+    window.AuthUpdated = AuthUpdated;
+}
