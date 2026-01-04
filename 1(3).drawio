@@ -1,0 +1,487 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:146.0) Gecko/20100101 Firefox/146.0" version="29.2.9">
+  <diagram name="ERD-ТворческиеПроекты-Полный" id="sGc5QmupQcmCg3uomUe8">
+    <mxGraphModel dx="2377" dy="1222" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="actors" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=light-dark(#FA6800,#660000);fontColor=#000000;strokeColor=#C73500;" value="&lt;b&gt;actors&lt;/b&gt;&lt;div&gt;(PK) Actor_ID&lt;br&gt;Nickname&lt;br&gt;(FK) Actor_type_ID&lt;br&gt;Icon&lt;br&gt;Keywords&lt;br&gt;Account (UNIQUE)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="130" width="180" x="500" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="actor_types" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=light-dark(#dae8fc, #9b0000);strokeColor=#6c8ebf;" value="&lt;b&gt;actor_types&lt;/b&gt;&lt;div&gt;(PK) Actor_type_ID&lt;br&gt;Type&lt;br&gt;1: Человек&lt;br&gt;2: Сообщество&lt;br&gt;3: Организация&lt;/div&gt;" vertex="1">
+          <mxGeometry height="85" width="130" x="270" y="315" as="geometry" />
+        </mxCell>
+        <mxCell id="actor_statuses" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=light-dark(#dae8fc, #9b0000);strokeColor=#6c8ebf;" value="&lt;b&gt;actor_statuses&lt;/b&gt;&lt;div&gt;(PK) Actor_status_ID&lt;br&gt;Status&lt;br&gt;Руководитель ТЦ&lt;br&gt;Куратор...&lt;/div&gt;" vertex="1">
+          <mxGeometry height="110" width="130" x="270" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="actors_statuses" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="&lt;div&gt;&lt;i&gt;statuses_actors&lt;/i&gt;&lt;/div&gt;&lt;div&gt;(FK) Actor_ID&lt;br&gt;(FK) Actor_status_ID&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="100" x="480" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="persons" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=light-dark(#dae8fc, #9b0000);strokeColor=#6c8ebf;" value="&lt;b&gt;persons&lt;/b&gt;&lt;div&gt;(PK) Person_ID&lt;br&gt;Name, Last_Name&lt;br&gt;Email (UNIQUE)&lt;br&gt;Phone, Location_ID&lt;br&gt;INN, SNILS&lt;br&gt;(FK) Actor_ID (UNIQUE)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="140" width="180" x="150" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="organizations" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=light-dark(#dae8fc, #9b0000);strokeColor=#6c8ebf;" value="&lt;b&gt;organizations&lt;/b&gt;&lt;div&gt;(PK) organization_ID&lt;br&gt;Title, Full_Title&lt;br&gt;Email (UNIQUE)&lt;br&gt;INN, OGRN, KPP&lt;br&gt;Location_ID&lt;br&gt;(FK) Actor_ID (UNIQUE)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="140" width="180" x="150" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="communities" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=light-dark(#dae8fc, #9b0000);strokeColor=#6c8ebf;" value="&lt;b&gt;communities&lt;/b&gt;&lt;div&gt;(PK) Community_ID&lt;br&gt;Title, Full_Title&lt;br&gt;Email (UNIQUE)&lt;br&gt;Participant info&lt;br&gt;Location_ID&lt;br&gt;(FK) Actor_ID (UNIQUE)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="140" width="180" x="150" y="790" as="geometry" />
+        </mxCell>
+        <mxCell id="projects" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fa6800;strokeColor=#C73500;strokeWidth=2;fontColor=#000000;" value="&lt;b&gt;projects&lt;/b&gt;&lt;div&gt;(PK) Project_ID&lt;br&gt;Title, Description&lt;br&gt;(FK) Actor_ID (инициатор)&lt;br&gt;(FK) Project_status_ID&lt;br&gt;(FK) Project_type_ID&lt;br&gt;Start_Date, End_Date&lt;br&gt;Account (UNIQUE)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="150" width="200" x="900" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="project_statuses" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=light-dark(#fa6800, #ff872f);strokeColor=#C73500;fontColor=#000000;" value="&lt;b&gt;project_statuses&lt;/b&gt;&lt;div&gt;(PK) Project_status_ID&lt;br&gt;Status&lt;br&gt;1: Инициация&lt;br&gt;2: Проверка&lt;br&gt;3: Формирование&lt;br&gt;4: В работе&lt;br&gt;5: Приостановлено&lt;br&gt;6: Завершено&lt;/div&gt;" vertex="1">
+          <mxGeometry height="115" width="160" x="1190" y="155" as="geometry" />
+        </mxCell>
+        <mxCell id="project_types" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=light-dark(#fa6800, #ff872f);strokeColor=#C73500;fontColor=#000000;" value="&lt;b&gt;project_types&lt;/b&gt;&lt;div&gt;(PK) Project_type_ID&lt;br&gt;Type&lt;br&gt;1: Коммерческий&lt;br&gt;2: Некоммерческий&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100" width="160" x="1310" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="actor_projects" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="&lt;i&gt;actor_projects&lt;/i&gt;&lt;div&gt;(FK) Actor_ID&lt;br&gt;(FK) Project_ID&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="100" x="710" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="directions" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;strokeWidth=2;" value="&lt;b&gt;directions&lt;/b&gt;&lt;div&gt;(PK) Direction_ID&lt;br&gt;Type, Subtype&lt;br&gt;Title, Description&lt;br&gt;(1-221 записи)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="110" width="180" x="610" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="actor_directions" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="&lt;i&gt;actor_directions&lt;/i&gt;&lt;div&gt;(FK) Actor_ID&lt;br&gt;(FK) Direction_ID&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="100" x="600" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="project_directions" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="&lt;i&gt;project_directions&lt;/i&gt;&lt;div&gt;(FK) Project_ID&lt;br&gt;(FK) Direction_ID&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="100" x="760" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="idea_directions" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="&lt;i&gt;idea_directions&lt;/i&gt;&lt;div&gt;(FK) Idea_ID&lt;br&gt;(FK) Direction_ID&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="100" x="460" y="1160" as="geometry" />
+        </mxCell>
+        <mxCell id="function_directions" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="&lt;i&gt;function_directions&lt;/i&gt;&lt;div&gt;(FK) Function_ID&lt;br&gt;(FK) Direction_ID&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="100" x="810" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="functions" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;" value="&lt;b&gt;functions&lt;/b&gt;&lt;div&gt;(PK) Function_ID&lt;br&gt;Title&lt;br&gt;Description&lt;br&gt;Keywords&lt;br&gt;(1-432 записи)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="110" width="180" x="930" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="project_functions" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="&lt;i&gt;project_functions&lt;/i&gt;&lt;div&gt;(FK) Project_ID&lt;br&gt;(FK) Function_ID&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="100" x="910" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="locations" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#a0522d;strokeColor=#6D1F00;strokeWidth=2;fontColor=#ffffff;" value="&lt;b&gt;locations&lt;/b&gt;&lt;div&gt;(PK) Location_ID&lt;br&gt;Name, Type&lt;br&gt;District, Region&lt;br&gt;Country, Population&lt;br&gt;Main_PostCode&lt;/div&gt;" vertex="1">
+          <mxGeometry height="120" width="180" x="490" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="actor_locations" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="&lt;i&gt;actor_locations&lt;/i&gt;&lt;div&gt;(FK) Actor_ID&lt;br&gt;(FK) Location_ID&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="100" x="380" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="project_locations" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="&lt;i&gt;project_locations&lt;/i&gt;&lt;div&gt;(FK) Project_ID&lt;br&gt;(FK) Location_ID&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="100" x="720" y="460" as="geometry" />
+        </mxCell>
+        <mxCell id="matresources" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=light-dark(#fa6800, #808000);strokeColor=default;fontColor=#000000;fillStyle=auto;" value="&lt;b&gt;matresources&lt;/b&gt;&lt;div&gt;(PK) Matresource_ID&lt;br&gt;Title, Description&lt;br&gt;(FK) matresource_type_ID&lt;br&gt;Attachment&lt;/div&gt;" vertex="1">
+          <mxGeometry height="115" width="190" x="1100" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="matresource_types" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=light-dark(#e1d5e7, #959500);strokeColor=default;" value="&lt;b&gt;matresource_types&lt;/b&gt;&lt;div&gt;(PK) matresource_type_ID&lt;br&gt;Category, SubCategory&lt;br&gt;Title&lt;br&gt;(1-80 записей)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="105" width="150" x="1260" y="655" as="geometry" />
+        </mxCell>
+        <mxCell id="matresource_owner" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="&lt;i&gt;matresource_owner&lt;/i&gt;&lt;div&gt;(FK) Matresource_ID&lt;br&gt;(FK) Actor_ID&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="100" x="1180" y="410" as="geometry" />
+        </mxCell>
+        <mxCell id="finresources" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=light-dark(#fa6800, #808000);strokeColor=default;fontColor=#000000;" value="&lt;b&gt;finresources&lt;/b&gt;&lt;div&gt;(PK) finresource_ID&lt;br&gt;Title, Description&lt;br&gt;(FK) finresource_type_ID&lt;br&gt;Attachment&lt;/div&gt;" vertex="1">
+          <mxGeometry height="110" width="180" x="1310" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="finresource_types" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=light-dark(#e1d5e7, #959500);strokeColor=default;" value="&lt;b&gt;finresource_types&lt;/b&gt;&lt;div&gt;(PK) finresource_type_ID&lt;br&gt;Type&lt;br&gt;1: Донаты&lt;br&gt;2: Спонсорская&lt;br&gt;3: Целевое&lt;br&gt;4: Государственное&lt;br&gt;5: Муниципальное&lt;br&gt;6: Средства участника&lt;/div&gt;" vertex="1">
+          <mxGeometry height="110" width="150" x="1470" y="645" as="geometry" />
+        </mxCell>
+        <mxCell id="venues" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=light-dark(#e1d5e7, #959500);strokeColor=default;" value="&lt;b&gt;venues&lt;/b&gt;&lt;div&gt;(PK) Venue_ID&lt;br&gt;Title, Full_Title&lt;br&gt;(FK) Venue_type_ID&lt;br&gt;Description&lt;br&gt;(FK) Actor_ID (владелец)&lt;br&gt;(FK) Location_ID&lt;/div&gt;" vertex="1">
+          <mxGeometry height="120" width="180" x="910" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="venue_types" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=light-dark(#e1d5e7, #959500);strokeColor=default;" value="&lt;b&gt;venue_types&lt;/b&gt;&lt;div&gt;(PK) Venue_type_ID&lt;br&gt;Type&lt;br&gt;1: сценическая площадка&lt;br&gt;2: офис&lt;br&gt;3: зал&lt;br&gt;4: помещение&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100" width="130" x="1020" y="650" as="geometry" />
+        </mxCell>
+        <mxCell id="stage" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=light-dark(#e1d5e7, #959500);strokeColor=#9673a6;" value="&lt;b&gt;stage&lt;/b&gt;&lt;div&gt;(PK) Stage_ID&lt;br&gt;Title, Full_Title&lt;br&gt;Type, Architecture&lt;br&gt;Mobility, Capacity&lt;br&gt;Width, Depth, Height&lt;br&gt;(FK) Location_ID&lt;/div&gt;" vertex="1">
+          <mxGeometry height="140" width="200" x="1141" y="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="venue_stage" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="&lt;i&gt;venue_stage&lt;/i&gt;&lt;div&gt;(FK) Venue_ID&lt;br&gt;(FK) Stage_ID&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="100" x="780" y="750" as="geometry" />
+        </mxCell>
+        <mxCell id="stage_audio" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=light-dark(#e1d5e7, #959500);strokeColor=default;" value="&lt;b&gt;stage_audio&lt;/b&gt;&lt;div&gt;(PK) Stage_audio_ID&lt;br&gt;Title&lt;br&gt;Description&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="160" x="1520" y="1280" as="geometry" />
+        </mxCell>
+        <mxCell id="stage_light" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=light-dark(#e1d5e7, #959500);strokeColor=#9673a6;" value="&lt;b&gt;stage_light&lt;/b&gt;&lt;div&gt;(PK) Stage_light_ID&lt;br&gt;Title&lt;br&gt;Description&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="160" x="1350" y="1280" as="geometry" />
+        </mxCell>
+        <mxCell id="stage_video" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=light-dark(#e1d5e7, #959500);strokeColor=#9673a6;arcSize=15;" value="&lt;b&gt;stage_video&lt;/b&gt;&lt;div&gt;(PK) Stage_video_ID&lt;br&gt;Title&lt;br&gt;Description&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="160" x="1180" y="1280" as="geometry" />
+        </mxCell>
+        <mxCell id="stage_effects" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=light-dark(#e1d5e7, #959500);strokeColor=#9673a6;" value="&lt;b&gt;stage_effects&lt;/b&gt;&lt;div&gt;(PK) Stage_effects_ID&lt;br&gt;Title&lt;br&gt;Description&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="160" x="1005" y="1280" as="geometry" />
+        </mxCell>
+        <mxCell id="stage_audio_set" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="&lt;i&gt;stage_audio_set&lt;/i&gt;&lt;div&gt;(FK) Stage_ID&lt;br&gt;(FK) Stage_audio_ID&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="100" x="1520" y="1190" as="geometry" />
+        </mxCell>
+        <mxCell id="stage_light_set" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="&lt;i&gt;stage_light_set&lt;/i&gt;&lt;div&gt;(FK) Stage_ID&lt;br&gt;(FK) Stage_light_ID&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="100" x="1370" y="1190" as="geometry" />
+        </mxCell>
+        <mxCell id="stage_video_set" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="&lt;i&gt;stage_video_set&lt;/i&gt;&lt;div&gt;(FK) Stage_ID&lt;br&gt;(FK) Stage_video_ID&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="100" x="1220" y="1190" as="geometry" />
+        </mxCell>
+        <mxCell id="stage_effects_set" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="&lt;i&gt;stage_effects_set&lt;/i&gt;&lt;div&gt;(FK) Stage_ID&lt;br&gt;(FK) Stage_effects_ID&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="100" x="1035" y="1180" as="geometry" />
+        </mxCell>
+        <mxCell id="templates" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;b&gt;templates&lt;/b&gt;&lt;div&gt;(PK) Template_ID&lt;br&gt;Title, Description&lt;br&gt;(FK) Direction_ID&lt;/div&gt;" vertex="1">
+          <mxGeometry height="90" width="180" x="670" y="1200" as="geometry" />
+        </mxCell>
+        <mxCell id="template_functions" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="&lt;i&gt;template_functions&lt;/i&gt;&lt;div&gt;(FK) Template_ID&lt;br&gt;(FK) Function_ID&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="100" x="890" y="1240" as="geometry" />
+        </mxCell>
+        <mxCell id="template_matresources" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="&lt;i&gt;template_matresources&lt;/i&gt;&lt;div&gt;(FK) Template_ID&lt;br&gt;(FK) Matresource_ID&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="100" x="620" y="850" as="geometry" />
+        </mxCell>
+        <mxCell id="template_finresources" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="&lt;i&gt;template_finresources&lt;/i&gt;&lt;div&gt;(FK) Template_ID&lt;br&gt;(FK) finresource_ID&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="100" x="620" y="950" as="geometry" />
+        </mxCell>
+        <mxCell id="template_venues" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="&lt;i&gt;template_venues&lt;/i&gt;&lt;div&gt;(FK) Template_ID&lt;br&gt;(FK) Venue_ID&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="100" x="850" y="1060" as="geometry" />
+        </mxCell>
+        <mxCell id="ideas" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=light-dark(#fa6800, #009ce8);strokeColor=#C73500;fontColor=#000000;" value="&lt;b&gt;ideas&lt;/b&gt;&lt;div&gt;(PK) Idea_ID&lt;br&gt;Title&lt;br&gt;Short_Description&lt;br&gt;Full_Description&lt;br&gt;(FK) idea_Category_ID&lt;br&gt;(FK) idea_type_ID&lt;br&gt;(FK) Actor_ID (автор)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="120" width="180" x="150" y="1000" as="geometry" />
+        </mxCell>
+        <mxCell id="idea_categories" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=light-dark(#e1d5e7, #208fff);strokeColor=#9673a6;" value="&lt;b&gt;idea_categories&lt;/b&gt;&lt;div&gt;(PK) idea_Category_ID&lt;br&gt;Category&lt;br&gt;1: Возмездная&lt;br&gt;2: Безвозмездная&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="140" x="240" y="1205" as="geometry" />
+        </mxCell>
+        <mxCell id="idea_types" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=light-dark(#e1d5e7, #208fff);strokeColor=#9673a6;" value="&lt;b&gt;idea_types&lt;/b&gt;&lt;div&gt;(PK) idea_type_ID&lt;br&gt;Type&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="130" x="80" y="1205" as="geometry" />
+        </mxCell>
+        <mxCell id="conn1" edge="1" parent="1" source="actors" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=oval;startFill=0;endArrow=diamondThin;endFill=0;" target="actor_types" value="N">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="500" y="365" as="sourcePoint" />
+            <mxPoint x="450" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn2" edge="1" parent="1" source="actors" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;" target="actors_statuses" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="500" y="330" as="sourcePoint" />
+            <mxPoint x="530" y="295" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn3" edge="1" parent="1" source="actor_statuses" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;" target="actors_statuses" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="450" y="330" as="sourcePoint" />
+            <mxPoint x="480" y="295" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn4" edge="1" parent="1" source="persons" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=diamondThin;startFill=0;endArrow=oval;endFill=0;" target="actors" value="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="330" y="520" as="sourcePoint" />
+            <mxPoint x="500" y="365" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn5" edge="1" parent="1" source="organizations" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=diamondThin;startFill=0;endArrow=oval;endFill=0;" target="actors" value="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="330" y="690" as="sourcePoint" />
+            <mxPoint x="500" y="365" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn6" edge="1" parent="1" source="communities" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=diamondThin;startFill=0;endArrow=oval;endFill=0;" target="actors" value="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="330" y="860" as="sourcePoint" />
+            <mxPoint x="500" y="365" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn7" edge="1" parent="1" source="actors" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;" target="actor_projects" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="590" y="365" as="sourcePoint" />
+            <mxPoint x="700" y="375" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn8" edge="1" parent="1" source="actor_projects" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;" target="projects" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="800" y="375" as="sourcePoint" />
+            <mxPoint x="900" y="375" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn9" edge="1" parent="1" source="projects" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=oval;startFill=0;endArrow=diamondThin;endFill=0;" target="project_statuses" value="N">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1100" y="220" as="sourcePoint" />
+            <mxPoint x="1000" y="375" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn10" edge="1" parent="1" source="projects" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=oval;startFill=0;endArrow=diamondThin;endFill=0;" target="project_types" value="N">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1100" y="360" as="sourcePoint" />
+            <mxPoint x="1000" y="375" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn11" edge="1" parent="1" source="actors" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;" target="actor_directions" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="590" y="400" as="sourcePoint" />
+            <mxPoint x="550" y="475" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn12" edge="1" parent="1" source="actor_directions" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;" target="directions" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="500" y="500" as="sourcePoint" />
+            <mxPoint x="500" y="555" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn13" edge="1" parent="1" source="projects" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;" target="project_directions" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1000" y="425" as="sourcePoint" />
+            <mxPoint x="790" y="475" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn14" edge="1" parent="1" source="project_directions" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;" target="directions" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="740" y="500" as="sourcePoint" />
+            <mxPoint x="590" y="555" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn15" edge="1" parent="1" source="projects" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;" target="project_functions" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1000" y="450" as="sourcePoint" />
+            <mxPoint x="790" y="575" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn16" edge="1" parent="1" source="project_functions" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;" target="functions" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="740" y="600" as="sourcePoint" />
+            <mxPoint x="590" y="805" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn17" edge="1" parent="1" source="functions" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;" target="function_directions" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="500" y="805" as="sourcePoint" />
+            <mxPoint x="550" y="675" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn18" edge="1" parent="1" source="function_directions" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;" target="directions" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="500" y="700" as="sourcePoint" />
+            <mxPoint x="500" y="610" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn19" edge="1" parent="1" source="actors" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;" target="actor_locations" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="590" y="330" as="sourcePoint" />
+            <mxPoint x="770" y="225" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn20" edge="1" parent="1" source="actor_locations" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;" target="locations" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="770" y="250" as="sourcePoint" />
+            <mxPoint x="900" y="560" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn21" edge="1" parent="1" source="projects" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;" target="project_locations" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1000" y="400" as="sourcePoint" />
+            <mxPoint x="870" y="425" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn22" edge="1" parent="1" source="project_locations" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;" target="locations" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="870" y="450" as="sourcePoint" />
+            <mxPoint x="900" y="560" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn23" edge="1" parent="1" source="actors" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;" target="matresource_owner" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="680" y="300" as="sourcePoint" />
+            <mxPoint x="1050" y="225" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn24" edge="1" parent="1" source="matresource_owner" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;" target="matresources" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1100" y="250" as="sourcePoint" />
+            <mxPoint x="1200" y="555" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vFIAVQwnMhu5DF0KODhg-1" connectable="0" parent="conn24" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Text" vertex="1">
+          <mxGeometry relative="1" x="-0.5054" y="4" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn25" edge="1" parent="1" source="matresources" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=oval;startFill=0;endArrow=diamondThin;endFill=0;" target="matresource_types" value="N">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1380" y="555" as="sourcePoint" />
+            <mxPoint x="1280" y="555" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn26" edge="1" parent="1" source="finresources" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=oval;startFill=0;endArrow=diamondThin;endFill=0;" target="finresource_types" value="N">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1380" y="705" as="sourcePoint" />
+            <mxPoint x="1280" y="705" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn27" edge="1" parent="1" source="venues" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=oval;startFill=0;endArrow=diamondThin;endFill=0;" target="venue_types" value="N">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1080" y="710" as="sourcePoint" />
+            <mxPoint x="1000" y="710" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn28" edge="1" parent="1" source="venues" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=oval;startFill=0;endArrow=diamondThin;endFill=0;" target="actors" value="N">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="900" y="710" as="sourcePoint" />
+            <mxPoint x="680" y="365" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn29" edge="1" parent="1" source="venues" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=oval;startFill=0;endArrow=diamondThin;endFill=0;" target="locations" value="N">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="900" y="650" as="sourcePoint" />
+            <mxPoint x="900" y="560" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn30" edge="1" parent="1" source="venues" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;" target="venue_stage" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="900" y="770" as="sourcePoint" />
+            <mxPoint x="830" y="775" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn31" edge="1" parent="1" source="venue_stage" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;" target="stage" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="780" y="800" as="sourcePoint" />
+            <mxPoint x="900" y="870" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn32" edge="1" parent="1" source="stage" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=oval;startFill=0;endArrow=diamondThin;endFill=0;" target="locations" value="N">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="900" y="870" as="sourcePoint" />
+            <mxPoint x="900" y="620" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn33" edge="1" parent="1" source="stage" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;" target="stage_audio_set" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="900" y="870" as="sourcePoint" />
+            <mxPoint x="970" y="845" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn34" edge="1" parent="1" source="stage_audio_set" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;" target="stage_audio" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1070" y="870" as="sourcePoint" />
+            <mxPoint x="1130" y="840" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn35" edge="1" parent="1" source="stage" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;" target="stage_light_set" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="950" y="940" as="sourcePoint" />
+            <mxPoint x="970" y="945" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn36" edge="1" parent="1" source="stage_light_set" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;" target="stage_light" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1070" y="970" as="sourcePoint" />
+            <mxPoint x="1130" y="940" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn37" edge="1" parent="1" source="templates" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=oval;startFill=0;endArrow=diamondThin;endFill=0;" target="directions" value="N">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="590" y="945" as="sourcePoint" />
+            <mxPoint x="590" y="610" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn38" edge="1" parent="1" source="templates" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;" target="template_functions" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="500" y="945" as="sourcePoint" />
+            <mxPoint x="430" y="875" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn39" edge="1" parent="1" source="template_functions" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;" target="functions" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="380" y="900" as="sourcePoint" />
+            <mxPoint x="500" y="805" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn40" edge="1" parent="1" source="templates" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;" target="template_matresources" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="680" y="945" as="sourcePoint" />
+            <mxPoint x="670" y="875" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn41" edge="1" parent="1" source="template_matresources" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;" target="matresources" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="720" y="900" as="sourcePoint" />
+            <mxPoint x="1200" y="555" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn42" edge="1" parent="1" source="templates" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;" target="template_finresources" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="680" y="975" as="sourcePoint" />
+            <mxPoint x="670" y="975" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn43" edge="1" parent="1" source="template_finresources" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;" target="finresources" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="720" y="1000" as="sourcePoint" />
+            <mxPoint x="1200" y="705" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn44" edge="1" parent="1" source="templates" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;" target="template_venues" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="500" y="990" as="sourcePoint" />
+            <mxPoint x="430" y="975" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn45" edge="1" parent="1" source="template_venues" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;" target="venues" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="380" y="1000" as="sourcePoint" />
+            <mxPoint x="900" y="710" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn46" edge="1" parent="1" source="ideas" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=oval;startFill=0;endArrow=diamondThin;endFill=0;" target="actors" value="N">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="330" y="1060" as="sourcePoint" />
+            <mxPoint x="500" y="430" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn47" edge="1" parent="1" source="ideas" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;" target="idea_directions" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="330" y="1060" as="sourcePoint" />
+            <mxPoint x="430" y="725" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn48" edge="1" parent="1" source="idea_directions" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;" target="directions" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="380" y="750" as="sourcePoint" />
+            <mxPoint x="500" y="555" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn49" edge="1" parent="1" source="ideas" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=oval;startFill=0;endArrow=diamondThin;endFill=0;" target="idea_categories" value="N">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="150" y="1120" as="sourcePoint" />
+            <mxPoint x="230" y="1200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn50" edge="1" parent="1" source="ideas" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=oval;startFill=0;endArrow=diamondThin;endFill=0;" target="idea_types" value="N">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="230" y="1120" as="sourcePoint" />
+            <mxPoint x="230" y="1320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="legend" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingTop=4;fontSize=10;" value="&lt;b&gt;Легенда&lt;/b&gt;&lt;br&gt;================&lt;br&gt;&lt;font color=&quot;#6c8ebf&quot;&gt;■ Участники (8 таблиц)&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#82b366&quot;&gt;■ Проекты (4 таблицы)&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#d79b00&quot;&gt;■ Направления (1 таблица)&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#d6b656&quot;&gt;■ Функции (1 таблица)&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#9673a6&quot;&gt;■ География/Локации (15 таблиц)&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#b85450&quot;&gt;■ Ресурсы (4 таблицы)&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#666666&quot;&gt;■ Связующие таблицы&lt;/font&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;Всего: 46 таблиц&lt;/b&gt;" vertex="1">
+          <mxGeometry height="200" width="200" x="1400" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;fontSize=18;fontStyle=1;align=center;" value="&lt;b&gt;ER-диаграмма: Творческие Проекты&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;1&quot;&gt;Полная схема базы данных (46 таблиц)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="40" width="400" x="500" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vFIAVQwnMhu5DF0KODhg-2" edge="1" parent="1" source="stage" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="stage_effects_set" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1220" y="1160" />
+              <mxPoint x="1220" y="1205" />
+            </Array>
+            <mxPoint x="1100" y="1289" as="sourcePoint" />
+            <mxPoint x="1289" y="1289" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vFIAVQwnMhu5DF0KODhg-4" edge="1" parent="1" source="stage_effects_set" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;exitX=0.527;exitY=1.033;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitPerimeter=0;" target="stage_effects" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1201" y="1235" as="sourcePoint" />
+            <mxPoint x="1190" y="1290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vFIAVQwnMhu5DF0KODhg-5" edge="1" parent="1" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="stage_video_set" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1240" y="1160" as="sourcePoint" />
+            <mxPoint x="1400" y="1200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vFIAVQwnMhu5DF0KODhg-7" edge="1" parent="1" source="stage_video_set" style="endArrow=open;endFill=0;dashed=1;html=1;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="stage_video" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1390.3" y="1242" as="sourcePoint" />
+            <mxPoint x="1417.3" y="1280" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
