@@ -1427,6 +1427,103 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- ============================================
+-- 17. ФУНКЦИИ ДЛЯ АВТОРИЗАЦИИ
+-- ============================================
+
+-- Функция регистрации нового участника (человека)
+CREATE OR REPLACE FUNCTION register_person(
+    p_email VARCHAR(255),
+    p_password VARCHAR(255),
+    p_nickname VARCHAR(100),
+    p_name VARCHAR(100),
+    p_last_name VARCHAR(100),
+    p_location_id INTEGER DEFAULT NULL
+) RETURNS TABLE(
+    actor_id INTEGER,
+    nickname VARCHAR,
+    email VARCHAR,
+    message TEXT
+) AS $$
+DECLARE
+    v_actor_id INTEGER;
+    v_account VARCHAR(12);
+BEGIN
+    -- Проверяем уникальность email среди активных пользователей
+    IF EXISTS (SELECT 1 FROM persons WHERE email = p_email AND deleted_at IS NULL) THEN
+        RAISE EXCEPTION 'Email % уже зарегистрирован', p_email;
+    END IF;
+    
+    -- Генерируем уникальный номер счета (упрощенно)
+    SELECT 'U' || LPAD((COALESCE(MAX(actor_id), 0) + 1)::TEXT, 11, '0')
+    INTO v_account
+    FROM actors;
+    
+    -- Создаем запись участника (actor)
+    INSERT INTO actors (nickname, actor_type_id, account, created_by, updated_by)
+    VALUES (p_nickname, 1, v_account, 1, 1)
+    RETURNING actors.actor_id INTO v_actor_id;
+    
+    -- Создаем детальную запись (person)
+    INSERT INTO persons (name, last_name, email, actor_id, location_id, created_by, updated_by)
+    VALUES (p_name, p_last_name, p_email, v_actor_id, p_location_id, 1, 1);
+    
+    -- Создаем учетные данные (пароль)
+    INSERT INTO actor_credentials (actor_id, password_hash)
+    VALUES (v_actor_id, crypt(p_password, gen_salt('bf')));
+    
+    -- Присваиваем стандартный статус "Участник ТЦ"
+    INSERT INTO actor_current_statuses (actor_id, actor_status_id, created_by, updated_by)
+    VALUES (v_actor_id, 7, 1, 1);
+    
+    -- Возвращаем результат
+    RETURN QUERY
+    SELECT 
+        v_actor_id,
+        p_nickname,
+        p_email,
+        'Регистрация успешна'::TEXT;
+    
+    EXCEPTION WHEN OTHERS THEN
+        RAISE;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Функция аутентификации по email и паролю
+CREATE OR REPLACE FUNCTION authenticate_user(
+    p_email VARCHAR(255),
+    p_password VARCHAR(255)
+) RETURNS TABLE(
+    actor_id INTEGER,
+    nickname VARCHAR,
+    email VARCHAR,
+    actor_type VARCHAR,
+    status VARCHAR,
+    location_name VARCHAR
+) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT 
+        a.actor_id,
+        a.nickname,
+        p.email,
+        at.type as actor_type,
+        ast.status,
+        l.name as location_name
+    FROM persons p
+    JOIN actors a ON p.actor_id = a.actor_id
+    JOIN actor_types at ON a.actor_type_id = at.actor_type_id
+    LEFT JOIN actor_current_statuses acs ON a.actor_id = acs.actor_id
+    LEFT JOIN actor_statuses ast ON acs.actor_status_id = ast.actor_status_id
+    LEFT JOIN locations l ON p.location_id = l.location_id
+    JOIN actor_credentials ac ON a.actor_id = ac.actor_id
+    WHERE p.email = p_email 
+        AND p.deleted_at IS NULL
+        AND a.deleted_at IS NULL
+        AND ac.password_hash = crypt(p_password, ac.password_hash);
+END;
+$$ LANGUAGE plpgsql;
+
+-- ============================================
 -- СООБЩЕНИЕ ОБ УСПЕШНОМ СОЗДАНИИ
 -- ============================================
 
