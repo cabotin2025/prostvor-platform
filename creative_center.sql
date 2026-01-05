@@ -816,6 +816,13 @@ CREATE TABLE communities (
     CONSTRAINT chk_community_email_2_format CHECK (email_2 IS NULL OR email_2 ~* '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$')
 );
 
+-- Таблица для учетных паролей
+CREATE TABLE actor_credentials (
+    actor_id INTEGER PRIMARY KEY REFERENCES actors(actor_id) ON DELETE CASCADE,
+    password_hash VARCHAR(255) NOT NULL,
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
+
 -- ============================================
 -- 8. КОММЕНТАРИИ, ЗАМЕТКИ, СООБЩЕНИЯ
 -- ============================================
