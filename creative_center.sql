@@ -131,11 +131,12 @@ CREATE TABLE actors (
     created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
     updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
     created_by INTEGER REFERENCES actors(actor_id),
-    updated_by INTEGER REFERENCES actors(actor_id),
-    CONSTRAINT unique_human_nickname 
-        UNIQUE NULLS NOT DISTINCT (nickname, actor_type_id) 
-        WHERE actor_type_id = 1
+    updated_by INTEGER REFERENCES actors(actor_id)
 );
+
+-- ЧАСТИЧНЫЙ УНИКАЛЬНЫЙ ИНДЕКС (вместо CONSTRAINT с WHERE)
+CREATE UNIQUE INDEX unique_human_nickname ON actors (nickname, actor_type_id) 
+WHERE actor_type_id = 1 AND nickname IS NOT NULL;
 
 -- Таблица текущих статусов участников
 CREATE TABLE actor_current_statuses (
@@ -695,7 +696,7 @@ CREATE TABLE persons (
     last_name VARCHAR(100),
     gender VARCHAR(10) CHECK (gender IN ('муж.', 'жен.')),
     birth_date DATE CHECK (birth_date <= CURRENT_DATE),
-    email VARCHAR(255) UNIQUE,
+    email VARCHAR(255),
     email_2 VARCHAR(255),
     location_id INTEGER REFERENCES locations(location_id),
     post_code VARCHAR(20),
@@ -716,9 +717,9 @@ CREATE TABLE persons (
     pp_number VARCHAR(20),
     pp_date DATE,
     pp_auth VARCHAR(200),
-    inn VARCHAR(12) CHECK (inn ~ '^[0-9]{10,12}$'),
-    snils VARCHAR(14) CHECK (snils ~ '^[0-9]{3}-[0-9]{3}-[0-9]{3} [0-9]{2}$'),
-    bank_bik VARCHAR(9) CHECK (bank_bik ~ '^[0-9]{9}$'),
+    inn VARCHAR(12),
+    snils VARCHAR(15),
+    bank_bik VARCHAR(9),
     bank_account VARCHAR(30),
     bank_info TEXT,
     ya_account VARCHAR(50),
@@ -732,9 +733,9 @@ CREATE TABLE persons (
     updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
     created_by INTEGER REFERENCES actors(actor_id) ON DELETE SET NULL,
     updated_by INTEGER REFERENCES actors(actor_id) ON DELETE SET NULL,
-    CONSTRAINT chk_email_format CHECK (email ~* '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'),
+    CONSTRAINT chk_email_format CHECK (email IS NULL OR email ~* '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'),
     CONSTRAINT chk_email_2_format CHECK (email_2 IS NULL OR email_2 ~* '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'),
-    CONSTRAINT chk_phone_format CHECK (phone_number ~ '^\+?[0-9\s\-\(\)]+$')
+    CONSTRAINT chk_phone_format CHECK (phone_number IS NULL OR phone_number ~ '^\+?[0-9\s\-\(\)]+$')
 );
 
 -- Информация об организациях
@@ -742,7 +743,7 @@ CREATE TABLE organizations (
     organization_id SERIAL PRIMARY KEY,
     title VARCHAR(200) NOT NULL,
     full_title VARCHAR(300),
-    email VARCHAR(255) UNIQUE,
+    email VARCHAR(255),
     email_2 VARCHAR(255),
     staff_name VARCHAR(100),
     staff_lastname VARCHAR(100),
@@ -753,11 +754,11 @@ CREATE TABLE organizations (
     phone_number_2 VARCHAR(25),
     dir_name VARCHAR(100),
     dir_lastname VARCHAR(100),
-    ogrn VARCHAR(13) CHECK (ogrn ~ '^[0-9]{13}$'),
-    inn VARCHAR(10) CHECK (inn ~ '^[0-9]{10}$'),
-    kpp VARCHAR(9) CHECK (kpp ~ '^[0-9]{9}$'),
+    ogrn VARCHAR(13),
+    inn VARCHAR(10),
+    kpp VARCHAR(9),
     bank_title VARCHAR(200),
-    bank_bik VARCHAR(9) CHECK (bank_bik ~ '^[0-9]{9}$'),
+    bank_bik VARCHAR(9),
     bank_account VARCHAR(30),
     org_info TEXT,
     vk_page VARCHAR(255),
@@ -775,7 +776,7 @@ CREATE TABLE organizations (
     updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
     created_by INTEGER REFERENCES actors(actor_id) ON DELETE SET NULL,
     updated_by INTEGER REFERENCES actors(actor_id) ON DELETE SET NULL,
-    CONSTRAINT chk_org_email_format CHECK (email ~* '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'),
+    CONSTRAINT chk_org_email_format CHECK (email IS NULL OR email ~* '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'),
     CONSTRAINT chk_org_email_2_format CHECK (email_2 IS NULL OR email_2 ~* '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$')
 );
 
@@ -784,7 +785,7 @@ CREATE TABLE communities (
     community_id SERIAL PRIMARY KEY,
     title VARCHAR(200) NOT NULL,
     full_title VARCHAR(300),
-    email VARCHAR(255) UNIQUE,
+    email VARCHAR(255),
     email_2 VARCHAR(255),
     participant_name VARCHAR(100),
     participant_lastname VARCHAR(100),
@@ -794,7 +795,7 @@ CREATE TABLE communities (
     phone_number VARCHAR(25),
     phone_number_2 VARCHAR(25),
     bank_title VARCHAR(200),
-    bank_bik VARCHAR(9) CHECK (bank_bik ~ '^[0-9]{9}$'),
+    bank_bik VARCHAR(9),
     bank_account VARCHAR(30),
     community_info TEXT,
     vk_page VARCHAR(255),
@@ -812,7 +813,7 @@ CREATE TABLE communities (
     updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
     created_by INTEGER REFERENCES actors(actor_id) ON DELETE SET NULL,
     updated_by INTEGER REFERENCES actors(actor_id) ON DELETE SET NULL,
-    CONSTRAINT chk_community_email_format CHECK (email ~* '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'),
+    CONSTRAINT chk_community_email_format CHECK (email IS NULL OR email ~* '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'),
     CONSTRAINT chk_community_email_2_format CHECK (email_2 IS NULL OR email_2 ~* '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$')
 );
 
@@ -1116,17 +1117,19 @@ BEGIN
 END;
 $$ language 'plpgsql';
 
--- Функция для проверки уникальности среди неудаленных записей
+-- ИСПРАВЛЕННАЯ функция для проверки уникальности среди неудаленных записей
 CREATE OR REPLACE FUNCTION check_unique_for_active_records()
 RETURNS TRIGGER AS $$
+DECLARE
+    table_name TEXT := TG_TABLE_NAME;
 BEGIN
     -- Проверяем уникальность email среди активных пользователей
-    IF TG_TABLE_NAME = 'persons' AND NEW.email IS NOT NULL THEN
+    IF table_name = 'persons' AND NEW.email IS NOT NULL THEN
         IF EXISTS (
             SELECT 1 FROM persons 
             WHERE email = NEW.email 
             AND deleted_at IS NULL 
-            AND actor_id != NEW.actor_id
+            AND actor_id != COALESCE(NEW.actor_id, -1)
         ) THEN
             RAISE EXCEPTION 'Email % уже используется', NEW.email;
         END IF;
@@ -1153,17 +1156,17 @@ INSERT INTO locations (location_id, name, type, region, country, population) VAL
 (3, 'Улан-Удэ', 'город', 'Бурятия', 'Россия', 437565),
 (4, 'Иркутск', 'город', 'Иркутская область', 'Россия', 617264),
 (5, 'Кяхта', 'город', 'Бурятия', 'Россия', 20013)
-ON CONFLICT DO NOTHING;
+ON CONFLICT (location_id) DO NOTHING;
 
 -- Вставляем тестового участника (администратора)
 INSERT INTO actors (actor_id, nickname, actor_type_id, account, created_by, updated_by) 
 VALUES (1, 'Администратор системы', 1, '000000000001', 1, 1)
-ON CONFLICT DO NOTHING;
+ON CONFLICT (actor_id) DO NOTHING;
 
 -- Вставляем тестовую персону
 INSERT INTO persons (name, last_name, email, actor_id, created_by, updated_by)
 VALUES ('Иван', 'Иванов', 'admin@example.com', 1, 1, 1)
-ON CONFLICT DO NOTHING;
+ON CONFLICT (actor_id) DO NOTHING;
 
 -- Вставляем тестовый проект
 INSERT INTO projects (title, full_title, description, author_id, project_status_id, project_type_id, account, created_by, updated_by)
@@ -1173,7 +1176,7 @@ VALUES (
     'Организация и проведение ежегодного театрального фестиваля',
     1, 1, 2, '000000000001', 1, 1
 )
-ON CONFLICT DO NOTHING;
+ON CONFLICT (project_id) DO NOTHING;
 
 -- ============================================
 -- 13. ПРЕДСТАВЛЕНИЯ (VIEWS) ДЛЯ УДОБНЫХ ЗАПРОСОВ
@@ -1359,6 +1362,16 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+-- Функция для обновления времени последнего входа
+CREATE OR REPLACE FUNCTION update_last_login(actor_id_param INTEGER)
+RETURNS VOID AS $$
+BEGIN
+    UPDATE actors 
+    SET updated_at = CURRENT_TIMESTAMP
+    WHERE actor_id = actor_id_param;
+END;
+$$ LANGUAGE plpgsql;
+
 -- ============================================
 -- 15. ОТЧЕТЫ И СТАТИСТИКА
 -- ============================================
@@ -1418,7 +1431,7 @@ BEGIN
     SET deleted_at = CURRENT_TIMESTAMP
     WHERE deleted_at IS NULL 
     AND project_status_id = 6 
-    AND end_date < CURRENT_DATE - (months_old || ' months')::INTERVAL;
+    AND end_date < CURRENT_DATE - (months_old * INTERVAL '1 month');
     
     GET DIAGNOSTICS archived_count = ROW_COUNT;
     
@@ -1447,16 +1460,20 @@ CREATE OR REPLACE FUNCTION register_person(
 DECLARE
     v_actor_id INTEGER;
     v_account VARCHAR(12);
+    v_account_num BIGINT;
 BEGIN
     -- Проверяем уникальность email среди активных пользователей
     IF EXISTS (SELECT 1 FROM persons WHERE email = p_email AND deleted_at IS NULL) THEN
         RAISE EXCEPTION 'Email % уже зарегистрирован', p_email;
     END IF;
     
-    -- Генерируем уникальный номер счета (упрощенно)
-    SELECT 'U' || LPAD((COALESCE(MAX(actor_id), 0) + 1)::TEXT, 11, '0')
-    INTO v_account
-    FROM actors;
+    -- Генерируем уникальный номер счета
+    SELECT COALESCE(MAX(CAST(SUBSTRING(account FROM 2) AS BIGINT)), 0) + 1
+    INTO v_account_num
+    FROM actors
+    WHERE account ~ '^U[0-9]+$';
+    
+    v_account := 'U' || LPAD(v_account_num::TEXT, 11, '0');
     
     -- Создаем запись участника (actor)
     INSERT INTO actors (nickname, actor_type_id, account, created_by, updated_by)

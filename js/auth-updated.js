@@ -50,62 +50,58 @@ const AuthUpdated = (function() {
     }
 
     // Аутентификация пользователя
-    function authenticate(login, password) {
-        try {
-            console.log('🔐 Попытка аутентификации:', login);
-            
-            // Проверяем доступность ActorsDatabase
-            if (typeof ActorsDatabase === 'undefined') {
-                throw new Error('База данных участников не загружена');
-            }
-            
-            // Выполняем аутентификацию через ActorsDatabase
-            const user = ActorsDatabase.authenticate(login, password);
-            
-            if (!user) {
-                throw new Error('Ошибка аутентификации');
-            }
-            
-            // Создаем токен (в реальном приложении получали бы с сервера)
-            const token = generateToken(user.ActorID);
-            
-            // Подготавливаем данные пользователя для хранения
-            const userData = {
-                id: user.ActorID,
-                nickname: user.ActorNikname,
-                type: user.ActorType,
-                status: Array.isArray(user.ActorStatus) ? user.ActorStatus[0] : user.ActorStatus,
-                locacity: user.ActorLocacity,
-                email: user.email || null,
-                frameColor: user.frameColor || '#A8E40A',
-                registrationDate: user.registrationDate,
-                lastLogin: new Date().toISOString()
-            };
-            
-            // Сохраняем сессию
-            saveSession(token, userData);
-            
-            // Обновляем состояние
-            authState.isAuthenticated = true;
-            authState.currentUser = userData;
-            authState.token = token;
-            
-            console.log('✅ Успешная аутентификация:', user.ActorNikname);
-            return {
-                success: true,
-                user: userData,
-                token: token
-            };
-            
-        } catch (error) {
-            console.error('❌ Ошибка аутентификации:', error.message);
-            
-            // Пробуем альтернативный метод (для обратной совместимости)
-            return attemptLegacyAuth(login, password) || {
-                success: false,
-                error: error.message || 'Неверный логин или пароль'
-            };
+    async function authenticate(login, password) {
+    try {
+        console.log('🔐 Попытка аутентификации через PHP API:', login);
+
+        const response = await fetch('http://localhost/prostvor-api/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                email: login, 
+                password: password 
+            })
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.error || 'Ошибка аутентификации');
         }
+
+        // Преобразуем данные в формат, ожидаемый фронтендом
+        const userData = {
+            id: result.user.actor_id,
+            nickname: result.user.nickname,
+            type: result.user.actor_type,
+            status: result.user.status,
+            locacity: result.user.location_name,
+            email: result.user.email,
+            frameColor: '#A8E40A', // Можно получать из БД или оставить по умолчанию
+            registrationDate: new Date().toISOString(),
+            lastLogin: new Date().toISOString()
+        };
+
+        // Сохраняем сессию
+        saveSession(result.token, userData);
+        authState.isAuthenticated = true;
+        authState.currentUser = userData;
+        authState.token = result.token;
+
+        console.log('✅ Успешная аутентификация:', userData.nickname);
+        return {
+            success: true,
+            user: userData,
+            token: result.token
+        };
+
+    } catch (error) {
+        console.error('❌ Ошибка аутентификации:', error.message);
+        return {
+            success: false,
+            error: error.message || 'Неверный логин или пароль'
+        };
+    }
     }
 
     // Альтернативный метод аутентификации (для обратной совместимости)
@@ -154,37 +150,32 @@ const AuthUpdated = (function() {
     }
 
     // Регистрация нового пользователя
-    function register(registrationData) {
-        try {
-            console.log('📝 Попытка регистрации:', registrationData.email);
-            
-            // Проверяем доступность ActorsDatabase
-            if (typeof ActorsDatabase === 'undefined') {
-                throw new Error('База данных участников не загружена');
-            }
-            
-            // Выполняем регистрацию через ActorsDatabase
-            const user = ActorsDatabase.registerActor({
-                email: registrationData.email,
-                password: registrationData.password,
-                nickname: registrationData.nickname || registrationData.email.split('@')[0],
-                type: registrationData.type || 'Человек',
-                locacity: registrationData.city || 'Улан-Удэ',
-                name: registrationData.name,
-                surname: registrationData.surname,
-                phone: registrationData.phone
-            });
-            
-            // Автоматическая аутентификация после регистрации
-            return authenticate(registrationData.email, registrationData.password);
-            
-        } catch (error) {
-            console.error('❌ Ошибка регистрации:', error);
-            return {
-                success: false,
-                error: error.message || 'Ошибка регистрации'
-            };
+    async function register(registrationData) {
+    try {
+        console.log('📝 Попытка регистрации через PHP API:', registrationData.email);
+
+        const response = await fetch('http://localhost/prostvor-api/api/auth/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(registrationData)
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.error || 'Ошибка регистрации');
         }
+
+        // Автоматически входим после регистрации
+        return await authenticate(registrationData.email, registrationData.password);
+
+    } catch (error) {
+        console.error('❌ Ошибка регистрации:', error);
+        return {
+            success: false,
+            error: error.message || 'Ошибка регистрации'
+        };
+    }
     }
 
     // Выход из системы
