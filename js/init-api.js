@@ -1,7 +1,7 @@
 /**
  * Инициализация API при загрузке страницы
  */
-
+window.API_BASE_URL = 'http://localhost:8000';
 // Ждем загрузки DOM
 document.addEventListener('DOMContentLoaded', function() {
     // Проверяем, есть ли API сервис
