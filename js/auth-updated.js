@@ -1,147 +1,312 @@
-// js/auth-updated.js - ИСПРАВЛЕННАЯ ВЕРСИЯ
+// js/auth-updated.js - РАБОЧАЯ ВЕРСИЯ (последняя)
+console.log('🔐 PROSTVOR Auth Module v3.0 - ЗАГРУЖЕН');
+
+// Ждем полной загрузки DOM
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Auth module loaded');
+    console.log('✅ DOM загружен, настраиваю обработчики');
     
-    // Базовый URL - ИЗМЕНИТЕ если ваш PHP на другом порту!
-    const API_BASE = 'http://localhost'; // или 'http://localhost:8000'
+    const API_BASE = 'http://localhost:8000';
     
-    // ==================== ВХОД ====================
+    // Функция для уведомлений
+    function showAlert(message, type = 'info') {
+        const alertDiv = document.createElement('div');
+        alertDiv.style.cssText = `
+            position: fixed; top: 20px; right: 20px;
+            padding: 12px 20px; border-radius: 6px; z-index: 10000;
+            background: ${type === 'error' ? '#dc3545' : type === 'success' ? '#28a745' : '#17a2b8'};
+            color: white; font-family: Arial, sans-serif; font-size: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            animation: slideIn 0.3s ease-out;
+        `;
+        alertDiv.textContent = message;
+        document.body.appendChild(alertDiv);
+        
+        // Добавляем анимацию
+        if (!document.querySelector('#alert-styles')) {
+            const style = document.createElement('style');
+            style.id = 'alert-styles';
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        setTimeout(() => {
+            alertDiv.style.animation = 'slideIn 0.3s ease-out reverse';
+            setTimeout(() => alertDiv.remove(), 300);
+        }, 4000);
+    }
+    
+    // ==================== ОБРАБОТЧИК ДЛЯ КНОПКИ "ВОЙТИ" ====================
     const loginButton = document.getElementById('loginButton');
     if (loginButton) {
-        loginButton.addEventListener('click', async function(e) {
+        console.log('✅ Найдена кнопка "Войти" (id="loginButton")');
+        
+        // Удаляем старый элемент и создаем новый (сбрасываем обработчики)
+        const newLoginButton = loginButton.cloneNode(true);
+        loginButton.parentNode.replaceChild(newLoginButton, loginButton);
+        
+        // Добавляем обработчик клика
+        newLoginButton.addEventListener('click', async function(e) {
             e.preventDefault();
+            e.stopPropagation();
+            console.log('🎯 Нажата кнопка "Войти"');
             
-            const loginField = document.getElementById('loginField').value;
-            const password = document.getElementById('passwordField').value;
+            // Получаем данные из формы
+            const emailInput = document.getElementById('loginField');
+            const passwordInput = document.getElementById('passwordField');
             
-            if (!loginField || !password) {
-                alert('Заполните все поля');
+            if (!emailInput || !passwordInput) {
+                showAlert('Не найдены поля формы', 'error');
                 return;
             }
             
-            // ПРОБЛЕМА: login.php ожидает ТОЛЬКО email
-            // Но в форме может быть телефон или псевдоним
-            // Пока будем считать, что это email
-            const email = loginField; 
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+            
+            if (!email || !password) {
+                showAlert('Введите email и пароль', 'error');
+                return;
+            }
+            
+            console.log('📤 Отправка запроса входа для:', email);
+            showAlert('Выполняю вход...', 'info');
             
             try {
                 const response = await fetch(API_BASE + '/api/auth/login.php', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password })
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password
+                    })
                 });
                 
+                console.log('📥 Статус ответа:', response.status);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ошибка: ${response.status}`);
+                }
+                
                 const result = await response.json();
-                console.log('Login result:', result);
+                console.log('📥 Ответ сервера:', result);
                 
                 if (result.success) {
-                    // Сохраняем токен
+                    // Сохраняем данные авторизации
                     localStorage.setItem('prostvor_token', result.token);
                     localStorage.setItem('prostvor_user', JSON.stringify(result.user));
-                    alert('Вход выполнен!');
-                    window.location.href = '/index.html';
+                    
+                    console.log('💾 Токен сохранен');
+                    console.log('👤 Пользователь:', result.user.nickname);
+                    
+                    showAlert(`✅ Вход успешен! Добро пожаловать, ${result.user.nickname}!`, 'success');
+                    
+                    // Редирект на главную через 1.5 секунды
+                    setTimeout(() => {
+                        console.log('🔄 Перенаправление на /index.html');
+                        window.location.href = '/index.html';
+                    }, 1500);
+                    
                 } else {
-                    alert('Ошибка: ' + (result.error || 'Неверные данные'));
+                    console.error('❌ Ошибка входа:', result.error);
+                    showAlert('❌ ' + result.error, 'error');
                 }
+                
             } catch (error) {
-                alert('Ошибка подключения: ' + error.message);
+                console.error('🔥 Ошибка запроса:', error);
+                showAlert('🚫 Ошибка подключения к серверу', 'error');
             }
         });
+        
+    } else {
+        console.error('❌ Кнопка "Войти" не найдена! Проверьте HTML.');
     }
     
-    // ==================== РЕГИСТРАЦИЯ ====================
+    // ==================== ОБРАБОТЧИК ДЛЯ КНОПКИ "РЕГИСТРАЦИЯ" ====================
     const regButton = document.getElementById('regButton');
     if (regButton) {
-        regButton.addEventListener('click', async function(e) {
+        console.log('✅ Найдена кнопка "Зарегистрироваться" (id="regButton")');
+        
+        // Удаляем старый элемент и создаем новый
+        const newRegButton = regButton.cloneNode(true);
+        regButton.parentNode.replaceChild(newRegButton, regButton);
+        
+        // Добавляем обработчик клика
+        newRegButton.addEventListener('click', async function(e) {
             e.preventDefault();
+            e.stopPropagation();
+            console.log('🎯 Нажата кнопка "Зарегистрироваться"');
             
-            // 1. Собираем ОСНОВНЫЕ данные
-            const nickname = document.getElementById('regNickname').value;
-            const email = document.getElementById('regEmail').value;
-            const password = document.getElementById('regPassword').value;
-            const confirmPassword = document.getElementById('regConfirmPassword').value;
-            const userType = document.getElementById('regTypeSelect').value;
+            // Проверяем тип пользователя
+            const userTypeSelect = document.getElementById('regTypeSelect');
+            if (!userTypeSelect) {
+                showAlert('Не найден выбор типа пользователя', 'error');
+                return;
+            }
             
-            // 2. Проверка пароля
+            const userType = userTypeSelect.value;
+            if (userType !== 'Человек') {
+                showAlert('Для регистрации выберите тип "Человек"', 'error');
+                return;
+            }
+            
+            // Функция для получения значения поля
+            const getValue = (id) => {
+                const elem = document.getElementById(id);
+                return elem ? elem.value.trim() : '';
+            };
+            
+            // Получаем значения полей
+            const email = getValue('regEmail');
+            const password = getValue('regPassword');
+            const confirmPassword = getValue('regConfirmPassword');
+            const nickname = getValue('regNickname');
+            const name = getValue('regName');
+            const lastName = getValue('regSurname');
+            
+            // Валидация
+            if (!email || !password || !nickname || !name || !lastName) {
+                showAlert('Заполните все обязательные поля', 'error');
+                return;
+            }
+            
             if (password !== confirmPassword) {
-                alert('Пароли не совпадают!');
+                showAlert('Пароли не совпадают', 'error');
                 return;
             }
             
             if (password.length < 6) {
-                alert('Пароль должен быть не менее 6 символов');
+                showAlert('Пароль должен быть не менее 6 символов', 'error');
                 return;
             }
             
-            // 3. Проблема: для регистрации ОБЯЗАТЕЛЬНЫ name и last_name
-            // Но они есть только если выбран "Человек"
-            let name = '';
-            let lastName = '';
-            
-            if (userType === 'Человек') {
-                name = document.getElementById('regName')?.value || '';
-                lastName = document.getElementById('regSurname')?.value || '';
-                
-                if (!name || !lastName) {
-                    alert('Для регистрации человека обязательны Имя и Фамилия');
-                    return;
-                }
-            } else {
-                // Для Организации/Сообщества используем nickname как name
-                name = nickname;
-                lastName = userType; // или пустая строка
-            }
-            
-            // 4. Согласие с условиями
-            const agreementChecked = document.getElementById('regAgreementCheckbox').checked;
-            if (!agreementChecked) {
-                alert('Необходимо согласиться с условиями регистрации');
+            // Проверка согласия с условиями
+            const agreementCheckbox = document.getElementById('regAgreementCheckbox');
+            if (!agreementCheckbox || !agreementCheckbox.checked) {
+                showAlert('Необходимо согласиться с условиями регистрации', 'error');
                 return;
             }
             
-            // 5. Подготовка данных для API
+            // Подготовка данных для API
             const userData = {
                 email: email,
                 password: password,
                 nickname: nickname,
                 name: name,
                 last_name: lastName
-                // location_id можно добавить позже
             };
             
-            console.log('Sending registration data:', userData);
+            console.log('📤 Отправка запроса регистрации:', userData);
+            showAlert('Регистрирую нового пользователя...', 'info');
             
             try {
                 const response = await fetch(API_BASE + '/api/auth/register.php', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
                     body: JSON.stringify(userData)
                 });
                 
+                console.log('📥 Статус ответа:', response.status);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ошибка: ${response.status}`);
+                }
+                
                 const result = await response.json();
-                console.log('Registration result:', result);
+                console.log('📥 Ответ сервера:', result);
                 
                 if (result.success) {
-                    // Автоматически входим после регистрации
+                    // Сохраняем данные авторизации
                     localStorage.setItem('prostvor_token', result.token);
                     localStorage.setItem('prostvor_user', JSON.stringify(result.user));
-                    alert('Регистрация успешна! Вы автоматически вошли в систему.');
-                    window.location.href = '/index.html';
+                    
+                    console.log('💾 Токен сохранен');
+                    console.log('👤 Новый пользователь:', result.user.nickname);
+                    
+                    showAlert(`✅ Регистрация успешна! Добро пожаловать, ${result.user.nickname}!`, 'success');
+                    
+                    // Редирект на главную через 1.5 секунды
+                    setTimeout(() => {
+                        console.log('🔄 Перенаправление на /index.html');
+                        window.location.href = '/index.html';
+                    }, 1500);
+                    
                 } else {
-                    alert('Ошибка регистрации: ' + (result.error || 'Неизвестная ошибка'));
+                    console.error('❌ Ошибка регистрации:', result.error);
+                    showAlert('❌ ' + result.error, 'error');
                 }
+                
             } catch (error) {
-                alert('Ошибка подключения: ' + error.message);
+                console.error('🔥 Ошибка запроса:', error);
+                showAlert('🚫 Ошибка подключения к серверу', 'error');
             }
         });
+        
+    } else {
+        console.error('❌ Кнопка "Зарегистрироваться" не найдена! Проверьте HTML.');
     }
     
-    // Ссылка на условия
+    // ==================== ДОПОЛНИТЕЛЬНЫЕ ЭЛЕМЕНТЫ ====================
+    
+    // Ссылка "Условия"
     const agreementLink = document.getElementById('agreementLink');
     if (agreementLink) {
         agreementLink.addEventListener('click', function(e) {
             e.preventDefault();
+            console.log('📄 Открываю условия регистрации');
             window.open('Agreement.html', '_blank');
         });
     }
+    
+    // Ссылка "Не помню пароль"
+    const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+    if (forgotPasswordLink) {
+        forgotPasswordLink.addEventListener('click', function(e) {
+            console.log('🔑 Переход к восстановлению пароля');
+            // Переход уже настроен через href
+        });
+    }
+    
+    console.log('✅ Модуль авторизации полностью инициализирован');
+    console.log('📍 Готов к работе! Пробуйте войти или зарегистрироваться.');
+    
+    // Проверяем, не авторизован ли пользователь уже
+    const token = localStorage.getItem('prostvor_token');
+    if (token) {
+        console.log('🔐 Обнаружен сохраненный токен');
+        try {
+            const user = JSON.parse(localStorage.getItem('prostvor_user') || '{}');
+            if (user.nickname) {
+                console.log(`👤 Вы авторизованы как: ${user.nickname}`);
+                
+                // Если на странице входа, но уже авторизован
+                if (window.location.pathname.includes('enter-reg')) {
+                    console.log('ℹ️ Вы уже авторизованы. Можно перейти на главную.');
+                    
+                    // Создаем кнопку для перехода на главную
+                    const goToMainBtn = document.createElement('button');
+                    goToMainBtn.textContent = 'Перейти на главную';
+                    goToMainBtn.style.cssText = `
+                        position: fixed; bottom: 20px; right: 20px;
+                        padding: 10px 20px; background: #6f42c1;
+                        color: white; border: none; border-radius: 5px;
+                        cursor: pointer; z-index: 9999;
+                    `;
+                    goToMainBtn.onclick = () => window.location.href = '/index.html';
+                    document.body.appendChild(goToMainBtn);
+                }
+            }
+        } catch (e) {
+            console.error('Ошибка чтения данных пользователя:', e);
+        }
+    }
 });
+
+console.log('🔐 Auth module initialization started...');

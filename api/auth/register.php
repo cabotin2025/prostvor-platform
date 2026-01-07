@@ -1,4 +1,24 @@
 <?php
+// ==================== CORS НАСТРОЙКИ ====================
+// Разрешаем запросы с localhost:80 (ваш фронтенд)
+header("Access-Control-Allow-Origin: http://localhost");
+// Разрешаем запросы с localhost без порта (на всякий случай)
+header("Access-Control-Allow-Origin: http://localhost:80");
+// Или разрешить все для разработки (не для продакшена!)
+// header("Access-Control-Allow-Origin: *");
+
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
+header("Access-Control-Allow-Credentials: true");
+header("Access-Control-Max-Age: 86400"); // 24 часа
+
+// Для preflight OPTIONS запросов
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+// ==================== КОНЕЦ CORS ====================
+
 // api/auth/register.php - регистрация нового пользователя
 require_once __DIR__ . '/../../config/database.php';
 require_once __DIR__ . '/../../lib/Database.php';

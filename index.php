@@ -18,13 +18,27 @@ define('API_DIR', APP_ROOT . '/api');
 // ============================================
 // 2. CORS И БАЗОВЫЕ ЗАГОЛОВКИ
 // ============================================
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS, PATCH");
-header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, Accept, Origin");
-header("Access-Control-Allow-Credentials: true");
-header("Access-Control-Max-Age: 3600");
+// ==================== CORS НАСТРОЙКИ ====================
+// Разрешаем запросы с localhost:8000 (ваш фронтенд)
+$allowed_origins = [
+    'http://localhost:8000',
+    'http://localhost',
+    'null' // для file:// запросов (разработка)
+];
 
-// Обработка preflight запросов
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+if (in_array($origin, $allowed_origins)) {
+    header("Access-Control-Allow-Origin: $origin");
+} else {
+    header("Access-Control-Allow-Origin: http://localhost:8000");
+}
+
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
+header("Access-Control-Allow-Credentials: true");
+header("Access-Control-Max-Age: 86400");
+
+// Для preflight OPTIONS запросов
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit();
