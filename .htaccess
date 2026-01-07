@@ -1,0 +1,13 @@
+ RewriteEngine On
+RewriteBase /
+
+# Если файл или папка существуют - используем их
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# API запросы
+RewriteRule ^api/(.*)$ index.php?route=api/$1 [QSA,L]
+
+# Все остальное - на index.php
+RewriteRule ^(.*)$ index.php?route=$1 [QSA,L]

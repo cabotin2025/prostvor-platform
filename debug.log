@@ -1,0 +1,42 @@
+2026-01-06 19:01:55 - GET 
+2026-01-06 19:02:16 - GET api/test
+2026-01-06 19:02:28 - GET api/debug
+2026-01-06 19:16:12 - GET 
+2026-01-06 19:17:14 - GET api/test
+2026-01-06 19:21:35 - GET api/debug
+2026-01-06 19:41:47 - POST api/auth/login
+2026-01-06 19:41:47 - POST api/auth/login
+2026-01-06 19:41:48 - POST api/auth/login
+2026-01-06 19:41:48 - POST api/auth/login
+2026-01-06 19:41:48 - POST api/auth/login
+2026-01-06 19:41:48 - POST api/auth/login
+2026-01-06 19:43:39 - POST api/auth/login
+2026-01-06 19:43:39 - GET api/projects
+2026-01-06 19:44:43 - GET 
+2026-01-06 19:44:43 - POST api/auth/login
+2026-01-06 19:44:43 - GET api/projects
+2026-01-06 19:44:43 - GET api/actors
+2026-01-07 06:14:38 - GET favicon.ico
+2026-01-07 06:14:42 - GET 
+2026-01-07 06:16:15 - POST api/auth/login
+2026-01-07 06:16:16 - GET api/projects
+2026-01-07 06:17:32 - POST api/auth/login
+2026-01-07 06:17:32 - GET api/actors
+2026-01-07 06:18:35 - GET 
+2026-01-07 06:18:35 - POST api/auth/login
+2026-01-07 06:18:35 - GET api/projects
+2026-01-07 06:18:35 - GET api/actors
+2026-01-07 06:28:37 - GET 
+2026-01-07 06:28:37 - POST api/auth/login
+2026-01-07 06:28:37 - GET api/projects
+2026-01-07 06:28:37 - GET api/actors
+2026-01-07 06:28:38 - GET api/projects
+2026-01-07 06:28:38 - POST api/auth/register
+2026-01-07 06:45:47 - GET test-integration.html
+2026-01-07 06:51:00 - GET test-simple.html
+2026-01-07 06:51:43 - GET 
+2026-01-07 06:51:48 - GET 
+2026-01-07 06:51:54 - POST api/auth/login
+2026-01-07 06:51:58 - GET api/projects
+2026-01-07 06:52:00 - GET api/actors
+2026-01-07 07:08:47 - GET test-simple.html

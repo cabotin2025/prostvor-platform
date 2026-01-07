@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Тест интеграции API</title>
+    <script src="js/api-service.js"></script>
+</head>
+<body>
+    <h1>Тест интеграции Prostvor Platform API</h1>
+    
+    <div id="status">Загрузка...</div>
+    
+    <div id="auth-section" style="display: none;">
+        <h2>Аутентификация</h2>
+        <input type="email" id="email" placeholder="Email" value="admin@example.com">
+        <input type="password" id="password" placeholder="Password" value="admin123">
+        <button onclick="testLogin()">Тест входа</button>
+        <button onclick="window.api.logout()">Выйти</button>
+    </div>
+    
+    <div id="data-section" style="display: none;">
+        <h2>Данные</h2>
+        <button onclick="testProjects()">Загрузить проекты</button>
+        <button onclick="testActors()">Загрузить участников</button>
+        <div id="results"></div>
+    </div>
+    
+    <script>
+        function updateUI() {
+            const statusEl = document.getElementById('status');
+            const authEl = document.getElementById('auth-section');
+            const dataEl = document.getElementById('data-section');
+            
+            if (window.api.isAuthenticated()) {
+                statusEl.innerHTML = '✅ Авторизован как: ' + window.api.user.nickname;
+                authEl.style.display = 'none';
+                dataEl.style.display = 'block';
+            } else {
+                statusEl.innerHTML = '❌ Не авторизован';
+                authEl.style.display = 'block';
+                dataEl.style.display = 'none';
+            }
+        }
+        
+        async function testLogin() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            const result = await window.api.login(email, password);
+            if (result.success) {
+                updateUI();
+            } else {
+                alert('Ошибка: ' + result.error);
+            }
+        }
+        
+        async function testProjects() {
+            const resultsEl = document.getElementById('results');
+            resultsEl.innerHTML = 'Загрузка проектов...';
+            
+            try {
+                const result = await window.api.getProjects();
+                if (result.success) {
+                    resultsEl.innerHTML = `
+                        <h3>✅ Проекты (${result.count}):</h3>
+                        <ul>
+                            ${result.projects.map(p => `<li>${p.title} (${p.project_status})</li>`).join('')}
+                        </ul>
+                    `;
+                }
+            } catch (error) {
+                resultsEl.innerHTML = '❌ Ошибка: ' + error.message;
+            }
+        }
+        
+        async function testActors() {
+            const resultsEl = document.getElementById('results');
+            resultsEl.innerHTML = 'Загрузка участников...';
+            
+            try {
+                const result = await window.api.getActors();
+                if (result.success) {
+                    resultsEl.innerHTML = `
+                        <h3>✅ Участники (${result.count}):</h3>
+                        <ul>
+                            ${result.actors.map(a => `<li>${a.nickname} (${a.email})</li>`).join('')}
+                        </ul>
+                    `;
+                }
+            } catch (error) {
+                resultsEl.innerHTML = '❌ Ошибка: ' + error.message;
+            }
+        }
+        
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', updateUI);
+    </script>
+</body>
+</html>

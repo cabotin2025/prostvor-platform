@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Тест статического файла</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Тест статического файла</h1>
+    <p>Если вы видите эту страницу, значит статические файлы работают!</p>
+    
+    <h2>Проверка API:</h2>
+    <button onclick="testAPI()">Проверить API</button>
+    <div id="result"></div>
+    
+    <script>
+        async function testAPI() {
+            const resultEl = document.getElementById('result');
+            resultEl.innerHTML = 'Проверяем...';
+            
+            try {
+                const response = await fetch('/api/test');
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    resultEl.innerHTML = `
+                        <div class="success">
+                            ✅ API работает!<br>
+                            Сообщение: ${data.message}<br>
+                            Сервер: ${data.data.server}<br>
+                            PHP: ${data.data.php_version}
+                        </div>
+                    `;
+                } else {
+                    resultEl.innerHTML = `<div class="error">❌ Ошибка API</div>`;
+                }
+            } catch (error) {
+                resultEl.innerHTML = `<div class="error">❌ Ошибка: ${error.message}</div>`;
+            }
+        }
+    </script>
+</body>
+</html>

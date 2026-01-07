@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Простой тест API</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        button { padding: 10px; margin: 5px; }
+        input { padding: 8px; margin: 5px; width: 200px; }
+        #output { margin-top: 20px; padding: 10px; border: 1px solid #ccc; min-height: 100px; }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Простой тест API Prostvor Platform</h1>
+    
+    <div>
+        <h2>1. Проверка подключения</h2>
+        <button onclick="testConnection()">Проверить API сервер</button>
+    </div>
+    
+    <div>
+        <h2>2. Тест аутентификации</h2>
+        <input type="email" id="email" placeholder="Email" value="admin@example.com">
+        <input type="password" id="password" placeholder="Password" value="admin123">
+        <button onclick="testLogin()">Войти</button>
+        <button onclick="testLogout()">Выйти</button>
+    </div>
+    
+    <div>
+        <h2>3. Тест данных (требует авторизацию)</h2>
+        <button onclick="testProjects()">Получить проекты</button>
+        <button onclick="testActors()">Получить участников</button>
+    </div>
+    
+    <div>
+        <h2>Статус:</h2>
+        <div id="status">Загрузка...</div>
+    </div>
+    
+    <div>
+        <h2>Результаты:</h2>
+        <div id="output"></div>
+    </div>
+    
+    <!-- Подключаем API сервис -->
+    <script src="/js/api-service.js"></script>
+    
+    <script>
+        function log(message, isError = false) {
+            const output = document.getElementById('output');
+            const div = document.createElement('div');
+            div.className = isError ? 'error' : 'success';
+            div.textContent = new Date().toLocaleTimeString() + ': ' + message;
+            output.appendChild(div);
+            console.log(message);
+        }
+        
+        function updateStatus() {
+            const statusEl = document.getElementById('status');
+            if (window.api && window.api.isAuthenticated()) {
+                statusEl.innerHTML = '✅ Авторизован как: ' + (window.api.user.nickname || window.api.user.email);
+                statusEl.style.color = 'green';
+            } else {
+                statusEl.innerHTML = '❌ Не авторизован';
+                statusEl.style.color = 'red';
+            }
+        }
+        
+        async function testConnection() {
+            log('Проверяем подключение к API серверу...');
+            try {
+                const result = await window.api.testConnection();
+                if (result.success) {
+                    log(`✅ API сервер работает: ${result.data.app} v${result.data.version}`);
+                } else {
+                    log(`❌ Ошибка: ${result.error}`, true);
+                }
+            } catch (error) {
+                log(`❌ Ошибка подключения: ${error.message}`, true);
+            }
+        }
+        
+        async function testLogin() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            log(`Пытаемся войти как ${email}...`);
+            
+            try {
+                const result = await window.api.login(email, password);
+                if (result.success) {
+                    log(`✅ Вход успешен! Добро пожаловать, ${result.user.nickname}`);
+                    updateStatus();
+                } else {
+                    log(`❌ Ошибка входа: ${result.error}`, true);
+                }
+            } catch (error) {
+                log(`❌ Ошибка: ${error.message}`, true);
+            }
+        }
+        
+        function testLogout() {
+            log('Выход из системы...');
+            window.api.logout();
+            updateStatus();
+            log('✅ Вышли из системы');
+        }
+        
+        async function testProjects() {
+            if (!window.api.isAuthenticated()) {
+                log('❌ Требуется авторизация!', true);
+                return;
+            }
+            
+            log('Загружаем проекты...');
+            
+            try {
+                const result = await window.api.getProjects();
+                if (result.success) {
+                    log(`✅ Получено проектов: ${result.count}`);
+                    
+                    if (result.projects && result.projects.length > 0) {
+                        result.projects.slice(0, 3).forEach(project => {
+                            log(`   📁 ${project.title} (${project.project_status})`);
+                        });
+                        if (result.projects.length > 3) {
+                            log(`   ... и еще ${result.projects.length - 3} проектов`);
+                        }
+                    } else {
+                        log('ℹ️ Проектов нет');
+                    }
+                } else {
+                    log(`❌ Ошибка: ${result.error}`, true);
+                }
+            } catch (error) {
+                log(`❌ Ошибка: ${error.message}`, true);
+            }
+        }
+        
+        async function testActors() {
+            if (!window.api.isAuthenticated()) {
+                log('❌ Требуется авторизация!', true);
+                return;
+            }
+            
+            log('Загружаем участников...');
+            
+            try {
+                const result = await window.api.getActors();
+                if (result.success) {
+                    log(`✅ Получено участников: ${result.count}`);
+                    
+                    if (result.actors && result.actors.length > 0) {
+                        result.actors.slice(0, 3).forEach(actor => {
+                            log(`   👤 ${actor.nickname} (${actor.email || 'без email'})`);
+                        });
+                        if (result.actors.length > 3) {
+                            log(`   ... и еще ${result.actors.length - 3} участников`);
+                        }
+                    }
+                } else {
+                    log(`❌ Ошибка: ${result.error}`, true);
+                }
+            } catch (error) {
+                log(`❌ Ошибка: ${error.message}`, true);
+            }
+        }
+        
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', function() {
+            log('Страница загружена');
+            updateStatus();
+            
+            // Проверяем подключение автоматически
+            setTimeout(testConnection, 500);
+        });
+    </script>
+</body>
+</html>

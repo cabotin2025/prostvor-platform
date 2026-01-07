@@ -10,6 +10,13 @@
     <link rel="stylesheet" href="css/calendar-styles.css">
     <link rel="stylesheet" href="css/tasks-styles.css">
     <link rel="stylesheet" href="css/panels-styles-updated.css">
+    <script src="js/api-service.js"></script>
+    <script src="js/init-api.js"></script>
+    
+    <!-- Затем остальные JS файлы -->
+    <script src="js/auth-updated.js"></script>
+    <script src="js/check-auth.js"></script>
+    <script src="js/projects-database.js"></script>
 </head>
 <body>
     <!-- Шапка сайта -->
@@ -292,81 +299,17 @@
             </div>
         </div>
         
-        <nav class="nav-container" aria-label="Основная навигация">
-            <div class="active-indicator" id="activeIndicator"></div>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="index.html" class="nav-link active" aria-current="page">Главная</a>
-                    <div class="nav-dropdown">
-                        <a href="pages/HowItWorks.html" class="dropdown-item">Как это работает</a>
-                        <a href="#" class="dropdown-item">Творческие направления</a>
-                        <a href="#" class="dropdown-item">Руководители и Кураторы</a>
-                        <a href="#" class="dropdown-item">Контакты</a>
-                        <a href="#" class="dropdown-item">Статистика и отчеты</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/News.html" class="nav-link">Новости</a>
-                    <div class="nav-dropdown">
-                        <a href="#" class="dropdown-item">Анонсы</a>
-                        <a href="#" class="dropdown-item">События</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/Projects.html" class="nav-link">Проекты</a>
-                    <div class="nav-dropdown">
-                        <a href="/pages/ProjectMain.html" class="dropdown-item">Создать новый Проект</a>
-                        <a href="#" class="dropdown-item">Мои проекты</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/Ideas.html" class="nav-link">Идеи</a>
-                    <div class="nav-dropdown">
-                        <a href="#" class="dropdown-item">Предложить Идею</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/resources.html" class="nav-link">Ресурсы</a>
-                    <div class="nav-dropdown">
-                        <a href="#" class="dropdown-item">Материальные ресурсы</a>
-                        <a href="#" class="dropdown-item">Финансовые ресурсы</a>
-                        <a href="#" class="dropdown-item">Локации</a>
-                        <a href="#" class="dropdown-item">Предложить ресурс</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/events.html" class="nav-link">События</a>
-                    <div class="nav-dropdown">
-                        <a href="#" class="dropdown-item">Создать Событие</a>
-                        <a href="#" class="dropdown-item">Календарь событий</a>
-                        <a href="#" class="dropdown-item">Мои события</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/services.html" class="nav-link">Услуги</a>
-                    <div class="nav-dropdown">
-                        <a href="#" class="dropdown-item">Предложить Услуги</a>
-                        <a href="#" class="dropdown-item">Запросить Услуги</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/actors.html" class="nav-link">Участники</a>
-                    <div class="nav-dropdown">
-                        <a href="#" class="dropdown-item">Руководители и Кураторы</a>
-                        <a href="#" class="dropdown-item">Стать Участником</a>
-                        <a href="#" class="dropdown-item">Поиск участников</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a href="pages/topics.html" class="nav-link">Темы</a>
-                    <div class="nav-dropdown">
-                        <a href="#" class="dropdown-item">Создать Тему</a>
-                        <a href="#" class="dropdown-item">Получить консультацию</a>
-                        <a href="#" class="dropdown-item">Популярные темы</a>
-                    </div>
-                </li>
-            </ul>
-        </nav>
+        <nav>
+        <div class="guest-only" style="display: none;">
+            <a href="/pages/enter-reg.html">Вход / Регистрация</a>
+        </div>
+        <div class="auth-only" style="display: none;">
+            <span>Привет, <span class="user-name"></span></span>
+            <a href="/pages/Projects.html">Проекты</a>
+            <a href="/pages/actors.html">Участники</a>
+            <a href="#" onclick="window.api.logout()">Выйти</a>
+        </div>
+    </nav>
         
         <div class="header-buttons">
             <button class="header-button help-button" aria-label="Поддержать PROSTVOR">
