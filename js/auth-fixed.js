@@ -1,4 +1,18 @@
-// js/auth-fixed.js - РАБОЧАЯ ВЕРСИЯ (декабрь 2025)
+
+// js/auth-fixed.js - РАБОЧАЯ ВЕРСИЯ
+// ДОПОЛНИТЕЛЬНАЯ ОТЛАДКА
+console.log('🔧 Auth-fixed.js: Проверяем localStorage доступность');
+try {
+    const testKey = 'auth_test_' + Date.now();
+    localStorage.setItem(testKey, 'test_value');
+    const read = localStorage.getItem(testKey);
+    console.log('localStorage тест:', read === 'test_value' ? '✅ Работает' : '❌ Не работает');
+    localStorage.removeItem(testKey);
+} catch (e) {
+    console.error('localStorage ошибка:', e);
+    alert('ВНИМАНИЕ: localStorage недоступен!');
+}
+
 console.log('🚀 PROSTVOR Auth Fixed - ЗАГРУЖЕН!');
 
 // Ждем полной загрузки DOM
@@ -57,18 +71,27 @@ document.addEventListener('DOMContentLoaded', function() {
                     localStorage.setItem('prostvor_token', result.token);
                     localStorage.setItem('prostvor_user', JSON.stringify(result.user));
                     
-                    console.log('💾 Токен сохранен');
+                    console.log('💾 Токен сохранен:', result.token.substring(0, 30) + '...');
+                    console.log('👤 Пользователь:', result.user.nickname);
+                    
+                    // ДОПОЛНИТЕЛЬНАЯ ПРОВЕРКА:
+                    console.log('✅ Проверка сразу после сохранения:');
+                    console.log('- В localStorage token?', !!localStorage.getItem('prostvor_token'));
+                    console.log('- В localStorage user?', !!localStorage.getItem('prostvor_user'));
+                    
                     alert(`✅ Вход успешен! Добро пожаловать, ${result.user.nickname}!`);
                     
-                    // Переход на главную
+                    // Редирект
                     setTimeout(() => {
                         window.location.href = '/index.html';
                     }, 1500);
-                } else {
-                    alert('❌ Ошибка: ' + result.error);
+                }
+                else {
+                    // Обработка ошибок от сервера
+                    alert('❌ Ошибка входа: ' + (result.error || 'Неверный email или пароль'));
                 }
             } catch (error) {
-                console.error('🔥 Ошибка:', error);
+                console.error('🔥 Ошибка при входе:', error);
                 alert('🚫 Ошибка подключения к серверу');
             }
         });

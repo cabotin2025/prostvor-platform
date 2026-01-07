@@ -133,36 +133,24 @@ const AppUpdated = (function() {
 
     // Проверка статуса авторизации
     function checkAuthStatus() {
-        try {
-            const currentUser = AuthUpdated ? AuthUpdated.getCurrentUser() : null;
-            
-            if (currentUser) {
-                appState.isAuthenticated = true;
-                appState.currentUser = currentUser;
-                console.log('👤 Пользователь авторизован:', currentUser.nickname);
-            } else {
-                // Проверяем через ActorsDatabase
-                const userId = sessionStorage.getItem('current_user_id');
-                if (userId && appState.databases.actors) {
-                    const user = appState.databases.actors.findActorById(userId);
-                    if (user) {
-                        appState.isAuthenticated = true;
-                        appState.currentUser = {
-                            id: user.ActorID,
-                            nickname: user.ActorNikname,
-                            statusOfActor: Array.isArray(user.ActorStatus) ? user.ActorStatus[0] : user.ActorStatus
-                        };
-                        console.log('👤 Пользователь авторизован через ActorsDatabase:', user.ActorNikname);
-                    }
-                } else {
-                    appState.isAuthenticated = false;
-                    appState.currentUser = null;
-                }
-            }
-        } catch (error) {
-            console.error('Ошибка при проверке авторизации:', error);
-            appState.isAuthenticated = false;
-        }
+    console.log('🔐 main-updated: проверка авторизации');
+    
+    // Используем наш единый модуль
+    if (window.authInfo) {
+        return window.authInfo.authenticated;
+    }
+    
+    // Или проверяем самостоятельно
+    const token = localStorage.getItem('prostvor_token') || 
+                  sessionStorage.getItem('prostvor_token');
+    
+    if (token) {
+        console.log('✅ main-updated: токен найден');
+        return true;
+    }
+    
+    console.log('❌ main-updated: токен не найден');
+    return false;
     }
 
     // Инициализация боковых панелей
