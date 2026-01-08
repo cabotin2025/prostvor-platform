@@ -134,6 +134,15 @@ try {
         LIMIT 1
     ", ['actor_id' => $user['actor_id']]);
     
+    // 3.1 Получаем все статусы пользователя
+    $all_statuses = Prostvor\Database::fetchAll("
+        SELECT ast.status
+        FROM actor_current_statuses acs
+        JOIN actor_statuses ast ON acs.actor_status_id = ast.actor_status_id
+        WHERE acs.actor_id = :actor_id
+        ORDER BY acs.created_at DESC
+    ", ['actor_id' => $user['actor_id']]);
+    
     // 4. Генерируем JWT токен
     $token = JWTManager::generateToken($user['actor_id'], $user['email']);
     
@@ -149,7 +158,8 @@ try {
             'name' => $user['name'] ?? '',
             'last_name' => $user['last_name'] ?? '',
             'actor_type' => $user['actor_type'],
-            'status' => $status['status'] ?? 'Участник ТЦ'
+            'status' => $status['status'] ?? 'Участник ТЦ',
+            'additional_statuses' => array_column($all_statuses, 'status')
         ],
         'permissions' => [
             'can_create_projects' => true,
@@ -157,17 +167,6 @@ try {
             'can_view_all_projects' => true
         ]
     ];
-    // После получения основного статуса, получаем все статусы
-$all_statuses = Prostvor\Database::fetchAll("
-    SELECT ast.status
-    FROM actor_current_statuses acs
-    JOIN actor_statuses ast ON acs.actor_status_id = ast.actor_status_id
-    WHERE acs.actor_id = :actor_id
-    ORDER BY acs.created_at DESC
-", ['actor_id' => $user['actor_id']]);
-
-// В ответ добавить:
-'additional_statuses' => array_column($all_statuses, 'status')
     
     echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
     

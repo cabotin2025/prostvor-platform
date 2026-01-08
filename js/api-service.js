@@ -1,286 +1,217 @@
-/**
- * Prostvor Platform API Service
- * Версия 1.0 - Работает с существующим фронтендом без изменений
- */
-
-class ProstvorApi {
+// Основной класс для работы с API
+class ApiService {
     constructor() {
-        // Базовый URL API - ваш локальный сервер
-        this.BASE_URL = window.location.origin;
-        this.token = localStorage.getItem('prostvor_token');
-        this.user = null;
-        
-        // Восстанавливаем пользователя из localStorage
-        try {
-            const userData = localStorage.getItem('prostvor_user');
-            this.user = userData ? JSON.parse(userData) : null;
-        } catch (e) {
-            console.error('Error parsing user data:', e);
-            this.user = null;
-        }
-        
-        console.log('Prostvor API initialized. Base URL:', this.BASE_URL);
-        
-        // Автоматически проверяем токен при инициализации
-        this.checkTokenValidity();
+        this.baseURL = window.API_CONFIG?.BASE_URL || '/api';
+        this.permissionErrorHandler = null;
     }
     
-    // ==================== ОСНОВНЫЕ МЕТОДЫ ====================
+    setPermissionErrorHandler(handler) {
+        this.permissionErrorHandler = handler;
+    }
     
-    /**
-     * Универсальный метод для API запросов
-     */
-    async request(endpoint, method = 'GET', data = null, options = {}) {
-        const url = this.BASE_URL + '/api' + endpoint;
-        const headers = {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            ...options.headers
-        };
-        
-        // Добавляем токен если есть
-        if (this.token) {
-            headers['Authorization'] = `Bearer ${this.token}`;
-        }
-        
-        const config = {
-            method,
-            headers,
-            mode: 'cors',
-            credentials: 'include',
-            ...options
-        };
-        
-        if (data && ['POST', 'PUT', 'PATCH', 'DELETE'].includes(method)) {
-            config.body = JSON.stringify(data);
-        }
-        
+    async request(method, endpoint, data = null, params = null) {
         try {
-            const response = await fetch(url, config);
+            // Формируем URL
+            let url = `${this.baseURL}${endpoint}`;
             
-            // Обработка ошибок HTTP
-            if (!response.ok) {
-                const errorData = await response.text();
-                let errorMessage = `HTTP ${response.status}`;
-                
-                try {
-                    const errorJson = JSON.parse(errorData);
-                    errorMessage = errorJson.error || errorJson.message || errorMessage;
-                } catch (e) {
-                    errorMessage = errorData.substring(0, 100) || errorMessage;
-                }
-                
-                // Особые случаи
-                if (response.status === 401) {
-                    // Неавторизован - очищаем данные
-                    this.clearAuth();
-                    throw new Error('Сессия истекла. Пожалуйста, войдите снова.');
-                }
-                
-                if (response.status === 403) {
-                    throw new Error('Доступ запрещен');
-                }
-                
-                if (response.status === 404) {
-                    throw new Error('Ресурс не найден');
-                }
-                
-                throw new Error(errorMessage);
+            // Добавляем параметры к URL для GET запросов
+            if (params && method === 'GET') {
+                const queryParams = new URLSearchParams(params).toString();
+                url += `?${queryParams}`;
             }
             
-            // Парсим ответ
-            const result = await response.json();
-            return result;
+            // Настройки запроса
+            const options = {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            };
+            
+            // Добавляем токен авторизации, если он есть
+            const token = localStorage.getItem('auth_token');
+            if (token) {
+                options.headers['Authorization'] = `Bearer ${token}`;
+            }
+            
+            // Добавляем тело запроса для не-GET запросов
+            if (data && method !== 'GET') {
+                options.body = JSON.stringify(data);
+            }
+            
+            // Выполняем запрос
+            const response = await fetch(url, options);
+            
+            // Обрабатываем ответ
+            const responseData = await response.json().catch(() => ({}));
+            
+            if (!response.ok) {
+                // Обработка ошибок прав доступа (403)
+                if (response.status === 403) {
+                    this.handlePermissionError(responseData, endpoint);
+                }
+                
+                throw new Error(responseData.message || `HTTP error! status: ${response.status}`);
+            }
+            
+            return responseData;
             
         } catch (error) {
-            console.error('API Request Error:', error);
+            console.error('API request failed:', error);
             throw error;
         }
     }
     
-    // ==================== АУТЕНТИФИКАЦИЯ ====================
+    handlePermissionError(errorData, endpoint) {
+        const errorMsg = errorData.message || 'Доступ запрещен';
+        
+        // Логируем ошибку прав
+        console.warn(`Permission denied for ${endpoint}:`, errorMsg);
+        
+        // Показываем пользователю понятное сообщение
+        const userMessage = this.formatPermissionError(errorMsg, errorData);
+        
+        // Если есть кастомный обработчик, вызываем его
+        if (this.permissionErrorHandler) {
+            this.permissionErrorHandler(errorData, endpoint);
+        } else {
+            // Дефолтная обработка - показываем alert
+            this.showPermissionAlert(userMessage, errorData);
+        }
+    }
     
-    /**
-     * Вход в систему
-     */
-    async login(email, password) {
+    formatPermissionError(errorMsg, errorData) {
+        let message = `Недостаточно прав для выполнения действия.\n\n`;
+        
+        if (errorData.required_status) {
+            message += `Требуемый статус: ${errorData.required_status}\n`;
+        }
+        
+        if (errorData.required_role) {
+            message += `Требуемая роль: ${errorData.required_role}\n`;
+        }
+        
+        if (errorData.current_status) {
+            message += `Ваш текущий статус: ${errorData.current_status}\n`;
+        }
+        
+        message += `\nОперация: ${errorMsg}`;
+        
+        return message;
+    }
+    
+    showPermissionAlert(message, errorData) {
+        // Проверяем, не находимся ли мы уже на странице ошибки
+        if (window.location.pathname.includes('error')) {
+            return;
+        }
+        
+        // Показываем alert только если это не фоновая операция
+        if (!errorData.silent) {
+            alert(message);
+        }
+        
+        // Перенаправляем на соответствующую страницу в зависимости от типа ошибки
+        this.redirectOnPermissionError(errorData);
+    }
+    
+    redirectOnPermissionError(errorData) {
+        const currentPath = window.location.pathname;
+        
+        // Если нет доступа к проекту, перенаправляем на список проектов
+        if (currentPath.includes('/Project') && 
+            (errorData.message?.includes('project') || errorData.required_role)) {
+            window.location.href = '/pages/Projects.html';
+        }
+        
+        // Если нет доступа к административным функциям, перенаправляем на главную
+        else if (errorData.required_status?.includes('Руководитель') || 
+                 errorData.required_status?.includes('Куратор')) {
+            if (!currentPath.includes('index.html') && !currentPath.includes('Projects.html')) {
+                window.location.href = '/index.html';
+            }
+        }
+    }
+    
+    // Метод для проверки прав доступа к проекту
+    async checkProjectPermission(projectId, requiredRole) {
         try {
-            const result = await this.request('/auth/login', 'POST', {
-                email,
-                password
+            // Проверяем локальные права сначала
+            if (window.currentUser && window.currentUser.project_roles) {
+                const userRole = window.currentUser.project_roles[projectId];
+                if (userRole) {
+                    const roleHierarchy = {
+                        'leader': 4,
+                        'admin': 3,
+                        'curator': 3,
+                        'member': 2
+                    };
+                    
+                    const userLevel = roleHierarchy[userRole.role_type] || 0;
+                    const requiredLevel = roleHierarchy[requiredRole] || 0;
+                    
+                    if (userLevel >= requiredLevel) {
+                        return true;
+                    }
+                }
+            }
+            
+            // Если локальной проверки недостаточно, делаем запрос к серверу
+            const response = await this.get(`/api/projects/${projectId}/permissions`, {
+                required_role: requiredRole
             });
             
-            if (result.success && result.token) {
-                // Сохраняем токен и данные пользователя
-                this.token = result.token;
-                this.user = result.user;
-                
-                localStorage.setItem('prostvor_token', result.token);
-                localStorage.setItem('prostvor_user', JSON.stringify(result.user));
-                
-                // Вызываем событие об успешном входе
-                this.dispatchAuthEvent('login', result.user);
-                
-                return result;
-            } else {
-                throw new Error(result.error || 'Ошибка входа');
-            }
+            return response.has_access || false;
+            
         } catch (error) {
-            console.error('Login error:', error);
-            throw error;
-        }
-    }
-    
-    /**
-     * Регистрация нового пользователя
-     */
-    async register(userData) {
-        return await this.request('/auth/register', 'POST', userData);
-    }
-    
-    /**
-     * Выход из системы
-     */
-    logout() {
-        this.clearAuth();
-        
-        // Пытаемся сообщить серверу о выходе
-        try {
-            this.request('/auth/logout', 'POST').catch(() => {});
-        } catch (e) {
-            // Игнорируем ошибки при выходе
-        }
-        
-        this.dispatchAuthEvent('logout');
-        
-        // Перенаправляем на страницу входа
-        setTimeout(() => {
-            if (window.location.pathname !== '/pages/enter-reg.html') {
-                window.location.href = '/pages/enter-reg.html';
-            }
-        }, 100);
-    }
-    
-    /**
-     * Проверка валидности токена
-     */
-    async checkTokenValidity() {
-        if (!this.token) return false;
-        
-        try {
-            const result = await this.request('/test-auth', 'GET');
-            return result.token_present === true;
-        } catch (error) {
-            console.log('Token validation failed:', error.message);
-            this.clearAuth();
+            console.error('Permission check failed:', error);
             return false;
         }
     }
     
-    /**
-     * Проверка авторизации
-     */
-    isAuthenticated() {
-        return !!this.token && !!this.user;
-    }
-    
-    /**
-     * Получение текущего пользователя
-     */
-    getCurrentUser() {
-        return this.user;
-    }
-    
-    // ==================== ПРОЕКТЫ ====================
-    
-    async getProjects(filters = {}) {
-        let endpoint = '/projects';
-        if (Object.keys(filters).length > 0) {
-            const params = new URLSearchParams(filters);
-            endpoint += '?' + params.toString();
-        }
-        return await this.request(endpoint);
-    }
-    
-    async getProject(id) {
-        return await this.request(`/projects/${id}`);
-    }
-    
-    async createProject(projectData) {
-        return await this.request('/projects', 'POST', projectData);
-    }
-    
-    async updateProject(id, projectData) {
-        return await this.request(`/projects/${id}`, 'PUT', projectData);
-    }
-    
-    async deleteProject(id) {
-        return await this.request(`/projects/${id}`, 'DELETE');
-    }
-    
-    // ==================== УЧАСТНИКИ ====================
-    
-    async getActors(filters = {}) {
-        let endpoint = '/actors';
-        if (Object.keys(filters).length > 0) {
-            const params = new URLSearchParams(filters);
-            endpoint += '?' + params.toString();
-        }
-        return await this.request(endpoint);
-    }
-    
-    async getActor(id) {
-        return await this.request(`/actors/${id}`);
-    }
-    
-    // ==================== ВСПОМОГАТЕЛЬНЫЕ МЕТОДЫ ====================
-    
-    /**
-     * Очистка данных авторизации
-     */
-    clearAuth() {
-        this.token = null;
-        this.user = null;
-        localStorage.removeItem('prostvor_token');
-        localStorage.removeItem('prostvor_user');
-    }
-    
-    /**
-     * Генерация события авторизации
-     */
-    dispatchAuthEvent(type, data = null) {
-        const event = new CustomEvent('prostvor-auth', {
-            detail: { type, data, timestamp: Date.now() }
-        });
-        window.dispatchEvent(event);
-    }
-    
-    /**
-     * Тест подключения к API
-     */
-    async testConnection() {
+    // Метод для проверки глобального статуса
+    async checkGlobalStatus(requiredStatus) {
         try {
-            const result = await this.request('/test');
-            return {
-                success: true,
-                message: 'API подключен успешно',
-                data: result
-            };
+            // Проверяем локальные данные
+            if (window.currentUser && window.currentUser.global_status === requiredStatus) {
+                return true;
+            }
+            
+            // Делаем запрос к серверу для точной проверки
+            const response = await this.get('/api/auth/check-status', {
+                required_status: requiredStatus
+            });
+            
+            return response.has_status || false;
+            
         } catch (error) {
-            return {
-                success: false,
-                message: 'Ошибка подключения к API',
-                error: error.message
-            };
+            console.error('Status check failed:', error);
+            return false;
         }
+    }
+    
+    // Методы для удобства
+    async get(endpoint, params = null) {
+        return this.request('GET', endpoint, null, params);
+    }
+    
+    async post(endpoint, data) {
+        return this.request('POST', endpoint, data);
+    }
+    
+    async put(endpoint, data) {
+        return this.request('PUT', endpoint, data);
+    }
+    
+    async delete(endpoint) {
+        return this.request('DELETE', endpoint);
     }
 }
 
-// Создаем глобальный экземпляр API
-console.log('Initializing Prostvor Platform API...');
-window.prostvorAPI = new ProstvorApi();
+// Создаем экземпляр для глобального использования
+window.apiService = new ApiService();
 
-// Экспортируем для использования в модулях
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { ProstvorApi };
-}
+// Устанавливаем обработчик ошибок прав по умолчанию
+window.apiService.setPermissionErrorHandler((errorData, endpoint) => {
+    console.warn('Permission error handled by default handler:', errorData);
+});

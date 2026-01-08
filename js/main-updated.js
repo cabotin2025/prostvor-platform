@@ -1428,3 +1428,214 @@ window.addEventListener('error', function(e) {
         e.target.style.display = 'none';
     }
 }, true);
+
+// Инициализация системы прав при загрузке
+document.addEventListener('DOMContentLoaded', function() {
+    // Проверяем доступ к текущей странице
+    checkPageAccess();
+    
+    // Настраиваем кнопки в зависимости от прав
+    setupPermissionBasedButtons();
+});
+
+async function checkPageAccess() {
+    const currentPath = window.location.pathname;
+    const urlParams = new URLSearchParams(window.location.search);
+    const projectId = urlParams.get('project');
+    
+    // Если это страница конкретного проекта
+    if (currentPath.includes('ProjectMain.html') || 
+        currentPath.includes('ProjectMedia.html') || 
+        currentPath.includes('ProjectKanban.html')) {
+        
+        if (!projectId) {
+            window.location.href = '/pages/Projects.html';
+            return;
+        }
+        
+        // Проверяем права доступа к проекту
+        try {
+            const response = await window.apiService.get('/api/projects/permissions.php', {
+                project_id: projectId
+            });
+            
+            if (!response.has_access) {
+                window.authPermissions.showPermissionAlert(
+                    `У вас нет доступа к этому проекту. ${response.access_reason}`,
+                    {
+                        requiredStatus: response.required_role ? 
+                            `Роль в проекте: ${response.required_role}` : null,
+                        currentStatus: response.global_status
+                    }
+                );
+                
+                // Перенаправляем через 3 секунды
+                setTimeout(() => {
+                    window.location.href = '/pages/Projects.html';
+                }, 3000);
+            }
+        } catch (error) {
+            console.error('Failed to check project access:', error);
+        }
+    }
+}
+
+function setupPermissionBasedButtons() {
+    // Настройка кнопки создания проекта
+    const createProjectBtn = document.getElementById('create-project-btn');
+    if (createProjectBtn) {
+        if (!window.authPermissions.canCreateProject()) {
+            createProjectBtn.style.display = 'none';
+        } else {
+            createProjectBtn.addEventListener('click', createProject);
+        }
+    }
+    
+    // Настройка кнопок в проекте
+    const projectId = new URLSearchParams(window.location.search).get('project');
+    if (projectId) {
+        // Кнопка редактирования проекта
+        const editProjectBtn = document.getElementById('edit-project-btn');
+        if (editProjectBtn) {
+            if (!window.authPermissions.canEditProject(projectId)) {
+                editProjectBtn.style.display = 'none';
+            }
+        }
+        
+        // Кнопка создания задачи
+        const createTaskBtn = document.getElementById('create-task-btn');
+        if (createTaskBtn) {
+            if (!window.authPermissions.canCreateTask(projectId)) {
+                createTaskBtn.style.display = 'none';
+            }
+        }
+        
+        // Кнопка приглашения в проект
+        const inviteBtn = document.getElementById('invite-to-project-btn');
+        if (inviteBtn) {
+            if (!window.authPermissions.canInviteToProject(projectId)) {
+                inviteBtn.style.display = 'none';
+            } else {
+                inviteBtn.addEventListener('click', showInviteModal);
+            }
+        }
+        
+        // Кнопка проверки проекта
+        const verifyBtn = document.getElementById('verify-project-btn');
+        if (verifyBtn) {
+            if (!window.authPermissions.canVerifyProject(projectId)) {
+                verifyBtn.style.display = 'none';
+            }
+        }
+        
+        // Кнопка приостановки проекта
+        const suspendBtn = document.getElementById('suspend-project-btn');
+        if (suspendBtn) {
+            if (!window.authPermissions.canSuspendProject(projectId)) {
+                suspendBtn.style.display = 'none';
+            }
+        }
+    }
+}
+
+async function createProject() {
+    if (!window.authPermissions.canCreateProject()) {
+        window.authPermissions.showPermissionAlert(
+            'Только участники ТЦ могут создавать новые проекты',
+            { currentStatus: window.authPermissions.currentUser.global_status }
+        );
+        return;
+    }
+    
+    // Логика создания проекта
+    const title = prompt('Введите название проекта:');
+    const description = prompt('Введите описание проекта:');
+    
+    if (title && description) {
+        try {
+            const response = await window.apiService.post('/api/projects/index.php', {
+                title,
+                description
+            });
+            
+            if (response.success) {
+                alert('Проект успешно создан!');
+                // Перенаправляем на страницу проекта
+                window.location.href = `/pages/ProjectMain.html?project=${response.project_id}`;
+            }
+        } catch (error) {
+            alert('Ошибка при создании проекта: ' + error.message);
+        }
+    }
+}
+
+function showInviteModal() {
+    const projectId = new URLSearchParams(window.location.search).get('project');
+    
+    if (!window.authPermissions.canInviteToProject(projectId)) {
+        window.authPermissions.showPermissionAlert(
+            'Только руководитель и администратор проекта могут приглашать участников',
+            { currentStatus: window.authPermissions.currentUser.global_status }
+        );
+        return;
+    }
+    
+    // Логика показа модального окна приглашения
+    const modal = document.createElement('div');
+    modal.className = 'invite-modal';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <h3>Пригласить в проект</h3>
+            <input type="text" id="invite-username" placeholder="Имя пользователя или email">
+            <select id="invite-role">
+                <option value="member">Участник проекта</option>
+                <option value="admin">Администратор проекта</option>
+                <option value="curator">Проектный куратор</option>
+            </select>
+            <div class="modal-buttons">
+                <button onclick="sendInvite(${projectId})">Пригласить</button>
+                <button onclick="this.parentElement.parentElement.parentElement.remove()">Отмена</button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+}
+
+async function sendInvite(projectId) {
+    const usernameInput = document.getElementById('invite-username');
+    const roleSelect = document.getElementById('invite-role');
+    
+    if (!usernameInput.value) {
+        alert('Введите имя пользователя или email');
+        return;
+    }
+    
+    try {
+        // Сначала находим пользователя по username/email
+        const findUserResponse = await window.apiService.get('/api/actors/search.php', {
+            query: usernameInput.value
+        });
+        
+        if (!findUserResponse.success || findUserResponse.actors.length === 0) {
+            alert('Пользователь не найден');
+            return;
+        }
+        
+        const targetActor = findUserResponse.actors[0];
+        
+        // Отправляем приглашение
+        const response = await window.apiService.post('/api/projects/permissions.php', {
+            project_id: projectId,
+            actor_id: targetActor.actor_id,
+            role_type: roleSelect.value
+        });
+        
+        if (response.success) {
+            alert('Приглашение отправлено!');
+            document.querySelector('.invite-modal').remove();
+        }
+    } catch (error) {
+        alert('Ошибка при отправке приглашения: ' + error.message);
+    }
+}

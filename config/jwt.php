@@ -1,51 +1,61 @@
 <?php
-require_once __DIR__ . '/database.php';
+// Конфигурация JWT
+define('JWT_SECRET', 'your-secret-key-change-in-production');
+define('JWT_ALGORITHM', 'HS256');
+define('JWT_EXPIRATION', 86400); // 24 часа в секундах
 
-use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
-
-class JWTManager {
-    
-    public static function generateToken($actor_id, $email) {
-        $payload = [
-            'iss' => APP_URL,
-            'aud' => APP_URL,
-            'iat' => time(),
-            'exp' => time() + JWT_EXPIRE,
-            'data' => [
-                'actor_id' => $actor_id,
-                'email' => $email
-            ]
+class JWT {
+    public static function encode($payload, $key, $alg = JWT_ALGORITHM) {
+        $header = [
+            'typ' => 'JWT',
+            'alg' => $alg
         ];
         
-        return JWT::encode($payload, JWT_SECRET, JWT_ALGORITHM);
+        // Добавляем время истечения
+        $payload['iat'] = time();
+        $payload['exp'] = time() + JWT_EXPIRATION;
+        
+        $header_encoded = self::base64UrlEncode(json_encode($header));
+        $payload_encoded = self::base64UrlEncode(json_encode($payload));
+        
+        $signature = hash_hmac('sha256', "$header_encoded.$payload_encoded", $key, true);
+        $signature_encoded = self::base64UrlEncode($signature);
+        
+        return "$header_encoded.$payload_encoded.$signature_encoded";
     }
     
-    public static function validateToken($token) {
-        try {
-            $decoded = JWT::decode($token, new Key(JWT_SECRET, JWT_ALGORITHM));
-            return (array) $decoded;
-        } catch (Exception $e) {
-            return false;
+    public static function decode($jwt, $key, $alg = JWT_ALGORITHM) {
+        $parts = explode('.', $jwt);
+        
+        if (count($parts) !== 3) {
+            throw new Exception('Invalid token format');
         }
+        
+        list($header_encoded, $payload_encoded, $signature_encoded) = $parts;
+        
+        // Проверяем подпись
+        $signature = self::base64UrlDecode($signature_encoded);
+        $expected_signature = hash_hmac('sha256', "$header_encoded.$payload_encoded", $key, true);
+        
+        if (!hash_equals($signature, $expected_signature)) {
+            throw new Exception('Invalid signature');
+        }
+        
+        $payload = json_decode(self::base64UrlDecode($payload_encoded));
+        
+        // Проверяем время истечения
+        if (isset($payload->exp) && $payload->exp < time()) {
+            throw new Exception('Token has expired');
+        }
+        
+        return $payload;
     }
     
-    public static function getAuthUser() {
-        $headers = getallheaders();
-        
-        if (isset($headers['Authorization'])) {
-            $authHeader = $headers['Authorization'];
-        } elseif (isset($_SERVER['HTTP_AUTHORIZATION'])) {
-            $authHeader = $_SERVER['HTTP_AUTHORIZATION'];
-        } else {
-            return false;
-        }
-        
-        if (preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {
-            $token = $matches[1];
-            return self::validateToken($token);
-        }
-        
-        return false;
+    private static function base64UrlEncode($data) {
+        return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
     }
-} 
+    
+    private static function base64UrlDecode($data) {
+        return base64_decode(strtr($data, '-_', '+/'));
+    }
+}
