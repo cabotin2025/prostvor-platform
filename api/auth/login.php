@@ -157,6 +157,17 @@ try {
             'can_view_all_projects' => true
         ]
     ];
+    // После получения основного статуса, получаем все статусы
+$all_statuses = Prostvor\Database::fetchAll("
+    SELECT ast.status
+    FROM actor_current_statuses acs
+    JOIN actor_statuses ast ON acs.actor_status_id = ast.actor_status_id
+    WHERE acs.actor_id = :actor_id
+    ORDER BY acs.created_at DESC
+", ['actor_id' => $user['actor_id']]);
+
+// В ответ добавить:
+'additional_statuses' => array_column($all_statuses, 'status')
     
     echo json_encode($response, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
     

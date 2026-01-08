@@ -4,6 +4,7 @@ if (window.location.pathname.includes('enter-reg')) {
     console.log('main-updated.js: Пропускаем инициализацию на странице входа');
     return;
 }
+
 const AppUpdated = (function() {
     // Конфигурация
     const config = {
@@ -133,24 +134,24 @@ const AppUpdated = (function() {
 
     // Проверка статуса авторизации
     function checkAuthStatus() {
-    console.log('🔐 main-updated: проверка авторизации');
-    
-    // Используем наш единый модуль
-    if (window.authInfo) {
-        return window.authInfo.authenticated;
-    }
-    
-    // Или проверяем самостоятельно
-    const token = localStorage.getItem('prostvor_token') || 
-                  sessionStorage.getItem('prostvor_token');
-    
-    if (token) {
-        console.log('✅ main-updated: токен найден');
-        return true;
-    }
-    
-    console.log('❌ main-updated: токен не найден');
-    return false;
+        console.log('🔐 main-updated: проверка авторизации');
+        
+        // Используем наш единый модуль
+        if (window.authInfo) {
+            return window.authInfo.authenticated;
+        }
+        
+        // Или проверяем самостоятельно
+        const token = localStorage.getItem('prostvor_token') || 
+                      sessionStorage.getItem('prostvor_token');
+        
+        if (token) {
+            console.log('✅ main-updated: токен найден');
+            return true;
+        }
+        
+        console.log('❌ main-updated: токен не найден');
+        return false;
     }
 
     // Инициализация боковых панелей
@@ -352,28 +353,31 @@ const AppUpdated = (function() {
 
     // Обработка создания проекта из меню
     function handleCreateProjectFromMenu() {
-        // Проверяем авторизацию
-        if (!appState.isAuthenticated) {
-            showNotification('Создавать Проекты могут только авторизованные Участники', 'warning');
-            return;
-        }
+        console.log('🎯 Проверка прав для создания проекта');
         
-        // Проверяем, есть ли у пользователя необходимый статус
-        if (appState.currentUser && appState.currentUser.statusOfActor) {
-            const allowedStatuses = [
-                'Руководитель проекта',
-                'Проектный куратор',
-                'Руководитель ТЦ'
-            ];
-            
-            if (!allowedStatuses.includes(appState.currentUser.statusOfActor)) {
-                showNotification('Для создания проекта необходим статус Руководителя проекта или выше', 'warning');
-                return;
+        // Используем нашу систему прав
+        if (window.AuthPermissions && window.AuthPermissions.canCreateProjects) {
+            if (window.AuthPermissions.canCreateProjects()) {
+                // Пользователь может создавать проекты
+                window.location.href = '../pages/ProjectMain.html';
+            } else {
+                // Показываем сообщение о недостаточных правах
+                const user = window.AuthPermissions.getCurrentUser();
+                const message = user 
+                    ? `Для создания проекта ваш статус "${user.status}" недостаточен. Требуется статус "Руководитель проекта" или выше.`
+                    : 'Для создания проекта необходимо авторизоваться со статусом "Руководитель проекта" или выше.';
+                
+                alert(message);
+                
+                // Можно предложить перейти к профилю или регистрации
+                if (confirm('Хотите перейти на страницу профиля?')) {
+                    window.location.href = '/pages/profile.html';
+                }
             }
+        } else {
+            // Запасной вариант
+            alert('Система проверки прав не загружена. Попробуйте позже.');
         }
-        
-        // Пользователь авторизован - переходим на страницу создания проекта
-        window.location.href = '../pages/ProjectMain.html';
     }
 
     // Показать боковые панели (публичный метод)
@@ -510,69 +514,49 @@ const AppUpdated = (function() {
 
     // ОБНОВЛЕННАЯ ФУНКЦИЯ: Добавление города с использованием LocacityDatabase
     async function addNewCity(e) {
-    e.preventDefault();
-    
-    if (!elements.newCityInput) return;
-    
-    const newCity = elements.newCityInput.value.trim();
-    
-    if (!newCity) {
-        showNotification('Введите название населённого пункта', 'warning');
-        return;
-    }
-    
-    if (newCity.length < 2) {
-        showNotification('Название должно содержать не менее 2 символов', 'warning');
-        return;
-    }
-    
-    // Валидация названия
-    const validation = validateCityInput(newCity);
-    if (!validation.valid) {
-        showNotification(validation.message, 'warning');
-        return;
-    }
-    
-    try {
-        // Проверяем, существует ли уже такой город в сохранённом списке
-        const savedCities = getSavedCities();
+        e.preventDefault();
         
-        if (savedCities.some(city => city.toLowerCase() === newCity.toLowerCase())) {
-            showNotification(`Населённый пункт "${newCity}" уже есть в списке!`, 'warning');
+        if (!elements.newCityInput) return;
+        
+        const newCity = elements.newCityInput.value.trim();
+        
+        if (!newCity) {
+            showNotification('Введите название населённого пункта', 'warning');
             return;
         }
         
-        // Проверяем через LocacityDatabase, есть ли город в базе данных
-        let cityData = null;
-        if (appState.databases.locacities) {
-            cityData = appState.databases.locacities.findLocacityByName(newCity);
+        if (newCity.length < 2) {
+            showNotification('Название должно содержать не менее 2 символов', 'warning');
+            return;
         }
         
-        // Если город найден в базе данных
-        if (cityData) {
-            console.log(`Город "${newCity}" найден в LocacityDatabase:`, cityData);
+        // Валидация названия
+        const validation = validateCityInput(newCity);
+        if (!validation.valid) {
+            showNotification(validation.message, 'warning');
+            return;
+        }
+        
+        try {
+            // Проверяем, существует ли уже такой город в сохранённом списке
+            const savedCities = getSavedCities();
             
-            // Добавляем в сохранённые города
-            savedCities.push(newCity);
-            localStorage.setItem('citiesList', JSON.stringify(savedCities));
+            if (savedCities.some(city => city.toLowerCase() === newCity.toLowerCase())) {
+                showNotification(`Населённый пункт "${newCity}" уже есть в списке!`, 'warning');
+                return;
+            }
             
-            // Обновляем список
-            renderCitiesList(savedCities);
+            // Проверяем через LocacityDatabase, есть ли город в базе данных
+            let cityData = null;
+            if (appState.databases.locacities) {
+                cityData = appState.databases.locacities.findLocacityByName(newCity);
+            }
             
-            // Очищаем поле ввода
-            elements.newCityInput.value = '';
-            
-            // Выбираем город
-            selectCity(newCity);
-            
-            showNotification(`Населённый пункт "${newCity}" добавлен (${cityData.LocacityRegion})`, 'success');
-            
-        } else {
-            // Город не найден в базе данных - предлагаем добавить как пользовательский
-            const confirmAdd = confirm(`"${newCity}" не найден в нашей базе данных.\n\nХотите добавить его как пользовательский населённый пункт?\n\nВы сможете указать регион и другие данные позже.`);
-            
-            if (confirmAdd) {
-                // Добавляем как пользовательский
+            // Если город найден в базе данных
+            if (cityData) {
+                console.log(`Город "${newCity}" найден в LocacityDatabase:`, cityData);
+                
+                // Добавляем в сохранённые города
                 savedCities.push(newCity);
                 localStorage.setItem('citiesList', JSON.stringify(savedCities));
                 
@@ -585,35 +569,55 @@ const AppUpdated = (function() {
                 // Выбираем город
                 selectCity(newCity);
                 
-                showNotification(`Пользовательский населённый пункт "${newCity}" добавлен`, 'info');
+                showNotification(`Населённый пункт "${newCity}" добавлен (${cityData.LocacityRegion})`, 'success');
                 
-                // Опционально: сохраняем в LocacityDatabase
-                try {
-                    if (appState.databases.locacities && appState.databases.locacities.addLocacity) {
-                        const userLocacity = {
-                            LocacityName: newCity,
-                            LocacityType: 'город',
-                            LocacityRegion: 'Не указано',
-                            LocacityCountry: 'Россия',
-                            LocacityDescription: 'Пользовательский населённый пункт',
-                            LocacityPopulation: 0
-                        };
-                        
-                        // В реальном приложении здесь был бы вызов addLocacity
-                        console.log('Пользовательский населённый пункт для добавления в базу:', userLocacity);
-                    }
-                } catch (error) {
-                    console.warn('Не удалось добавить в LocacityDatabase:', error);
-                }
             } else {
-                showNotification('Добавление отменено', 'info');
+                // Город не найден в базе данных - предлагаем добавить как пользовательский
+                const confirmAdd = confirm(`"${newCity}" не найден в нашей базе данных.\n\nХотите добавить его как пользовательский населённый пункт?\n\nВы сможете указать регион и другие данные позже.`);
+                
+                if (confirmAdd) {
+                    // Добавляем как пользовательский
+                    savedCities.push(newCity);
+                    localStorage.setItem('citiesList', JSON.stringify(savedCities));
+                    
+                    // Обновляем список
+                    renderCitiesList(savedCities);
+                    
+                    // Очищаем поле ввода
+                    elements.newCityInput.value = '';
+                    
+                    // Выбираем город
+                    selectCity(newCity);
+                    
+                    showNotification(`Пользовательский населённый пункт "${newCity}" добавлен`, 'info');
+                    
+                    // Опционально: сохраняем в LocacityDatabase
+                    try {
+                        if (appState.databases.locacities && appState.databases.locacities.addLocacity) {
+                            const userLocacity = {
+                                LocacityName: newCity,
+                                LocacityType: 'город',
+                                LocacityRegion: 'Не указано',
+                                LocacityCountry: 'Россия',
+                                LocacityDescription: 'Пользовательский населённый пункт',
+                                LocacityPopulation: 0
+                            };
+                            
+                            // В реальном приложении здесь был бы вызов addLocacity
+                            console.log('Пользовательский населённый пункт для добавления в базу:', userLocacity);
+                        }
+                    } catch (error) {
+                        console.warn('Не удалось добавить в LocacityDatabase:', error);
+                    }
+                } else {
+                    showNotification('Добавление отменено', 'info');
+                }
             }
+            
+        } catch (error) {
+            console.error('Ошибка при добавлении населённого пункта:', error);
+            showNotification(error.message || 'Произошла ошибка при добавлении населённого пункта', 'error');
         }
-        
-    } catch (error) {
-        console.error('Ошибка при добавлении населённого пункта:', error);
-        showNotification(error.message || 'Произошла ошибка при добавлении населённого пункта', 'error');
-    }
     }
 
     // ОБНОВЛЕННАЯ ФУНКЦИЯ: Инициализация городов с LocacityDatabase
@@ -1107,30 +1111,30 @@ const AppUpdated = (function() {
 
     // Функция для проверки валидности города
     function validateCityInput(cityName) {
-    if (!cityName || cityName.trim().length === 0) {
-        return { valid: false, message: 'Введите название населённого пункта' };
-    }
-    
-    if (cityName.length < 2) {
-        return { valid: false, message: 'Название должно содержать не менее 2 символов' };
-    }
-    
-    if (cityName.length > 50) {
-        return { valid: false, message: 'Название не должно превышать 50 символов' };
-    }
-    
-    // Проверяем, не является ли ввод числом
-    if (!isNaN(cityName)) {
-        return { valid: false, message: 'Название населённого пункта не может быть числом' };
-    }
-    
-    // Проверяем наличие только букв, дефисов, пробелов и апострофов
-    const validCharsRegex = /^[а-яА-ЯёЁa-zA-Z\s\-\'']+$/;
-    if (!validCharsRegex.test(cityName)) {
-        return { valid: false, message: 'Название может содержать только буквы, пробелы, дефисы и апострофы' };
-    }
-    
-    return { valid: true, message: '' };
+        if (!cityName || cityName.trim().length === 0) {
+            return { valid: false, message: 'Введите название населённого пункта' };
+        }
+        
+        if (cityName.length < 2) {
+            return { valid: false, message: 'Название должно содержать не менее 2 символов' };
+        }
+        
+        if (cityName.length > 50) {
+            return { valid: false, message: 'Название не должно превышать 50 символов' };
+        }
+        
+        // Проверяем, не является ли ввод числом
+        if (!isNaN(cityName)) {
+            return { valid: false, message: 'Название населённого пункта не может быть числом' };
+        }
+        
+        // Проверяем наличие только букв, дефисов, пробелов и апострофов
+        const validCharsRegex = /^[а-яА-ЯёЁa-zA-Z\s\-\'']+$/;
+        if (!validCharsRegex.test(cityName)) {
+            return { valid: false, message: 'Название может содержать только буквы, пробелы, дефисы и апострофы' };
+        }
+        
+        return { valid: true, message: '' };
     }
 
     // Обработка ввода в поле города
@@ -1194,6 +1198,8 @@ const AppUpdated = (function() {
         const left = linkRect.left - containerRect.left;
         const width = linkRect.width;
         
+        // Устанавливаем позицию и размер индикатор
+
         // Устанавливаем позицию и размер индикатора
         activeIndicator.style.left = left + 'px';
         activeIndicator.style.width = width + 'px';
@@ -1398,11 +1404,13 @@ const AppUpdated = (function() {
             
             console.groupEnd();
         }
-    };        
+    };
 })();
 
 // Инициализация приложения после загрузки DOM
-document.addEventListener('DOMContentLoaded', AppUpdated.init);
+document.addEventListener('DOMContentLoaded', function() {
+    AppUpdated.init();
+});
 
 // Экспорт для глобального доступа
 if (typeof window !== 'undefined') {

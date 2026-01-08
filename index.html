@@ -308,7 +308,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="pages/News.html" class="nav-link">Новости</a>
-                    <div class="nav-dropdown">
+                    <div class="nav-dropdown">  
                         <a href="#" class="dropdown-item">Анонсы</a>
                         <a href="#" class="dropdown-item">События</a>
                     </div>
@@ -316,8 +316,8 @@
                 <li class="nav-item">
                     <a href="pages/Projects.html" class="nav-link">Проекты</a>
                     <div class="nav-dropdown">
-                        <a href="#" class="dropdown-item">Создать новый Проект</a>
-                        <a href="#" class="dropdown-item">Мои проекты</a>
+                        <a href="#" class="dropdown-item" data-permission="create-projects">Создать новый Проект</a>
+                        <a href="#" class="dropdown-item" data-auth-only>Мои проекты</a>
                     </div>
                 </li>
                 <li class="nav-item">
@@ -338,16 +338,16 @@
                 <li class="nav-item">
                     <a href="pages/events.html" class="nav-link">События</a>
                     <div class="nav-dropdown">
-                        <a href="#" class="dropdown-item">Создать Событие</a>
-                        <a href="#" class="dropdown-item">Календарь событий</a>
-                        <a href="#" class="dropdown-item">Мои события</a>
+                        <button class="create-btn" data-permission="create-events">Создать Событие</a>
+                        <a href="#" class="dropdown-item" data-auth-only>Календарь событий</a>
+                        <a href="#" class="dropdown-item" data-auth-only>Мои события</a>
                     </div>
                 </li>
                 <li class="nav-item">
                     <a href="pages/events.html" class="nav-link">Услуги</a>
                     <div class="nav-dropdown">
-                        <a href="#" class="dropdown-item">Предложить Услуги</a>
-                        <a href="#" class="dropdown-item">Запросить Услуги</a>
+                        <a href="#" class="dropdown-item" data-auth-only>Предложить Услуги</a>
+                        <a href="#" class="dropdown-item" data-auth-only>Запросить Услуги</a>
                     </div>
                 </li>
                 <li class="nav-item">
@@ -355,15 +355,15 @@
                     <div class="nav-dropdown">
                         <a href="#" class="dropdown-item">Руководители и Кураторы</a>
                         <a href="#" class="dropdown-item">Стать Участником</a>
-                        <a href="#" class="dropdown-item">Поиск участников</a>
+                        <a href="#" class="dropdown-item" data-auth-only>Поиск участников</a>
                     </div>
                 </li>
                 <li class="nav-item">
                     <a href="pages/topics.html" class="nav-link">Темы</a>
                     <div class="nav-dropdown">
-                        <a href="#" class="dropdown-item">Создать Тему</a>
-                        <a href="#" class="dropdown-item">Получить консультацию</a>
-                        <a href="#" class="dropdown-item">Популярные темы</a>
+                        <button class="create-btn" data-permission="create-topics">Создать Тему</a>
+                        <a href="#" class="dropdown-item" data-auth-only>Получить консультацию</a>
+                        <a href="#" class="dropdown-item" data-auth-only>Популярные темы</a>
                     </div>
                 </li>
             </ul>
@@ -435,9 +435,11 @@
     </div>
 
     <script src="js/api-service.js"></script>
-    <script src="js/config.js"></script> <!-- если нужен -->
-    <script src="js/auth-check.js"></script>
+    <script src="js/auth-check-fixed.js"></script>
+    <script src="js/auth-permissions.js"></script>
+    <script src="js/status-manager.js"></script>
     <script src="js/main-updated.js"></script>
+    <script src="js/communications-icons.js"></script>
 
     <script>
      document.addEventListener('DOMContentLoaded', function() {
