@@ -157,13 +157,11 @@ function updateRegistrationForm(type) {
                     <input type="text" class="form-input" id="regSurname" name="surname" placeholder="Введите вашу фамилию">
                 </div>
                 <div class="form-group">
-                    <label class="form-label" for="regCity">Город</label>
-                    <input type="text" class="form-input" id="regCity" name="city" placeholder="Ваш город" list="citiesList">
-                    <datalist id="citiesList">
-                        <option value="Москва">
-                        <option value="Санкт-Петербург">
-                        <option value="Улан-Удэ">
-                    </datalist>
+                    <label for="locality">Населенный пункт:</label>
+                    <select id="locality" name="locality" required>
+                        <option value="">Выберите населенный пункт</option>
+                        <!-- Заполнится через JavaScript -->
+                    </select>
                 </div>
             `;
             break;

@@ -197,3 +197,38 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 console.log('🚀 Auth Fixed инициализация начата...');
+
+// Найти обработчик регистрации и обновить его
+async function handleRegistration(formData) {
+    try {
+        // Только обязательные поля
+        const registrationData = {
+            username: formData.get('username'),
+            email: formData.get('email'),
+            password: formData.get('password')
+            // locality_id: formData.get('locality') // ОПЦИОНАЛЬНО
+        };
+        
+        const response = await fetch('/api/auth/register.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(registrationData)
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            // Сохраняем токен
+            localStorage.setItem('auth_token', data.token);
+            // Перенаправляем
+            window.location.href = '/index.html';
+        } else {
+            alert('Ошибка регистрации: ' + data.message);
+        }
+    } catch (error) {
+        console.error('Registration error:', error);
+        alert('Ошибка подключения к серверу');
+    }
+}
