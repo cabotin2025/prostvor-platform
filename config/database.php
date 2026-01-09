@@ -1,32 +1,65 @@
 <?php
-// Временно закомментируйте весь код и оставьте только подключение
+/**
+ * Конфигурация подключения к базе данных PostgreSQL
+ * ПРАВИЛЬНЫЕ НАСТРОЙКИ:
+ */
+
+// Включение отображения ошибок
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+// Параметры подключения ДЛЯ ВАШЕГО СЕРВЕРА
+$host = 'localhost';
+$port = '5432';
+$dbname = 'creative_center_base'; // Ваша реальная база
+$username = 'postgres';
+$password = '123456'; // ← ВАШ ПАРОЛЬ!
+
+// Для отладки
+$development_mode = true;
+
 try {
-    $pdo = new PDO('pgsql:host=localhost;dbname=creative_center', 'username', 'password');
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch(PDOException $e) {
-    // Возвращаем JSON ошибку вместо исключения
-    header('Content-Type: application/json');
+    // DSN строка
+    $dsn = "pgsql:host=$host;port=$port;dbname=$dbname";
+    
+    // Создаем соединение
+    $pdo = new PDO($dsn, $username, $password, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES => false,
+        PDO::ATTR_PERSISTENT => false
+    ]);
+    
+    // Устанавливаем UTF-8 для PostgreSQL
+    $pdo->exec("SET client_encoding TO 'UTF8'");
+    
+    if ($development_mode) {
+        error_log("✅ Database connected: $dbname");
+    }
+    
+} catch (PDOException $e) {
+    // Подробная ошибка
+    $error_details = [
+        'message' => $e->getMessage(),
+        'code' => $e->getCode()
+    ];
+    
+    error_log("❌ Database connection failed: " . print_r($error_details, true));
+    
+    header('Content-Type: application/json; charset=utf-8');
     http_response_code(500);
-    echo json_encode(['success' => false, 'message' => 'Database connection failed']);
+    
+    $error_message = $development_mode 
+        ? "Database connection failed: " . $e->getMessage()
+        : "Database connection failed";
+    
+    echo json_encode([
+        'success' => false,
+        'message' => $error_message,
+        'error_details' => $development_mode ? $error_details : null
+    ], JSON_UNESCAPED_UNICODE);
     exit;
 }
 
-// Конфигурация базы данных - ИЗМЕНИТЕ ПАРОЛЬ!
-//define('DB_HOST', 'localhost');
-//define('DB_PORT', '5432');
-//define('DB_NAME', 'creative_center_base');
-//define('DB_USER', 'postgres');
-//define('DB_PASSWORD', '123456'); // ← ВАЖНО: замените на ваш пароль!
-//define('DB_CHARSET', 'UTF8');
-
-// JWT настройки
-//define('JWT_SECRET', 'prostvor_super_secret_key_2025_change_in_production!');
-//define('JWT_ALGORITHM', 'HS256');
-//define('JWT_EXPIRE', 86400); // 24 часа
-
-// URL приложения
-//define('APP_URL', 'http://localhost:8000');
-//define('APP_ENV', 'development');
-
-// Автозагрузка Composer
-//require_once __DIR__ . '/../vendor/autoload.php';
+global $pdo;

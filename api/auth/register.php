@@ -1,35 +1,53 @@
 <?php
+/**
+ * Реальная регистрация пользователя
+ */
+
 require_once '../../config/database.php';
 require_once '../../config/cors.php';
 require_once '../../config/jwt.php';
 
-header('Content-Type: application/json');
+header('Content-Type: application/json; charset=utf-8');
+header('Access-Control-Allow-Origin: *');
+
+// Включите для отладки
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
-    echo json_encode(['success' => false, 'message' => 'Method not allowed']);
+    echo json_encode(['success' => false, 'message' => 'Метод не разрешен']);
     exit;
 }
 
 try {
-    $data = json_decode(file_get_contents('php://input'), true);
+    $input = file_get_contents('php://input');
+    error_log("Регистрация: " . $input);
     
-    // Валидация с учетом реальной структуры
+    $data = json_decode($input, true);
+    
     if (empty($data['email']) || empty($data['password']) || empty($data['nickname'])) {
-        throw new Exception('Заполните обязательные поля: Email, Пароль и Имя пользователя (nickname)');
+        throw new Exception('Заполните email, пароль и никнейм');
     }
     
-    // Проверка существования пользователя по email
+    $email = trim($data['email']);
+    $password = $data['password'];
+    $nickname = trim($data['nickname']);
+    $name = $data['name'] ?? $nickname;
+    $last_name = $data['last_name'] ?? '';
+    
+    // Проверка существования пользователя
     $stmt = $pdo->prepare("
         SELECT a.actor_id 
         FROM actors a
         LEFT JOIN persons p ON a.actor_id = p.actor_id
         WHERE p.email = ? OR a.nickname = ?
     ");
-    $stmt->execute([$data['email'], $data['nickname']]);
+    $stmt->execute([$email, $nickname]);
     
     if ($stmt->fetch()) {
-        throw new Exception('Пользователь с таким email или именем уже существует');
+        throw new Exception('Пользователь с таким email или никнеймом уже существует');
     }
     
     // Начинаем транзакцию
@@ -37,7 +55,7 @@ try {
     
     try {
         // Хеширование пароля
-        $password_hash = password_hash($data['password'], PASSWORD_DEFAULT);
+        $password_hash = password_hash($password, PASSWORD_DEFAULT);
         
         // Генерация номера аккаунта
         $account_number = 'U' . str_pad(mt_rand(1, 99999999999), 11, '0', STR_PAD_LEFT);
@@ -49,41 +67,40 @@ try {
             RETURNING actor_id
         ");
         
-        $stmt->execute([$data['nickname'], $account_number]);
+        $stmt->execute([$nickname, $account_number]);
         $actor_row = $stmt->fetch(PDO::FETCH_ASSOC);
         $actor_id = $actor_row['actor_id'];
         
-        // 2. Создаем запись в persons с email
+        // 2. Создаем запись в persons
         $stmt = $pdo->prepare("
             INSERT INTO persons (name, last_name, email, actor_id, created_by, updated_by) 
             VALUES (?, ?, ?, ?, 1, 1)
         ");
         
-        $stmt->execute([
-            $data['name'] ?? $data['nickname'], // Если имя не указано, используем nickname
-            $data['last_name'] ?? '', // Фамилия может быть пустой
-            $data['email'],
-            $actor_id
-        ]);
+        $stmt->execute([$name, $last_name, $email, $actor_id]);
         
-        // 3. Присваиваем статус "Участник ТЦ" (ID = 7)
+        // 3. Сохраняем пароль
+        $stmt = $pdo->prepare("
+            INSERT INTO actor_credentials (actor_id, password_hash) 
+            VALUES (?, ?)
+        ");
+        $stmt->execute([$actor_id, $password_hash]);
+        
+        // 4. Присваиваем статус "Участник ТЦ" (ID = 7)
         $stmt = $pdo->prepare("
             INSERT INTO actor_current_statuses (actor_id, actor_status_id, created_by) 
             VALUES (?, 7, ?)
         ");
         $stmt->execute([$actor_id, $actor_id]);
         
-        // 4. Генерация JWT токена
-        $payload = [
+        // 5. Генерируем JWT токен
+        $token = JWT::encode([
             'user_id' => $actor_id,
-            'nickname' => $data['nickname'],
-            'email' => $data['email'],
-            'status_id' => 7 // Участник ТЦ
-        ];
+            'nickname' => $nickname,
+            'email' => $email,
+            'status_id' => 7
+        ]);
         
-        $token = JWT::encode($payload, JWT_SECRET);
-        
-        // Коммитим транзакцию
         $pdo->commit();
         
         echo json_encode([
@@ -91,9 +108,9 @@ try {
             'message' => 'Регистрация успешна',
             'token' => $token,
             'actor_id' => $actor_id,
-            'nickname' => $data['nickname'], // ← ВАЖНО: возвращаем nickname, а не username
+            'nickname' => $nickname,
             'global_status' => 'Участник ТЦ'
-        ]);
+        ], JSON_UNESCAPED_UNICODE);
         
     } catch (Exception $e) {
         $pdo->rollBack();
@@ -101,6 +118,10 @@ try {
     }
     
 } catch (Exception $e) {
+    error_log("Ошибка регистрации: " . $e->getMessage());
     http_response_code(400);
-    echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+    echo json_encode([
+        'success' => false,
+        'message' => $e->getMessage()
+    ], JSON_UNESCAPED_UNICODE);
 }

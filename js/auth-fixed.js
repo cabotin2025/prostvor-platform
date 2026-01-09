@@ -1,4 +1,3 @@
-
 // js/auth-fixed.js - РАБОЧАЯ ВЕРСИЯ
 // ДОПОЛНИТЕЛЬНАЯ ОТЛАДКА
 console.log('🔧 Auth-fixed.js: Проверяем localStorage доступность');
@@ -233,13 +232,23 @@ async function handleRegistration(formData) {
                 localStorage.setItem('auth_token', data.token);
             }
             
-            // Сохраняем nickname (не username!)
-            const nickname = data.nickname || data.user?.nickname || nicknameInput;
-            localStorage.setItem('user_nickname', nickname);
+            // ИСПРАВЛЕНИЕ: правильное получение nickname
+            const nickname = data.nickname || data.username || data.user?.nickname;
+            if (nickname) {
+                localStorage.setItem('user_nickname', nickname);
+            }
             
             // Сохраняем actor_id
             if (data.actor_id) {
                 localStorage.setItem('user_id', data.actor_id.toString());
+            }
+            
+            // Сохраняем статус
+            if (data.global_status) {
+                localStorage.setItem('user_status', data.global_status);
+            } else if (data.success) {
+                // По умолчанию для новых пользователей
+                localStorage.setItem('user_status', 'Участник ТЦ');
             }
             
             alert('✅ Регистрация успешна!');
@@ -252,8 +261,54 @@ async function handleRegistration(formData) {
             alert('❌ Ошибка регистрации: ' + (data.message || 'Неизвестная ошибка'));
         }
     } catch (error) {
-        // Обработка ошибок сети или JSON
-        console.error('❌ Ошибка при регистрации:', error);
+        // Добавлен недостающий блок catch
+        console.error('❌ Ошибка в handleRegistration:', error);
         alert('❌ Ошибка соединения с сервером');
+    }
+}
+
+// Функция обработки логина:
+async function handleLogin(email, password) {
+    try {
+        const response = await fetch('/api/auth/login.php', {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+        });
+        
+        const data = await response.json();
+        console.log('Ответ сервера:', data);
+        
+        if (data.success) {
+            // Сохраняем JWT токен
+            localStorage.setItem('auth_token', data.token);
+            localStorage.setItem('user_nickname', data.user.nickname);
+            localStorage.setItem('user_id', data.user.actor_id.toString());
+            localStorage.setItem('user_status', data.user.global_status);
+            localStorage.setItem('user_email', data.user.email);
+            localStorage.setItem('user_data', JSON.stringify(data.user));
+            
+            console.log('✅ Авторизация успешна:', data.user.nickname);
+            
+            // Показываем сообщение
+            alert('✅ Вход выполнен! Добро пожаловать, ' + data.user.nickname);
+            
+            // Перенаправляем на главную
+            setTimeout(() => {
+                window.location.href = '/index.html';
+            }, 1000);
+            
+            return true;
+        } else {
+            console.error('❌ Ошибка авторизации:', data.message);
+            alert('❌ Ошибка: ' + data.message);
+            return false;
+        }
+    } catch (error) {
+        console.error('❌ Ошибка сети:', error);
+        alert('❌ Ошибка подключения к серверу');
+        return false;
     }
 }

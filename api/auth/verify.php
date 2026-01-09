@@ -1,57 +1,92 @@
 <?php
+/**
+ * Проверка JWT токена - ОБНОВЛЕННАЯ ВЕРСИЯ
+ */
+
 require_once '../../config/database.php';
 require_once '../../config/cors.php';
 require_once '../../config/jwt.php';
 
-header('Content-Type: application/json');
-
-if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
-    http_response_code(405);
-    echo json_encode(['success' => false, 'message' => 'Method not allowed']);
-    exit;
-}
+header('Content-Type: application/json; charset=utf-8');
+header('Access-Control-Allow-Origin: *');
 
 try {
-    $headers = getallheaders();
     $token = null;
     
-    if (isset($headers['Authorization'])) {
-        $authHeader = $headers['Authorization'];
-        if (preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {
+    // 1. Пробуем получить из GET параметра (для тестов)
+    if (isset($_GET['token']) && !empty($_GET['token'])) {
+        $token = $_GET['token'];
+    }
+    // 2. Из заголовка Authorization
+    elseif (isset($_SERVER['HTTP_AUTHORIZATION'])) {
+        $auth_header = $_SERVER['HTTP_AUTHORIZATION'];
+        if (preg_match('/Bearer\s+(\S+)/', $auth_header, $matches)) {
             $token = $matches[1];
+        }
+    }
+    // 3. Из POST данных
+    elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $input = file_get_contents('php://input');
+        $data = json_decode($input, true);
+        if (isset($data['token'])) {
+            $token = $data['token'];
         }
     }
     
     if (!$token) {
-        http_response_code(401);
-        echo json_encode(['success' => false, 'message' => 'Token not provided']);
+        // Для отладки: если нет токена, возвращаем информацию
+        echo json_encode([
+            'success' => false,
+            'valid' => false,
+            'message' => 'Токен не предоставлен',
+            'debug' => [
+                'method' => $_SERVER['REQUEST_METHOD'],
+                'auth_header' => $_SERVER['HTTP_AUTHORIZATION'] ?? 'не установлен',
+                'get_token' => $_GET['token'] ?? 'не установлен'
+            ]
+        ], JSON_UNESCAPED_UNICODE);
         exit;
     }
     
-    // Верифицируем токен
-    $decoded = JWT::decode($token, JWT_SECRET, ['HS256']);
+    // Декодируем токен
+    $decoded = JWT::decode($token, JWT_SECRET);
     
-    // Получаем статус пользователя
+    // Получаем данные пользователя из БД
     $stmt = $pdo->prepare("
-        SELECT s.status 
-        FROM actor_current_statuses acs
-        JOIN actor_statuses s ON acs.actor_status_id = s.actor_status_id
-        WHERE acs.actor_id = ?
+        SELECT 
+            a.nickname,
+            p.email,
+            p.name,
+            p.last_name,
+            acs.actor_status_id,
+            s.status as global_status
+        FROM actors a
+        LEFT JOIN persons p ON a.actor_id = p.actor_id
+        LEFT JOIN actor_current_statuses acs ON a.actor_id = acs.actor_id
+        LEFT JOIN actor_statuses s ON acs.actor_status_id = s.actor_status_id
+        WHERE a.actor_id = :actor_id
     ");
     
-    $stmt->execute([$decoded->user_id]);
-    $status = $stmt->fetch(PDO::FETCH_COLUMN);
+    $stmt->execute([':actor_id' => $decoded->user_id]);
+    $user_data = $stmt->fetch(PDO::FETCH_ASSOC);
     
     echo json_encode([
         'success' => true,
-        'message' => 'Token is valid',
+        'valid' => true,
+        'message' => 'Токен валиден',
         'user_id' => $decoded->user_id,
-        'username' => $decoded->username,
-        'global_status' => $status,
-        'locality_id' => $decoded->locality_id ?? null
-    ]);
+        'user' => $user_data,
+        'token_data' => $decoded,
+        'expires_at' => date('Y-m-d H:i:s', $decoded->exp),
+        'expires_in_seconds' => $decoded->exp - time()
+    ], JSON_UNESCAPED_UNICODE);
     
 } catch (Exception $e) {
     http_response_code(401);
-    echo json_encode(['success' => false, 'message' => 'Invalid token: ' . $e->getMessage()]);
+    echo json_encode([
+        'success' => false,
+        'valid' => false,
+        'message' => $e->getMessage(),
+        'error_type' => get_class($e)
+    ], JSON_UNESCAPED_UNICODE);
 }

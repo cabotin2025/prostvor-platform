@@ -1,6 +1,6 @@
 // Конфигурация API для фронтенда
 const API_CONFIG = {
-    BASE_URL: 'http://localhost:8000',
+     BASE_URL: '/api',
     
     // Endpoints
     ENDPOINTS: {

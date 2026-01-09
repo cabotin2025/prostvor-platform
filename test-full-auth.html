@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Полный тест аутентификации</title>
+    <style>
+        body { font-family: Arial; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; border-radius: 5px; }
+        .success { color: green; }
+        .error { color: red; }
+        pre { background: #f5f5f5; padding: 10px; overflow: auto; }
+        button { margin: 5px; padding: 8px 15px; }
+    </style>
+</head>
+<body>
+    <h2>📊 Полный тест системы аутентификации</h2>
+    
+    <div class="section">
+        <h3>1. Вход в систему</h3>
+        <div>
+            <label>Email: <input type="email" id="email" value="cabotin@mail.ru"></label>
+        </div>
+        <div>
+            <label>Пароль: <input type="password" id="password" value="password"></label>
+        </div>
+        <button onclick="login()">Войти</button>
+        <div id="login-result"></div>
+    </div>
+    
+    <div class="section">
+        <h3>2. Проверка токена</h3>
+        <button onclick="checkToken()">Проверить токен</button>
+        <button onclick="verifyToken()">Verify API</button>
+        <div id="token-result"></div>
+    </div>
+    
+    <div class="section">
+        <h3>3. Текущее состояние</h3>
+        <button onclick="showLocalStorage()">Показать LocalStorage</button>
+        <button onclick="clearStorage()">Очистить Storage</button>
+        <div id="storage-info"></div>
+    </div>
+    
+    <div class="section">
+        <h3>4. Отладка</h3>
+        <button onclick="testAllEndpoints()">Тест всех endpoints</button>
+        <div id="debug-info"></div>
+    </div>
+    
+    <script>
+    // 1. Функция входа
+    async function login() {
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        
+        try {
+            const response = await fetch('/api/auth/login.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+            
+            const data = await response.json();
+            const resultDiv = document.getElementById('login-result');
+            
+            if (data.success) {
+                // Сохраняем данные
+                localStorage.setItem('auth_token', data.token);
+                localStorage.setItem('user_nickname', data.user.nickname);
+                localStorage.setItem('user_id', data.user.actor_id);
+                localStorage.setItem('user_status', data.user.global_status);
+                
+                resultDiv.innerHTML = `
+                    <div class="success">
+                        ✅ Вход успешен!<br>
+                        Пользователь: ${data.user.nickname}<br>
+                        Статус: ${data.user.global_status}<br>
+                        Токен (первые 50 символов): ${data.token.substring(0, 50)}...
+                    </div>
+                `;
+            } else {
+                resultDiv.innerHTML = `<div class="error">❌ ${data.message}</div>`;
+            }
+        } catch (error) {
+            document.getElementById('login-result').innerHTML = 
+                `<div class="error">❌ Ошибка: ${error.message}</div>`;
+        }
+    }
+    
+    // 2. Проверка токена
+    async function checkToken() {
+        const token = localStorage.getItem('auth_token');
+        
+        if (!token) {
+            document.getElementById('token-result').innerHTML = 
+                '<div class="error">❌ Нет токена</div>';
+            return;
+        }
+        
+        try {
+            const response = await fetch(`/api/auth/check-token.php?token=${encodeURIComponent(token)}`);
+            const data = await response.json();
+            
+            const resultDiv = document.getElementById('token-result');
+            
+            if (data.authenticated) {
+                resultDiv.innerHTML = `
+                    <div class="success">
+                        ✅ Токен валиден!<br>
+                        User ID: ${data.user_id}<br>
+                        Имя: ${data.nickname}<br>
+                        Истекает: ${data.expires_at}
+                    </div>
+                `;
+            } else {
+                resultDiv.innerHTML = `<div class="error">❌ ${data.message}</div>`;
+            }
+        } catch (error) {
+            document.getElementById('token-result').innerHTML = 
+                `<div class="error">❌ Ошибка: ${error.message}</div>`;
+        }
+    }
+    
+    // 3. Verify API
+    async function verifyToken() {
+        const token = localStorage.getItem('auth_token');
+        
+        if (!token) {
+            document.getElementById('token-result').innerHTML = 
+                '<div class="error">❌ Нет токена</div>';
+            return;
+        }
+        
+        try {
+            const response = await fetch(`/api/auth/verify.php?token=${encodeURIComponent(token)}`);
+            const data = await response.json();
+            
+            const resultDiv = document.getElementById('token-result');
+            resultDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+        } catch (error) {
+            document.getElementById('token-result').innerHTML = 
+                `<div class="error">❌ Ошибка: ${error.message}</div>`;
+        }
+    }
+    
+    // 4. Показать LocalStorage
+    function showLocalStorage() {
+        const items = {
+            'auth_token': localStorage.getItem('auth_token')?.substring(0, 50) + '...',
+            'user_nickname': localStorage.getItem('user_nickname'),
+            'user_id': localStorage.getItem('user_id'),
+            'user_status': localStorage.getItem('user_status'),
+            'user_email': localStorage.getItem('user_email')
+        };
+        
+        document.getElementById('storage-info').innerHTML = 
+            `<pre>${JSON.stringify(items, null, 2)}</pre>`;
+    }
+    
+    // 5. Очистить storage
+    function clearStorage() {
+        localStorage.clear();
+        document.getElementById('storage-info').innerHTML = 
+            '<div class="success">✅ LocalStorage очищен</div>';
+    }
+    
+    // 6. Тест всех endpoints
+    async function testAllEndpoints() {
+    const endpoints = [
+        { 
+            url: '/api/auth/login.php', 
+            method: 'POST',
+            data: { email: 'cabotin@mail.ru', password: 'password' },
+            expected: 400 // Без данных - 400 Bad Request
+        },
+        { 
+            url: '/api/auth/verify.php', 
+            method: 'GET',
+            expected: 401 // Без токена - 401 Unauthorized
+        },
+        { 
+            url: '/api/auth/check-token.php', 
+            method: 'GET',
+            expected: 200 // Всегда 200, даже без токена
+        },
+        { 
+            url: '/api/test-connection.php', 
+            method: 'GET',
+            expected: 200 // Проверка подключения к БД
+        }
+    ];
+    
+    let results = '<h4>Результаты теста endpoints:</h4>';
+    
+    for (const endpoint of endpoints) {
+        try {
+            const options = {
+                method: endpoint.method
+            };
+            
+            // Добавляем тело для POST запросов
+            if (endpoint.method === 'POST' && endpoint.data) {
+                options.headers = { 'Content-Type': 'application/json' };
+                options.body = JSON.stringify(endpoint.data);
+            }
+            
+            const response = await fetch(endpoint.url, options);
+            const status = response.status;
+            const ok = response.ok;
+            
+            let statusText = '';
+            if (status === endpoint.expected) {
+                statusText = `✅ Ожидаемый ${status}`;
+            } else if (status === 200 || status === 201) {
+                statusText = `✅ ${status}`;
+            } else if (status === 400 || status === 401 || status === 405) {
+                statusText = `⚠️ ${status} (нормально для этого endpoint)`;
+            } else {
+                statusText = `❌ ${status}`;
+            }
+            
+            results += `<div><strong>${endpoint.method} ${endpoint.url}</strong>: ${statusText}</div>`;
+            
+        } catch (error) {
+            results += `<div><strong>${endpoint.method} ${endpoint.url}</strong>: ❌ ERROR ${error.message}</div>`;
+        }
+    }
+    
+    document.getElementById('debug-info').innerHTML = results;
+    }
+    
+    // Инициализация
+    showLocalStorage();
+    </script>
+</body>
+</html>

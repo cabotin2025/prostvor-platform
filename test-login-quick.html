@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Быстрая проверка логина</title>
+</head>
+<body>
+    <h3>Тест логина (упрощенный)</h3>
+    
+    <div>
+        <label>Email: <input type="email" id="email" value="cabotin@mail.ru"></label>
+    </div>
+    <div>
+        <label>Пароль: <input type="password" id="password" value="password"></label>
+    </div>
+    
+    <div style="margin: 20px 0;">
+        <button onclick="testLogin('login-fixed.php')">Тест login-fixed.php</button>
+        <button onclick="testLogin('login.php')">Тест login.php</button>
+        <button onclick="testLogin('login-debug.php')">Тест login-debug.php</button>
+    </div>
+    
+    <div>
+        <h4>Результат:</h4>
+        <pre id="result"></pre>
+    </div>
+    
+    <script>
+    async function testLogin(endpoint) {
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        
+        try {
+            const response = await fetch('/api/auth/' + endpoint, {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
+            
+            const text = await response.text();
+            const result = document.getElementById('result');
+            
+            try {
+                const data = JSON.parse(text);
+                result.textContent = JSON.stringify(data, null, 2);
+                
+                if (data.success && data.token) {
+                    localStorage.setItem('auth_token', data.token);
+                    console.log('Токен сохранен:', data.token.substring(0, 50) + '...');
+                }
+            } catch {
+                result.textContent = text;
+            }
+            
+        } catch (error) {
+            document.getElementById('result').textContent = 'Ошибка: ' + error.message;
+        }
+    }
+    </script>
+</body>
+</html>

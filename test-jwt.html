@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Тест JWT системы</title>
+    <style>
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Тест JWT системы аутентификации</h2>
+        
+        <div class="section">
+            <h3>1. Тест входа</h3>
+            <input type="email" id="email" placeholder="Email" value="cabotin@mail.ru">
+            <input type="password" id="password" placeholder="Пароль" value="123456">
+            <button onclick="testLogin()">Войти</button>
+            <div id="login-result"></div>
+        </div>
+        
+        <div class="section">
+            <h3>2. Тест проверки токена</h3>
+            <button onclick="testVerify()">Проверить токен</button>
+            <div id="verify-result"></div>
+        </div>
+        
+        <div class="section">
+            <h3>3. Текущий токен</h3>
+            <textarea id="token-display" rows="3" style="width: 100%;"></textarea>
+            <button onclick="decodeToken()">Декодировать токен</button>
+            <div id="decode-result"></div>
+        </div>
+    </div>
+    
+    <script>
+    function updateTokenDisplay() {
+        const token = localStorage.getItem('auth_token');
+        document.getElementById('token-display').value = token || 'Нет токена';
+    }
+    
+    async function testLogin() {
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        
+        try {
+            const response = await fetch('/api/auth/login.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+            
+            const data = await response.json();
+            const resultDiv = document.getElementById('login-result');
+            
+            if (data.success) {
+                localStorage.setItem('auth_token', data.token);
+                localStorage.setItem('user_nickname', data.user.nickname);
+                
+                resultDiv.innerHTML = `<div class="success">
+                    ✅ Успех!<br>
+                    Токен получен: ${data.token.substring(0, 30)}...<br>
+                    Пользователь: ${data.user.nickname}<br>
+                    Статус: ${data.user.global_status}
+                </div>`;
+                
+                updateTokenDisplay();
+            } else {
+                resultDiv.innerHTML = `<div class="error">❌ ${data.message}</div>`;
+            }
+        } catch (error) {
+            document.getElementById('login-result').innerHTML = 
+                `<div class="error">❌ Ошибка: ${error.message}</div>`;
+        }
+    }
+    
+    async function testVerify() {
+        const token = localStorage.getItem('auth_token');
+        
+        if (!token) {
+            document.getElementById('verify-result').innerHTML = 
+                '<div class="error">❌ Нет токена для проверки</div>';
+            return;
+        }
+        
+        try {
+            const response = await fetch(`/api/auth/verify.php?token=${encodeURIComponent(token)}`);
+            const data = await response.json();
+            
+            const resultDiv = document.getElementById('verify-result');
+            
+            if (data.success && data.valid) {
+                resultDiv.innerHTML = `<div class="success">
+                    ✅ Токен валиден!<br>
+                    User ID: ${data.user_id}<br>
+                    Истекает: ${data.expires_at}<br>
+                    Пользователь: ${data.user.nickname}
+                </div>`;
+            } else {
+                resultDiv.innerHTML = `<div class="error">❌ ${data.message}</div>`;
+            }
+        } catch (error) {
+            document.getElementById('verify-result').innerHTML = 
+                `<div class="error">❌ Ошибка: ${error.message}</div>`;
+        }
+    }
+    
+    function decodeToken() {
+        const token = localStorage.getItem('auth_token');
+        
+        if (!token) {
+            document.getElementById('decode-result').innerHTML = 
+                '<div class="error">❌ Нет токена</div>';
+            return;
+        }
+        
+        try {
+            // Простое декодирование base64 payload
+            const parts = token.split('.');
+            if (parts.length === 3) {
+                const payload = JSON.parse(atob(parts[1].replace(/-/g, '+').replace(/_/g, '/')));
+                
+                document.getElementById('decode-result').innerHTML = `
+                    <div class="success">
+                        <strong>Декодированные данные:</strong><br>
+                        <pre>${JSON.stringify(payload, null, 2)}</pre>
+                    </div>
+                `;
+            }
+        } catch (error) {
+            document.getElementById('decode-result').innerHTML = 
+                `<div class="error">❌ Не удалось декодировать токен</div>`;
+        }
+    }
+    
+    // Инициализация
+    updateTokenDisplay();
+    </script>
+</body>
+</html>

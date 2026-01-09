@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h3>Тест реальной регистрации</h3>
+    
+    <div>
+        <input type="email" id="email" placeholder="Email" value="testuser@example.com">
+        <input type="password" id="password" placeholder="Пароль" value="password123">
+        <input type="text" id="nickname" placeholder="Никнейм" value="testuser">
+    </div>
+    
+    <div>
+        <button onclick="testRealRegistration()">Тест реальной регистрации</button>
+        <button onclick="testCurrentRegistration()">Тест текущей регистрации</button>
+    </div>
+    
+    <div>
+        <h4>Результат:</h4>
+        <pre id="result"></pre>
+    </div>
+    
+    <script>
+    async function testRealRegistration() {
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const nickname = document.getElementById('nickname').value;
+        
+        try {
+            const response = await fetch('/api/auth/register.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password, nickname })
+            });
+            
+            const text = await response.text();
+            document.getElementById('result').textContent = text;
+            
+            try {
+                const data = JSON.parse(text);
+                if (data.success) {
+                    console.log('Регистрация успешна:', data);
+                    localStorage.setItem('auth_token', data.token);
+                }
+            } catch {}
+            
+        } catch (error) {
+            document.getElementById('result').textContent = 'Ошибка: ' + error.message;
+        }
+    }
+    
+    async function testCurrentRegistration() {
+        // Проверяем какой endpoint используется сейчас
+        const endpoints = [
+            '/api/auth/register.php',
+            '/api/auth/register-test.php',
+            '/api/auth/register-simple.php'
+        ];
+        
+        let results = '';
+        for (const endpoint of endpoints) {
+            try {
+                const response = await fetch(endpoint, { method: 'HEAD' });
+                results += `${endpoint}: ${response.status}\n`;
+            } catch (error) {
+                results += `${endpoint}: ${error.message}\n`;
+            }
+        }
+        
+        document.getElementById('result').textContent = results;
+    }
+    </script>
+</body>
+</html>

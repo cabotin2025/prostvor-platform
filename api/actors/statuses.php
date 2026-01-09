@@ -1,167 +1,121 @@
 <?php
+/**
+ * API для получения статусов пользователя
+ */
+
 require_once '../../config/database.php';
 require_once '../../config/cors.php';
 require_once '../../config/jwt.php';
 
-header('Content-Type: application/json');
+header('Content-Type: application/json; charset=utf-8');
 
-class StatusesAPI {
-    private $pdo;
+try {
+    $method = $_SERVER['REQUEST_METHOD'];
     
-    public function __construct() {
-        global $pdo;
-        $this->pdo = $pdo;
-    }
-    
-    public function handleRequest() {
-        $method = $_SERVER['REQUEST_METHOD'];
-        
-        try {
-            switch($method) {
-                case 'GET':
-                    $this->getStatuses();
-                    break;
-                case 'POST':
-                    $this->setUserStatus();
-                    break;
-                case 'PUT':
-                    $this->updateProjectStatus();
-                    break;
-                default:
-                    http_response_code(405);
-                    echo json_encode(['success' => false, 'message' => 'Method not allowed']);
-            }
-        } catch(Exception $e) {
-            http_response_code(400);
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
-        }
-    }
-    
-    private function getStatuses() {
-        // Получить все глобальные статусы
-        $stmt = $this->pdo->query("SELECT * FROM actor_statuses ORDER BY actor_status_id");
-        $statuses = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
-        // Получить статус текущего пользователя, если авторизован
-        try {
-            $user_id = $this->getUserIdFromToken();
-            $stmt = $this->pdo->prepare("
-                SELECT s.* 
-                FROM actor_current_statuses acs
-                JOIN actor_statuses s ON acs.actor_status_id = s.actor_status_id
-                WHERE acs.actor_id = ?
-            ");
-            $stmt->execute([$user_id]);
-            $current_status = $stmt->fetch(PDO::FETCH_ASSOC);
-            
-            echo json_encode([
-                'success' => true, 
-                'statuses' => $statuses,
-                'current_status' => $current_status
-            ]);
-        } catch(Exception $e) {
-            echo json_encode(['success' => true, 'statuses' => $statuses]);
-        }
-    }
-    
-    private function setUserStatus() {
-        $data = json_decode(file_get_contents('php://input'), true);
-        
-        if(empty($data['actor_id']) || empty($data['status_id'])) {
-            throw new Exception('Actor ID and Status ID are required');
-        }
-        
-        $current_user_id = $this->getUserIdFromToken();
-        
-        // Проверяем права: только Руководитель ТЦ или выше может менять статусы
-        $stmt = $this->pdo->prepare("
-            SELECT 1 FROM actor_current_statuses acs
-            JOIN actor_statuses s ON acs.actor_status_id = s.actor_status_id
-            WHERE acs.actor_id = ? AND s.status IN ('Руководитель ТЦ', 'Куратор направления')
-        ");
-        $stmt->execute([$current_user_id]);
-        
-        if(!$stmt->fetch()) {
-            // Проверяем, может ли пользователь менять свой собственный статус на "Участник ТЦ"
-            if($current_user_id == $data['actor_id'] && $data['status_id'] == 7) {
-                // Разрешаем установить себе статус "Участник ТЦ"
-            } else {
-                throw new Exception('Insufficient permissions to change user status');
-            }
-        }
-        
-        // Устанавливаем новый статус
-        $stmt = $this->pdo->prepare("
-            INSERT INTO actor_current_statuses (actor_id, actor_status_id, created_by) 
-            VALUES (?, ?, ?)
-            ON CONFLICT (actor_id) DO UPDATE 
-            SET actor_status_id = EXCLUDED.actor_status_id,
-                updated_at = CURRENT_TIMESTAMP,
-                updated_by = EXCLUDED.created_by
-        ");
-        $stmt->execute([$data['actor_id'], $data['status_id'], $current_user_id]);
-        
-        echo json_encode(['success' => true, 'message' => 'User status updated']);
-    }
-    
-    private function updateProjectStatus() {
-        $data = json_decode(file_get_contents('php://input'), true);
-        
-        if(empty($data['project_id']) || empty($data['status_id'])) {
-            throw new Exception('Project ID and Status ID are required');
-        }
-        
-        $user_id = $this->getUserIdFromToken();
-        
-        // Проверяем права на изменение статуса проекта
-        // Могут: Руководитель проекта, Куратор направления, Руководитель ТЦ
-        $stmt = $this->pdo->prepare("
-            SELECT 1 FROM project_actor_roles par
-            WHERE par.project_id = ? AND par.actor_id = ? AND par.role_type IN ('leader', 'curator')
-            UNION
-            SELECT 1 FROM actor_current_statuses acs
-            JOIN actor_statuses s ON acs.actor_status_id = s.actor_status_id
-            WHERE acs.actor_id = ? AND s.status IN ('Руководитель ТЦ', 'Куратор направления')
-        ");
-        $stmt->execute([$data['project_id'], $user_id, $user_id]);
-        
-        if(!$stmt->fetch()) {
-            throw new Exception('Insufficient permissions to change project status');
-        }
-        
-        // Обновляем статус проекта
-        $stmt = $this->pdo->prepare("
-            UPDATE projects SET project_status_id = ?, updated_by = ? 
-            WHERE project_id = ?
-        ");
-        $stmt->execute([$data['status_id'], $user_id, $data['project_id']]);
-        
-        echo json_encode(['success' => true, 'message' => 'Project status updated']);
-    }
-    
-    private function getUserIdFromToken() {
-        $headers = getallheaders();
+    if ($method === 'GET') {
+        $actor_id = $_GET['actor_id'] ?? null;
         $token = null;
         
+        // Получаем токен из заголовка
+        $headers = getallheaders();
         if (isset($headers['Authorization'])) {
-            $authHeader = $headers['Authorization'];
-            if (preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {
+            if (preg_match('/Bearer\s+(\S+)/', $headers['Authorization'], $matches)) {
                 $token = $matches[1];
             }
         }
         
-        if (!$token) {
-            throw new Exception('Authorization token not found');
+        if (!$token && !$actor_id) {
+            // Если нет токена и не указан actor_id, возвращаем гостя
+            echo json_encode([
+                'success' => true,
+                'statuses' => ['Гость'],
+                'max_level' => 0,
+                'current_status' => null
+            ], JSON_UNESCAPED_UNICODE);
+            exit;
         }
         
-        try {
-            $decoded = JWT::decode($token, JWT_SECRET, ['HS256']);
-            return $decoded->user_id;
-        } catch (Exception $e) {
-            throw new Exception('Invalid token: ' . $e->getMessage());
+        // Если есть токен, получаем данные из него
+        if ($token) {
+            try {
+                $decoded = JWT::decode($token, JWT_SECRET);
+                $actor_id = $decoded->user_id;
+                
+                // Получаем статус пользователя из БД
+                $stmt = $pdo->prepare("
+                    SELECT 
+                        s.status,
+                        s.actor_status_id
+                    FROM actor_current_statuses acs
+                    JOIN actor_statuses s ON acs.actor_status_id = s.actor_status_id
+                    WHERE acs.actor_id = ?
+                ");
+                $stmt->execute([$actor_id]);
+                $current_status = $stmt->fetch(PDO::FETCH_ASSOC);
+                
+                // Получаем все доступные статусы (все, которые не выше текущего)
+                $current_level = $current_status ? $current_status['actor_status_id'] : 7;
+                $stmt = $pdo->prepare("
+                    SELECT status 
+                    FROM actor_statuses 
+                    WHERE actor_status_id <= ?
+                    ORDER BY actor_status_id
+                ");
+                $stmt->execute([$current_level]);
+                $all_statuses = $stmt->fetchAll(PDO::FETCH_COLUMN);
+                
+                echo json_encode([
+                    'success' => true,
+                    'statuses' => $all_statuses,
+                    'current_status' => $current_status,
+                    'max_level' => $current_level
+                ], JSON_UNESCAPED_UNICODE);
+                
+            } catch (Exception $e) {
+                // Если токен невалиден, возвращаем гостя
+                echo json_encode([
+                    'success' => true,
+                    'statuses' => ['Гость'],
+                    'max_level' => 0,
+                    'current_status' => null
+                ], JSON_UNESCAPED_UNICODE);
+            }
+        } elseif ($actor_id) {
+            // Если указан actor_id, получаем его статус
+            $stmt = $pdo->prepare("
+                SELECT 
+                    s.status,
+                    s.actor_status_id
+                FROM actor_current_statuses acs
+                JOIN actor_statuses s ON acs.actor_status_id = s.actor_status_id
+                WHERE acs.actor_id = ?
+            ");
+            $stmt->execute([$actor_id]);
+            $current_status = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            $statuses = $current_status ? [$current_status['status']] : ['Участник ТЦ'];
+            $max_level = $current_status ? $current_status['actor_status_id'] : 7;
+            
+            echo json_encode([
+                'success' => true,
+                'statuses' => $statuses,
+                'current_status' => $current_status,
+                'max_level' => $max_level
+            ], JSON_UNESCAPED_UNICODE);
         }
+        
+    } else {
+        http_response_code(405);
+        echo json_encode([
+            'success' => false,
+            'message' => 'Метод не разрешен'
+        ], JSON_UNESCAPED_UNICODE);
     }
+    
+} catch (Exception $e) {
+    http_response_code(400);
+    echo json_encode([
+        'success' => false,
+        'message' => $e->getMessage()
+    ], JSON_UNESCAPED_UNICODE);
 }
-
-$api = new StatusesAPI();
-$api->handleRequest();

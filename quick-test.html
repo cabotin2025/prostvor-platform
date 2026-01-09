@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h3>Быстрый тест логина</h3>
+    <button onclick="testLogin()">Тест логина</button>
+    <div id="result"></div>
+    
+    <script>
+    async function testLogin() {
+        try {
+            const response = await fetch('/api/auth/login.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: 'cabotin@mail.ru',
+                    password: 'password'
+                })
+            });
+            
+            const data = await response.json();
+            const result = document.getElementById('result');
+            
+            if (data.success) {
+                result.innerHTML = `
+                    <div style="color:green;">
+                        ✅ УСПЕХ!<br>
+                        Токен получен (первые 30 символов): ${data.token.substring(0, 30)}...<br>
+                        Пользователь: ${data.user.nickname}<br>
+                        Статус: ${data.user.global_status}
+                    </div>
+                `;
+                
+                // Сохраняем для дальнейших тестов
+                localStorage.setItem('auth_token', data.token);
+                console.log('Токен сохранен в localStorage');
+                
+                // Тест проверки токена
+                setTimeout(() => testToken(data.token), 1000);
+            } else {
+                result.innerHTML = `<div style="color:red;">❌ ${data.message}</div>`;
+            }
+        } catch (error) {
+            document.getElementById('result').innerHTML = 
+                `<div style="color:red;">❌ Ошибка: ${error.message}</div>`;
+        }
+    }
+    
+    async function testToken(token) {
+        try {
+            const response = await fetch(`/api/auth/check-token.php?token=${encodeURIComponent(token)}`);
+            const data = await response.json();
+            
+            const result = document.getElementById('result');
+            result.innerHTML += `<br><br><strong>Проверка токена:</strong><br>`;
+            
+            if (data.authenticated) {
+                result.innerHTML += `<div style="color:green;">✅ Токен валиден! Пользователь: ${data.nickname}</div>`;
+            } else {
+                result.innerHTML += `<div style="color:red;">❌ ${data.message}</div>`;
+            }
+        } catch (error) {
+            console.error('Ошибка проверки токена:', error);
+        }
+    }
+    </script>
+</body>
+</html>

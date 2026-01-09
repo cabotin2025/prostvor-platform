@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Тест авторизации</title>
+</head>
+<body>
+    <h2>Тест авторизации</h2>
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Пароль">
+    <button onclick="login()">Войти</button>
+    
+    <script>
+    async function login() {
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        
+        try {
+            const response = await fetch('/api/auth/login.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+            
+            const data = await response.json();
+            console.log('Ответ сервера:', data);
+            
+            if (data.success) {
+                alert('Успешный вход! Токен сохранен в localStorage');
+                localStorage.setItem('auth_token', data.token);
+                localStorage.setItem('user_nickname', data.user.nickname);
+                localStorage.setItem('user_id', data.user.actor_id);
+            } else {
+                alert('Ошибка: ' + data.message);
+            }
+        } catch (error) {
+            console.error('Ошибка:', error);
+            alert('Ошибка подключения');
+        }
+    }
+    </script>
+</body>
+</html>

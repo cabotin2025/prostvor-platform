@@ -1,398 +1,558 @@
-// js/status-manager.js - Управление статусами пользователя
-console.log('📊 Status Manager загружен');
+/**
+ * Менеджер статусов пользователей для платформы Prostvor
+ * Управление глобальными статусами и правами доступа
+ * ВЕРСИЯ 2.0 - исправлена для работы с реальной структурой БД
+ */
 
-const StatusManager = {
-    // Основные статусы из БД (должны соответствовать actor_statuses)
-    STATUSES: {
-        // Базовые статусы
-        1: { id: 1, name: 'Участник ТЦ', level: 1 },
-        2: { id: 2, name: 'Участник проекта', level: 2 },
-        3: { id: 3, name: 'Исполнитель', level: 3 },
-        4: { id: 4, name: 'Ответственный исполнитель', level: 4 },
-        5: { id: 5, name: 'Руководитель проекта', level: 5 },
-        6: { id: 6, name: 'Проектный куратор', level: 6 },
-        7: { id: 7, name: 'Руководитель ТЦ', level: 7 },
-        8: { id: 8, name: 'Администратор', level: 8 }
-    },
-    
-    // Права для каждого уровня
-    PERMISSIONS_BY_LEVEL: {
-        1: ['view', 'comment', 'participate'], // Участник ТЦ
-        2: ['view', 'comment', 'participate'], // Участник проекта
-        3: ['view', 'comment', 'participate', 'execute-tasks'], // Исполнитель
-        4: ['view', 'comment', 'participate', 'execute-tasks', 'manage-tasks'], // Ответственный исполнитель
-        5: ['view', 'comment', 'participate', 'create-projects', 'manage-own-projects'], // Руководитель проекта
-        6: ['view', 'comment', 'participate', 'create-projects', 'manage-any-projects', 'create-events'], // Проектный куратор
-        7: ['view', 'comment', 'participate', 'create-projects', 'manage-any-projects', 'create-events', 'manage-users'], // Руководитель ТЦ
-        8: ['all'] // Администратор
-    },
-    
-    // Кэш статусов пользователя
-    userStatusesCache: {},
-    
-    // Получение ВСЕХ статусов пользователя из API
-    async fetchUserStatuses(userId) {
-    try {
-        // ВРЕМЕННО: возвращаем фиктивные данные
-        console.log(`📡 [ТЕСТ] Запрашиваю статусы для пользователя ${userId}`);
+class StatusManager {
+    constructor() {
+        console.log('📊 Status Manager загружен (v2.0)');
         
-        // Если пользователь не авторизован
-        if (!userId) {
-            return {
-                success: true,
-                statuses: ['Гость'],
-                max_level: 0
-            };
-        }
-        
-        // Для авторизованных пользователей
-        return {
-            success: true,
-            statuses: ['Участник ТЦ'],
-            max_level: 1,
-            current_status: { status: 'Участник ТЦ', actor_status_id: 7 }
+        // Карта соответствия статусов и их уровней
+        this.statusLevelMap = {
+            'Гость': 0,
+            'Участник ТЦ': 1,
+            'Участник проекта': 2,
+            'Администратор проекта': 3,
+            'Руководитель проекта': 4,
+            'Проектный куратор': 5,
+            'Куратор направления': 6,
+            'Руководитель ТЦ': 7
         };
         
-        /* ЗАКОММЕНТИРОВАТЬ СТАРЫЙ КОД:
-        const response = await fetch(`/api/actors/statuses.php?user_id=${userId}`);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return await response.json();
-        */
-        
-    } catch (error) {
-        console.error('❌ Ошибка получения статусов:', error);
-        // Возвращаем данные гостя при ошибке
-        return {
-            success: false,
-            statuses: ['Гость'],
-            max_level: 0
+        // Описания статусов для UI
+        this.statusDescriptions = {
+            'Гость': 'Не является участником ТЦ. Может просматривать публичную информацию.',
+            'Участник ТЦ': 'Базовый участник творческого центра. Может создавать проекты, идеи, ресурсы.',
+            'Участник проекта': 'Участник конкретного проекта. Может просматривать проектную информацию.',
+            'Администратор проекта': 'Администратор проекта. Может управлять задачами и участниками.',
+            'Руководитель проекта': 'Руководитель проекта. Может редактировать проект, назначать роли.',
+            'Проектный куратор': 'Куратор назначенный на проект. Может проверять проект.',
+            'Куратор направления': 'Куратор творческого направления в населенном пункте.',
+            'Руководитель ТЦ': 'Руководитель творческого центра в населенном пункте.'
         };
+        
+        // Текущие данные пользователя
+        this.currentUser = {
+            actor_id: null,
+            nickname: null,
+            global_status: 'Гость',
+            all_statuses: ['Гость'],
+            max_level: 0,
+            project_roles: {}
+        };
+        
+        this.initialized = false;
     }
-    },
     
-    // Fallback - получение статусов из localStorage
-    getFallbackStatuses(actorId) {
-        const user = this.getCurrentUser();
-        if (!user) return [];
-        
-        // Пробуем получить из user.additional_statuses
-        if (user.additional_statuses && Array.isArray(user.additional_statuses)) {
-            return user.additional_statuses;
-        }
-        
-        // Или создаем на основе основного статуса
-        const mainStatus = user.status || 'Участник ТЦ';
-        return [mainStatus];
-    },
-    
-    // Получение текущего пользователя
-    getCurrentUser() {
-        const userStr = localStorage.getItem('prostvor_user') || sessionStorage.getItem('prostvor_user');
-        if (!userStr) return null;
+    /**
+     * Инициализация менеджера статусов
+     */
+    async init() {
+        console.log('📊 Инициализация менеджера статусов');
         
         try {
-            return JSON.parse(userStr);
-        } catch (e) {
-            console.error('Ошибка парсинга пользователя:', e);
-            return null;
+            // Загружаем данные пользователя
+            await this.loadCurrentUser();
+            
+            // Обновляем UI
+            await this.updateUIByStatus();
+            
+            this.initialized = true;
+            console.log('✅ Менеджер статусов инициализирован');
+            
+        } catch (error) {
+            console.error('❌ Ошибка инициализации StatusManager:', error);
+            // Устанавливаем статус гостя по умолчанию
+            this.setGuestStatus();
         }
-    },
-    
-    // Получение ВСЕХ статусов текущего пользователя
-    async getUserAllStatuses(userId) {
-    try {
-        console.log(`📡 [ТЕСТ] Запрашиваю статусы для пользователя ${userId}`);
-        
-        // ВРЕМЕННОЕ РЕШЕНИЕ: возвращаем массив
-        return {
-            success: true,
-            statuses: ['Участник ТЦ'],  // ← ГАРАНТИРУЕМ, что это МАССИВ
-            max_level: 1,
-            current_status: { status: 'Участник ТЦ', actor_status_id: 7 }
-        };
-        
-    } catch (error) {
-        console.error('❌ Ошибка получения статусов:', error);
-        return {
-            success: false,
-            statuses: ['Гость'],  // ← ГАРАНТИРУЕМ, что это МАССИВ
-            max_level: 0
-        };
-    }
-    },
-    
-    // Получение МАКСИМАЛЬНОГО уровня пользователя
-   getUserMaxLevel(statuses) {
-    let maxLevel = 0;
-    
-    // Защита от не-массива
-    if (!statuses || !Array.isArray(statuses)) {
-        console.warn('⚠️ statuses не является массивом:', statuses);
-        return maxLevel;
     }
     
-    statuses.forEach(status => {
-        const level = this.statusLevelMap[status] || 0;
-        if (level > maxLevel) maxLevel = level;
-    });
-    return maxLevel;
-},
+    /**
+     * Загрузка данных текущего пользователя
+     */
+    async loadCurrentUser() {
+        try {
+            // Получаем данные из localStorage
+            const actorId = localStorage.getItem('user_id');
+            const nickname = localStorage.getItem('user_nickname');
+            const token = localStorage.getItem('auth_token');
+            
+            if (!token) {
+                // Пользователь не авторизован - гость
+                this.setGuestStatus();
+                return;
+            }
+            
+            // Сохраняем базовые данные
+            this.currentUser.actor_id = actorId ? parseInt(actorId) : null;
+            this.currentUser.nickname = nickname || 'Пользователь';
+            
+            // Запрашиваем статусы с сервера
+            const statusData = await this.fetchUserStatuses(this.currentUser.actor_id);
+            
+            if (statusData.success) {
+                // Обновляем данные пользователя
+                this.currentUser.global_status = statusData.current_status?.status || 'Участник ТЦ';
+                this.currentUser.all_statuses = statusData.statuses || ['Участник ТЦ'];
+                this.currentUser.max_level = statusData.max_level || 1;
+                
+                console.log(`👤 Пользователь: ${this.currentUser.nickname}`);
+                console.log(`📋 Статус: ${this.currentUser.global_status}`);
+                console.log(`📊 Уровень: ${this.currentUser.max_level}`);
+            } else {
+                // Если не удалось получить статусы, используем по умолчанию
+                this.currentUser.global_status = 'Участник ТЦ';
+                this.currentUser.all_statuses = ['Участник ТЦ'];
+                this.currentUser.max_level = 1;
+            }
+            
+            // Загружаем роли в проектах
+            await this.loadProjectRoles();
+            
+        } catch (error) {
+            console.error('❌ Ошибка загрузки данных пользователя:', error);
+            this.setGuestStatus();
+        }
+    }
     
-    // Проверка прав на основе максимального уровня
-    async hasPermission(requiredPermission) {
-        const maxLevel = await this.getUserMaxLevel();
-        const userPermissions = this.PERMISSIONS_BY_LEVEL[maxLevel] || [];
-        
-        // Разрешаем если есть право 'all' или конкретное право
-        return userPermissions.includes('all') || userPermissions.includes(requiredPermission);
-    },
+    /**
+     * Запрос статусов пользователя с сервера
+     */
+    async fetchUserStatuses(actorId) {
+        try {
+            if (!actorId) {
+                return {
+                    success: true,
+                    statuses: ['Гость'],
+                    max_level: 0
+                };
+            }
+            
+            const token = localStorage.getItem('auth_token');
+            if (!token) {
+                return {
+                    success: true,
+                    statuses: ['Гость'],
+                    max_level: 0
+                };
+            }
+            
+            // Используем API для получения статусов
+            const response = await fetch(`/api/actors/statuses.php?actor_id=${actorId}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            
+            if (response.ok) {
+                return await response.json();
+            } else {
+                // Если API не доступен, возвращаем стандартные данные
+                return {
+                    success: true,
+                    statuses: ['Участник ТЦ'],
+                    current_status: { status: 'Участник ТЦ', actor_status_id: 7 },
+                    max_level: 1
+                };
+            }
+            
+        } catch (error) {
+            console.warn('⚠️ Не удалось получить статусы с сервера:', error.message);
+            
+            // Возвращаем данные по умолчанию
+            return {
+                success: true,
+                statuses: ['Участник ТЦ'],
+                current_status: { status: 'Участник ТЦ', actor_status_id: 7 },
+                max_level: 1
+            };
+        }
+    }
     
-    // Проверка минимального уровня
-    async hasMinLevel(minLevel) {
-        const maxLevel = await this.getUserMaxLevel();
-        return maxLevel >= minLevel;
-    },
+    /**
+     * Загрузка ролей пользователя в проектах
+     */
+    async loadProjectRoles() {
+        try {
+            const token = localStorage.getItem('auth_token');
+            if (!token || !this.currentUser.actor_id) {
+                this.currentUser.project_roles = {};
+                return;
+            }
+            
+            // Запрашиваем проекты пользователя
+            const response = await fetch('/api/projects/index.php', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            
+            if (response.ok) {
+                const data = await response.json();
+                
+                if (data.success && data.projects) {
+                    // Извлекаем роли из данных проектов
+                    this.currentUser.project_roles = {};
+                    
+                    data.projects.forEach(project => {
+                        if (project.user_role) {
+                            this.currentUser.project_roles[project.project_id] = {
+                                role_type: project.user_role,
+                                role_name: project.user_role_name,
+                                project_name: project.title
+                            };
+                        }
+                    });
+                    
+                    console.log(`📂 Загружено ${Object.keys(this.currentUser.project_roles).length} проектных ролей`);
+                }
+            }
+        } catch (error) {
+            console.warn('⚠️ Не удалось загрузить проектные роли:', error.message);
+            this.currentUser.project_roles = {};
+        }
+    }
     
-    // Проверка конкретного статуса
-    async hasStatus(statusName) {
-        const statuses = await this.getUserAllStatuses();
-        return statuses.includes(statusName);
-    },
+    /**
+     * Установка статуса гостя
+     */
+    setGuestStatus() {
+        this.currentUser = {
+            actor_id: null,
+            nickname: null,
+            global_status: 'Гость',
+            all_statuses: ['Гость'],
+            max_level: 0,
+            project_roles: {}
+        };
+    }
     
-    // Обновление UI на основе статусов
+    /**
+     * Обновление UI на основе статуса пользователя
+     */
     async updateUIByStatus() {
         console.log('🎯 Обновляю UI на основе статусов...');
         
-        const user = this.getCurrentUser();
-        const statuses = await this.getUserAllStatuses();
-        const maxLevel = await this.getUserMaxLevel();
+        const status = this.currentUser.global_status;
+        const maxLevel = this.currentUser.max_level;
         
-        console.log('👤 Пользователь:', user ? user.nickname : 'нет');
-        console.log('📋 Все статусы:', statuses);
-        console.log('📊 Максимальный уровень:', maxLevel);
+        // Показываем информацию о статусе в UI
+        this.updateStatusDisplay(status, maxLevel);
         
-        // 1. Обновляем информацию о статусах в интерфейсе
-        this.displayUserStatuses(statuses);
+        // Настраиваем видимость элементов в зависимости от статуса
+        this.configureUIByStatus(status);
         
-        // 2. Обновляем доступ к элементам меню
-        await this.updateMenuAccess();
-        
-        // 3. Показываем возможности повышения статуса
-        this.showStatusUpgradeOptions(maxLevel);
-    },
-    
-    // Отображение статусов пользователя
-    displayUserStatuses(statuses) {
-        const container = document.getElementById('userStatusesContainer');
-        if (!container) {
-            // Создаем контейнер если его нет
-            const userInfo = document.querySelector('.user-info, .header-user');
-            if (userInfo) {
-                const newContainer = document.createElement('div');
-                newContainer.id = 'userStatusesContainer';
-                newContainer.className = 'user-statuses';
-                newContainer.style.cssText = `
-                    margin-top: 5px;
-                    font-size: 12px;
-                    color: #666;
-                `;
-                userInfo.appendChild(newContainer);
-            }
-        }
-        
-        // Обновляем содержимое
-        const statusContainer = document.getElementById('userStatusesContainer');
-        if (statusContainer && statuses.length > 0) {
-            statusContainer.innerHTML = `
-                <div>Статусы: ${statuses.join(', ')}</div>
-                <div style="font-size: 11px; color: #888;">
-                    (Уровень доступа: ${maxLevel})
-                </div>
-            `;
-        }
-    },
-    
-    // Обновление доступа к меню
-    async updateMenuAccess() {
-        // Правила доступа для элементов меню
-        const accessRules = {
-            // Проекты
-            'Создать новый Проект': { minLevel: 5, permission: 'create-projects' },
-            'Мои проекты': { minLevel: 2, permission: 'view' }, // Участник проекта и выше
-            
-            // Идеи
-            'Предложить Идею': { minLevel: 1, permission: 'comment' }, // Все участники
-            
-            // События
-            'Создать Событие': { minLevel: 6, permission: 'create-events' },
-            'Календарь событий': { minLevel: 1, permission: 'view' },
-            
-            // Ресурсы
-            'Предложить ресурс': { minLevel: 1, permission: 'comment' },
-            
-            // Услуги
-            'Предложить Услуги': { minLevel: 1, permission: 'comment' },
-            'Запросить Услуги': { minLevel: 3, permission: 'execute-tasks' }, // Исполнитель и выше
-            
-            // Темы
-            'Создать Тему': { minLevel: 1, permission: 'comment' },
-            
-            // Участники
-            'Поиск участников': { minLevel: 1, permission: 'view' },
-            'Руководители и Кураторы': { minLevel: 5, permission: 'view' }
-        };
-        
-        // Обрабатываем элементы меню
-        document.querySelectorAll('.dropdown-item, .nav-link').forEach(async (item) => {
-            const text = item.textContent.trim();
-            const rule = accessRules[text];
-            
-            if (rule) {
-                const hasAccess = await this.checkAccess(rule);
-                
-                if (!hasAccess) {
-                    this.disableMenuItem(item, rule);
-                } else {
-                    this.enableMenuItem(item);
-                }
-            }
-        });
-    },
-    
-    // Проверка доступа по правилу
-    async checkAccess(rule) {
-        if (rule.minLevel && !(await this.hasMinLevel(rule.minLevel))) {
-            return false;
-        }
-        
-        if (rule.permission && !(await this.hasPermission(rule.permission))) {
-            return false;
-        }
-        
-        return true;
-    },
-    
-    // Отключение элемента меню
-    disableMenuItem(item, rule) {
-        item.style.opacity = '0.5';
-        item.style.pointerEvents = 'none';
-        item.style.cursor = 'not-allowed';
-        
-        // Сообщение в зависимости от правила
-        let message = '';
-        if (rule.minLevel) {
-            const requiredStatus = Object.values(this.STATUSES).find(s => s.level === rule.minLevel);
-            message = `Требуется статус: ${requiredStatus ? requiredStatus.name : `уровень ${rule.minLevel}`}`;
-        } else {
-            message = 'Недостаточно прав';
-        }
-        
-        item.title = message;
-        
-        // Блокируем действие
-        item.onclick = function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            alert(message + '\n\nДля получения доступа обратитесь к руководителю проекта или куратору.');
-            return false;
-        };
-        
-        console.log(`🔒 Заблокировано: "${item.textContent.trim()}" - ${message}`);
-    },
-    
-    // Включение элемента меню
-    enableMenuItem(item) {
-        item.style.opacity = '1';
-        item.style.pointerEvents = 'auto';
-        item.style.cursor = 'pointer';
-        item.title = '';
-        item.onclick = null;
-    },
-    
-    // Показ возможностей повышения статуса
-    showStatusUpgradeOptions(currentLevel) {
-        const nextLevel = currentLevel + 1;
-        const nextStatus = Object.values(this.STATUSES).find(s => s.level === nextLevel);
-        
-        if (nextStatus) {
-            console.log(`⬆️ Следующий доступный статус: ${nextStatus.name} (уровень ${nextLevel})`);
-            
-            // Можно показать подсказку пользователю
-            if (currentLevel < 5) { // Если не руководитель проекта
-                const upgradeHint = document.createElement('div');
-                upgradeHint.id = 'statusUpgradeHint';
-                upgradeHint.style.cssText = `
-                    position: fixed;
-                    bottom: 20px;
-                    right: 20px;
-                    background: #f8f9fa;
-                    border: 1px solid #dee2e6;
-                    border-radius: 5px;
-                    padding: 10px 15px;
-                    font-size: 12px;
-                    max-width: 300px;
-                    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-                    z-index: 9999;
-                `;
-                upgradeHint.innerHTML = `
-                    <strong>🎯 Повышение статуса</strong><br>
-                    Для доступа к дополнительным функциям нужен статус <strong>${nextStatus.name}</strong>.<br>
-                    <small>Обратитесь к руководителю вашего проекта.</small>
-                `;
-                
-                document.body.appendChild(upgradeHint);
-                
-                // Автоудаление через 10 секунд
-                setTimeout(() => {
-                    if (upgradeHint.parentNode) {
-                        upgradeHint.remove();
-                    }
-                }, 10000);
-            }
-        }
-    },
-    
-    // Обновление статусов периодически
-    startAutoRefresh(interval = 300000) { // 5 минут
-        setInterval(async () => {
-            const user = this.getCurrentUser();
-            if (user && user.actor_id) {
-                console.log('🔄 Автообновление статусов...');
-                await this.fetchUserStatuses(user.actor_id);
-                await this.updateUIByStatus();
-            }
-        }, interval);
-    },
-    
-    // Инициализация
-    init() {
-        console.log('📊 Инициализация менеджера статусов');
-        
-        // Обновляем UI при загрузке
-        document.addEventListener('DOMContentLoaded', async () => {
-            await this.updateUIByStatus();
-        });
-        
-        // Обновляем при изменении пользователя
-        window.addEventListener('storage', async (e) => {
-            if (e.key === 'prostvor_user') {
-                setTimeout(async () => {
-                    await this.updateUIByStatus();
-                }, 500);
-            }
-        });
-        
-        // Запускаем автообновление
-        this.startAutoRefresh();
-        
-        // Делаем глобально доступным
-        window.StatusManager = this;
-        
-        console.log('✅ Менеджер статусов инициализирован');
+        // Показываем следующий доступный статус (для прогресса)
+        this.showNextAvailableStatus(maxLevel);
     }
-};
+    
+    /**
+     * Обновление отображения статуса в UI
+     */
+    updateStatusDisplay(status, level) {
+        // Находим элемент для отображения статуса
+        const statusElement = document.getElementById('user-status-display') ||
+                              document.querySelector('.user-status') ||
+                              document.querySelector('[data-status-display]');
+        
+        if (statusElement) {
+            statusElement.textContent = status;
+            statusElement.title = this.statusDescriptions[status] || '';
+            statusElement.dataset.level = level;
+            
+            // Добавляем CSS класс в зависимости от уровня
+            statusElement.className = 'user-status';
+            statusElement.classList.add(`status-level-${level}`);
+            statusElement.classList.add(`status-${status.replace(/\s+/g, '-').toLowerCase()}`);
+        }
+        
+        // Обновляем заголовок страницы или другие элементы
+        const nickname = this.currentUser.nickname;
+        if (nickname && nickname !== 'Пользователь') {
+            const titleElements = document.querySelectorAll('[data-user-nickname]');
+            titleElements.forEach(el => {
+                el.textContent = nickname;
+            });
+        }
+    }
+    
+    /**
+     * Настройка UI в зависимости от статуса
+     */
+    configureUIByStatus(status) {
+        // Элементы, которые нужно скрыть для гостей
+        const guestHiddenSelectors = [
+            '.create-project-btn',
+            '.create-idea-btn',
+            '.create-resource-btn',
+            '.create-event-btn',
+            '.create-service-btn',
+            '.create-topic-btn',
+            '.notes-panel',
+            '.favorites-panel',
+            '.messages-panel',
+            '.invite-user-btn',
+            '.project-admin-panel'
+        ];
+        
+        // Элементы только для Руководителя ТЦ
+        const tcLeaderSelectors = [
+            '.tc-leader-only',
+            '.assign-curator-btn',
+            '.manage-directions',
+            '.system-admin-panel'
+        ];
+        
+        // Элементы только для Куратора направления
+        const curatorSelectors = [
+            '.direction-curator-only',
+            '.verify-project-btn',
+            '.suspend-project-btn',
+            '.curator-dashboard'
+        ];
+        
+        // Скрываем все специальные элементы сначала
+        const allSelectors = [...guestHiddenSelectors, ...tcLeaderSelectors, ...curatorSelectors];
+        allSelectors.forEach(selector => {
+            document.querySelectorAll(selector).forEach(el => {
+                el.style.display = 'none';
+            });
+        });
+        
+        // Для гостей только скрываем функциональные элементы
+        if (status === 'Гость') {
+            guestHiddenSelectors.forEach(selector => {
+                document.querySelectorAll(selector).forEach(el => {
+                    el.style.display = 'none';
+                });
+            });
+            return;
+        }
+        
+        // Для участников ТЦ и выше показываем основные функции
+        if (this.statusLevelMap[status] >= this.statusLevelMap['Участник ТЦ']) {
+            guestHiddenSelectors.forEach(selector => {
+                document.querySelectorAll(selector).forEach(el => {
+                    el.style.display = '';
+                });
+            });
+        }
+        
+        // Для Руководителя ТЦ
+        if (status === 'Руководитель ТЦ') {
+            tcLeaderSelectors.forEach(selector => {
+                document.querySelectorAll(selector).forEach(el => {
+                    el.style.display = '';
+                });
+            });
+        }
+        
+        // Для Куратора направления
+        if (status === 'Куратор направления') {
+            curatorSelectors.forEach(selector => {
+                document.querySelectorAll(selector).forEach(el => {
+                    el.style.display = '';
+                });
+            });
+        }
+        
+        // Настраиваем кнопки создания в зависимости от статуса
+        this.configureCreationButtons(status);
+    }
+    
+    /**
+     * Настройка кнопок создания
+     */
+    configureCreationButtons(status) {
+        const canCreateProject = this.statusLevelMap[status] >= this.statusLevelMap['Участник ТЦ'];
+        const canCreateGlobal = this.statusLevelMap[status] >= this.statusLevelMap['Участник ТЦ'];
+        
+        // Кнопка создания проекта
+        document.querySelectorAll('.create-project-btn').forEach(btn => {
+            if (canCreateProject) {
+                btn.disabled = false;
+                btn.title = 'Создать новый проект';
+            } else {
+                btn.disabled = true;
+                btn.title = 'Только участники ТЦ могут создавать проекты';
+            }
+        });
+        
+        // Другие кнопки создания
+        const createButtons = [
+            '.create-idea-btn',
+            '.create-resource-btn', 
+            '.create-event-btn',
+            '.create-service-btn',
+            '.create-topic-btn'
+        ];
+        
+        createButtons.forEach(selector => {
+            document.querySelectorAll(selector).forEach(btn => {
+                if (canCreateGlobal) {
+                    btn.disabled = false;
+                } else {
+                    btn.disabled = true;
+                    btn.title = 'Требуется авторизация';
+                }
+            });
+        });
+    }
+    
+    /**
+     * Показ следующего доступного статуса
+     */
+    showNextAvailableStatus(currentLevel) {
+        // Находим следующий статус по уровню
+        let nextStatus = null;
+        let nextLevel = currentLevel + 1;
+        
+        for (const [status, level] of Object.entries(this.statusLevelMap)) {
+            if (level === nextLevel) {
+                nextStatus = status;
+                break;
+            }
+        }
+        
+        // Обновляем UI, если есть следующий статус
+        const nextStatusElement = document.getElementById('next-status-display') ||
+                                 document.querySelector('.next-status');
+        
+        if (nextStatusElement && nextStatus) {
+            nextStatusElement.innerHTML = `
+                <strong>Следующий статус:</strong> ${nextStatus} (уровень ${nextLevel})<br>
+                <small>${this.statusDescriptions[nextStatus] || ''}</small>
+            `;
+            nextStatusElement.style.display = 'block';
+        }
+    }
+    
+    /**
+     * Получение максимального уровня из массива статусов
+     */
+    getUserMaxLevel(statuses) {
+        if (!statuses || !Array.isArray(statuses)) {
+            console.warn('⚠️ statuses не является массивом:', statuses);
+            return 0;
+        }
+        
+        let maxLevel = 0;
+        statuses.forEach(status => {
+            const level = this.statusLevelMap[status] || 0;
+            if (level > maxLevel) maxLevel = level;
+        });
+        
+        return maxLevel;
+    }
+    
+    /**
+     * Проверка, имеет ли пользователь глобальный статус
+     */
+    hasGlobalStatus(statusName) {
+        return this.currentUser.global_status === statusName;
+    }
+    
+    /**
+     * Проверка, имеет ли пользователь минимальный уровень
+     */
+    hasMinLevel(minLevel) {
+        return this.currentUser.max_level >= minLevel;
+    }
+    
+    /**
+     * Проверка роли в конкретном проекте
+     */
+    hasProjectRole(projectId, requiredRole) {
+        const role = this.currentUser.project_roles[projectId];
+        if (!role) return false;
+        
+        const roleHierarchy = {
+            'member': 1,
+            'curator': 2,
+            'admin': 3,
+            'leader': 4
+        };
+        
+        const userLevel = roleHierarchy[role.role_type] || 0;
+        const requiredLevel = roleHierarchy[requiredRole] || 0;
+        
+        return userLevel >= requiredLevel;
+    }
+    
+    /**
+     * Получение роли в проекте
+     */
+    getProjectRole(projectId) {
+        return this.currentUser.project_roles[projectId];
+    }
+    
+    /**
+     * Проверка, является ли пользователь гостем
+     */
+    isGuest() {
+        return this.currentUser.global_status === 'Гость' || !this.currentUser.actor_id;
+    }
+    
+    /**
+     * Проверка, является ли пользователь участником ТЦ
+     */
+    isTCMember() {
+        return this.currentUser.max_level >= this.statusLevelMap['Участник ТЦ'];
+    }
+    
+    /**
+     * Проверка, является ли пользователь руководителем ТЦ
+     */
+    isTCLeader() {
+        return this.currentUser.global_status === 'Руководитель ТЦ';
+    }
+    
+    /**
+     * Проверка, является ли пользователь куратором направления
+     */
+    isDirectionCurator() {
+        return this.currentUser.global_status === 'Куратор направления';
+    }
+    
+    /**
+     * Получение текущих данных пользователя
+     */
+    getUserData() {
+        return { ...this.currentUser };
+    }
+    
+    /**
+     * Обновление данных пользователя (после входа/выхода)
+     */
+    async updateUserData() {
+        await this.loadCurrentUser();
+        await this.updateUIByStatus();
+    }
+    
+    /**
+     * Сброс данных пользователя (выход)
+     */
+    resetUserData() {
+        this.setGuestStatus();
+        this.updateUIByStatus();
+    }
+}
 
-// Автоматическая инициализация
-StatusManager.init();
+// Создаем глобальный экземпляр
+window.statusManager = new StatusManager();
+
+// Автоматическая инициализация при загрузке DOM
+document.addEventListener('DOMContentLoaded', () => {
+    window.statusManager.init().catch(error => {
+        console.error('Ошибка инициализации StatusManager:', error);
+    });
+});
+
+// Экспортируем методы для глобального использования
+window.hasGlobalStatus = (status) => window.statusManager.hasGlobalStatus(status);
+window.hasProjectRole = (projectId, role) => window.statusManager.hasProjectRole(projectId, role);
+window.isGuest = () => window.statusManager.isGuest();
+window.isTCMember = () => window.statusManager.isTCMember();
+window.isTCLeader = () => window.statusManager.isTCLeader();
+window.getUserData = () => window.statusManager.getUserData();
