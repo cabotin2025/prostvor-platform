@@ -76,8 +76,22 @@ class ProjectsAPI {
         }
         
         // Получаем ID пользователя из токена
-        $user_id = $this->getUserIdFromToken();
-        
+        $user_id = getCurrentUserId();
+        if (!$user_id) {
+            http_response_code(401);
+            echo json_encode(['success' => false, 'message' => 'Требуется авторизация']);
+            exit;
+        }
+
+        // Или с проверкой минимального статуса
+        try {
+            $user_id = requireAuth(7); // Требуется статус "Участник ТЦ" (ID=7) или выше
+        } catch (Exception $e) {
+            http_response_code($e->getCode());
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+            exit;
+        }
+                
         // Начинаем транзакцию
         $this->pdo->beginTransaction();
         

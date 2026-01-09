@@ -14,20 +14,22 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 try {
     $data = json_decode(file_get_contents('php://input'), true);
     
-    // Валидация (УБИРАЕМ locality_id из обязательных!)
-    $required_fields = ['username', 'email', 'password'];
-    foreach ($required_fields as $field) {
-        if (empty($data[$field])) {
-            throw new Exception("Поле '$field' обязательно для заполнения");
-        }
+    // Валидация с учетом реальной структуры
+    if (empty($data['email']) || empty($data['password']) || empty($data['nickname'])) {
+        throw new Exception('Заполните обязательные поля: Email, Пароль и Имя пользователя (nickname)');
     }
     
-    // Проверка существования пользователя
-    $stmt = $pdo->prepare("SELECT actor_id FROM actors WHERE username = ? OR email = ?");
-    $stmt->execute([$data['username'], $data['email']]);
+    // Проверка существования пользователя по email
+    $stmt = $pdo->prepare("
+        SELECT a.actor_id 
+        FROM actors a
+        LEFT JOIN persons p ON a.actor_id = p.actor_id
+        WHERE p.email = ? OR a.nickname = ?
+    ");
+    $stmt->execute([$data['email'], $data['nickname']]);
     
     if ($stmt->fetch()) {
-        throw new Exception('Пользователь с таким именем или email уже существует');
+        throw new Exception('Пользователь с таким email или именем уже существует');
     }
     
     // Начинаем транзакцию
@@ -37,59 +39,47 @@ try {
         // Хеширование пароля
         $password_hash = password_hash($data['password'], PASSWORD_DEFAULT);
         
-        // Создание аккаунта
+        // Генерация номера аккаунта
         $account_number = 'U' . str_pad(mt_rand(1, 99999999999), 11, '0', STR_PAD_LEFT);
         
-        // Создаем актора (БЕЗ locality_id при создании)
+        // 1. Создаем запись в actors
         $stmt = $pdo->prepare("
-            INSERT INTO actors (username, email, password_hash, actor_type_id, account, created_by, updated_by) 
-            VALUES (?, ?, ?, 1, ?, 1, 1)
+            INSERT INTO actors (nickname, actor_type_id, account, created_by, updated_by) 
+            VALUES (?, 1, ?, 1, 1)
+            RETURNING actor_id
+        ");
+        
+        $stmt->execute([$data['nickname'], $account_number]);
+        $actor_row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $actor_id = $actor_row['actor_id'];
+        
+        // 2. Создаем запись в persons с email
+        $stmt = $pdo->prepare("
+            INSERT INTO persons (name, last_name, email, actor_id, created_by, updated_by) 
+            VALUES (?, ?, ?, ?, 1, 1)
         ");
         
         $stmt->execute([
-            $data['username'],
+            $data['name'] ?? $data['nickname'], // Если имя не указано, используем nickname
+            $data['last_name'] ?? '', // Фамилия может быть пустой
             $data['email'],
-            $password_hash,
-            $account_number
+            $actor_id
         ]);
         
-        $actor_id = $pdo->lastInsertId();
-        
-        // Привязываем актора к населенному пункту (если указан)
-        if (!empty($data['locality_id'])) {
-            // Проверяем существование населенного пункта в таблице localities
-            $stmt = $pdo->prepare("SELECT id FROM localities WHERE id = ?");
-            $stmt->execute([$data['locality_id']]);
-            
-            if ($stmt->fetch()) {
-                $stmt = $pdo->prepare("
-                    INSERT INTO actors_locations (actor_id, location_id) 
-                    VALUES (?, ?)
-                ");
-                $stmt->execute([$actor_id, $data['locality_id']]);
-            }
-            // Если locality_id неверный - просто пропускаем, не прерываем регистрацию
-        }
-        
-        // Автоматически присваиваем статус "Участник ТЦ" (actor_status_id = 7)
+        // 3. Присваиваем статус "Участник ТЦ" (ID = 7)
         $stmt = $pdo->prepare("
             INSERT INTO actor_current_statuses (actor_id, actor_status_id, created_by) 
             VALUES (?, 7, ?)
         ");
         $stmt->execute([$actor_id, $actor_id]);
         
-        // Генерация JWT токена
+        // 4. Генерация JWT токена
         $payload = [
             'user_id' => $actor_id,
-            'username' => $data['username'],
+            'nickname' => $data['nickname'],
             'email' => $data['email'],
             'status_id' => 7 // Участник ТЦ
         ];
-        
-        // Если есть locality_id, добавляем в токен
-        if (!empty($data['locality_id'])) {
-            $payload['locality_id'] = $data['locality_id'];
-        }
         
         $token = JWT::encode($payload, JWT_SECRET);
         
@@ -101,7 +91,7 @@ try {
             'message' => 'Регистрация успешна',
             'token' => $token,
             'actor_id' => $actor_id,
-            'username' => $data['username'],
+            'nickname' => $data['nickname'], // ← ВАЖНО: возвращаем nickname, а не username
             'global_status' => 'Участник ТЦ'
         ]);
         

@@ -31,30 +31,45 @@ const StatusManager = {
     userStatusesCache: {},
     
     // Получение ВСЕХ статусов пользователя из API
-    async fetchUserStatuses(actorId) {
-        try {
-            console.log(`📡 Запрашиваю статусы для пользователя ${actorId}...`);
-            
-            // Запрос к API для получения всех статусов
-            const response = await fetch(`/api/actors/${actorId}/statuses`, {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('prostvor_token')}`
-                }
-            });
-            
-            if (response.ok) {
-                const data = await response.json();
-                this.userStatusesCache[actorId] = data.statuses || [];
-                console.log(`✅ Получены статусы:`, data.statuses);
-                return data.statuses;
-            } else {
-                console.warn('⚠️ API статусов недоступно, использую fallback');
-                return this.getFallbackStatuses(actorId);
-            }
-        } catch (error) {
-            console.error('❌ Ошибка получения статусов:', error);
-            return this.getFallbackStatuses(actorId);
+    async fetchUserStatuses(userId) {
+    try {
+        // ВРЕМЕННО: возвращаем фиктивные данные
+        console.log(`📡 [ТЕСТ] Запрашиваю статусы для пользователя ${userId}`);
+        
+        // Если пользователь не авторизован
+        if (!userId) {
+            return {
+                success: true,
+                statuses: ['Гость'],
+                max_level: 0
+            };
         }
+        
+        // Для авторизованных пользователей
+        return {
+            success: true,
+            statuses: ['Участник ТЦ'],
+            max_level: 1,
+            current_status: { status: 'Участник ТЦ', actor_status_id: 7 }
+        };
+        
+        /* ЗАКОММЕНТИРОВАТЬ СТАРЫЙ КОД:
+        const response = await fetch(`/api/actors/statuses.php?user_id=${userId}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return await response.json();
+        */
+        
+    } catch (error) {
+        console.error('❌ Ошибка получения статусов:', error);
+        // Возвращаем данные гостя при ошибке
+        return {
+            success: false,
+            statuses: ['Гость'],
+            max_level: 0
+        };
+    }
     },
     
     // Fallback - получение статусов из localStorage
@@ -86,35 +101,44 @@ const StatusManager = {
     },
     
     // Получение ВСЕХ статусов текущего пользователя
-    async getUserAllStatuses() {
-        const user = this.getCurrentUser();
-        if (!user || !user.actor_id) return [];
+    async getUserAllStatuses(userId) {
+    try {
+        console.log(`📡 [ТЕСТ] Запрашиваю статусы для пользователя ${userId}`);
         
-        // Проверяем кэш
-        if (this.userStatusesCache[user.actor_id]) {
-            return this.userStatusesCache[user.actor_id];
-        }
+        // ВРЕМЕННОЕ РЕШЕНИЕ: возвращаем массив
+        return {
+            success: true,
+            statuses: ['Участник ТЦ'],  // ← ГАРАНТИРУЕМ, что это МАССИВ
+            max_level: 1,
+            current_status: { status: 'Участник ТЦ', actor_status_id: 7 }
+        };
         
-        // Запрашиваем с API
-        return await this.fetchUserStatuses(user.actor_id);
+    } catch (error) {
+        console.error('❌ Ошибка получения статусов:', error);
+        return {
+            success: false,
+            statuses: ['Гость'],  // ← ГАРАНТИРУЕМ, что это МАССИВ
+            max_level: 0
+        };
+    }
     },
     
     // Получение МАКСИМАЛЬНОГО уровня пользователя
-    async getUserMaxLevel() {
-        const statuses = await this.getUserAllStatuses();
-        let maxLevel = 1; // Минимальный по умолчанию
-        
-        statuses.forEach(statusName => {
-            // Находим статус по имени
-            const status = Object.values(this.STATUSES).find(s => s.name === statusName);
-            if (status && status.level > maxLevel) {
-                maxLevel = status.level;
-            }
-        });
-        
-        console.log(`📊 Максимальный уровень пользователя: ${maxLevel}`);
+   getUserMaxLevel(statuses) {
+    let maxLevel = 0;
+    
+    // Защита от не-массива
+    if (!statuses || !Array.isArray(statuses)) {
+        console.warn('⚠️ statuses не является массивом:', statuses);
         return maxLevel;
-    },
+    }
+    
+    statuses.forEach(status => {
+        const level = this.statusLevelMap[status] || 0;
+        if (level > maxLevel) maxLevel = level;
+    });
+    return maxLevel;
+},
     
     // Проверка прав на основе максимального уровня
     async hasPermission(requiredPermission) {

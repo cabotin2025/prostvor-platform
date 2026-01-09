@@ -163,10 +163,16 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Регистрирую пользователя...');
             
             try {
-                const response = await fetch(API_BASE + '/api/auth/register.php', {
+                const response = await fetch('/api/auth/register-test.php', {  // ← ИЗМЕНИТЕ НА ТЕСТОВЫЙ
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(userData)
+                    body: JSON.stringify({
+                        email: email,
+                        password: password,
+                        nickname: nickname,
+                        name: name,
+                        last_name: lastName
+                    })
                 });
                 
                 const result = await response.json();
@@ -217,18 +223,37 @@ async function handleRegistration(formData) {
             body: JSON.stringify(registrationData)
         });
         
+        // В обработчике регистрации, после получения ответа:
         const data = await response.json();
-        
+        console.log('📥 Ответ сервера:', data);
+
         if (data.success) {
             // Сохраняем токен
-            localStorage.setItem('auth_token', data.token);
-            // Перенаправляем
-            window.location.href = '/index.html';
+            if (data.token) {
+                localStorage.setItem('auth_token', data.token);
+            }
+            
+            // Сохраняем nickname (не username!)
+            const nickname = data.nickname || data.user?.nickname || nicknameInput;
+            localStorage.setItem('user_nickname', nickname);
+            
+            // Сохраняем actor_id
+            if (data.actor_id) {
+                localStorage.setItem('user_id', data.actor_id.toString());
+            }
+            
+            alert('✅ Регистрация успешна!');
+            
+            // Перенаправляем на главную
+            setTimeout(() => {
+                window.location.href = '/index.html';
+            }, 1000);
         } else {
-            alert('Ошибка регистрации: ' + data.message);
+            alert('❌ Ошибка регистрации: ' + (data.message || 'Неизвестная ошибка'));
         }
     } catch (error) {
-        console.error('Registration error:', error);
-        alert('Ошибка подключения к серверу');
+        // Обработка ошибок сети или JSON
+        console.error('❌ Ошибка при регистрации:', error);
+        alert('❌ Ошибка соединения с сервером');
     }
 }

@@ -2,7 +2,6 @@
 if (window.location.pathname.includes('enter-reg')) {
     // Не инициализируемся на странице входа
     console.log('main-updated.js: Пропускаем инициализацию на странице входа');
-    return;
 }
 
 const AppUpdated = (function() {
