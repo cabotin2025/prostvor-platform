@@ -62,12 +62,12 @@ try {
         
         // 1. Создаем запись в actors
         $stmt = $pdo->prepare("
-            INSERT INTO actors (nickname, actor_type_id, account, created_by, updated_by) 
-            VALUES (?, 1, ?, 1, 1)
+            INSERT INTO actors (nickname, actor_type_id, account, color_frame, created_by, updated_by) 
+            VALUES (?, 1, ?, ?, 1, 1)
             RETURNING actor_id
         ");
-        
-        $stmt->execute([$nickname, $account_number]);
+
+        $stmt->execute([$nickname, $account_number, $data['color_frame'] ?? '#4ECDC4']); // ← ТРИ параметра!
         $actor_row = $stmt->fetch(PDO::FETCH_ASSOC);
         $actor_id = $actor_row['actor_id'];
         

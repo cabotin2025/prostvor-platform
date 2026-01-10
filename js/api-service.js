@@ -1,7 +1,7 @@
 // Основной класс для работы с API
 class ApiService {
     constructor() {
-        this.baseURL = window.API_CONFIG?.BASE_URL || '/api';
+        this.baseURL = window.API_CONFIG?.BASE_URL || '';
         this.permissionErrorHandler = null;
     }
     

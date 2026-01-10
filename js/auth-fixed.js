@@ -1,5 +1,6 @@
-// js/auth-fixed.js - РАБОЧАЯ ВЕРСИЯ
-// ДОПОЛНИТЕЛЬНАЯ ОТЛАДКА
+// js/auth-fixed.js - ИСПРАВЛЕННАЯ РАБОЧАЯ ВЕРСИЯ
+// ПОДДЕРЖКА БАЗЫ creative_center_base (PostgreSQL)
+
 console.log('🔧 Auth-fixed.js: Проверяем localStorage доступность');
 try {
     const testKey = 'auth_test_' + Date.now();
@@ -53,7 +54,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             console.log('📤 Отправляю запрос входа:', email);
-            alert('Выполняю вход...');
             
             try {
                 const response = await fetch(API_BASE + '/api/auth/login.php', {
@@ -66,17 +66,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log('📥 Ответ сервера:', result);
                 
                 if (result.success) {
-                    // Сохраняем токен
-                    localStorage.setItem('prostvor_token', result.token);
-                    localStorage.setItem('prostvor_user', JSON.stringify(result.user));
+                    // УНИФИЦИРОВАННОЕ СОХРАНЕНИЕ ДАННЫХ
+                    localStorage.setItem('auth_token', result.token);
+                    localStorage.setItem('user_nickname', result.user.nickname);
+                    localStorage.setItem('user_id', result.user.actor_id.toString());
+                    localStorage.setItem('user_status', result.user.global_status);
+                    localStorage.setItem('user_email', result.user.email);
+                    localStorage.setItem('user_data', JSON.stringify(result.user));
                     
                     console.log('💾 Токен сохранен:', result.token.substring(0, 30) + '...');
                     console.log('👤 Пользователь:', result.user.nickname);
-                    
-                    // ДОПОЛНИТЕЛЬНАЯ ПРОВЕРКА:
-                    console.log('✅ Проверка сразу после сохранения:');
-                    console.log('- В localStorage token?', !!localStorage.getItem('prostvor_token'));
-                    console.log('- В localStorage user?', !!localStorage.getItem('prostvor_user'));
                     
                     alert(`✅ Вход успешен! Добро пожаловать, ${result.user.nickname}!`);
                     
@@ -87,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 else {
                     // Обработка ошибок от сервера
-                    alert('❌ Ошибка входа: ' + (result.error || 'Неверный email или пароль'));
+                    alert('❌ Ошибка входа: ' + (result.message || 'Неверный email или пароль'));
                 }
             } catch (error) {
                 console.error('🔥 Ошибка при входе:', error);
@@ -118,6 +117,21 @@ document.addEventListener('DOMContentLoaded', function() {
             if (userType !== 'Человек') {
                 alert('Для регистрации выберите тип "Человек"');
                 return;
+            }
+            
+            // Функция для генерации случайного яркого цвета
+            function generateRandomColor() {
+                const brightColors = [
+                    '#FF6B6B', // Красный (хорошо виден)
+                    '#4ECDC4', // Бирюзовый (хорошо виден)
+                    '#FFD166', // Жёлтый (хорошо виден)
+                    '#06D6A0', // Зелёный (хорошо виден)
+                    '#118AB2', // Синий (хорошо виден)
+                    '#7209B7', // Фиолетовый (хорошо виден)
+                    '#FF9E6D', // Оранжевый (хорошо виден)
+                    '#83E377'  // Светло-зелёный (хорошо виден)
+                ];
+                return brightColors[Math.floor(Math.random() * brightColors.length)];
             }
             
             // Получаем данные
@@ -153,41 +167,44 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // Данные для отправки
+            // Данные для отправки - СООТВЕТСТВУЮТ ОЖИДАНИЯМ register.php
             const userData = {
-                email, password, nickname, name, last_name: lastName
+                email: email,
+                password: password,
+                nickname: nickname,
+                name: name,
+                last_name: lastName,
+                color_frame: generateRandomColor() // Генерируем случайный цвет
             };
             
             console.log('📤 Отправляю регистрацию:', userData);
-            alert('Регистрирую пользователя...');
             
             try {
-                const response = await fetch('/api/auth/register-test.php', {  // ← ИЗМЕНИТЕ НА ТЕСТОВЫЙ
+                // ИСПРАВЛЕНИЕ: используем реальный endpoint регистрации
+                const response = await fetch('/api/auth/register.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        email: email,
-                        password: password,
-                        nickname: nickname,
-                        name: name,
-                        last_name: lastName
-                    })
+                    body: JSON.stringify(userData)
                 });
                 
                 const result = await response.json();
                 console.log('📥 Ответ сервера:', result);
                 
                 if (result.success) {
-                    localStorage.setItem('prostvor_token', result.token);
-                    localStorage.setItem('prostvor_user', JSON.stringify(result.user));
-                    
-                    alert(`✅ Регистрация успешна! Добро пожаловать, ${result.user.nickname}!`);
+                    // УНИФИЦИРОВАННОЕ СОХРАНЕНИЕ ДАННЫХ
+                    localStorage.setItem('auth_token', result.token);
+                    localStorage.setItem('user_nickname', result.nickname);
+                    localStorage.setItem('user_id', result.actor_id.toString());
+                    localStorage.setItem('user_status', result.global_status);
+                    // ВРЕМЕННО: Дублируем для совместимости со старым кодом
+                    localStorage.setItem('auth_token', result.token); // ← ДОБАВЬТЕ ЭТУ СТРОКУ
+                    alert(`✅ Регистрация успешна! Добро пожаловать, ${result.nickname}!`);
                     
                     setTimeout(() => {
                         window.location.href = '/index.html';
                     }, 1500);
                 } else {
-                    alert('❌ Ошибка: ' + result.error);
+                    alert('❌ Ошибка: ' + (result.message || 'Неизвестная ошибка'));
                 }
             } catch (error) {
                 console.error('🔥 Ошибка:', error);
@@ -201,17 +218,14 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('✅ Все кнопки настроены и готовы к работе!');
 });
 
-console.log('🚀 Auth Fixed инициализация начата...');
-
-// Найти обработчик регистрации и обновить его
+// Устаревшие функции - ОСТАВЛЕНЫ ДЛЯ СОВМЕСТИМОСТИ
 async function handleRegistration(formData) {
+    console.warn('⚠️ handleRegistration устарела, используйте новую реализацию');
     try {
-        // Только обязательные поля
         const registrationData = {
             username: formData.get('username'),
             email: formData.get('email'),
             password: formData.get('password')
-            // locality_id: formData.get('locality') // ОПЦИОНАЛЬНО
         };
         
         const response = await fetch('/api/auth/register.php', {
@@ -222,38 +236,31 @@ async function handleRegistration(formData) {
             body: JSON.stringify(registrationData)
         });
         
-        // В обработчике регистрации, после получения ответа:
         const data = await response.json();
         console.log('📥 Ответ сервера:', data);
 
         if (data.success) {
-            // Сохраняем токен
             if (data.token) {
                 localStorage.setItem('auth_token', data.token);
             }
             
-            // ИСПРАВЛЕНИЕ: правильное получение nickname
             const nickname = data.nickname || data.username || data.user?.nickname;
             if (nickname) {
                 localStorage.setItem('user_nickname', nickname);
             }
             
-            // Сохраняем actor_id
             if (data.actor_id) {
                 localStorage.setItem('user_id', data.actor_id.toString());
             }
             
-            // Сохраняем статус
             if (data.global_status) {
                 localStorage.setItem('user_status', data.global_status);
             } else if (data.success) {
-                // По умолчанию для новых пользователей
                 localStorage.setItem('user_status', 'Участник ТЦ');
             }
             
             alert('✅ Регистрация успешна!');
             
-            // Перенаправляем на главную
             setTimeout(() => {
                 window.location.href = '/index.html';
             }, 1000);
@@ -261,14 +268,13 @@ async function handleRegistration(formData) {
             alert('❌ Ошибка регистрации: ' + (data.message || 'Неизвестная ошибка'));
         }
     } catch (error) {
-        // Добавлен недостающий блок catch
         console.error('❌ Ошибка в handleRegistration:', error);
         alert('❌ Ошибка соединения с сервером');
     }
 }
 
-// Функция обработки логина:
 async function handleLogin(email, password) {
+    console.warn('⚠️ handleLogin устарела, используйте новую реализацию');
     try {
         const response = await fetch('/api/auth/login.php', {
             method: 'POST',
@@ -282,20 +288,19 @@ async function handleLogin(email, password) {
         console.log('Ответ сервера:', data);
         
         if (data.success) {
-            // Сохраняем JWT токен
             localStorage.setItem('auth_token', data.token);
             localStorage.setItem('user_nickname', data.user.nickname);
             localStorage.setItem('user_id', data.user.actor_id.toString());
             localStorage.setItem('user_status', data.user.global_status);
             localStorage.setItem('user_email', data.user.email);
             localStorage.setItem('user_data', JSON.stringify(data.user));
+            // ВРЕМЕННО: Дублируем для совместимости со старым кодом
+            localStorage.setItem('auth_token', result.token); // ← ДОБАВЬТЕ ЭТУ СТРОКУ
             
             console.log('✅ Авторизация успешна:', data.user.nickname);
             
-            // Показываем сообщение
             alert('✅ Вход выполнен! Добро пожаловать, ' + data.user.nickname);
             
-            // Перенаправляем на главную
             setTimeout(() => {
                 window.location.href = '/index.html';
             }, 1000);
@@ -312,3 +317,7 @@ async function handleLogin(email, password) {
         return false;
     }
 }
+
+window.dispatchEvent(new Event('auth-state-changed'));
+
+console.log('🚀 Auth Fixed инициализация завершена!');
