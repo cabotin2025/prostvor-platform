@@ -371,13 +371,41 @@
         
       
         <div class="header-buttons">
-            <button class="header-button help-button" aria-label="Поддержать PROSTVOR">
-                <img src="images/HelpProstvor.svg" alt="Поддержать PROSTVOR" class="help-button-img">
-            </button>
-            <button class="header-button enter-button" aria-label="Войти или зарегистрироваться"
-                onclick="window.location.href='pages/enter-reg.html'">
-                <img src="images/enter-reg.svg" alt="Войти/Зарегистрироваться" class="enter-button-img">
-            </button>
+            <!-- Верхний ряд: кнопка поддержки и коммуникации -->
+            <div class="header-buttons-top">
+                <button class="header-button help-button" aria-label="Поддержать PROSTVOR">
+                    <img src="images/HelpProstvor.svg" alt="Поддержать PROSTVOR" class="help-button-img">
+                </button>
+                
+                <!-- Блок communications справа от кнопки поддержки -->
+                <div class="communications-right" id="communicationsRight">
+                    <!-- Иконки communications будут добавлены динамически -->
+                </div>
+            </div>
+    
+            <!-- Нижний ряд: кнопка входа и профиль -->
+            <div class="header-buttons-bottom">
+                <!-- Кнопка входа (видна по умолчанию для неавторизованных) -->
+                <button class="header-button enter-button" id="enterRegisterButton" 
+                        aria-label="Войти или зарегистрироваться"
+                        onclick="window.location.href='pages/enter-reg.html'">
+                    <img src="images/enter-reg.svg" alt="Войти/Зарегистрироваться" class="enter-button-img">
+                </button>
+                
+                <!-- Значок участника (скрыт по умолчанию) -->
+                <div class="user-display-container" id="userDisplayContainer" style="display: none;">
+                    <div class="user-display" id="userDisplay">
+                        <div class="user-icon">
+                            <img id="userIcon" src="" alt="Иконка участника">
+                        </div>
+                        <div class="user-info">
+                            <div class="user-nickname" id="userNickname">Никнейм</div>
+                            <div class="user-status" id="userStatus">Статус</div>
+                        </div>
+                    </div>
+                    <a class="logout-link" id="logoutLink" href="#" style="display: none;">Выйти</a>
+                </div>
+            </div>
         </div>
     </header>
     
@@ -434,8 +462,8 @@
         <div class="preloader-spinner"></div>
     </div>
 
-    <script src="js/api-service.js"></script>
     <script src="js/api-config.js"></script>
+    <script src="js/api-service.js"></script>
     <script src="js/auth-check.js"></script>
     <script src="js/auth-fixed.js"></script>
     <script src="js/auth-permissions.js"></script>

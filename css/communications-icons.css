@@ -1,26 +1,62 @@
-/* ПРАВАЯ часть - Избранное, Заметки, Закладки */
+/* ПРАВАЯ часть - Избранное, Заметки, Закладки - ПЕРЕМЕЩЕНА под кнопку поддержки */
 .communications-right {
     display: flex;
     gap: 10px;
     align-items: center;
-    position: absolute; /* Абсолютное позиционирование */
-    right: 150px; /* 150px от правого края шапки */
-    top: 80px; /* По центру вертикали */
-    transform: translateY(-50%); /* Центрирование */
-    z-index: 5;
+    margin-left: 10px; /* Отступ от кнопки поддержки */
+    background-color: rgba(0, 43, 77, 0.3);
+    border-radius: 8px;
+    padding: 8px 12px;
     backdrop-filter: blur(3px);
+    flex-grow: 1;
+}
+
+/* Убираем старые абсолютные позиционирования */
+.communications-right {
+    position: static;
+    transform: none;
+    right: auto;
+    top: auto;
+}
+
+/* Обновляем контейнер для верхней строки */
+.header-buttons-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    order: 1;
+}
+
+/* Контейнер для нижней строки */
+.header-buttons-bottom {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    order: 2;
+    margin-top: 5px;
+    justify-content: flex-end;
+}
+
+/* Обновляем общий контейнер */
+.header-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+    position: relative;
+    z-index: 11;
+    isolation: isolate;
+    min-width: 300px;
 }
 
 /* ЛЕВАЯ часть - Иконки для текущей страницы */
 .page-communication-icons {
     display: flex;
     gap: 15px;
-    /* padding: 8px 15px;
-    border-radius: 8px;
-    border: 1px solid white; */
     background-color: rgba(0, 43, 77, 0.3);
     backdrop-filter: blur(3px);
-    margin-left: auto;
     position: absolute; /* Абсолютное позиционирование */
     left: 70px; /* 70px от левого края шапки */
     top: 80px; /* По центру вертикали */
@@ -29,12 +65,41 @@
     white-space: nowrap; /* Не переносить текст */
 }
 
-/* Обновляем стили для кнопок шапки */
-.header-buttons {
-    position: relative;
-    z-index: 11; /* Выше других элементов */
+/* Обновляем стили для кнопки поддержки */
+.help-button {
+    flex-shrink: 0; /* Не сжимается */
 }
 
+/* Дополнительные стили для user-display-container */
+.user-display-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    min-width: 160px;
+}
+
+/* Ссылка Выйти под кнопкой профиля */
+.logout-link {
+    display: block;
+    color: #ff6b6b;
+    text-decoration: none;
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    background-color: rgba(255, 107, 107, 0.1);
+    transition: all 0.3s;
+    text-align: center;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.logout-link:hover {
+    background-color: rgba(255, 107, 107, 0.2);
+    color: #ff3333;
+}
+
+/* Иконки в communications-right */
 .communication-icon-group {
     display: flex;
     flex-direction: column;
@@ -42,21 +107,25 @@
     cursor: pointer;
     transition: transform 0.2s;
     min-width: 60px;
+    padding: 5px;
+    border-radius: 5px;
 }
 
 .communication-icon-group:hover {
     transform: translateY(-2px);
+    background-color: rgba(168, 228, 10, 0.1);
 }
 
 .communication-icon {
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
     margin-bottom: 2px;
     transition: filter 0.2s;
+    filter: invert(1);
 }
 
 .communication-icon:hover {
-    filter: brightness(1.2);
+    filter: invert(79%) sepia(98%) saturate(468%) hue-rotate(21deg) brightness(98%) contrast(91%);
 }
 
 .communication-count {
@@ -73,7 +142,7 @@
     padding: 8px;
     border-radius: 4px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     transition: background-color 0.2s;
     min-width: 70px;
@@ -302,7 +371,35 @@
 
 /* Адаптивность */
 @media (max-width: 768px) {
-    .communications-right, 
+    .header-buttons {
+        flex-direction: row;
+        flex-wrap: wrap;
+        min-width: auto;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .header-buttons-top {
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 10px;
+        order: 1;
+    }
+    
+    .header-buttons-bottom {
+        width: 100%;
+        justify-content: center;
+        order: 2;
+    }
+    
+    .communications-right {
+        width: 100%;
+        justify-content: center;
+        margin-left: 0;
+        margin-top: 10px;
+        order: 3;
+    }
+    
     .page-communication-icons {
         position: static;
         transform: none;
@@ -311,52 +408,64 @@
         left: auto;
         top: auto;
         justify-content: center;
+        order: 4;
     }
     
-    .communications-right {
-        order: 4; /* ДОБАВЛЕНО: порядок в мобильной версии */
-    }
-    
-    .page-communication-icons {
-        order: 3; /* ДОБАВЛЕНО: порядок в мобильной версии */
-    }
-    
+    .communications-right, 
     .page-communication-icons {
         flex-wrap: wrap;
     }
     
+    .communication-icon-group {
+        min-width: 50px;
+    }
+}
+
+@media (max-width: 600px) {
+    .communications-right,
+    .page-communication-icons {
+        flex-wrap: wrap;
+        justify-content: space-around;
+        gap: 10px;
+    }
+    
+    .communication-icon-group {
+        min-width: 45px;
+    }
+    
     .page-icon-button {
         min-width: 60px;
+        padding: 6px;
     }
     
-    /* ДОБАВЛЕНО: Медиа-запрос для мобильных устройств */
-    @media (max-width: 600px) {
-        .communications-right,
-        .page-communication-icons {
-            flex-wrap: wrap;
-            justify-content: space-around;
-            gap: 10px;
-        }
-        
-        .page-icon-button {
-            min-width: 50px;
-            padding: 6px;
-        }
+    .page-icon-label {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .communications-right,
+    .page-communication-icons {
+        gap: 8px;
     }
     
-    @media (max-width: 480px) {
-        .communications-right,
-        .page-communication-icons {
-            gap: 8px;
-        }
-        
-        .page-icon-button {
-            min-width: 45px;
-            padding: 4px;
-        }
-        
-        .page-icon-label {
-            font-size: 10px;
-        }
+    .communication-icon-group {
+        min-width: 40px;
     }
+    
+    .page-icon-button {
+        min-width: 45px;
+        padding: 4px;
+    }
+    
+    .page-icon-label {
+        font-size: 9px;
+    }
+}
+
+/* Фокус-стили для доступности */
+.page-icon-button:focus,
+.communication-icon-group:focus {
+    outline: 2px solid #A8E40A;
+    outline-offset: 2px;
 }

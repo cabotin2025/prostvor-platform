@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Auth Debug</title>
+</head>
+<body>
+    <h1>Auth Debug</h1>
+    
+    <div id="output"></div>
+    
+    <script>
+        const output = document.getElementById('output');
+        
+        function log(message) {
+            output.innerHTML += `<p>${message}</p>`;
+            console.log(message);
+        }
+        
+        async function debugAuth() {
+            log('=== АУТЕНТИФИКАЦИЯ ДЕБАГ ===');
+            
+            // 1. Проверка localStorage
+            log('1. Проверка localStorage:');
+            const keys = Object.keys(localStorage);
+            keys.forEach(key => {
+                const value = localStorage.getItem(key);
+                const isToken = key.includes('token');
+                log(`   - ${key}: ${isToken ? '***токен***' : value}`);
+            });
+            
+            // 2. Поиск auth-fixed.js
+            log('\n2. Поиск auth-fixed.js в localStorage:');
+            const authFixedScript = document.querySelector('script[src*="auth-fixed.js"]');
+            log(`   - Скрипт найден в DOM: ${!!authFixedScript}`);
+            
+            // 3. Проверка токена через API
+            const token = localStorage.getItem('auth_token') || localStorage.getItem('prostvor_token');
+            if (token) {
+                log(`\n3. Проверка токена (${token.substring(0, 20)}...):`);
+                
+                try {
+                    const response = await fetch('/api/auth/verify.php', {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+                    const data = await response.json();
+                    log(`   - API статус: ${response.status}`);
+                    log(`   - Ответ: ${JSON.stringify(data)}`);
+                } catch (error) {
+                    log(`   - Ошибка: ${error.message}`);
+                }
+            } else {
+                log('3. Нет токена для проверки');
+            }
+            
+            // 4. Проверка конфигурации
+            log('\n4. Проверка конфигурации:');
+            log(`   - window.API_CONFIG: ${window.API_CONFIG ? 'есть' : 'нет'}`);
+            log(`   - window.apiService: ${window.apiService ? 'есть' : 'нет'}`);
+            
+            if (window.apiService) {
+                log(`   - apiService.baseURL: ${window.apiService.baseURL}`);
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', debugAuth);
+    </script>
+</body>
+</html>

@@ -1,124 +1,98 @@
-
-/* user-display.css - Стили для отображения пользователя */
+/* Стили для отображения пользователя */
 .user-display-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-left: 15px;
+    gap: 5px;
+    position: relative;
 }
 
 .user-display {
-    background: #505050;
-    border: 3px solid; /* Цвет будет задаваться динамически */
-    border-radius: 12px;
-    padding: 5px 5px;
-    min-width: 150px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: 40px;
-    max-height: 60px;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 15px;
+    background-color: rgba(0, 43, 77, 0.5);
+    border-radius: 20px;
+    border: 1px solid #A8E40A;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    min-width: 160px;
 }
 
 .user-display:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 43, 77, 0.8);
+}
+
+.user-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #A8E40A;
+    background-color: rgba(0, 43, 77, 0.5);
+}
+
+.user-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .user-nickname {
-    font-size: 12px;
+    color: #A8E40A;
     font-weight: bold;
-    color: #FFFFFF;
+    font-size: 14px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-bottom: 5px;
+    max-width: 100px;
 }
 
 .user-status {
-    font-size: 10px;
-    color: #FFFFFF;
-    font-style: normal;
+    color: #ccc;
+    font-size: 12px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    padding-top: 5px;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    max-width: 100px;
 }
 
-.user-display::before {
-    /*content: '';*/
-    position: absolute;
-    left: 10px;
-    right: 10px;
-    height: 1px;
-    background-color: rgba(255, 255, 255, 0.2);
-    top: 50%;
-    transform: translateY(-50%);
-}
-
+/* Стиль для ссылки Выйти */
 .logout-link {
-    margin-top: 8px;
-    font-size: 14px;
+    display: block;
+    color: #ff6b6b;
     text-decoration: none;
-    color: #00B0F0 !important;
-    font-weight: bold;
-    transition: color 0.3s;
-    cursor: pointer;
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    background-color: rgba(255, 107, 107, 0.1);
+    transition: all 0.3s;
+    text-align: center;
+    width: 100%;
+    margin-top: 5px;
 }
 
 .logout-link:hover {
-    color: #4FC3F7 !important;
-    text-decoration: underline;
+    background-color: rgba(255, 107, 107, 0.2);
+    color: #ff3333;
 }
 
-/* Стили для динамических полей формы регистрации */
-.dynamic-field {
-    animation: slideDown 0.3s ease;
+/* Скрытие кнопки входа при наличии user-display */
+.user-display-container.active ~ .enter-button {
+    display: none;
 }
 
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.user-display-container.active {
+    display: flex;
 }
 
-
-/* Адаптивность */
-@media (max-width: 1200px) {
-   
-    .user-display {
-        min-width: 160px;
-        padding: 6px 12px;
-    }
-    
-    .user-nickname {
-        font-size: 12px;
-    }
-    
-    .user-status {
-        font-size: 8px;
-    }
-}
-
-@media (max-width: 768px) {
-   
-    .user-display-container {
-        margin-left: 0;
-        margin-top: 10px;
-    }
-    
-    .user-display {
-        min-width: 140px;
-        padding: 5px 10px;
-    }
+.enter-button {
+    display: block;
 }
