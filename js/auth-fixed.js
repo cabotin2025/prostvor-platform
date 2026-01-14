@@ -1,6 +1,3 @@
-// js/auth-fixed.js - ИСПРАВЛЕННАЯ РАБОЧАЯ ВЕРСИЯ
-// ПОДДЕРЖКА БАЗЫ creative_center_base (PostgreSQL)
-
 console.log('🔧 Auth-fixed.js: Проверяем localStorage доступность');
 try {
     const testKey = 'auth_test_' + Date.now();
@@ -74,6 +71,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     localStorage.setItem('user_email', result.user.email);
                     localStorage.setItem('user_data', JSON.stringify(result.user));
                     
+                    // ВАЖНО: Сохраняем color_frame если он есть в ответе
+                    if (result.user.color_frame) {
+                        localStorage.setItem('user_color_frame', result.user.color_frame);
+                        console.log('🎨 Color frame сохранен:', result.user.color_frame);
+                    }
+                    
                     console.log('💾 Токен сохранен:', result.token.substring(0, 30) + '...');
                     console.log('👤 Пользователь:', result.user.nickname);
                     
@@ -119,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // Функция для генерации случайного яркого цвета
+            // Функция для генерации случайного яркого цвета - ТОЛЬКО ПРИ РЕГИСТРАЦИИ
             function generateRandomColor() {
                 const brightColors = [
                     '#FF6B6B', // Красный (хорошо виден)
@@ -174,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 nickname: nickname,
                 name: name,
                 last_name: lastName,
-                color_frame: generateRandomColor() // Генерируем случайный цвет
+                color_frame: generateRandomColor() // Генерируем случайный цвет ТОЛЬКО ПРИ РЕГИСТРАЦИИ
             };
             
             console.log('📤 Отправляю регистрацию:', userData);
@@ -196,8 +199,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     localStorage.setItem('user_nickname', result.nickname);
                     localStorage.setItem('user_id', result.actor_id.toString());
                     localStorage.setItem('user_status', result.global_status);
-                    // ВРЕМЕННО: Дублируем для совместимости со старым кодом
-                    localStorage.setItem('auth_token', result.token); // ← ДОБАВЬТЕ ЭТУ СТРОКУ
+                    
+                    // Сохраняем color_frame при регистрации
+                    if (result.color_frame) {
+                        localStorage.setItem('user_color_frame', result.color_frame);
+                        console.log('🎨 Color frame сохранен при регистрации:', result.color_frame);
+                    }
+                    
                     alert(`✅ Регистрация успешна! Добро пожаловать, ${result.nickname}!`);
                     
                     setTimeout(() => {
@@ -259,6 +267,11 @@ async function handleRegistration(formData) {
                 localStorage.setItem('user_status', 'Участник ТЦ');
             }
             
+            // Сохраняем color_frame если есть
+            if (data.color_frame) {
+                localStorage.setItem('user_color_frame', data.color_frame);
+            }
+            
             alert('✅ Регистрация успешна!');
             
             setTimeout(() => {
@@ -294,8 +307,12 @@ async function handleLogin(email, password) {
             localStorage.setItem('user_status', data.user.global_status);
             localStorage.setItem('user_email', data.user.email);
             localStorage.setItem('user_data', JSON.stringify(data.user));
-            // ВРЕМЕННО: Дублируем для совместимости со старым кодом
-            localStorage.setItem('auth_token', result.token); // ← ДОБАВЬТЕ ЭТУ СТРОКУ
+            
+            // Сохраняем color_frame если он есть
+            if (data.user.color_frame) {
+                localStorage.setItem('user_color_frame', data.user.color_frame);
+                console.log('🎨 Color frame сохранен при логине:', data.user.color_frame);
+            }
             
             console.log('✅ Авторизация успешна:', data.user.nickname);
             

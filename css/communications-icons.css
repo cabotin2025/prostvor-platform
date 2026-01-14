@@ -1,471 +1,331 @@
-/* ПРАВАЯ часть - Избранное, Заметки, Закладки - ПЕРЕМЕЩЕНА под кнопку поддержки */
-.communications-right {
+/* ==================== НОВЫЙ КОНТЕЙНЕР ДЛЯ КОММУНИКАЦИЙ В ШАПКЕ ==================== */
+.header-communications {
     display: flex;
-    gap: 10px;
+    justify-content: space-between;
     align-items: center;
-    margin-left: 10px; /* Отступ от кнопки поддержки */
-    background-color: rgba(0, 43, 77, 0.3);
-    border-radius: 8px;
-    padding: 8px 12px;
-    backdrop-filter: blur(3px);
-    flex-grow: 1;
-}
-
-/* Убираем старые абсолютные позиционирования */
-.communications-right {
-    position: static;
-    transform: none;
-    right: auto;
-    top: auto;
-}
-
-/* Обновляем контейнер для верхней строки */
-.header-buttons-top {
-    display: flex;
-    align-items: center;
-    gap: 10px;
     width: 100%;
-    order: 1;
-}
-
-/* Контейнер для нижней строки */
-.header-buttons-bottom {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    width: 100%;
-    order: 2;
-    margin-top: 5px;
-    justify-content: flex-end;
-}
-
-/* Обновляем общий контейнер */
-.header-buttons {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 5px;
+    height: 30px;
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: rgba(0, 28, 51, 0.8);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     position: relative;
-    z-index: 11;
-    isolation: isolate;
-    min-width: 300px;
+    z-index: 10;
 }
 
-/* ЛЕВАЯ часть - Иконки для текущей страницы */
-.page-communication-icons {
+/* ==================== ЛЕВАЯ ЧАСТЬ КОММУНИКАЦИЙ ==================== */
+.communication-block-left {
+    flex: 1;
+    max-width: 30%;
+    
+}
+
+.communication-icons-container {
     display: flex;
-    gap: 15px;
-    background-color: rgba(0, 43, 77, 0.3);
+    gap: 20px;
+    padding: 8px 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid #7F7F7F;
+    border-radius: 8px;
     backdrop-filter: blur(3px);
-    position: absolute; /* Абсолютное позиционирование */
-    left: 70px; /* 70px от левого края шапки */
-    top: 80px; /* По центру вертикали */
-    transform: translateY(-50%); /* Центрирование */
-    z-index: 5;
-    white-space: nowrap; /* Не переносить текст */
+    justify-content: flex-start;
+    align-items: center;
 }
 
-/* Обновляем стили для кнопки поддержки */
-.help-button {
-    flex-shrink: 0; /* Не сжимается */
-}
-
-/* Дополнительные стили для user-display-container */
-.user-display-container {
+/* Неактивное состояние по умолчанию */
+.comm-icon-button {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 5px;
-    min-width: 160px;
-}
-
-/* Ссылка Выйти под кнопкой профиля */
-.logout-link {
-    display: block;
-    color: #ff6b6b;
-    text-decoration: none;
-    font-size: 12px;
+    background: transparent;
+    border: none;
+    cursor: default; /* По умолчанию не кликабельно */
     padding: 5px 10px;
     border-radius: 4px;
-    background-color: rgba(255, 107, 107, 0.1);
     transition: all 0.3s;
+    min-width: 100px;
+    opacity: 0.7;
+}
+
+.comm-icon-button img {
+    width: 20px;
+    height: 20px;
+    margin-bottom: 4px;
+    filter: brightness(0.5);
+    transition: filter 0.3s;
+}
+
+.comm-icon-text {
+    color: #7F7F7F;
+    font-size: 7pt;
     text-align: center;
-    width: 100%;
-    margin-top: 5px;
+    white-space: nowrap;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2;
 }
 
-.logout-link:hover {
-    background-color: rgba(255, 107, 107, 0.2);
-    color: #ff3333;
+/* Активное состояние для страниц с контентом */
+body.has-content .comm-icon-button {
+    cursor: pointer;
+    opacity: 1;
 }
 
-/* Иконки в communications-right */
-.communication-icon-group {
+body.has-content .communication-icons-container {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: white;
+}
+
+body.has-content .comm-icon-button img {
+    filter: brightness(1);
+}
+
+body.has-content .comm-icon-text {
+    color: white;
+}
+
+/* Ховер-эффект только на активных страницах */
+body.has-content .comm-icon-button:hover img {
+    filter: brightness(1) sepia(1) saturate(5) hue-rotate(70deg);
+}
+
+body.has-content .comm-icon-button:hover .comm-icon-text {
+    color: #A8E40A;
+}
+
+/* ==================== ПРАВАЯ ЧАСТЬ КОММУНИКАЦИЙ ==================== */
+.communication-block-right {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 8px 12px;
+    background-color: rgba(0, 43, 77, 0.3);
+    border-radius: 8px;
+    backdrop-filter: blur(3px);
+    height: fit-content;
+}
+
+.comm-right-icon {
     display: flex;
     flex-direction: column;
     align-items: center;
     cursor: pointer;
-    transition: transform 0.2s;
-    min-width: 60px;
-    padding: 5px;
-    border-radius: 5px;
+    padding: 5px 8px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    min-width: 45px;
+    position: relative;
 }
 
-.communication-icon-group:hover {
-    transform: translateY(-2px);
+.comm-right-icon:hover {
     background-color: rgba(168, 228, 10, 0.1);
 }
 
-.communication-icon {
-    width: 20px;
-    height: 20px;
+.comm-right-icon img {
+    width: 18px;
+    height: 18px;
     margin-bottom: 2px;
-    transition: filter 0.2s;
     filter: invert(1);
+    transition: filter 0.3s;
 }
 
-.communication-icon:hover {
+.comm-right-icon:hover img {
     filter: invert(79%) sepia(98%) saturate(468%) hue-rotate(21deg) brightness(98%) contrast(91%);
 }
 
-.communication-count {
-    color: white;
-    font-size: 12px;
-    font-weight: bold;
-    min-height: 16px;
-}
-
-.page-icon-button {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-    border-radius: 4px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: background-color 0.2s;
-    min-width: 70px;
-}
-
-.page-icon-button:hover {
-    background-color: rgba(168, 228, 10, 0.1);
-}
-
-.page-icon-button.active {
-    background-color: rgba(168, 228, 10, 0.2);
-    border: 1px solid #A8E40A;
-}
-
-.page-icon {
-    width: 24px;
-    height: 24px;
-    margin-bottom: 4px;
-}
-
-.page-icon-label {
+.comm-counter {
     color: white;
     font-size: 11px;
-    margin-top: 4px;
-}
-
-/* Стили для форм заметок и сообщений */
-.communication-form {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(0, 28, 51, 0.95);
-    border: 2px solid #A8E40A;
-    border-radius: 10px;
-    padding: 20px;
-    z-index: 10001;
-    width: 400px;
-    max-width: 90vw;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
-}
-
-.communication-form-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #A8E40A;
-}
-
-.communication-form-header h3 {
-    color: white;
-    margin: 0;
-    font-size: 18px;
-}
-
-.close-form {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
-    padding: 0 5px;
-    transition: color 0.2s;
-}
-
-.close-form:hover {
-    color: #A8E40A;
-}
-
-.communication-textarea {
-    width: 100%;
-    min-height: 150px;
-    padding: 12px;
-    background-color: rgba(0, 43, 77, 0.3);
-    border: 1px solid #A8E40A;
-    color: white;
-    border-radius: 5px;
-    font-size: 14px;
-    resize: vertical;
-    margin-bottom: 15px;
-}
-
-.communication-textarea:focus {
-    outline: none;
-    border-color: #8BC34A;
-    box-shadow: 0 0 5px rgba(168, 228, 10, 0.3);
-}
-
-.communication-form-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-}
-
-.communication-submit-btn,
-.communication-cancel-btn {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
     font-weight: bold;
-    transition: background-color 0.2s;
+    min-height: 16px;
+    min-width: 16px;
+    text-align: center;
 }
 
-.communication-submit-btn {
-    background-color: #A8E40A;
-    color: #001C33;
-}
-
-.communication-submit-btn:hover {
-    background-color: #8BC34A;
-}
-
-.communication-cancel-btn {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: white;
-}
-
-.communication-cancel-btn:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-}
-
-/* Оверлей для форм */
-.form-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 10000;
-    backdrop-filter: blur(3px);
-}
-
-/* Стили для отображения заметок/сообщений */
-.communication-display {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(0, 28, 51, 0.95);
-    border: 2px solid #A8E40A;
-    border-radius: 10px;
-    padding: 20px;
-    z-index: 10001;
-    width: 500px;
-    max-width: 90vw;
-    max-height: 80vh;
-    overflow-y: auto;
-    backdrop-filter: blur(10px);
-}
-
-.communication-content {
-    color: white;
-    font-size: 14px;
-    line-height: 1.6;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    padding: 10px;
-    background-color: rgba(0, 43, 77, 0.3);
-    border-radius: 5px;
-    border: 1px solid rgba(168, 228, 10, 0.3);
-}
-
-.communication-info {
+/* ==================== ОБНОВЛЕННЫЕ СТИЛИ HEADER ==================== */
+.header {
     display: flex;
-    justify-content: space-between;
-    margin-top: 15px;
-    padding-top: 10px;
-    border-top: 1px solid rgba(168, 228, 10, 0.3);
-    color: #ccc;
-    font-size: 12px;
-}
-
-/* Стили для списка закладок */
-.bookmarks-container {
-    max-height: 300px;
-    overflow-y: auto;
-}
-
-.bookmark-item {
-    display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 10px;
-    margin-bottom: 5px;
-    background-color: rgba(0, 43, 77, 0.3);
-    border-radius: 4px;
-    border: 1px solid rgba(168, 228, 10, 0.2);
-    transition: background-color 0.2s;
+    padding: 5px 5px 0 5px;
+    background-color: #001C33;
+    position: relative;
 }
 
-.bookmark-item:hover {
-    background-color: rgba(168, 228, 10, 0.1);
+/* Обновляем порядок элементов в header */
+.header-buttons {
+    order: 3;
+    align-self: flex-end;
+    margin-top: 10px;
 }
 
-.bookmark-name {
-    color: white;
-    font-size: 14px;
-    flex-grow: 1;
-    margin-right: 10px;
+.header-communications {
+    order: 4;
+    width: calc(100% - 10px);
+    margin: 10px 5px 0 5px;
 }
 
-.bookmark-type {
-    color: #A8E40A;
-    font-size: 12px;
-    margin-right: 10px;
-}
-
-.remove-bookmark {
-    background: none;
-    border: none;
-    color: #F44336;
-    cursor: pointer;
-    padding: 4px 8px;
-    border-radius: 3px;
-    font-size: 12px;
-}
-
-.remove-bookmark:hover {
-    background-color: rgba(244, 67, 54, 0.1);
-}
-
-/* Адаптивность */
-@media (max-width: 768px) {
-    .header-buttons {
-        flex-direction: row;
-        flex-wrap: wrap;
-        min-width: auto;
-        justify-content: center;
-        align-items: center;
+/* ==================== АДАПТИВНОСТЬ ==================== */
+@media (max-width: 1200px) {
+    .header-communications {
+        padding: 10px 15px;
     }
     
-    .header-buttons-top {
-        width: 100%;
-        justify-content: center;
-        margin-bottom: 10px;
-        order: 1;
+    .communication-icons-container {
+        gap: 15px;
+        padding: 6px 15px;
     }
     
-    .header-buttons-bottom {
-        width: 100%;
-        justify-content: center;
+    .comm-icon-button {
+        min-width: 90px;
+        padding: 4px 8px;
+    }
+    
+    .comm-icon-text {
+        font-size: 6.5pt;
+        max-width: 100px;
+    }
+    
+    .communication-block-right {
+        gap: 10px;
+        padding: 6px 10px;
+    }
+}
+
+@media (max-width: 900px) {
+    .header-communications {
+        flex-direction: column;
+        gap: 10px;
+        align-items: stretch;
+    }
+    
+    .communication-block-left {
+        max-width: 100%;
         order: 2;
     }
     
-    .communications-right {
-        width: 100%;
-        justify-content: center;
-        margin-left: 0;
-        margin-top: 10px;
-        order: 3;
+    .communication-block-right {
+        order: 1;
+        align-self: center;
     }
     
-    .page-communication-icons {
-        position: static;
-        transform: none;
-        margin: 10px auto;
-        width: 90%;
-        left: auto;
-        top: auto;
+    .communication-icons-container {
         justify-content: center;
-        order: 4;
-    }
-    
-    .communications-right, 
-    .page-communication-icons {
         flex-wrap: wrap;
+        gap: 10px;
+        padding: 8px 10px;
     }
     
-    .communication-icon-group {
-        min-width: 50px;
+    .comm-icon-button {
+        min-width: 80px;
+        flex: 1;
+        max-width: 120px;
+    }
+    
+    .comm-icon-text {
+        font-size: 6pt;
     }
 }
 
-@media (max-width: 600px) {
-    .communications-right,
-    .page-communication-icons {
-        flex-wrap: wrap;
-        justify-content: space-around;
-        gap: 10px;
+@media (max-width: 768px) {
+    .header {
+        padding: 5px;
     }
     
-    .communication-icon-group {
-        min-width: 45px;
+    .header-communications {
+        padding: 8px 10px;
+        margin: 5px 5px 0 5px;
     }
     
-    .page-icon-button {
-        min-width: 60px;
-        padding: 6px;
+    .communication-icons-container {
+        gap: 8px;
+        padding: 6px 10px;
     }
     
-    .page-icon-label {
-        font-size: 10px;
+    .comm-icon-button {
+        min-width: 70px;
+        padding: 3px 5px;
+    }
+    
+    .comm-icon-text {
+        font-size: 5.5pt;
+        max-width: 80px;
+    }
+    
+    .communication-block-right {
+        gap: 8px;
+        padding: 6px 10px;
+    }
+    
+    .comm-right-icon {
+        min-width: 40px;
+        padding: 4px 6px;
     }
 }
 
 @media (max-width: 480px) {
-    .communications-right,
-    .page-communication-icons {
-        gap: 8px;
+    .communication-icons-container {
+        gap: 5px;
+        padding: 5px 8px;
     }
     
-    .communication-icon-group {
-        min-width: 40px;
+    .comm-icon-button {
+        min-width: 60px;
+        padding: 2px 4px;
     }
     
-    .page-icon-button {
-        min-width: 45px;
-        padding: 4px;
+    .comm-icon-text {
+        font-size: 5pt;
+        max-width: 70px;
     }
     
-    .page-icon-label {
-        font-size: 9px;
+    .comm-icon-button img {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .communication-block-right {
+        gap: 6px;
+        padding: 5px 8px;
+    }
+    
+    .comm-right-icon {
+        min-width: 35px;
+        padding: 3px 5px;
+    }
+    
+    .comm-right-icon img {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .comm-counter {
+        font-size: 10px;
     }
 }
 
-/* Фокус-стили для доступности */
-.page-icon-button:focus,
-.communication-icon-group:focus {
+/* Фокус для доступности */
+.comm-icon-button:focus-visible,
+.comm-right-icon:focus-visible {
     outline: 2px solid #A8E40A;
     outline-offset: 2px;
+}
+
+/* Анимация появления */
+.header-communications {
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

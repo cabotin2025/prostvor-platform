@@ -1,718 +1,321 @@
-// Основной модуль для управления иконками коммуникаций
+// communications-icons.js - упрощенная версия для нового расположения
 const CommunicationsManager = (function() {
-    // Конфигурация
-    const config = {
-        icons: {
-            favorite: {
-                icon: '../images/FavoriteIcon.svg',
-                activeIcon: '../images/FavoriteIconActive.svg'
-            },
-            note: {
-                icon: '../images/NoteIcon.svg',
-                activeIcon: '../images/NoteIconActive.svg'
-            },
-            bookmark: {
-                icon: '../images/BookmarkIcon.svg',
-                activeIcon: '../images/BookmarkIconActive.svg'
-            },
-            message: {
-                icon: '../images/MessIcon.svg',
-                activeIcon: '../images/MessIconActive.svg'
-            },
-            smile: {
-                icon: '../images/SmileIcon.svg',
-                activeIcon: '../images/SmileIconActive.svg'
-            }
+    // Тексты для разных страниц
+    const pageTexts = {
+        projects: {
+            favorite: 'добавить Проект в избранное',
+            note: 'добавить заметку о Проекте',
+            message: 'отправить сообщение руководителю Проекта',
+            smile: 'положительная оценка Проекта'
         },
-        pageTypes: ['projects', 'ideas', 'resources', 'topics', 'actors', 'services', 'events']
-    };
-
-    // Состояние
-    let state = {
-        currentPage: null,
-        currentItemId: null,
-        currentItemType: null,
-        userCounters: {
-            favorites: 0,
-            notes: 0,
-            bookmarks: 0
+        ideas: {
+            favorite: 'добавить Идею в избранное',
+            note: 'добавить заметку об Идее',
+            message: 'отправить сообщение автору Идеи',
+            smile: 'положительная оценка Идеи'
+        },
+        actors: {
+            favorite: 'добавить Участника в избранное',
+            note: 'добавить заметку об Участнике',
+            message: 'отправить сообщение Участнику',
+            smile: 'положительная оценка Участника'
+        },
+        resources: {
+            favorite: 'добавить Ресурс в избранное',
+            note: 'добавить заметку о Ресурсе',
+            message: 'отправить сообщение обладателю Ресурса',
+            smile: 'положительная оценка Ресурса'
+        },
+        topics: {
+            favorite: 'добавить Тему в избранное',
+            note: 'добавить заметку о Теме',
+            message: 'отправить сообщение инициатору Темы',
+            smile: 'положительная оценка Темы'
+        },
+        services: {
+            favorite: 'добавить Услугу в избранное',
+            note: 'добавить заметку об Услуге',
+            message: 'отправить сообщение владельцу Услуги',
+            smile: 'положительная оценка Услуги'
+        },
+        events: {
+            favorite: 'добавить Событие в избранное',
+            note: 'добавить заметку о Событии',
+            message: 'отправить сообщение руководителю События',
+            smile: 'положительная оценка События'
         }
     };
 
+    // Страницы, на которых блок активен
+    const activePages = ['projects', 'ideas', 'actors', 'resources', 'topics', 'services', 'events'];
+
+    let currentPage = 'index';
+    let currentUser = null;
+    let selectedItem = null;
+
     // Инициализация
     function init() {
-        try {
-            // Определяем текущую страницу
-            detectCurrentPage();
+        console.log('🚀 CommunicationsManager: инициализация нового расположения');
+        
+        detectCurrentPage();
+        loadCurrentUser();
+        
+        if (currentUser) {
+            createCommunicationBlocks();
+            updatePageTexts();
+            updateCounters();
+            setupEventListeners();
             
-            // Загружаем состояние пользователя
-            loadUserState();
-            
-            // Инициализируем блок коммуникаций
-            initCommunicationsBlock();
-            
-            // Инициализируем иконки на странице
-            if (state.currentPage) {
-                initPageIcons();
+            // Добавляем класс активности если страница активная
+            if (activePages.includes(currentPage)) {
+                document.body.classList.add('has-content');
             }
-            
-            console.log('CommunicationsManager инициализирован для страницы:', state.currentPage);
-        } catch (error) {
-            console.error('Ошибка инициализации CommunicationsManager:', error);
+        } else {
+            // Пользователь не авторизован - скрываем блоки
+            hideCommunicationBlocks();
         }
     }
 
     // Определение текущей страницы
     function detectCurrentPage() {
         const path = window.location.pathname.toLowerCase();
-        const pageName = path.split('/').pop().replace('.html', '').replace('.php', '');
         
-        config.pageTypes.forEach(pageType => {
-            if (pageName.includes(pageType) || path.includes(pageType)) {
-                state.currentPage = pageType;
-                state.currentItemType = pageType.slice(0, -1); // Убираем 's' в конце
+        if (path.includes('projects')) {
+            currentPage = 'projects';
+        } else if (path.includes('ideas')) {
+            currentPage = 'ideas';
+        } else if (path.includes('actors')) {
+            currentPage = 'actors';
+        } else if (path.includes('resources')) {
+            currentPage = 'resources';
+        } else if (path.includes('topics')) {
+            currentPage = 'topics';
+        } else if (path.includes('services')) {
+            currentPage = 'services';
+        } else if (path.includes('events')) {
+            currentPage = 'events';
+        } else {
+            currentPage = 'index';
+        }
+        
+        console.log('📄 Текущая страница:', currentPage);
+    }
+
+    // Загрузка пользователя
+    function loadCurrentUser() {
+        try {
+            const userData = localStorage.getItem('user_data');
+            if (userData) {
+                currentUser = JSON.parse(userData);
+                console.log('👤 Пользователь загружен:', currentUser.nickname);
+            }
+        } catch (error) {
+            console.error('Ошибка загрузки пользователя:', error);
+        }
+    }
+
+    // Создание блоков коммуникаций
+    function createCommunicationBlocks() {
+    // Блоки уже существуют в HTML, нам нужно только:
+    // 1. Показать их если пользователь авторизован
+    // 2. Скрыть если нет
+    
+    const headerComms = document.querySelector('.header-communications');
+    if (headerComms) {
+        if (currentUser) {
+            headerComms.style.display = 'flex';
+        } else {
+            headerComms.style.display = 'none';
+        }
+    }
+    }
+
+    function hideCommunicationBlocks() {
+    const headerComms = document.querySelector('.header-communications');
+    if (headerComms) {
+        headerComms.style.display = 'none';
+    }
+    }
+
+    // Обновление текстов для текущей страницы
+    function updatePageTexts() {
+        const texts = pageTexts[currentPage] || pageTexts.projects; // fallback
+        
+        document.querySelectorAll('.comm-icon-button').forEach(button => {
+            const type = button.dataset.type;
+            const textElement = button.querySelector('.comm-icon-text');
+            
+            if (textElement && texts[type]) {
+                textElement.textContent = texts[type];
             }
         });
+    }
+
+    // Обновление счетчиков
+    async function updateCounters() {
+        if (!currentUser) return;
         
-        // Если страница не определена, пробуем по заголовку
-        if (!state.currentPage) {
-            const title = document.title.toLowerCase();
-            config.pageTypes.forEach(pageType => {
-                if (title.includes(pageType)) {
-                    state.currentPage = pageType;
-                    state.currentItemType = pageType.slice(0, -1);
+        try {
+            // Здесь будут запросы к API для получения счетчиков
+            // Временно используем localStorage
+            const userCounters = JSON.parse(localStorage.getItem(`user_counters_${currentUser.actor_id}`) || '{}');
+            
+            // Обновляем правую часть
+            document.querySelectorAll('.comm-right-icon').forEach(icon => {
+                const type = icon.dataset.type;
+                const counter = icon.querySelector('.comm-counter');
+                if (counter) {
+                    const count = userCounters[type] || 0;
+                    counter.textContent = count > 0 ? count : '0';
                 }
             });
-        }
-    }
-
-    // Загрузка состояния пользователя
-    function loadUserState() {
-        try {
-            const savedState = JSON.parse(localStorage.getItem('communications_state') || '{}');
-            state.userCounters = savedState.userCounters || {
-                favorites: 0,
-                notes: 0,
-                bookmarks: 0
-            };
-        } catch (error) {
-            console.error('Ошибка загрузки состояния:', error);
-        }
-    }
-
-    // Сохранение состояния пользователя
-    function saveUserState() {
-        try {
-            localStorage.setItem('communications_state', JSON.stringify({
-                userCounters: state.userCounters
-            }));
-        } catch (error) {
-            console.error('Ошибка сохранения состояния:', error);
-        }
-    }
-
-    // Инициализация блока коммуникаций
-    function initCommunicationsBlock() {
-        // Создаем ЛЕВУЮ часть - Иконки для текущей страницы
-        const leftIcons = document.createElement('div');
-        leftIcons.className = 'page-communication-icons';
-        leftIcons.id = 'pageCommunicationIcons';
-        
-        // Определяем, какие иконки показывать для текущей страницы
-        const pageIcons = getPageIconsForCurrentPage();
-        
-        pageIcons.forEach(icon => {
-            const button = createPageIconButton(icon.type, icon.label);
-            leftIcons.appendChild(button);
-        });
-        
-        // Создаем ПРАВУЮ часть - Избранное, Заметки, Закладки
-        const rightIcons = document.createElement('div');
-        rightIcons.className = 'communications-right';
-        rightIcons.id = 'communicationsRight';
-        
-        const rightIconTypes = [
-            { type: 'favorite', label: 'Избранное' },
-            { type: 'note', label: 'Заметки' },
-            { type: 'bookmark', label: 'Закладки' }
-        ];
-        
-        rightIconTypes.forEach(icon => {
-            const iconGroup = createIconGroup(icon.type, icon.label);
-            rightIcons.appendChild(iconGroup);
-        });
-        
-        // Вставляем оба блока ВНЕ шапки, но рядом с ней
-        const header = document.querySelector('.header');
-        if (header) {
-            document.body.insertBefore(leftIcons, document.body.firstChild);
-            document.body.insertBefore(rightIcons, document.body.firstChild);
-        }
-        
-        updateHeaderCounters();
-    }
-
-    // Вспомогательная функция для получения иконок текущей страницы
-    function getPageIconsForCurrentPage() {
-        if (!state.currentPage) return [];
-        
-        // Базовые иконки для всех страниц
-        const baseIcons = [
-            { type: 'favorite', label: 'В избранное' },
-            { type: 'note', label: 'Заметка' }
-        ];
-        
-        // Дополнительные иконки для конкретных страниц
-        switch(state.currentPage) {
-            case 'projects':
-                return [...baseIcons, 
-                       { type: 'message', label: 'Сообщение' },
-                       { type: 'smile', label: 'Оценка' }];
-            case 'ideas':
-                return [...baseIcons,
-                       { type: 'message', label: 'Обсудить' }];
-            case 'actors':
-                return [...baseIcons,
-                       { type: 'message', label: 'Написать' }];
-            default:
-                return baseIcons;
-        }
-    }
-
-    // Создание группы иконок для правой части
-    function createIconGroup(type, label) {
-        const group = document.createElement('div');
-        group.className = 'communication-icon-group';
-        group.dataset.type = type;
-        group.title = label;
-        
-        const img = document.createElement('img');
-        img.className = 'communication-icon';
-        img.src = config.icons[type].icon;
-        img.alt = label;
-        
-        const count = document.createElement('div');
-        count.className = 'communication-count';
-        count.textContent = state.userCounters[type] || '0';
-        
-        group.appendChild(img);
-        group.appendChild(count);
-        
-        // Обработчик клика
-        group.addEventListener('click', function() {
-            handleHeaderIconClick(type);
-        });
-        
-        return group;
-    }
-
-    // Создание кнопки для левой части
-    function createPageIconButton(type, label) {
-        const button = document.createElement('button');
-        button.className = 'page-icon-button';
-        button.dataset.type = type;
-        button.title = label;
-        
-        const img = document.createElement('img');
-        img.className = 'page-icon';
-        img.src = config.icons[type].icon;
-        img.alt = label;
-        
-        const labelSpan = document.createElement('span');
-        labelSpan.className = 'page-icon-label';
-        labelSpan.textContent = label;
-        
-        button.appendChild(img);
-        button.appendChild(labelSpan);
-        
-        // Обработчик клика
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
             
-            if (!state.currentItemId) {
-                showNotification('Пожалуйста, выберите элемент из списка', 'warning');
-                return;
-            }
-            
-            handlePageIconClick(type);
-        });
-        
-        return button;
+        } catch (error) {
+            console.error('Ошибка обновления счетчиков:', error);
+        }
     }
 
-    // Инициализация иконок на странице
-    function initPageIcons() {
-        setupContentItemListeners();
-        updateActiveIcons();
-    }
-
-    // Настройка обработчиков для элементов контента
-    function setupContentItemListeners() {
-        // Для страницы проектов
-        if (state.currentPage === 'projects') {
-            const projectItems = document.querySelectorAll('.project-item, [data-project-id]');
-            projectItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    const projectId = this.dataset.projectId || this.id;
-                    if (projectId) {
-                        state.currentItemId = projectId;
-                        updateActiveIcons();
-                    }
-                });
+    // Настройка обработчиков событий
+    function setupEventListeners() {
+        // Левая часть - только на активных страницах
+        if (activePages.includes(currentPage)) {
+            document.querySelectorAll('.comm-icon-button').forEach(button => {
+                button.addEventListener('click', handleLeftIconClick);
             });
         }
         
-        // Добавьте аналогичные обработчики для других типов страниц
-    }
-
-    // Обновление активных иконок
-    function updateActiveIcons() {
-        if (!state.currentItemId) return;
-        
-        // Проверяем состояние для текущего элемента
-        const isFavorite = FavoritesManager.isFavorite(state.currentItemId, state.currentItemType);
-        const hasNote = NotesManager.hasNote(state.currentItemId, state.currentItemType);
-        const hasRating = RatingsManager.hasRating(state.currentItemId, state.currentItemType);
-        
-        // Обновляем иконки
-        updateIconState('favorite', isFavorite);
-        updateIconState('note', hasNote);
-        updateIconState('smile', hasRating);
-    }
-
-    // Обновление состояния иконки
-    function updateIconState(type, isActive) {
-        const button = document.querySelector(`.page-icon-button[data-type="${type}"]`);
-        if (!button) return;
-        
-        const img = button.querySelector('img');
-        if (img) {
-            img.src = isActive ? config.icons[type].activeIcon : config.icons[type].icon;
-        }
-        
-        if (isActive) {
-            button.classList.add('active');
-        } else {
-            button.classList.remove('active');
-        }
-    }
-
-    // Обработка клика по иконке в шапке
-    function handleHeaderIconClick(type) {
-        switch(type) {
-            case 'favorite':
-                showFavoritesList();
-                break;
-            case 'note':
-                showNotesList();
-                break;
-            case 'bookmark':
-                showBookmarksList();
-                break;
-        }
-    }
-
-    // Обновление счетчиков в шапке
-    function updateHeaderCounters() {
-        const groups = document.querySelectorAll('.communication-icon-group');
-        groups.forEach(group => {
-            const type = group.dataset.type;
-            const countElement = group.querySelector('.communication-count');
-            if (countElement) {
-                countElement.textContent = state.userCounters[type] || '0';
-            }
+        // Правая часть
+        document.querySelectorAll('.comm-right-icon').forEach(icon => {
+            icon.addEventListener('click', handleRightIconClick);
         });
+        
+        // Отслеживаем выбор элементов на странице
+        document.addEventListener('click', handleItemSelection);
     }
 
-    // Обработка клика по иконке на странице
-    function handlePageIconClick(type) {
+    // Обработка клика по иконке левой части
+    async function handleLeftIconClick(event) {
+        const button = event.currentTarget;
+        const type = button.dataset.type;
+        
+        if (!selectedItem) {
+            showNotification('Выберите элемент из списка', 'warning');
+            return;
+        }
+        
+        console.log('🎯 Клик по иконке:', type, 'для элемента:', selectedItem);
+        
         switch(type) {
             case 'favorite':
-                toggleFavorite();
+                await toggleFavorite();
                 break;
             case 'note':
-                toggleNote();
+                await toggleNote();
                 break;
             case 'message':
-                toggleMessage();
+                await toggleMessage();
                 break;
             case 'smile':
-                toggleRating();
+                await toggleRating();
                 break;
         }
     }
 
-    // Переключение избранного
-    function toggleFavorite() {
-        if (!state.currentItemId || !state.currentItemType) return;
+    // Обработка клика по иконке правой части
+    async function handleRightIconClick(event) {
+        const icon = event.currentTarget;
+        const type = icon.dataset.type;
         
-        const itemName = getCurrentItemName();
-        const wasAdded = FavoritesManager.toggleFavorite(
-            state.currentItemId,
-            state.currentItemType,
-            itemName
-        );
+        console.log('📊 Клик по правой иконке:', type);
         
-        // Обновляем состояние
-        state.userCounters.favorites = FavoritesManager.getFavoritesCount();
-        updateHeaderCounters();
-        updateIconState('favorite', wasAdded);
-        saveUserState();
-        
-        // Показываем уведомление
-        const message = wasAdded 
-            ? `Добавлено в избранное: ${itemName}`
-            : `Удалено из избранного: ${itemName}`;
-        showNotification(message, wasAdded ? 'success' : 'info');
-    }
-
-    // Переключение заметки
-    function toggleNote() {
-        if (!state.currentItemId || !state.currentItemType) return;
-        
-        const itemName = getCurrentItemName();
-        const hasNote = NotesManager.hasNote(state.currentItemId, state.currentItemType);
-        
-        if (hasNote) {
-            // Показать существующую заметку
-            showNote();
-        } else {
-            // Создать новую заметку
-            createNote();
+        switch(type) {
+            case 'favorite':
+                await showFavorites();
+                break;
+            case 'note':
+                await showNotes();
+                break;
+            case 'bookmark':
+                await showBookmarks();
+                break;
         }
     }
 
-    // Создание заметки
-    function createNote() {
-        const form = createCommunicationForm('note', 'Добавить заметку');
-        document.body.appendChild(form);
+    // Обработка выбора элемента на странице
+    function handleItemSelection(event) {
+        // Эта логика зависит от структуры конкретной страницы
+        // Нужно будет адаптировать для каждой страницы отдельно
+        console.log('🔍 Обработка выбора элемента');
     }
 
-    // Показать заметку
-    function showNote() {
-        const note = NotesManager.getNote(state.currentItemId, state.currentItemType);
-        if (note) {
-            showCommunicationContent('note', 'Заметка', note.text, note.date);
-        }
+    // Скрытие блоков для неавторизованных
+    function hideCommunicationBlocks() {
+        const leftBlock = document.getElementById('communicationLeftBlock');
+        const rightBlock = document.getElementById('communicationRightBlock');
+        
+        if (leftBlock) leftBlock.style.display = 'none';
+        if (rightBlock) rightBlock.style.display = 'none';
     }
 
-    // Переключение сообщения
-    function toggleMessage() {
-        if (!state.currentItemId || !state.currentItemType) return;
-        
-        const itemName = getCurrentItemName();
-        const hasMessage = MessagesManager.hasMessage(state.currentItemId, state.currentItemType);
-        
-        if (hasMessage) {
-            // Показать существующее сообщение
-            showMessage();
-        } else {
-            // Создать новое сообщение
-            createMessage();
-        }
-    }
-
-    // Создание сообщения
-    function createMessage() {
-        const form = createCommunicationForm('message', 'Отправить сообщение');
-        document.body.appendChild(form);
-    }
-
-    // Показать сообщение
-    function showMessage() {
-        const message = MessagesManager.getMessage(state.currentItemId, state.currentItemType);
-        if (message) {
-            showCommunicationContent('message', 'Сообщение', message.text, message.date);
-        }
-    }
-
-    // Переключение оценки
-    function toggleRating() {
-        if (!state.currentItemId || !state.currentItemType) return;
-        
-        const itemName = getCurrentItemName();
-        const wasRated = RatingsManager.toggleRating(
-            state.currentItemId,
-            state.currentItemType,
-            itemName
-        );
-        
-        updateIconState('smile', wasRated);
-        
-        const message = wasRated 
-            ? `Поставлена оценка: ${itemName}`
-            : `Оценка снята: ${itemName}`;
-        showNotification(message, wasRated ? 'success' : 'info');
-    }
-
-    // Получение имени текущего элемента
-    function getCurrentItemName() {
-        // В зависимости от страницы, получаем имя элемента
-        switch(state.currentPage) {
-            case 'projects':
-                return document.getElementById('projectTitle')?.textContent || 'Проект';
-            case 'ideas':
-                return document.querySelector('.idea-title')?.textContent || 'Идея';
-            // Добавьте другие случаи
-            default:
-                return state.currentItemType;
-        }
-    }
-
-    // Создание формы для коммуникации
-    function createCommunicationForm(type, title) {
-        const overlay = document.createElement('div');
-        overlay.className = 'form-overlay';
-        
-        const form = document.createElement('div');
-        form.className = 'communication-form';
-        
-        const itemName = getCurrentItemName();
-        
-        form.innerHTML = `
-            <div class="communication-form-header">
-                <h3>${title} для "${itemName}"</h3>
-                <button class="close-form">&times;</button>
-            </div>
-            <textarea class="communication-textarea" 
-                      placeholder="Введите текст..." 
-                      maxlength="1000"></textarea>
-            <div class="communication-form-actions">
-                <button class="communication-cancel-btn">Отмена</button>
-                <button class="communication-submit-btn">Сохранить</button>
-            </div>
-        `;
-        
-        // Обработчики
-        const closeBtn = form.querySelector('.close-form');
-        const cancelBtn = form.querySelector('.communication-cancel-btn');
-        const submitBtn = form.querySelector('.communication-submit-btn');
-        const textarea = form.querySelector('.communication-textarea');
-        
-        const closeForm = function() {
-            document.body.removeChild(overlay);
-            document.body.removeChild(form);
-        };
-        
-        closeBtn.addEventListener('click', closeForm);
-        cancelBtn.addEventListener('click', closeForm);
-        overlay.addEventListener('click', closeForm);
-        
-        submitBtn.addEventListener('click', function() {
-            const text = textarea.value.trim();
-            if (text) {
-                if (type === 'note') {
-                    NotesManager.saveNote(state.currentItemId, state.currentItemType, text);
-                    state.userCounters.notes = NotesManager.getNotesCount();
-                } else if (type === 'message') {
-                    MessagesManager.saveMessage(state.currentItemId, state.currentItemType, text);
-                }
-                
-                updateHeaderCounters();
-                updateIconState(type, true);
-                saveUserState();
-                
-                showNotification(`${title} сохранено`, 'success');
-                closeForm();
-            } else {
-                showNotification('Введите текст', 'warning');
-            }
-        });
-        
-        // Закрытие по Escape
-        document.addEventListener('keydown', function escHandler(e) {
-            if (e.key === 'Escape') {
-                closeForm();
-                document.removeEventListener('keydown', escHandler);
-            }
-        });
-        
-        document.body.appendChild(overlay);
-        return form;
-    }
-
-    // Показать содержание коммуникации
-    function showCommunicationContent(type, title, content, date) {
-        const overlay = document.createElement('div');
-        overlay.className = 'form-overlay';
-        
-        const display = document.createElement('div');
-        display.className = 'communication-display';
-        
-        const itemName = getCurrentItemName();
-        
-        display.innerHTML = `
-            <div class="communication-form-header">
-                <h3>${title} для "${itemName}"</h3>
-                <button class="close-form">&times;</button>
-            </div>
-            <div class="communication-content">${content}</div>
-            <div class="communication-info">
-                <span>Создано: ${new Date(date).toLocaleString()}</span>
-                <button class="communication-cancel-btn">Закрыть</button>
-            </div>
-        `;
-        
-        // Обработчики
-        const closeBtn = display.querySelector('.close-form');
-        const cancelBtn = display.querySelector('.communication-cancel-btn');
-        
-        const closeDisplay = function() {
-            document.body.removeChild(overlay);
-            document.body.removeChild(display);
-        };
-        
-        closeBtn.addEventListener('click', closeDisplay);
-        cancelBtn.addEventListener('click', closeDisplay);
-        overlay.addEventListener('click', closeDisplay);
-        
-        document.body.appendChild(overlay);
-        document.body.appendChild(display);
-    }
-
-    // Показать список избранного
-    function showFavoritesList() {
-        const favorites = FavoritesManager.getFavorites();
-        if (favorites.length === 0) {
-            showNotification('В избранном пока ничего нет', 'info');
-            return;
-        }
-        
-        const overlay = document.createElement('div');
-        overlay.className = 'form-overlay';
-        
-        const list = document.createElement('div');
-        list.className = 'communication-form';
-        list.style.width = '500px';
-        
-        list.innerHTML = `
-            <div class="communication-form-header">
-                <h3>Избранное (${favorites.length})</h3>
-                <button class="close-form">&times;</button>
-            </div>
-            <div class="bookmarks-container">
-                ${favorites.map(fav => `
-                    <div class="bookmark-item">
-                        <span class="bookmark-name">${fav.name}</span>
-                        <span class="bookmark-type">${fav.type}</span>
-                        <button class="remove-bookmark" data-id="${fav.id}" data-type="${fav.type}">
-                            Удалить
-                        </button>
-                    </div>
-                `).join('')}
-            </div>
-            <div class="communication-form-actions">
-                <button class="communication-cancel-btn">Закрыть</button>
-            </div>
-        `;
-        
-        // Обработчики
-        const closeBtn = list.querySelector('.close-form');
-        const cancelBtn = list.querySelector('.communication-cancel-btn');
-        
-        const closeList = function() {
-            document.body.removeChild(overlay);
-            document.body.removeChild(list);
-        };
-        
-        closeBtn.addEventListener('click', closeList);
-        cancelBtn.addEventListener('click', closeList);
-        overlay.addEventListener('click', closeList);
-        
-        // Обработчики удаления
-        list.querySelectorAll('.remove-bookmark').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const id = this.dataset.id;
-                const type = this.dataset.type;
-                FavoritesManager.removeFavorite(id, type);
-                
-                // Обновляем список
-                const item = this.closest('.bookmark-item');
-                item.remove();
-                
-                // Обновляем счетчики
-                state.userCounters.favorites = FavoritesManager.getFavoritesCount();
-                updateHeaderCounters();
-                saveUserState();
-                
-                showNotification('Удалено из избранного', 'success');
-                
-                // Если список пуст, закрываем окно
-                if (FavoritesManager.getFavoritesCount() === 0) {
-                    closeList();
-                }
-            });
-        });
-        
-        document.body.appendChild(overlay);
-        document.body.appendChild(list);
-    }
-
-    // Показать список заметок
-    function showNotesList() {
-        const notes = NotesManager.getNotes();
-        if (notes.length === 0) {
-            showNotification('Заметок пока нет', 'info');
-            return;
-        }
-        
-        // Реализация аналогична showFavoritesList
-        // ...
-    }
-
-    // Показать список закладок
-    function showBookmarksList() {
-        // Реализация для закладок
-        // ...
-    }
-
-    // Вспомогательная функция для показа уведомлений
+    // Вспомогательные функции
     function showNotification(message, type = 'info') {
         if (typeof AppUpdated !== 'undefined' && AppUpdated.showNotification) {
             AppUpdated.showNotification(message, type);
-        } else if (typeof AppUpdatedPanels !== 'undefined' && AppUpdatedPanels.showNotification) {
-            AppUpdatedPanels.showNotification(message, type);
         } else {
-            // Простой fallback
-            const notification = document.createElement('div');
-            notification.className = `notification ${type} show`;
-            notification.textContent = message;
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.classList.remove('show');
-                setTimeout(() => {
-                    document.body.removeChild(notification);
-                }, 300);
-            }, 3000);
+            alert(`${type}: ${message}`);
         }
+    }
+
+    // API функции (заглушки - нужно реализовать)
+    async function toggleFavorite() {
+        console.log('⭐ Добавление в избранное');
+        // Реализация через API
+    }
+    
+    async function toggleNote() {
+        console.log('📝 Работа с заметками');
+        // Реализация через API
+    }
+    
+    async function toggleMessage() {
+        console.log('💬 Отправка сообщения');
+        // Реализация через API
+    }
+    
+    async function toggleRating() {
+        console.log('😊 Постановка оценки');
+        // Реализация через API
+    }
+    
+    async function showFavorites() {
+        console.log('📋 Показ избранного');
+        // Реализация через API
+    }
+    
+    async function showNotes() {
+        console.log('📒 Показ заметок');
+        // Реализация через API
+    }
+    
+    async function showBookmarks() {
+        console.log('🔖 Показ закладок');
+        // Реализация через API
     }
 
     // Публичные методы
     return {
         init: init,
-        setCurrentItem: function(id, type, name) {
-            state.currentItemId = id;
-            state.currentItemType = type;
-            updateActiveIcons();
+        setSelectedItem: function(itemId, itemName) {
+            selectedItem = { id: itemId, name: itemName };
+            console.log('🎯 Выбран элемент:', selectedItem);
         },
-        getCurrentItem: function() {
-            return {
-                id: state.currentItemId,
-                type: state.currentItemType,
-                name: getCurrentItemName()
-            };
-        },
-        updateCounters: function() {
-            state.userCounters.favorites = FavoritesManager.getFavoritesCount();
-            state.userCounters.notes = NotesManager.getNotesCount();
-            state.userCounters.bookmarks = 0; // Реализовать при необходимости
-            updateHeaderCounters();
-            saveUserState();
-        }
+        refreshCounters: updateCounters
     };
 })();
 
-// Инициализация после загрузки DOM
-document.addEventListener('DOMContentLoaded', CommunicationsManager.init);
+// Инициализация
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(() => {
+        CommunicationsManager.init();
+    }, 1000);
+});
