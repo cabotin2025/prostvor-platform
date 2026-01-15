@@ -495,3 +495,13 @@ function showNotification(message, type = 'info') {
         notification.classList.remove('show');
     }, 3000);
 }
+
+document.querySelectorAll('.project-item').forEach(item => {
+    item.addEventListener('click', function() {
+        CommunicationsManager.setSelectedItem(
+            this.dataset.projectId,
+            this.dataset.projectName,
+            { author_id: this.dataset.authorId }
+        );
+    });
+});
