@@ -1,0 +1,371 @@
+<!-- test-communications.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Тест блока коммуникаций</title>
+    <link rel="stylesheet" href="css/communications-icons.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-button {
+            background: #001C33;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .test-result {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f0f0f0;
+            border-radius: 4px;
+        }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Тестирование блока коммуникаций</h1>
+    
+    <!-- Симуляция header с блоком коммуникаций -->
+    <div class="test-section">
+        <h2>1. Блок коммуникаций (симуляция)</h2>
+        <div class="header-communications" style="display: flex;">
+            <!-- Левая часть -->
+            <div class="communication-block-left">
+                <div class="communication-icons-container">
+                    <button class="comm-icon-button" data-type="favorite">
+                        <img src="images/FavoriteIcon.svg" alt="Избранное">
+                        <span class="comm-icon-text">добавить в избранное</span>
+                    </button>
+                    <button class="comm-icon-button" data-type="note">
+                        <img src="images/NoteIcon.svg" alt="Заметка">
+                        <span class="comm-icon-text">добавить заметку</span>
+                    </button>
+                    <button class="comm-icon-button" data-type="message">
+                        <img src="images/MessIcon.svg" alt="Сообщение">
+                        <span class="comm-icon-text">отправить сообщение</span>
+                    </button>
+                    <button class="comm-icon-button" data-type="smile">
+                        <img src="images/SmileIcon.svg" alt="Оценка">
+                        <span class="comm-icon-text">положительная оценка</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Правая часть -->
+            <div class="communication-block-right">
+                <div class="comm-right-icon" data-type="favorite">
+                    <img src="images/FavoriteIcon.svg" alt="Избранное">
+                    <div class="comm-counter">0</div>
+                </div>
+                <div class="comm-right-icon" data-type="note">
+                    <img src="images/NoteIcon.svg" alt="Заметки">
+                    <div class="comm-counter">0</div>
+                </div>
+                <div class="comm-right-icon" data-type="bookmark">
+                    <img src="images/BookmarkIcon.svg" alt="Закладки">
+                    <div class="comm-counter">0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Управление тестами -->
+    <div class="test-section">
+        <h2>2. Тестовые действия</h2>
+        
+        <div>
+            <h3>Имитация выбора элемента</h3>
+            <button class="test-button" onclick="selectTestProject()">
+                Выбрать тестовый проект (ID: 1)
+            </button>
+            <button class="test-button" onclick="selectTestIdea()">
+                Выбрать тестовую идею (ID: 2)
+            </button>
+            <button class="test-button" onclick="clearSelection()">
+                Очистить выбор
+            </button>
+        </div>
+        
+        <div>
+            <h3>Тестирование API</h3>
+            <button class="test-button" onclick="testFavoriteToggle()">
+                Тест: Избранное
+            </button>
+            <button class="test-button" onclick="testRatingToggle()">
+                Тест: Оценка
+            </button>
+            <button class="test-button" onclick="testCounters()">
+                Тест: Счетчики
+            </button>
+            <button class="test-button" onclick="testAllEndpoints()">
+                Тест всех endpoints
+            </button>
+        </div>
+        
+        <div>
+            <h3>Проверка авторизации</h3>
+            <button class="test-button" onclick="checkAuth()">
+                Проверить авторизацию
+            </button>
+            <button class="test-button" onclick="simulateLogin()">
+                Симулировать логин
+            </button>
+        </div>
+        
+        <div id="test-results">
+            <h3>Результаты тестов:</h3>
+            <div id="results-container"></div>
+        </div>
+    </div>
+    
+    <!-- Консоль для отладки -->
+    <div class="test-section">
+        <h2>3. Консоль отладки</h2>
+        <div id="debug-console" style="height: 200px; overflow-y: auto; background: #000; color: #0f0; padding: 10px; font-family: monospace;"></div>
+    </div>
+    
+    <script src="js/communications-icons.js"></script>
+    <script>
+        // Тестовые функции
+        function log(message, type = 'info') {
+            const consoleEl = document.getElementById('debug-console');
+            const time = new Date().toLocaleTimeString();
+            consoleEl.innerHTML += `<div class="${type}">[${time}] ${message}</div>`;
+            consoleEl.scrollTop = consoleEl.scrollHeight;
+            console.log(`[${type}] ${message}`);
+        }
+        
+        function showResult(message, isSuccess) {
+            const container = document.getElementById('results-container');
+            const className = isSuccess ? 'success' : 'error';
+            container.innerHTML += `<div class="test-result ${className}">${message}</div>`;
+        }
+        
+        // Имитация данных пользователя для тестирования
+        function simulateLogin() {
+            const testUser = {
+                actor_id: 1,
+                nickname: 'Тестовый пользователь',
+                token: 'test_token_123'
+            };
+            
+            localStorage.setItem('user_data', JSON.stringify(testUser));
+            localStorage.setItem('user_token', testUser.token);
+            
+            log('✅ Симулирован логин для пользователя: ' + testUser.nickname);
+            showResult('Логин симулирован успешно', true);
+            
+            // Перезагружаем CommunicationsManager
+            if (window.CommunicationsManager) {
+                CommunicationsManager.init();
+            }
+        }
+        
+        function checkAuth() {
+            const userData = localStorage.getItem('user_data');
+            const token = localStorage.getItem('user_token');
+            
+            if (userData && token) {
+                const user = JSON.parse(userData);
+                log(`✅ Пользователь авторизован: ${user.nickname} (ID: ${user.actor_id})`);
+                showResult('Пользователь авторизован', true);
+            } else {
+                log('❌ Пользователь не авторизован');
+                showResult('Пользователь не авторизован', false);
+            }
+        }
+        
+        // Имитация выбора элементов
+        function selectTestProject() {
+            if (window.CommunicationsManager) {
+                CommunicationsManager.setSelectedItem(1, 'Тестовый проект', {
+                    author_id: 2,
+                    director_id: 3
+                });
+                log('✅ Выбран тестовый проект (ID: 1)');
+                showResult('Проект выбран успешно', true);
+            }
+        }
+        
+        function selectTestIdea() {
+            if (window.CommunicationsManager) {
+                CommunicationsManager.setSelectedItem(2, 'Тестовая идея', {
+                    author_id: 1
+                });
+                log('✅ Выбрана тестовая идея (ID: 2)');
+                showResult('Идея выбрана успешно', true);
+            }
+        }
+        
+        function clearSelection() {
+            if (window.CommunicationsManager) {
+                CommunicationsManager.setSelectedItem(null, null);
+                log('✅ Выбор очищен');
+                showResult('Выбор очищен', true);
+            }
+        }
+        
+        // Тестирование API endpoints
+        async function testFavoriteToggle() {
+            log('🧪 Тестирование избранного...');
+            
+            try {
+                const response = await fetch('/api/favorites/toggle.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer test_token_123'
+                    },
+                    body: JSON.stringify({
+                        entity_type: 'projects',
+                        entity_id: 1
+                    })
+                });
+                
+                const result = await response.json();
+                log(`Ответ API: ${JSON.stringify(result)}`);
+                
+                if (result.success) {
+                    showResult(`Избранное: ${result.message}`, true);
+                } else {
+                    showResult(`Избранное: ${result.message}`, false);
+                }
+            } catch (error) {
+                log(`❌ Ошибка: ${error.message}`, 'error');
+                showResult('Ошибка соединения с API', false);
+            }
+        }
+        
+        async function testRatingToggle() {
+            log('🧪 Тестирование оценок...');
+            
+            try {
+                const response = await fetch('/api/ratings/toggle.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer test_token_123'
+                    },
+                    body: JSON.stringify({
+                        entity_type: 'projects',
+                        entity_id: 1,
+                        rating_type: 'положительно'
+                    })
+                });
+                
+                const result = await response.json();
+                log(`Ответ API: ${JSON.stringify(result)}`);
+                
+                if (result.success) {
+                    showResult(`Оценка: ${result.message}`, true);
+                } else {
+                    showResult(`Оценка: ${result.message}`, false);
+                }
+            } catch (error) {
+                log(`❌ Ошибка: ${error.message}`, 'error');
+                showResult('Ошибка соединения с API', false);
+            }
+        }
+        
+        async function testCounters() {
+            log('🧪 Тестирование счетчиков...');
+            
+            try {
+                // Тест счетчика избранного
+                const favResponse = await fetch('/api/favorites/count.php', {
+                    headers: {
+                        'Authorization': 'Bearer test_token_123'
+                    }
+                });
+                
+                if (favResponse.ok) {
+                    const favData = await favResponse.json();
+                    log(`Счетчик избранного: ${favData.count}`);
+                    showResult(`Избранное: ${favData.count} элементов`, true);
+                }
+                
+                // Тест счетчика оценок
+                const ratingResponse = await fetch('/api/ratings/count.php?entity_type=projects&entity_id=1');
+                
+                if (ratingResponse.ok) {
+                    const ratingData = await ratingResponse.json();
+                    log(`Счетчик оценок: ${ratingData.count}`);
+                    showResult(`Оценки проекта: ${ratingData.count}`, true);
+                }
+                
+            } catch (error) {
+                log(`❌ Ошибка счетчиков: ${error.message}`, 'error');
+                showResult('Ошибка получения счетчиков', false);
+            }
+        }
+        
+        async function testAllEndpoints() {
+            log('🧪 Тестирование всех endpoints...');
+            
+            const endpoints = [
+                { url: '/api/favorites/count.php', method: 'GET', name: 'Счетчик избранного' },
+                { url: '/api/ratings/count.php?entity_type=projects&entity_id=1', method: 'GET', name: 'Счетчик оценок' },
+                { url: '/api/favorites/check.php?entity_type=projects&entity_id=1', method: 'GET', name: 'Проверка избранного' },
+                { url: '/api/ratings/check.php?entity_type=projects&entity_id=1', method: 'GET', name: 'Проверка оценок' }
+            ];
+            
+            for (const endpoint of endpoints) {
+                try {
+                    const options = {
+                        method: endpoint.method,
+                        headers: endpoint.method === 'GET' && endpoint.url.includes('/check.php') 
+                            ? { 'Authorization': 'Bearer test_token_123' }
+                            : {}
+                    };
+                    
+                    const response = await fetch(endpoint.url, options);
+                    const result = await response.json();
+                    
+                    const status = result.success ? '✅' : '❌';
+                    log(`${status} ${endpoint.name}: ${response.status}`);
+                    
+                    if (result.success) {
+                        showResult(`${endpoint.name}: Успешно`, true);
+                    } else {
+                        showResult(`${endpoint.name}: ${result.message || 'Ошибка'}`, false);
+                    }
+                    
+                } catch (error) {
+                    log(`❌ ${endpoint.name}: ${error.message}`, 'error');
+                    showResult(`${endpoint.name}: Ошибка соединения`, false);
+                }
+            }
+        }
+        
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', function() {
+            log('🚀 Тестовая страница загружена');
+            log('Инициализация CommunicationsManager...');
+            
+            // Даем время на загрузку
+            setTimeout(() => {
+                if (window.CommunicationsManager) {
+                    CommunicationsManager.init();
+                    log('✅ CommunicationsManager инициализирован');
+                } else {
+                    log('❌ CommunicationsManager не найден', 'error');
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

@@ -505,3 +505,66 @@ document.querySelectorAll('.project-item').forEach(item => {
         );
     });
 });
+
+// Интеграция с реальным списком проектов
+function setupProjectSelection() {
+    // Селектор зависит от вашей разметки - уточните его
+    const projectSelectors = [
+        '.project-item',
+        '.project-row',
+        '[data-project-id]',
+        '.list-group-item',
+        'tr[data-id]'
+    ];
+    
+    let projectItems = [];
+    
+    // Пробуем разные селекторы
+    for (const selector of projectSelectors) {
+        const items = document.querySelectorAll(selector);
+        if (items.length > 0) {
+            projectItems = items;
+            console.log(`✅ Найдены проекты по селектору: ${selector} (${items.length} шт.)`);
+            break;
+        }
+    }
+    
+    if (projectItems.length === 0) {
+        console.log('⚠️ Проекты не найдены. Проверьте разметку.');
+        return;
+    }
+    
+    // Добавляем обработчики
+    projectItems.forEach(item => {
+        item.style.cursor = 'pointer';
+        
+        item.addEventListener('click', function() {
+            // Получаем ID проекта из data-атрибутов
+            const projectId = this.dataset.projectId || 
+                             this.dataset.id || 
+                             this.getAttribute('data-id');
+            
+            // Получаем название
+            const projectName = this.dataset.projectName || 
+                               this.querySelector('.project-title, .title, .name')?.textContent || 
+                               'Проект';
+            
+            if (projectId && window.CommunicationsManager) {
+                CommunicationsManager.setSelectedItem(projectId, projectName, {
+                    author_id: this.dataset.authorId || this.dataset.createdBy
+                });
+                
+                // Визуальное выделение
+                projectItems.forEach(i => i.classList.remove('selected'));
+                this.classList.add('selected');
+                
+                console.log(`✅ Выбран проект: ${projectName} (ID: ${projectId})`);
+            }
+        });
+    });
+}
+
+// Запускаем после загрузки страницы
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(setupProjectSelection, 1500);
+});

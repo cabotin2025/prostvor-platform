@@ -1,4 +1,9 @@
 // communications-icons.js - полная версия с интеграцией API
+
+console.log('🔐 Проверка авторизации...');
+console.log('Токен в localStorage:', localStorage.getItem('user_token'));
+console.log('Данные пользователя:', localStorage.getItem('user_data'));
+
 const CommunicationsManager = (function() {
     // Тексты для разных страниц
     const pageTexts = {
@@ -174,133 +179,57 @@ const CommunicationsManager = (function() {
 
     // Проверка текущего статуса выбранного элемента
     async function checkCurrentStatus() {
-        if (!currentUser || !selectedItem) return;
+    if (!currentUser || !selectedItem) return;
+    
+    try {
+        // Проверяем избранное
+        const favResponse = await fetch(
+            `/api/favorites/check.php?entity_type=${getApiEntityType()}&entity_id=${selectedItem.id}`,
+            {
+                headers: { 'Authorization': `Bearer ${currentUser.token}` }
+            }
+        );
         
-        try {
-            // Проверяем избранное
-            const favResponse = await fetch(`/api/favorites/check.php?entity_type=${getApiEntityType()}&entity_id=${selectedItem.id}`, {
-                headers: {
-                    'Authorization': `Bearer ${currentUser.token}`
-                }
-            });
-            
-            if (favResponse.ok) {
-                const favData = await favResponse.json();
-                currentStatus.isFavorite = favData.success && favData.is_favorite;
-                
-                const favIcon = document.querySelector('.comm-icon-button[data-type="favorite"]');
-                if (favIcon) {
-                    if (currentStatus.isFavorite) {
-                        favIcon.classList.add('active');
-                        favIcon.querySelector('img').style.filter = 'brightness(1) sepia(1) saturate(5) hue-rotate(70deg)';
-                    } else {
-                        favIcon.classList.remove('active');
-                        favIcon.querySelector('img').style.filter = 'brightness(1)';
-                    }
-                }
-            }
-            
-            // Проверяем оценку (рейтинг)
-            const ratingResponse = await fetch(`/api/ratings/check.php?entity_type=${getApiEntityType()}&entity_id=${selectedItem.id}`, {
-                headers: {
-                    'Authorization': `Bearer ${currentUser.token}`
-                }
-            });
-            
-            if (ratingResponse.ok) {
-                const ratingData = await ratingResponse.json();
-                currentStatus.hasRating = ratingData.success && ratingData.has_rating;
-                
-                const smileIcon = document.querySelector('.comm-icon-button[data-type="smile"]');
-                if (smileIcon) {
-                    if (currentStatus.hasRating) {
-                        smileIcon.classList.add('active');
-                        smileIcon.querySelector('img').style.filter = 'brightness(1) sepia(1) saturate(5) hue-rotate(70deg)';
-                    } else {
-                        smileIcon.classList.remove('active');
-                        smileIcon.querySelector('img').style.filter = 'brightness(1)';
-                    }
-                }
-            }
-            
-            // TODO: Добавить проверку заметок и сообщений
-            
-            console.log('✅ Статус элемента обновлен:', currentStatus);
-            
-        } catch (error) {
-            console.error('Ошибка проверки статуса:', error);
+        if (favResponse.ok) {
+            const favData = await favResponse.json();
+            currentStatus.isFavorite = favData.success && favData.is_favorite;
+            updateIconState('favorite', currentStatus.isFavorite);
         }
+        
+        // TODO: Добавить проверку оценки когда будет endpoint
+        
+    } catch (error) {
+        console.error('Ошибка проверки статуса:', error);
+    }
     }
 
     // Обновление счетчиков в правой части
     async function updateCounters() {
         if (!currentUser) return;
-        
+    
         try {
-            // Счетчик избранного
-            const favResponse = await fetch('/api/favorites/count.php', {
-                headers: {
-                    'Authorization': `Bearer ${currentUser.token}`
-                }
-            });
-            
-            if (favResponse.ok) {
-                const favData = await favResponse.json();
-                if (favData.success) {
-                    const favCounter = document.querySelector('.comm-right-icon[data-type="favorite"] .comm-counter');
-                    if (favCounter) {
-                        favCounter.textContent = favData.count || '0';
-                        favCounter.style.display = 'block';
-                    }
+        // Счетчик избранного
+        const favResponse = await fetch('/api/favorites/count.php', {
+            headers: { 'Authorization': `Bearer ${currentUser.token}` }
+        });
+        
+        if (favResponse.ok) {
+            const favData = await favResponse.json();
+            if (favData.success) {
+                const favCounter = document.querySelector('.comm-right-icon[data-type="favorite"] .comm-counter');
+                if (favCounter) {
+                    favCounter.textContent = favData.count;
+                    favCounter.style.display = 'block';
                 }
             }
-            
-            // Счетчик заметок (нужен отдельный API эндпоинт)
-            const notesResponse = await fetch('/api/notes/count.php', {
-                headers: {
-                    'Authorization': `Bearer ${currentUser.token}`
-                }
-            });
-            
-            if (notesResponse && notesResponse.ok) {
-                const notesData = await notesResponse.json();
-                if (notesData.success) {
-                    const notesCounter = document.querySelector('.comm-right-icon[data-type="note"] .comm-counter');
-                    if (notesCounter) {
-                        notesCounter.textContent = notesData.count || '0';
-                        notesCounter.style.display = 'block';
-                    }
-                }
-            } else {
-                // Временное решение - скрываем или ставим 0
-                const notesCounter = document.querySelector('.comm-right-icon[data-type="note"] .comm-counter');
-                if (notesCounter) {
-                    notesCounter.textContent = '0';
-                }
-            }
-            
-            // Счетчик закладок (только для тем)
-            if (currentPage === 'topics') {
-                const bookmarksResponse = await fetch('/api/bookmarks/count.php', {
-                    headers: {
-                        'Authorization': `Bearer ${currentUser.token}`
-                    }
-                });
-                
-                if (bookmarksResponse && bookmarksResponse.ok) {
-                    const bookmarksData = await bookmarksResponse.json();
-                    if (bookmarksData.success) {
-                        const bookmarksCounter = document.querySelector('.comm-right-icon[data-type="bookmark"] .comm-counter');
-                        if (bookmarksCounter) {
-                            bookmarksCounter.textContent = bookmarksData.count || '0';
-                            bookmarksCounter.style.display = 'block';
-                        }
-                    }
-                }
-            }
-            
-            console.log('✅ Счетчики обновлены');
-            
+        }
+        
+        // Счетчик оценок (пока ставим 0)
+        const ratingCounter = document.querySelector('.comm-right-icon[data-type="note"] .comm-counter');
+        if (ratingCounter) {
+            ratingCounter.textContent = '0';
+        }
+        
         } catch (error) {
             console.error('Ошибка обновления счетчиков:', error);
         }
@@ -386,97 +315,94 @@ const CommunicationsManager = (function() {
 
     // Избранное
     async function toggleFavorite() {
-        if (!selectedItem || !currentUser) {
-            showNotification('Выберите элемент из списка', 'warning');
-            return;
-        }
+    if (!selectedItem || !currentUser) {
+        showNotification('Выберите элемент из списка', 'warning');
+        return;
+    }
+    
+    try {
+        const response = await fetch('/api/favorites/toggle.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${currentUser.token}`
+            },
+            body: JSON.stringify({
+                entity_type: getApiEntityType(),
+                entity_id: selectedItem.id
+            })
+        });
         
-        try {
-            const response = await fetch('/api/favorites/toggle.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${currentUser.token}`
-                },
-                body: JSON.stringify({
-                    entity_type: getApiEntityType(),
-                    entity_id: selectedItem.id
-                })
-            });
+        const result = await response.json();
+        
+        if (result.success) {
+            showNotification(result.message, 'success');
+            currentStatus.isFavorite = result.is_favorite;
             
-            const result = await response.json();
+            // Обновляем иконку
+            updateIconState('favorite', result.is_favorite);
             
-            if (result.success) {
-                showNotification(result.message, 'success');
-                currentStatus.isFavorite = result.is_favorite;
-                
-                // Обновляем визуальное состояние иконки
-                const icon = document.querySelector('.comm-icon-button[data-type="favorite"]');
-                if (icon) {
-                    if (result.is_favorite) {
-                        icon.classList.add('active');
-                        icon.querySelector('img').style.filter = 'brightness(1) sepia(1) saturate(5) hue-rotate(70deg)';
-                    } else {
-                        icon.classList.remove('active');
-                        icon.querySelector('img').style.filter = 'brightness(1)';
-                    }
-                }
-                
-                // Обновляем счетчик в правой части
-                await updateCounters();
-            } else {
-                showNotification(result.message || 'Ошибка операции', 'error');
-            }
-        } catch (error) {
-            console.error('Ошибка:', error);
-            showNotification('Ошибка соединения с сервером', 'error');
+            // Обновляем счетчик
+            await updateCounters();
+        } else {
+            showNotification(result.message || 'Ошибка операции', 'error');
         }
+    } catch (error) {
+        console.error('Ошибка:', error);
+        showNotification('Ошибка соединения с сервером', 'error');
+    }
     }
 
     // Оценка (рейтинг)
     async function toggleRating() {
-        if (!selectedItem || !currentUser) {
-            showNotification('Выберите элемент из списка', 'warning');
-            return;
-        }
+    if (!selectedItem || !currentUser) {
+        showNotification('Выберите элемент из списка', 'warning');
+        return;
+    }
+    
+    try {
+        const response = await fetch('/api/ratings/toggle.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${currentUser.token}`
+            },
+            body: JSON.stringify({
+                entity_type: getApiEntityType(),
+                entity_id: selectedItem.id,
+                rating_type: 'положительно'
+            })
+        });
         
-        try {
-            const response = await fetch('/api/ratings/toggle.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${currentUser.token}`
-                },
-                body: JSON.stringify({
-                    entity_type: getApiEntityType(),
-                    entity_id: selectedItem.id,
-                    rating_type: 'положительно'
-                })
-            });
+        const result = await response.json();
+        
+        if (result.success) {
+            showNotification(result.message, 'success');
+            currentStatus.hasRating = result.has_rating;
             
-            const result = await response.json();
-            
-            if (result.success) {
-                showNotification(result.message, 'success');
-                currentStatus.hasRating = result.has_rating;
-                
-                // Обновляем визуальное состояние иконки
-                const icon = document.querySelector('.comm-icon-button[data-type="smile"]');
-                if (icon) {
-                    if (result.has_rating) {
-                        icon.classList.add('active');
-                        icon.querySelector('img').style.filter = 'brightness(1) sepia(1) saturate(5) hue-rotate(70deg)';
-                    } else {
-                        icon.classList.remove('active');
-                        icon.querySelector('img').style.filter = 'brightness(1)';
-                    }
-                }
+            // Обновляем иконку
+            updateIconState('smile', result.has_rating);
+        } else {
+            showNotification(result.message || 'Ошибка операции', 'error');
+        }
+    } catch (error) {
+        console.error('Ошибка:', error);
+        showNotification('Ошибка соединения с сервером', 'error');
+    }
+    }
+
+    
+    // Вспомогательная функция для обновления состояния иконок
+    function updateIconState(type, isActive) {
+        const icon = document.querySelector(`.comm-icon-button[data-type="${type}"]`);
+        if (icon) {
+            if (isActive) {
+                icon.classList.add('active');
+                icon.querySelector('img').style.filter = 'brightness(1) sepia(1) saturate(5) hue-rotate(70deg)';
             } else {
-                showNotification(result.message || 'Ошибка операции', 'error');
+                icon.classList.remove('active');
+                icon.querySelector('img').style.filter = 'brightness(1)';
             }
-        } catch (error) {
-            console.error('Ошибка:', error);
-            showNotification('Ошибка соединения с сервером', 'error');
         }
     }
 

@@ -4,14 +4,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PROSTVOR - Проекты</title>
-    <meta name="description" content="PROSTVOR - Проекты.">
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/user-display.css">
+    <link rel="stylesheet" href="../css/projects-styles.css">
     <link rel="stylesheet" href="../css/calendar-styles.css">
     <link rel="stylesheet" href="../css/tasks-styles.css">
     <link rel="stylesheet" href="../css/panels-styles-updated.css">
-    <link rel="stylesheet" href="../css/projects-styles.css">
     <link rel="stylesheet" href="../css/communications-icons.css">
+    <style>
+        /* Стили для горизонтального расположения элементов шапки */
+        .header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0px 0px;
+            box-sizing: border-box;   
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        
+        .nav-container {
+            flex: 1;
+            margin: 0 5px;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .header-buttons {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+            gap: 10px;
+        }
+        
+        .header-communications {
+            width: 100%;
+            height: 50px;
+            padding: 0px 0px;
+            box-sizing: border-box;
+        }
+        
+        /* Адаптивность для мобильных устройств */
+        @media (max-width: 1024px) {
+            .header-top {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+            
+            .nav-container {
+                order: 3;
+                width: 100%;
+                margin: 10px 0 0 0;
+            }
+            
+            .logo-section,
+            .header-buttons {
+                flex: 1;
+                justify-content: space-between;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-top {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+                padding: 10px;
+            }
+            
+            .logo-section,
+            .header-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .nav-container {
+                margin: 10px 0;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Шапка сайта -->
@@ -378,6 +458,127 @@
                 <img src="../images/enter-reg.svg" alt="Войти/Зарегистрироваться" class="enter-button-img">
             </button>
         </div>
+                <!-- Блок коммуникаций для Projects.html -->
+        <div class="header-communications">
+            <!-- Левая часть -->
+            <div class="communication-block-left">
+                <div class="communication-icons-container">
+                    <button class="comm-icon-button" data-type="favorite">
+                        <img src="/images/FavoriteIcon.svg" alt="Избранное">
+                        <span class="comm-icon-text">добавить Проект в избранное</span>
+                    </button>
+                    <button class="comm-icon-button" data-type="note">
+                        <img src="/images/NoteIcon.svg" alt="Заметка">
+                        <span class="comm-icon-text">добавить заметку о Проекте</span>
+                    </button>
+                    <button class="comm-icon-button" data-type="message">
+                        <img src="/images/MessIcon.svg" alt="Сообщение">
+                        <span class="comm-icon-text">отправить сообщение руководителю Проекта</span>
+                    </button>
+                    <button class="comm-icon-button" data-type="smile">
+                        <img src="/images/SmileIcon.svg" alt="Оценка">
+                        <span class="comm-icon-text">положительная оценка Проекта</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Правая часть -->
+            <div class="communication-block-right">
+                <div class="comm-right-icon" data-type="favorite">
+                    <img src="/images/FavoriteIcon.svg" alt="Избранное">
+                    <div class="comm-counter">0</div>
+                </div>
+                <div class="comm-right-icon" data-type="note">
+                    <img src="/images/NoteIcon.svg" alt="Заметки">
+                    <div class="comm-counter">0</div>
+                </div>
+                <div class="comm-right-icon" data-type="bookmark">
+                    <img src="/images/BookmarkIcon.svg" alt="Закладки">
+                    <div class="comm-counter">0</div>
+                </div>
+            </div>
+        </div>
+
+        <style>
+            /* Временные стили, если CSS не загружен */
+            .header-communications {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+                padding: 10px 20px;
+                background-color: rgba(0, 28, 51, 0.8);
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                margin-top: 10px;
+            }
+            
+            .communication-icons-container {
+                display: flex;
+                gap: 20px;
+                padding: 8px 20px;
+                background-color: rgba(255, 255, 255, 0.15);
+                border: 1px solid white;
+                border-radius: 8px;
+            }
+            
+            .comm-icon-button {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                background: transparent;
+                border: none;
+                cursor: pointer;
+                padding: 5px 10px;
+                border-radius: 4px;
+                min-width: 100px;
+            }
+            
+            .comm-icon-button img {
+                width: 20px;
+                height: 20px;
+                margin-bottom: 4px;
+            }
+            
+            .comm-icon-text {
+                color: white;
+                font-size: 7pt;
+                text-align: center;
+                white-space: nowrap;
+            }
+            
+            .communication-block-right {
+                display: flex;
+                gap: 12px;
+                align-items: center;
+                padding: 8px 12px;
+                background-color: rgba(0, 43, 77, 0.3);
+                border-radius: 8px;
+            }
+            
+            .comm-right-icon {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                cursor: pointer;
+                padding: 5px 8px;
+                min-width: 45px;
+            }
+            
+            .comm-right-icon img {
+                width: 18px;
+                height: 18px;
+                margin-bottom: 2px;
+                filter: invert(1);
+            }
+            
+            .comm-counter {
+                color: white;
+                font-size: 11px;
+                font-weight: bold;
+            }
+        </style>
+
     </header>
     
     <!-- Основной контент -->
@@ -575,13 +776,13 @@
         <div class="preloader-spinner"></div>
     </div>
 
-    <script src="js/api-service.js"></script>
-    <script src="js/auth-check-fixed.js"></script>
-    <script src="js/auth-permissions.js"></script>
-    <script src="js/permissions-checker.js"></script>
-    <script src="js/status-manager.js"></script>
-    <script src="js/main-updated.js"></script>
-    <script src="js/communications-icons.js"></script>
+    <script src="../js/api-service.js"></script>
+    <script src="../js/auth-check-fixed.js"></script>
+    <script src="../js/auth-permissions.js"></script>
+    <script src="../js/permissions-checker.js"></script>
+    <script src="../js/status-manager.js"></script>
+    <script src="../js/main-updated.js"></script>
+    <script src="../js/communications-icons.js"></script>
     <script>
      document.addEventListener('DOMContentLoaded', function() {
      // Инициализация календаря при наличии авторизованного пользователя
@@ -771,6 +972,5 @@
     });
 </script>
 
-<script src="../js/communications-icons.js"></script>
 </body>
 </html>

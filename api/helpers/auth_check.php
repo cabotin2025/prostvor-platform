@@ -1,21 +1,32 @@
 <?php
 // api/helpers/auth_check.php
-require_once __DIR__ . '/../config/database.php';
-require_once __DIR__ . '/../config/jwt.php';
+header('Content-Type: application/json');
 
 function getAuthenticatedActorId() {
-    $actor_id = verifyJWT();
-    
-    if (!$actor_id) {
-        http_response_code(401);
+    try {
+        require_once __DIR__ . '/../config/database.php';
+        require_once __DIR__ . '/../config/jwt.php';
+        
+        $actor_id = verifyJWT();
+        
+        if (!$actor_id) {
+            http_response_code(401);
+            echo json_encode([
+                'success' => false,
+                'message' => 'Требуется авторизация'
+            ]);
+            exit;
+        }
+        
+        return $actor_id;
+    } catch (Exception $e) {
+        http_response_code(500);
         echo json_encode([
             'success' => false,
-            'message' => 'Требуется авторизация'
+            'message' => 'Ошибка проверки авторизации: ' . $e->getMessage()
         ]);
         exit;
     }
-    
-    return $actor_id;
 }
 
 function validateRequiredFields($data, $requiredFields) {
