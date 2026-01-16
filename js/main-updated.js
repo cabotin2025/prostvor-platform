@@ -126,6 +126,60 @@ const AppUpdated = (function() {
         }
     }
 
+    AppUpdated.refreshAuthState = function() {
+    console.log('🔄 AppUpdated.refreshAuthState() вызван');
+    
+    // Проверяем наличие данных в localStorage
+    const authToken = localStorage.getItem('auth_token');
+    const userDataStr = localStorage.getItem('user_data');
+    
+    if (authToken && userDataStr) {
+        try {
+            const userData = JSON.parse(userDataStr);
+            console.log('👤 Обновляем UI для:', userData.nickname);
+            
+            // Находим кнопку входа
+            const enterButton = document.querySelector('.enter-button');
+            if (enterButton) {
+                // Создаем иконку пользователя
+                const userIcon = document.createElement('div');
+                userIcon.className = 'user-display';
+                userIcon.innerHTML = `
+                    <img src="${getActorIconPath(userData.actor_type_id || 1)}" 
+                         alt="${userData.nickname}"
+                         style="width: 24px; height: 24px; border-radius: 50%; border: 2px solid ${userData.color_frame || getRandomColor()};">
+                    <span class="user-name" style="margin-left: 5px; font-size: 12px; color: white;">
+                        ${userData.nickname}
+                    </span>
+                `;
+                userIcon.style.cssText = `
+                    display: flex;
+                    align-items: center;
+                    padding: 5px 10px;
+                    background: rgba(0, 0, 0, 0.2);
+                    border-radius: 20px;
+                    cursor: pointer;
+                `;
+                
+                // Заменяем кнопку входа
+                enterButton.parentNode.replaceChild(userIcon, enterButton);
+                
+                // Добавляем ссылку выхода
+                addLogoutLink();
+            }
+            
+            appState.isAuthenticated = true;
+            appState.currentUser = userData;
+            
+        } catch (error) {
+            console.error('Ошибка обновления UI:', error);
+        }
+    } else {
+        console.log('🔓 Нет данных авторизации, сбрасываем UI');
+        resetEnterButton();
+    }
+    };
+
     // Проверка статуса авторизации
     async function checkAuthStatus() {
     console.log('🔐 Проверка авторизации...');
@@ -933,6 +987,26 @@ window.addEventListener('auth-changed', function() {
         }, 100);
     }
 });
+
+window.addEventListener('user-logged-in', function(e) {
+    console.log('🎯 Событие user-logged-in получено', e.detail);
+    if (AppUpdated.refreshAuthState) {
+        AppUpdated.refreshAuthState();
+    }
+});
+
+// Также слушаем изменения localStorage
+window.addEventListener('storage', function(e) {
+    if (e.key === 'user_data' || e.key === 'auth_token') {
+        console.log('📦 Изменение в localStorage:', e.key);
+        setTimeout(() => {
+            if (AppUpdated.refreshAuthState) {
+                AppUpdated.refreshAuthState();
+            }
+        }, 100);
+    }
+});
+
 
 console.log('✅ main-updated.js загружен (полная версия)');
 console.log('ℹ️ Используйте AppUpdated.refreshAuthState() после авторизации');

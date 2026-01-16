@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('✅ DOM готов, настраиваю кнопки...');
     
     const API_BASE = 'http://localhost:8000';
+    console.log('🌐 API_BASE установлен:', API_BASE);
     
     // ========== КНОПКА "ВОЙТИ" ==========
     const loginBtn = document.getElementById('loginButton');
@@ -28,80 +29,99 @@ document.addEventListener('DOMContentLoaded', function() {
         loginBtn.parentNode.replaceChild(newLoginBtn, loginBtn);
         
         // Добавляем новый обработчик
-            newLoginBtn.addEventListener('click', async function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                console.log('🎯 Кнопка ВОЙТИ нажата!');
-                
-               // Получаем redirect URL из параметров страницы
-                const urlParams = new URLSearchParams(window.location.search);
-                let redirectUrl = urlParams.get('redirect');
-                
-                if (!redirectUrl) {
-                    redirectUrl = document.referrer;
-                    // Исключаем страницу входа из редиректа
-                    if (redirectUrl && redirectUrl.includes('enter-reg.html')) {
-                        redirectUrl = '/index.html';
-                    }
-                }
-                
-                if (!redirectUrl || redirectUrl === 'null') {
-                    redirectUrl = '/index.html';
-                }
-                
-                console.log('📍 Redirect URL:', redirectUrl);
-            
-            const emailInput = document.getElementById('loginField');
-            const passwordInput = document.getElementById('passwordField');
-
-            try {
-                const response = await fetch(API_BASE + '/api/auth/login.php', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password,  redirect_url: redirectUrl })
-                });
-                
-                const result = await response.json();
-                console.log('📥 Ответ сервера:', result);
-                
-                if (result.success) {
-                    // УНИФИЦИРОВАННОЕ СОХРАНЕНИЕ ДАННЫХ
-                    localStorage.setItem('auth_token', result.token);
-                    localStorage.setItem('user_nickname', result.user.nickname);
-                    localStorage.setItem('user_id', result.user.actor_id.toString());
-                    localStorage.setItem('user_status', result.user.global_status);
-                    localStorage.setItem('user_email', result.user.email);
-                    localStorage.setItem('user_data', JSON.stringify(result.user));
-                    
-                    // ВАЖНО: Сохраняем color_frame если он есть в ответе
-                    if (result.user.color_frame) {
-                        localStorage.setItem('user_color_frame', result.user.color_frame);
-                        console.log('🎨 Color frame сохранен:', result.user.color_frame);
-                    }
-                    
-                    console.log('💾 Токен сохранен:', result.token.substring(0, 30) + '...');
-                    console.log('👤 Пользователь:', result.user.nickname);
-                    
-                    alert(`✅ Вход успешен! Добро пожаловать, ${result.user.nickname}!`);
-                    
-                    // Редирект
-                    setTimeout(() => {
-                        if (result.redirect_to) {
-                            window.location.href = result.redirect_to;
-                        } else {
-                            window.location.href = redirectUrl;
-                        }
-                    }, 1500);
-                }
-                else {
-                    // Обработка ошибок от сервера
-                    alert('❌ Ошибка входа: ' + (result.message || 'Неверный email или пароль'));
-                }
-            } catch (error) {
-                console.error('🔥 Ошибка при входе:', error);
-                alert('🚫 Ошибка подключения к серверу');
-            }
+newLoginBtn.addEventListener('click', async function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('🎯 Кнопка ВОЙТИ нажата!');
+    
+    // 1. Получаем redirect URL
+    const urlParams = new URLSearchParams(window.location.search);
+    let redirectUrl = urlParams.get('redirect');
+    
+    if (!redirectUrl) {
+        redirectUrl = document.referrer;
+        if (redirectUrl && redirectUrl.includes('enter-reg.html')) {
+            redirectUrl = '/index.html';
+        }
+    }
+    
+    if (!redirectUrl || redirectUrl === 'null') {
+        redirectUrl = '/index.html';
+    }
+    
+    console.log('📍 Redirect URL:', redirectUrl);
+    
+    // 2. Получаем данные из формы
+    const emailInput = document.getElementById('loginField');
+    const passwordInput = document.getElementById('passwordField');
+    
+    if (!emailInput || !passwordInput) {
+        alert('Не найдены поля для ввода');
+        return;
+    }
+    
+    const email = emailInput.value.trim();
+    const password = passwordInput.value;
+    
+    if (!email || !password) {
+        alert('Введите email и пароль');
+        return;
+    }
+    
+    console.log('📤 Отправляю запрос входа:', email);
+    
+    try {
+        const response = await fetch(API_BASE + '/api/auth/login.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                email: email, 
+                password: password,
+                redirect_url: redirectUrl
+            })
         });
+        
+        const result = await response.json();
+        console.log('📥 Ответ сервера:', result);
+        
+        if (result.success) {
+            // Сохранение данных
+            localStorage.setItem('auth_token', result.token);
+            localStorage.setItem('user_nickname', result.user.nickname);
+            localStorage.setItem('user_id', result.user.actor_id.toString());
+            localStorage.setItem('user_status', result.user.global_status);
+            localStorage.setItem('user_email', result.user.email);
+            localStorage.setItem('user_data', JSON.stringify(result.user));
+            
+            if (result.user.color_frame) {
+                localStorage.setItem('user_color_frame', result.user.color_frame);
+                console.log('🎨 Color frame сохранен:', result.user.color_frame);
+            }
+            
+            console.log('💾 Токен сохранен:', result.token.substring(0, 30) + '...');
+            console.log('👤 Пользователь:', result.user.nickname);
+            
+            alert(`✅ Вход успешен! Добро пожаловать, ${result.user.nickname}!`);
+            
+            // Редирект на сохранённую страницу
+            setTimeout(() => {
+                if (result.redirect_to) {
+                    console.log('🔄 Редирект на:', result.redirect_to);
+                    window.location.href = result.redirect_to;
+                } else {
+                    console.log('🔄 Редирект на (запасной):', redirectUrl);
+                    window.location.href = redirectUrl;
+                }
+            }, 1500);
+        }
+        else {
+            alert('❌ Ошибка входа: ' + (result.message || 'Неверный email или пароль'));
+        }
+    } catch (error) {
+        console.error('🔥 Ошибка при входе:', error);
+        alert('🚫 Ошибка подключения к серверу');
+    }
+    });
     } else {
         console.error('❌ Кнопка ВОЙТИ не найдена!');
     }
@@ -219,6 +239,23 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     alert(`✅ Регистрация успешна! Добро пожаловать, ${result.nickname}!`);
                     
+                       // Сообщаем другим модулям об авторизации
+                        if (window.AppUpdated && AppUpdated.refreshAuthState) {
+                            console.log('🔄 Вызываем AppUpdated.refreshAuthState()');
+                            AppUpdated.refreshAuthState();
+                        }
+                        
+                        // Или инициализируем main-updated если он ещё не загружен
+                        if (window.updateHeaderAuthState) {
+                            window.updateHeaderAuthState();
+                        }
+                        
+                        // Генерируем событие для других слушателей
+                        const authEvent = new CustomEvent('user-logged-in', {
+                            detail: { user: result.user }
+                        });
+                        window.dispatchEvent(authEvent);
+
                     setTimeout(() => {
                         if (result.redirect_to) {
                             window.location.href = result.redirect_to;

@@ -453,7 +453,8 @@
             <button class="header-button help-button" aria-label="Поддержать PROSTVOR">
                 <img src="../images/HelpProstvor.svg" alt="Поддержать PROSTVOR" class="help-button-img">
             </button>
-            <button class="header-button enter-button" aria-label="Войти или зарегистрироваться">
+                <button class="header-button enter-button" aria-label="Войти или зарегистрироваться"
+                    onclick="window.location.href='enter-reg.html?redirect=' + encodeURIComponent(window.location.href);">
                 <img src="../images/enter-reg.svg" alt="Войти/Зарегистрироваться" class="enter-button-img">
             </button>
             <script>
@@ -787,11 +788,12 @@
     </div>
 
     <script src="../js/api-service.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/main-updated.js"></script>
     <script src="../js/auth-check-fixed.js"></script>
     <script src="../js/auth-permissions.js"></script>
     <script src="../js/permissions-checker.js"></script>
     <script src="../js/status-manager.js"></script>
-    <script src="../js/main-updated.js"></script>
     <script src="../js/communications-icons.js"></script>
     <script>
      document.addEventListener('DOMContentLoaded', function() {
@@ -804,8 +806,6 @@
        }
     });
 </script>
-    <script src="../js/tasks-panel.js"></script>
-    <script src="../js/tasks-base.js"></script>
     <script src="../js/tasks-panel-updated.js"></script>
     <script>
     // Инициализация панели задач при наличии авторизованного пользователя
@@ -981,6 +981,84 @@
         }, 1000);
     });
 </script>
+
+<script>
+        // ОБНОВЛЕНИЕ ИКОНКИ ПОЛЬЗОВАТЕЛЯ ПРИ ЗАГРУЗКЕ
+        function updateUserButton() {
+            const token = localStorage.getItem('auth_token');
+            const userData = localStorage.getItem('user_data');
+            
+            if (token && userData) {
+                try {
+                    const user = JSON.parse(userData);
+                    const enterButton = document.querySelector('.enter-button');
+                    
+                    if (enterButton && user.nickname) {
+                        // Определяем иконку по типу
+                        let iconSrc = '../images/PersActor.svg';
+                        if (user.actor_type_id === 2) iconSrc = '../images/CommActor.svg';
+                        if (user.actor_type_id === 3) iconSrc = '../images/OrgActor.svg';
+                        
+                        // Создаем новый элемент
+                        const userDisplay = document.createElement('div');
+                        userDisplay.className = 'user-display';
+                        userDisplay.style.cssText = `
+                            display: flex;
+                            align-items: center;
+                            padding: 4px 10px;
+                            background: rgba(255, 255, 255, 0.15);
+                            border-radius: 16px;
+                            cursor: pointer;
+                            margin-left: 10px;
+                        `;
+                        
+                        userDisplay.innerHTML = `
+                            <img src="${iconSrc}" alt="${user.nickname}"
+                                style="width: 22px; height: 22px; border-radius: 50%; 
+                                        border: 2px solid ${user.color_frame || '#4ECDC4'};">
+                            <span style="margin-left: 6px; font-size: 11px; color: white; 
+                                        font-weight: bold; max-width: 80px; overflow: hidden; 
+                                        text-overflow: ellipsis; white-space: nowrap;">
+                                ${user.nickname}
+                            </span>
+                        `;
+                        
+                        // Заменяем кнопку
+                        enterButton.parentNode.replaceChild(userDisplay, enterButton);
+                        
+                        // Обработчик выхода
+                        userDisplay.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            if (confirm('Выйти из системы?')) {
+                                localStorage.removeItem('auth_token');
+                                localStorage.removeItem('user_data');
+                                localStorage.removeItem('user_nickname');
+                                window.location.reload();
+                            }
+                        });
+                        
+                        console.log('✅ Кнопка обновлена для пользователя:', user.nickname);
+                        return true;
+                    }
+                } catch (error) {
+                    console.error('Ошибка обновления кнопки:', error);
+                }
+            }
+            return false;
+        }
+
+        // Запускаем при загрузке и при изменении localStorage
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(updateUserButton, 500);
+        });
+
+        // Слушаем изменения авторизации
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'user_data' || e.key === 'auth_token') {
+                setTimeout(updateUserButton, 100);
+            }
+        });
+        </script>
 
 </body>
 </html>
