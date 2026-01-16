@@ -172,8 +172,19 @@ try {
     
 } catch (Exception $e) {
     http_response_code(400);
-    echo json_encode([
-        'success' => false,
-        'message' => $e->getMessage()
+    // Получаем redirect URL из запроса
+$redirect_url = isset($_POST['redirect_url']) ? $_POST['redirect_url'] : '/index.html';
+
+// Проверяем, что это не страница входа
+if (strpos($redirect_url, 'enter-reg.html') !== false) {
+    $redirect_url = '/index.html';
+}
+
+echo json_encode([
+    'success' => true,
+    'message' => 'Вход выполнен успешно',
+    'redirect_to' => $redirect_url, // ← ДОБАВЬТЕ ЭТУ СТРОКУ
+    'user' => $user,
+    'token' => $token
     ], JSON_UNESCAPED_UNICODE);
 }

@@ -37,7 +37,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 const urlParams = new URLSearchParams(window.location.search);
                 let redirectUrl = urlParams.get('redirect');
                 
-                // Если нет в параметрах, берем из referrer
                 if (!redirectUrl) {
                     redirectUrl = document.referrer;
                     // Исключаем страницу входа из редиректа
@@ -46,12 +45,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
                 
-                // Устанавливаем значение по умолчанию
-                if (!redirectUrl) {
+                if (!redirectUrl || redirectUrl === 'null') {
                     redirectUrl = '/index.html';
-            }
-            
-            console.log('📤 Отправляю запрос входа:', email);
+                }
+                
+                console.log('📍 Redirect URL:', redirectUrl);
             
             const emailInput = document.getElementById('loginField');
             const passwordInput = document.getElementById('passwordField');
