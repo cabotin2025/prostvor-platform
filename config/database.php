@@ -2,42 +2,28 @@
 /**
  * Конфигурация подключения к базе данных PostgreSQL
  */
-header('Content-Type: application/json; charset=utf-8');
 
-// Отключаем вывод ошибок в браузер
-error_reporting(0);
-ini_set('display_errors', 0);
-
-// Параметры подключения
-$host = 'localhost';
-$port = '5432';
-$dbname = 'creative_center_base';
-$username = 'postgres';
-$password = '123456';
-
-try {
-    $dsn = "pgsql:host=$host;port=$port;dbname=$dbname";
+class DatabaseConfig {
+    // Для PostgreSQL
+    const HOST = 'localhost';
+    const PORT = '5432';
+    const DB_NAME = 'creative_center_base';
+    const USERNAME = 'postgres'; // измените на вашего пользователя
+    const PASSWORD = 'ваш_пароль'; // измените на ваш пароль
     
-    $pdo = new PDO($dsn, $username, $password, [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        PDO::ATTR_EMULATE_PREPARES => false
-    ]);
+    // Для подключения
+    public static function getDSN() {
+        return "pgsql:host=" . self::HOST . 
+               ";port=" . self::PORT . 
+               ";dbname=" . self::DB_NAME . 
+               ";user=" . self::USERNAME . 
+               ";password=" . self::PASSWORD;
+    }
     
-    $pdo->exec("SET client_encoding TO 'UTF8'");
-    
-    // Успех - не выводим ничего!
-    // Просто оставляем $pdo доступной
-    
-} catch (PDOException $e) {
-    http_response_code(500);
-    echo json_encode([
-        'success' => false,
-        'message' => 'Database connection failed',
-        'debug' => $e->getMessage()
-    ], JSON_UNESCAPED_UNICODE);
-    exit;
+    // Альтернативный вариант DSN
+    public static function getPDODSN() {
+        return "pgsql:host=" . self::HOST . 
+               ";port=" . self::PORT . 
+               ";dbname=" . self::DB_NAME;
+    }
 }
-
-global $pdo;
-?>
