@@ -4,6 +4,43 @@
  * РАБОЧАЯ ВЕРСИЯ
  */
 
+session_start();
+
+// Сохраняем, откуда пришел пользователь
+if (isset($_SERVER['HTTP_REFERER']) && !empty($_SERVER['HTTP_REFERER'])) {
+    $_SESSION['auth_redirect'] = $_SERVER['HTTP_REFERER'];
+} else {
+    $_SESSION['auth_redirect'] = '/index.html'; // По умолчанию
+}
+
+// ... остальная логика авторизации/регистрации ...
+
+    // При успешной авторизации/регистрации:
+    if ($success) {
+        // Получаем сохраненный URL для редиректа
+        $redirect_url = isset($_POST['redirect_url']) ? $_POST['redirect_url'] : '/index.html';
+        
+        // Очищаем сессию
+        unset($_SESSION['auth_redirect']);
+        
+        // Возвращаем URL для редиректа
+        $redirect_url = isset($_POST['redirect_url']) ? $_POST['redirect_url'] : '/index.html';
+
+            // Проверяем, что это не страница входа
+            if (strpos($redirect_url, 'enter-reg.html') !== false) {
+                $redirect_url = '/index.html';
+            }
+
+            $response = [
+                'success' => true,
+                'message' => 'Вход выполнен успешно',
+                'redirect_to' => $redirect_url, // ← ДОБАВИТЬ ЭТУ СТРОКУ
+                'user' => $user,
+                'token' => $token
+            ];
+            echo json_encode($response);
+    }
+
 require_once '../../config/database.php';
 require_once '../../config/cors.php';
 require_once '../../config/jwt.php';

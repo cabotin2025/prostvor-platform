@@ -3,6 +3,42 @@
  * Реальная регистрация пользователя
  */
 
+session_start();
+
+// Сохраняем, откуда пришел пользователь
+if (isset($_SERVER['HTTP_REFERER']) && !empty($_SERVER['HTTP_REFERER'])) {
+    $_SESSION['auth_redirect'] = $_SERVER['HTTP_REFERER'];
+} else {
+    $_SESSION['auth_redirect'] = '/index.html'; // По умолчанию
+}
+
+// ... остальная логика авторизации/регистрации ...
+
+// При успешной авторизации/регистрации:
+if ($success) {
+    // Получаем сохраненный URL для редиректа
+    $redirect_url = $_SESSION['auth_redirect'] ?? '/index.html';
+    
+    // Очищаем сессию
+    unset($_SESSION['auth_redirect']);
+    
+    // Возвращаем URL для редиректа
+    $redirect_url = isset($_POST['redirect_url']) ? $_POST['redirect_url'] : '/index.html';
+
+    // Проверяем, что это не страница входа
+    if (strpos($redirect_url, 'enter-reg.html') !== false) {
+        $redirect_url = '/index.html';
+    }
+
+    echo json_encode([
+        'success' => true,
+        'message' => 'Авторизация успешна',
+        'redirect_to' => $redirect_url,
+        'user' => $user,
+        'token' => $token
+    ]);
+}
+
 require_once '../../config/database.php';
 require_once '../../config/cors.php';
 require_once '../../config/jwt.php';

@@ -28,35 +28,39 @@ document.addEventListener('DOMContentLoaded', function() {
         loginBtn.parentNode.replaceChild(newLoginBtn, loginBtn);
         
         // Добавляем новый обработчик
-        newLoginBtn.addEventListener('click', async function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            console.log('🎯 Кнопка ВОЙТИ нажата!');
-            
-            // Получаем данные
-            const emailInput = document.getElementById('loginField');
-            const passwordInput = document.getElementById('passwordField');
-            
-            if (!emailInput || !passwordInput) {
-                alert('Не найдены поля для ввода');
-                return;
-            }
-            
-            const email = emailInput.value.trim();
-            const password = passwordInput.value;
-            
-            if (!email || !password) {
-                alert('Введите email и пароль');
-                return;
+            newLoginBtn.addEventListener('click', async function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('🎯 Кнопка ВОЙТИ нажата!');
+                
+               // Получаем redirect URL из параметров страницы
+                const urlParams = new URLSearchParams(window.location.search);
+                let redirectUrl = urlParams.get('redirect');
+                
+                // Если нет в параметрах, берем из referrer
+                if (!redirectUrl) {
+                    redirectUrl = document.referrer;
+                    // Исключаем страницу входа из редиректа
+                    if (redirectUrl && redirectUrl.includes('enter-reg.html')) {
+                        redirectUrl = '/index.html';
+                    }
+                }
+                
+                // Устанавливаем значение по умолчанию
+                if (!redirectUrl) {
+                    redirectUrl = '/index.html';
             }
             
             console.log('📤 Отправляю запрос входа:', email);
             
+            const emailInput = document.getElementById('loginField');
+            const passwordInput = document.getElementById('passwordField');
+
             try {
                 const response = await fetch(API_BASE + '/api/auth/login.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password })
+                    body: JSON.stringify({ email, password,  redirect_url: redirectUrl })
                 });
                 
                 const result = await response.json();
@@ -84,7 +88,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     // Редирект
                     setTimeout(() => {
-                        window.location.href = '/index.html';
+                        if (result.redirect_to) {
+                            window.location.href = result.redirect_to;
+                        } else {
+                            window.location.href = redirectUrl;
+                        }
                     }, 1500);
                 }
                 else {
@@ -115,6 +123,10 @@ document.addEventListener('DOMContentLoaded', function() {
             e.stopPropagation();
             console.log('🎯 Кнопка РЕГИСТРАЦИЯ нажата!');
             
+            // Получаем redirect URL из параметров страницы
+            const urlParams = new URLSearchParams(window.location.search);
+            let redirectUrl = urlParams.get('redirect') || '/index.html';
+
             // Проверяем тип пользователя
             const userType = document.getElementById('regTypeSelect')?.value;
             if (userType !== 'Человек') {
@@ -177,7 +189,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 nickname: nickname,
                 name: name,
                 last_name: lastName,
-                color_frame: generateRandomColor() // Генерируем случайный цвет ТОЛЬКО ПРИ РЕГИСТРАЦИИ
+                color_frame: generateRandomColor(), // Генерируем случайный цвет ТОЛЬКО ПРИ РЕГИСТРАЦИИ
+                redirect_url: redirectUrl
             };
             
             console.log('📤 Отправляю регистрацию:', userData);
@@ -209,7 +222,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     alert(`✅ Регистрация успешна! Добро пожаловать, ${result.nickname}!`);
                     
                     setTimeout(() => {
-                        window.location.href = '/index.html';
+                        if (result.redirect_to) {
+                            window.location.href = result.redirect_to;
+                        } else {
+                            // Иначе используем наш сохранённый URL
+                            window.location.href = redirectUrl;
+                        }
                     }, 1500);
                 } else {
                     alert('❌ Ошибка: ' + (result.message || 'Неизвестная ошибка'));
