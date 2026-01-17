@@ -2,12 +2,12 @@
 -- PostgreSQL database dump
 --
 
-\restrict gsij79EffKYlBWYEClqM2R03RepeFXQDQ65qmvDzjaofPCOB4xODBhEIzMWqtNm
+\restrict ooBMadl75pESfvp88GNTibLAXSqQozCPcUT0dk4oAkCOvelcWP5dPomPVvIxZ0M
 
 -- Dumped from database version 18.1
 -- Dumped by pg_dump version 18.1
 
--- Started on 2026-01-17 04:50:07
+-- Started on 2026-01-18 00:36:31
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -31,9 +31,9 @@ CREATE DATABASE creative_center_base WITH TEMPLATE = template0 ENCODING = 'UTF8'
 
 ALTER DATABASE creative_center_base OWNER TO postgres;
 
-\unrestrict gsij79EffKYlBWYEClqM2R03RepeFXQDQ65qmvDzjaofPCOB4xODBhEIzMWqtNm
+\unrestrict ooBMadl75pESfvp88GNTibLAXSqQozCPcUT0dk4oAkCOvelcWP5dPomPVvIxZ0M
 \connect creative_center_base
-\restrict gsij79EffKYlBWYEClqM2R03RepeFXQDQ65qmvDzjaofPCOB4xODBhEIzMWqtNm
+\restrict ooBMadl75pESfvp88GNTibLAXSqQozCPcUT0dk4oAkCOvelcWP5dPomPVvIxZ0M
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -8483,11 +8483,11 @@ ALTER TABLE ONLY public.venues
     ADD CONSTRAINT venues_venue_type_id_fkey FOREIGN KEY (venue_type_id) REFERENCES public.venue_types(venue_type_id);
 
 
--- Completed on 2026-01-17 04:50:07
+-- Completed on 2026-01-18 00:36:31
 
 --
 -- PostgreSQL database dump complete
 --
 
-\unrestrict gsij79EffKYlBWYEClqM2R03RepeFXQDQ65qmvDzjaofPCOB4xODBhEIzMWqtNm
+\unrestrict ooBMadl75pESfvp88GNTibLAXSqQozCPcUT0dk4oAkCOvelcWP5dPomPVvIxZ0M
 
