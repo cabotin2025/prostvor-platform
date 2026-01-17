@@ -1,9 +1,17 @@
 <?php
+
+// Если $pdo не определен, создаем его
+if (!isset($pdo) || !($pdo instanceof PDO)) {
+    require_once '../../config/database.php';
+    // $pdo уже создан в database.php
+}
+
 require_once '../../config/database.php';
 require_once '../../config/cors.php';
 require_once '../../config/jwt.php'; // Подключаем JWT
 
 header('Content-Type: application/json');
+
 
 class ProjectsAPI {
     private $pdo;

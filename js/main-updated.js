@@ -1,5 +1,13 @@
 // main-updated.js - Полная версия с поддержкой всех функций
 
+
+
+// Инициализация после определения
+document.addEventListener('DOMContentLoaded', function() {
+    const app = new AppUpdated();
+    app.init();
+});
+
 // Проверяем, находимся ли на странице входа
 if (window.location.pathname.includes('enter-reg')) {
     console.log('main-updated.js: Пропускаем инициализацию на странице входа');

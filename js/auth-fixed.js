@@ -1,3 +1,4 @@
+// auth-fixed.js - УНИВЕРСАЛЬНАЯ ВЕРСИЯ
 console.log('🔧 Auth-fixed.js: Проверяем localStorage доступность');
 try {
     const testKey = 'auth_test_' + Date.now();
@@ -7,53 +8,123 @@ try {
     localStorage.removeItem(testKey);
 } catch (e) {
     console.error('localStorage ошибка:', e);
-    alert('ВНИМАНИЕ: localStorage недоступен!');
 }
 
 console.log('🚀 PROSTVOR Auth Fixed - ЗАГРУЖЕН!');
+console.log('📍 Текущая страница:', window.location.pathname);
 
 // Ждем полной загрузки DOM
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('✅ DOM готов, настраиваю кнопки...');
+    console.log('✅ DOM готов, проверяю страницу...');
     
-    const API_BASE = 'http://localhost:8000';
+    // Проверяем, находимся ли на странице входа/регистрации
+    const isEnterRegPage = window.location.pathname.includes('enter-reg.html') || 
+                          document.body.classList.contains('enter-reg-page') ||
+                          document.querySelector('.auth-tabs') !== null;
+    
+    if (isEnterRegPage) {
+        console.log('✅ Это страница входа/регистрации, настраиваю формы...');
+        setupAuthForms();
+    } else {
+        console.log('⚠️ Это не страница входа, пропускаю настройку форм');
+        setupGlobalAuth();
+    }
+});
+
+// ========== НАСТРОЙКА ФОРМ НА СТРАНИЦЕ ВХОДА ==========
+function setupAuthForms() {
+    const API_BASE = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
     console.log('🌐 API_BASE установлен:', API_BASE);
     
     // ========== КНОПКА "ВОЙТИ" ==========
-    const loginBtn = document.getElementById('loginButton');
-    if (loginBtn) {
-        console.log('✅ Найдена кнопка ВОЙТИ');
+    const loginForm = document.getElementById('login-form');
+    if (loginForm) {
+        const loginBtn = loginForm.querySelector('button[type="submit"]');
         
-        // Сбрасываем все старые обработчики
-        const newLoginBtn = loginBtn.cloneNode(true);
-        loginBtn.parentNode.replaceChild(newLoginBtn, loginBtn);
-        
-        // Добавляем новый обработчик
-newLoginBtn.addEventListener('click', async function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log('🎯 Кнопка ВОЙТИ нажата!');
-    
-    // 1. Получаем redirect URL
-    const urlParams = new URLSearchParams(window.location.search);
-    let redirectUrl = urlParams.get('redirect');
-    
-    if (!redirectUrl) {
-        redirectUrl = document.referrer;
-        if (redirectUrl && redirectUrl.includes('enter-reg.html')) {
-            redirectUrl = '/index.html';
+        if (loginBtn && loginBtn.textContent.includes('ВОЙТИ')) {
+            console.log('✅ Найдена кнопка ВОЙТИ');
+            
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                handleLogin(API_BASE);
+            });
+            
+            loginBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                handleLogin(API_BASE);
+            });
         }
     }
     
-    if (!redirectUrl || redirectUrl === 'null') {
-        redirectUrl = '/index.html';
+    // ========== КНОПКА "РЕГИСТРАЦИЯ" ==========
+    const registerForm = document.getElementById('register-form');
+    if (registerForm) {
+        const registerBtn = registerForm.querySelector('button[type="submit"]');
+        
+        if (registerBtn && registerBtn.textContent.includes('РЕГИСТРАЦИЯ')) {
+            console.log('✅ Найдена кнопка РЕГИСТРАЦИЯ');
+            
+            registerForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                handleRegistration(API_BASE);
+            });
+            
+            registerBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                handleRegistration(API_BASE);
+            });
+        }
     }
     
-    console.log('📍 Redirect URL:', redirectUrl);
+    // ========== ПЕРЕКЛЮЧЕНИЕ МЕЖДУ ВКЛАДКАМИ ==========
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
     
-    // 2. Получаем данные из формы
-    const emailInput = document.getElementById('loginField');
-    const passwordInput = document.getElementById('passwordField');
+    tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const tabId = this.getAttribute('data-tab');
+            
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            
+            tabContents.forEach(content => content.classList.remove('active'));
+            const targetTab = document.getElementById(tabId + '-tab');
+            if (targetTab) {
+                targetTab.classList.add('active');
+            }
+        });
+    });
+    
+    console.log('✅ Формы на странице входа настроены!');
+}
+
+// ========== ГЛОБАЛЬНЫЕ АВТОРИЗАЦИОННЫЕ ФУНКЦИИ ==========
+function setupGlobalAuth() {
+    console.log('🌐 Настраиваю глобальные функции авторизации');
+    
+    // Можно добавить глобальные обработчики для других страниц
+    const logoutBtn = document.getElementById('logout-btn') || 
+                     document.querySelector('[data-action="logout"]');
+    
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.clear();
+            window.location.href = '/pages/enter-reg.html';
+        });
+        console.log('✅ Кнопка выхода настроена');
+    }
+}
+
+// ========== ОБЩИЕ ФУНКЦИИ (оставляем как были) ==========
+async function handleLogin(API_BASE) {
+    console.log('🎯 Обработка входа...');
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    let redirectUrl = urlParams.get('redirect') || '/index.html';
+    
+    const emailInput = document.getElementById('login-email');
+    const passwordInput = document.getElementById('login-password');
     
     if (!emailInput || !passwordInput) {
         alert('Не найдены поля для ввода');
@@ -85,309 +156,139 @@ newLoginBtn.addEventListener('click', async function(e) {
         console.log('📥 Ответ сервера:', result);
         
         if (result.success) {
-            // Сохранение данных
-            localStorage.setItem('auth_token', result.token);
-            localStorage.setItem('user_nickname', result.user.nickname);
-            localStorage.setItem('user_id', result.user.actor_id.toString());
-            localStorage.setItem('user_status', result.user.global_status);
-            localStorage.setItem('user_email', result.user.email);
-            localStorage.setItem('user_data', JSON.stringify(result.user));
-            
-            if (result.user.color_frame) {
-                localStorage.setItem('user_color_frame', result.user.color_frame);
-                console.log('🎨 Color frame сохранен:', result.user.color_frame);
-            }
-            
-            console.log('💾 Токен сохранен:', result.token.substring(0, 30) + '...');
-            console.log('👤 Пользователь:', result.user.nickname);
-            
+            saveAuthData(result);
             alert(`✅ Вход успешен! Добро пожаловать, ${result.user.nickname}!`);
             
-            // Редирект на сохранённую страницу
             setTimeout(() => {
-                if (result.redirect_to) {
-                    console.log('🔄 Редирект на:', result.redirect_to);
-                    window.location.href = result.redirect_to;
-                } else {
-                    console.log('🔄 Редирект на (запасной):', redirectUrl);
-                    window.location.href = redirectUrl;
-                }
+                window.location.href = result.redirect_to || redirectUrl;
             }, 1500);
-        }
-        else {
+        } else {
             alert('❌ Ошибка входа: ' + (result.message || 'Неверный email или пароль'));
         }
     } catch (error) {
         console.error('🔥 Ошибка при входе:', error);
         alert('🚫 Ошибка подключения к серверу');
     }
-    });
-    } else {
-        console.error('❌ Кнопка ВОЙТИ не найдена!');
+}
+
+async function handleRegistration(API_BASE) {
+    console.log('🎯 Обработка регистрации...');
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    let redirectUrl = urlParams.get('redirect') || '/index.html';
+
+    const getValue = (id) => {
+        const element = document.getElementById(id);
+        return element ? element.value.trim() : '';
+    };
+    
+    const email = getValue('reg-email');
+    const password = getValue('reg-password');
+    const confirmPassword = getValue('reg-confirm-password');
+    const nickname = getValue('reg-nickname');
+    const name = getValue('reg-name');
+    const lastName = getValue('reg-surname');
+    const agreement = document.getElementById('reg-agreement');
+    
+    // Проверки
+    if (!email || !password || !nickname || !name || !lastName) {
+        alert('Заполните все обязательные поля');
+        return;
     }
     
-    // ========== КНОПКА "РЕГИСТРАЦИЯ" ==========
-    const regBtn = document.getElementById('regButton');
-    if (regBtn) {
-        console.log('✅ Найдена кнопка РЕГИСТРАЦИЯ');
-        
-        // Сбрасываем все старые обработчики
-        const newRegBtn = regBtn.cloneNode(true);
-        regBtn.parentNode.replaceChild(newRegBtn, regBtn);
-        
-        // Добавляем новый обработчик
-        newRegBtn.addEventListener('click', async function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            console.log('🎯 Кнопка РЕГИСТРАЦИЯ нажата!');
-            
-            // Получаем redirect URL из параметров страницы
-            const urlParams = new URLSearchParams(window.location.search);
-            let redirectUrl = urlParams.get('redirect') || '/index.html';
-
-            // Проверяем тип пользователя
-            const userType = document.getElementById('regTypeSelect')?.value;
-            if (userType !== 'Человек') {
-                alert('Для регистрации выберите тип "Человек"');
-                return;
-            }
-            
-            // Функция для генерации случайного яркого цвета - ТОЛЬКО ПРИ РЕГИСТРАЦИИ
-            function generateRandomColor() {
-                const brightColors = [
-                    '#FF6B6B', // Красный (хорошо виден)
-                    '#4ECDC4', // Бирюзовый (хорошо виден)
-                    '#FFD166', // Жёлтый (хорошо виден)
-                    '#06D6A0', // Зелёный (хорошо виден)
-                    '#118AB2', // Синий (хорошо виден)
-                    '#7209B7', // Фиолетовый (хорошо виден)
-                    '#FF9E6D', // Оранжевый (хорошо виден)
-                    '#83E377'  // Светло-зелёный (хорошо виден)
-                ];
-                return brightColors[Math.floor(Math.random() * brightColors.length)];
-            }
-            
-            // Получаем данные
-            const getValue = (id) => document.getElementById(id)?.value?.trim() || '';
-            
-            const email = getValue('regEmail');
-            const password = getValue('regPassword');
-            const confirmPassword = getValue('regConfirmPassword');
-            const nickname = getValue('regNickname');
-            const name = getValue('regName');
-            const lastName = getValue('regSurname');
-            
-            // Проверки
-            if (!email || !password || !nickname || !name || !lastName) {
-                alert('Заполните все обязательные поля');
-                return;
-            }
-            
-            if (password !== confirmPassword) {
-                alert('Пароли не совпадают');
-                return;
-            }
-            
-            if (password.length < 6) {
-                alert('Пароль должен быть не менее 6 символов');
-                return;
-            }
-            
-            // Проверка согласия
-            const agreement = document.getElementById('regAgreementCheckbox');
-            if (!agreement?.checked) {
-                alert('Необходимо согласиться с условиями');
-                return;
-            }
-            
-            // Данные для отправки - СООТВЕТСТВУЮТ ОЖИДАНИЯМ register.php
-            const userData = {
-                email: email,
-                password: password,
-                nickname: nickname,
-                name: name,
-                last_name: lastName,
-                color_frame: generateRandomColor(), // Генерируем случайный цвет ТОЛЬКО ПРИ РЕГИСТРАЦИИ
-                redirect_url: redirectUrl
-            };
-            
-            console.log('📤 Отправляю регистрацию:', userData);
-            
-            try {
-                // ИСПРАВЛЕНИЕ: используем реальный endpoint регистрации
-                const response = await fetch('/api/auth/register.php', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(userData)
-                });
-                
-                const result = await response.json();
-                console.log('📥 Ответ сервера:', result);
-                
-                if (result.success) {
-                    // УНИФИЦИРОВАННОЕ СОХРАНЕНИЕ ДАННЫХ
-                    localStorage.setItem('auth_token', result.token);
-                    localStorage.setItem('user_nickname', result.nickname);
-                    localStorage.setItem('user_id', result.actor_id.toString());
-                    localStorage.setItem('user_status', result.global_status);
-                    
-                    // Сохраняем color_frame при регистрации
-                    if (result.color_frame) {
-                        localStorage.setItem('user_color_frame', result.color_frame);
-                        console.log('🎨 Color frame сохранен при регистрации:', result.color_frame);
-                    }
-                    
-                    alert(`✅ Регистрация успешна! Добро пожаловать, ${result.nickname}!`);
-                    
-                       // Сообщаем другим модулям об авторизации
-                        if (window.AppUpdated && AppUpdated.refreshAuthState) {
-                            console.log('🔄 Вызываем AppUpdated.refreshAuthState()');
-                            AppUpdated.refreshAuthState();
-                        }
-                        
-                        // Или инициализируем main-updated если он ещё не загружен
-                        if (window.updateHeaderAuthState) {
-                            window.updateHeaderAuthState();
-                        }
-                        
-                        // Генерируем событие для других слушателей
-                        const authEvent = new CustomEvent('user-logged-in', {
-                            detail: { user: result.user }
-                        });
-                        window.dispatchEvent(authEvent);
-
-                    setTimeout(() => {
-                        if (result.redirect_to) {
-                            window.location.href = result.redirect_to;
-                        } else {
-                            // Иначе используем наш сохранённый URL
-                            window.location.href = redirectUrl;
-                        }
-                    }, 1500);
-                } else {
-                    alert('❌ Ошибка: ' + (result.message || 'Неизвестная ошибка'));
-                }
-            } catch (error) {
-                console.error('🔥 Ошибка:', error);
-                alert('🚫 Ошибка подключения к серверу');
-            }
-        });
-    } else {
-        console.error('❌ Кнопка РЕГИСТРАЦИЯ не найдена!');
+    if (password !== confirmPassword) {
+        alert('Пароли не совпадают');
+        return;
     }
     
-    console.log('✅ Все кнопки настроены и готовы к работе!');
-});
-
-// Устаревшие функции - ОСТАВЛЕНЫ ДЛЯ СОВМЕСТИМОСТИ
-async function handleRegistration(formData) {
-    console.warn('⚠️ handleRegistration устарела, используйте новую реализацию');
+    if (password.length < 6) {
+        alert('Пароль должен быть не менее 6 символов');
+        return;
+    }
+    
+    if (!agreement || !agreement.checked) {
+        alert('Необходимо согласиться с условиями');
+        return;
+    }
+    
+    // Генерация цвета
+    function generateRandomColor() {
+        const brightColors = [
+            '#FF6B6B', '#4ECDC4', '#FFD166', '#06D6A0',
+            '#118AB2', '#7209B7', '#FF9E6D', '#83E377'
+        ];
+        return brightColors[Math.floor(Math.random() * brightColors.length)];
+    }
+    
+    // Данные для отправки
+    const userData = {
+        email: email,
+        password: password,
+        nickname: nickname,
+        name: name,
+        last_name: lastName,
+        color_frame: generateRandomColor(),
+        redirect_url: redirectUrl
+    };
+    
+    console.log('📤 Отправляю регистрацию:', userData);
+    
     try {
-        const registrationData = {
-            username: formData.get('username'),
-            email: formData.get('email'),
-            password: formData.get('password')
-        };
-        
-        const response = await fetch('/api/auth/register.php', {
+        const response = await fetch(API_BASE + '/api/auth/register.php', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(registrationData)
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(userData)
         });
         
-        const data = await response.json();
-        console.log('📥 Ответ сервера:', data);
-
-        if (data.success) {
-            if (data.token) {
-                localStorage.setItem('auth_token', data.token);
-            }
-            
-            const nickname = data.nickname || data.username || data.user?.nickname;
-            if (nickname) {
-                localStorage.setItem('user_nickname', nickname);
-            }
-            
-            if (data.actor_id) {
-                localStorage.setItem('user_id', data.actor_id.toString());
-            }
-            
-            if (data.global_status) {
-                localStorage.setItem('user_status', data.global_status);
-            } else if (data.success) {
-                localStorage.setItem('user_status', 'Участник ТЦ');
-            }
-            
-            // Сохраняем color_frame если есть
-            if (data.color_frame) {
-                localStorage.setItem('user_color_frame', data.color_frame);
-            }
-            
-            alert('✅ Регистрация успешна!');
+        const result = await response.json();
+        console.log('📥 Ответ сервера:', result);
+        
+        if (result.success) {
+            saveAuthData(result);
+            alert(`✅ Регистрация успешна! Добро пожаловать, ${result.nickname}!`);
             
             setTimeout(() => {
-                window.location.href = '/index.html';
-            }, 1000);
+                window.location.href = result.redirect_to || redirectUrl;
+            }, 1500);
         } else {
-            alert('❌ Ошибка регистрации: ' + (data.message || 'Неизвестная ошибка'));
+            alert('❌ Ошибка: ' + (result.message || 'Неизвестная ошибка'));
         }
     } catch (error) {
-        console.error('❌ Ошибка в handleRegistration:', error);
-        alert('❌ Ошибка соединения с сервером');
+        console.error('🔥 Ошибка:', error);
+        alert('🚫 Ошибка подключения к серверу');
     }
 }
 
-async function handleLogin(email, password) {
-    console.warn('⚠️ handleLogin устарела, используйте новую реализацию');
-    try {
-        const response = await fetch('/api/auth/login.php', {
-            method: 'POST',
-            headers: { 
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email, password })
-        });
-        
-        const data = await response.json();
-        console.log('Ответ сервера:', data);
-        
-        if (data.success) {
-            localStorage.setItem('auth_token', data.token);
-            localStorage.setItem('user_nickname', data.user.nickname);
-            localStorage.setItem('user_id', data.user.actor_id.toString());
-            localStorage.setItem('user_status', data.user.global_status);
-            localStorage.setItem('user_email', data.user.email);
-            localStorage.setItem('user_data', JSON.stringify(data.user));
-            
-            // Сохраняем color_frame если он есть
-            if (data.user.color_frame) {
-                localStorage.setItem('user_color_frame', data.user.color_frame);
-                console.log('🎨 Color frame сохранен при логине:', data.user.color_frame);
-            }
-            
-            console.log('✅ Авторизация успешна:', data.user.nickname);
-            
-            alert('✅ Вход выполнен! Добро пожаловать, ' + data.user.nickname);
-            
-            setTimeout(() => {
-                window.location.href = '/index.html';
-            }, 1000);
-            
-            return true;
-        } else {
-            console.error('❌ Ошибка авторизации:', data.message);
-            alert('❌ Ошибка: ' + data.message);
-            return false;
-        }
-    } catch (error) {
-        console.error('❌ Ошибка сети:', error);
-        alert('❌ Ошибка подключения к серверу');
-        return false;
+function saveAuthData(result) {
+    if (result.token) {
+        localStorage.setItem('auth_token', result.token);
     }
+    if (result.user && result.user.nickname) {
+        localStorage.setItem('user_nickname', result.user.nickname);
+    } else if (result.nickname) {
+        localStorage.setItem('user_nickname', result.nickname);
+    }
+    if (result.user && result.user.actor_id) {
+        localStorage.setItem('user_id', result.user.actor_id.toString());
+    } else if (result.actor_id) {
+        localStorage.setItem('user_id', result.actor_id.toString());
+    }
+    if (result.user && result.user.global_status) {
+        localStorage.setItem('user_status', result.user.global_status);
+    } else if (result.global_status) {
+        localStorage.setItem('user_status', result.global_status);
+    } else {
+        localStorage.setItem('user_status', 'Участник ТЦ');
+    }
+    
+    // Сохраняем цвет если есть
+    const colorFrame = (result.user && result.user.color_frame) || result.color_frame;
+    if (colorFrame) {
+        localStorage.setItem('user_color_frame', colorFrame);
+        console.log('🎨 Color frame сохранен:', colorFrame);
+    }
+    
+    console.log('💾 Данные авторизации сохранены');
 }
-
-window.dispatchEvent(new Event('auth-state-changed'));
 
 console.log('🚀 Auth Fixed инициализация завершена!');

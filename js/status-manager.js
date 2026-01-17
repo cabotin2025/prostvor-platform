@@ -4,6 +4,79 @@
  * ВЕРСИЯ 2.0 - исправлена для работы с реальной структурой БД
  */
 
+(function() {
+    // Сохраняем оригинальные функции
+    const originalFetchUserStatuses = window.fetchUserStatuses;
+    const originalLoadProjectRoles = window.loadProjectRoles;
+    
+    // Патч для обработки ошибок JSON
+    window.fetchUserStatuses = async function() {
+        try {
+            const response = await fetch(`${window.API_BASE}/actors/statuses.php`);
+            const text = await response.text();
+            
+            // Пытаемся распарсить JSON
+            try {
+                const data = JSON.parse(text);
+                
+                // Обрабатываем оба формата
+                const statusesData = data.data || data.statuses || [];
+                const statuses = Array.isArray(statusesData) ? statusesData : [statusesData];
+                
+                // Сохраняем статусы
+                window.userStatuses = statuses;
+                window.userCurrentStatus = data.current_status;
+                window.userMaxLevel = data.max_level || 0;
+                
+                console.log('📊 Статусы загружены:', statuses);
+                return statuses;
+                
+            } catch (jsonError) {
+                console.error('❌ Ошибка парсинга JSON:', jsonError, 'Ответ:', text.substring(0, 100));
+                
+                // Возвращаем тестовые данные
+                return ['Гость'];
+            }
+            
+        } catch (fetchError) {
+            console.error('❌ Ошибка загрузки статусов:', fetchError);
+            return ['Гость'];
+        }
+    };
+    
+    // Патч для других API вызовов
+    const originalApiRequest = window.apiRequest || fetch;
+    
+    window.safeApiRequest = async function(url, options = {}) {
+        try {
+            const response = await originalApiRequest(url, options);
+            const text = await response.text();
+            
+            try {
+                return JSON.parse(text);
+            } catch (e) {
+                console.error('❌ API вернул не JSON:', url, 'Ответ:', text.substring(0, 200));
+                
+                // Возвращаем безопасный ответ
+                return {
+                    success: false,
+                    error: 'Invalid JSON response',
+                    data: []
+                };
+            }
+        } catch (error) {
+            console.error('❌ Ошибка API запроса:', url, error);
+            return {
+                success: false,
+                error: error.message,
+                data: []
+            };
+        }
+    };
+    
+    console.log('✅ Патч для обработки API ошибок применен');
+})();
+
 class StatusManager {
     constructor() {
         console.log('📊 Status Manager загружен (v2.0)');

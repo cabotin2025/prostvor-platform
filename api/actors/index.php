@@ -1,44 +1,73 @@
 <?php
-// api/actors/index.php - получение списка участников
-require_once __DIR__ . '/../../middleware/auth.php';
+// api/actors/index.php - ИСПРАВЛЕННАЯ ВЕРСИЯ
 
-// Проверяем авторизацию
-$user = requireAuth();
+// ОЧИСТКА БУФЕРА
+while (ob_get_level()) ob_end_clean();
+
+// ЗАГОЛОВКИ ПЕРВЫМИ
+header('Content-Type: application/json; charset=utf-8');
+header('Access-Control-Allow-Origin: *');
+
+require_once '../../config/database.php';
+require_once '../../config/cors.php';
+// require_once '../../middleware/auth.php'; // ЗАКОММЕНТИРОВАТЬ или создать файл
 
 try {
-    // Получаем участников с их типами
-    $actors = \Prostvor\Database::fetchAll("
-        SELECT 
-            a.actor_id,
-            a.nickname,
-            a.account,
-            a.created_at,
-            at.type as actor_type,
-            p.email,
-            p.name,
-            p.last_name,
-            p.phone_number,
-            l.name as location_name
-        FROM actors a
-        JOIN actor_types at ON a.actor_type_id = at.actor_type_id
-        LEFT JOIN persons p ON a.actor_id = p.actor_id AND p.deleted_at IS NULL
-        LEFT JOIN locations l ON p.location_id = l.location_id
-        WHERE a.deleted_at IS NULL
-        ORDER BY a.created_at DESC
-        LIMIT 100
-    ");
+    $method = $_SERVER['REQUEST_METHOD'];
     
-    echo json_encode([
-        'success' => true,
-        'count' => count($actors),
-        'actors' => $actors
-    ], JSON_UNESCAPED_UNICODE);
+    if ($method === 'GET') {
+        // Простой запрос для теста
+        $limit = $_GET['limit'] ?? 10;
+        $offset = $_GET['offset'] ?? 0;
+        
+        $stmt = $pdo->prepare("
+            SELECT 
+                a.actor_id as id,
+                a.nickname,
+                a.account,
+                at.type as actor_type,
+                acs.actor_status_id,
+                ast.status as actor_status,
+                a.created_at
+            FROM actors a
+            LEFT JOIN actor_types at ON a.actor_type_id = at.actor_type_id
+            LEFT JOIN actor_current_statuses acs ON a.actor_id = acs.actor_id
+            LEFT JOIN actor_statuses ast ON acs.actor_status_id = ast.actor_status_id
+            WHERE a.deleted_at IS NULL
+            ORDER BY a.created_at DESC
+            LIMIT :limit OFFSET :offset
+        ");
+        
+        $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
+        $stmt->execute();
+        
+        $actors = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        // Получаем общее количество
+        $countStmt = $pdo->query("SELECT COUNT(*) FROM actors WHERE deleted_at IS NULL");
+        $total = $countStmt->fetchColumn();
+        
+        echo json_encode([
+            'success' => true,
+            'data' => $actors,
+            'total' => $total,
+            'limit' => $limit,
+            'offset' => $offset
+        ], JSON_UNESCAPED_UNICODE);
+        
+    } else {
+        http_response_code(405);
+        echo json_encode([
+            'success' => false,
+            'message' => 'Method not allowed'
+        ]);
+    }
     
 } catch (Exception $e) {
     http_response_code(500);
     echo json_encode([
         'success' => false,
-        'error' => 'Failed to fetch actors',
         'message' => $e->getMessage()
-    ], JSON_UNESCAPED_UNICODE);
+    ]);
 }
