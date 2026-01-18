@@ -1,4 +1,7 @@
 // calendar-updated.js - Полностью переработанный модуль календаря
+
+
+
 const CalendarUpdated = (function() {
     // Конфигурация
     const config = {
@@ -799,6 +802,16 @@ const CalendarUpdated = (function() {
         }
     }
 
+        document.addEventListener('DOMContentLoaded', function() {
+            // Инициализация календаря при наличии авторизованного пользователя
+            const currentUser = sessionStorage.getItem('current_user');
+            if (currentUser && typeof CalendarUpdated !== 'undefined') {
+                setTimeout(() => {
+                    CalendarUpdated.init();
+                }, 1000);
+            }
+            });
+    
     // Публичные методы
     return {
         init: init,

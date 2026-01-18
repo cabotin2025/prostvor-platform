@@ -31,7 +31,7 @@ try {
         ],
         'connection_details' => [
             'host' => 'localhost',
-            'database' => 'creative_center',
+            'database' => 'creative_center_base',
             'status' => 'connected'
         ]
     ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
@@ -45,7 +45,7 @@ try {
         'error_code' => $e->getCode(),
         'connection_details' => [
             'host' => 'localhost',
-            'database' => 'creative_center',
+            'database' => 'creative_center_base',
             'status' => 'failed'
         ],
         'troubleshooting' => [

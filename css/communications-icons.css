@@ -4,7 +4,7 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    height: 30px;
+    height: 0px;
     padding: 10px 20px;
     margin-top: 10px;
     background-color: rgba(0, 28, 51, 0.8);
@@ -12,6 +12,7 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     position: relative;
     z-index: 10;
+    animation: slideDown 0.3s ease-out;
 }
 
 /* ==================== ЛЕВАЯ ЧАСТЬ КОММУНИКАЦИЙ ==================== */
@@ -24,6 +25,7 @@
 .communication-icons-container {
     display: flex;
     gap: 20px;
+    height: 50px;
     padding: 8px 20px;
     background-color: rgba(255, 255, 255, 0.1);
     border: 1px solid #7F7F7F;
@@ -99,12 +101,13 @@ body.has-content .comm-icon-button:hover .comm-icon-text {
 .communication-block-right {
     display: flex;
     gap: 12px;
+    margin-right: 200px;
     align-items: center;
     padding: 8px 12px;
     background-color: rgba(0, 43, 77, 0.3);
     border-radius: 8px;
     backdrop-filter: blur(3px);
-    height: fit-content;
+    height: 0px;
 }
 
 .comm-right-icon {
@@ -312,11 +315,6 @@ body.has-content .comm-icon-button:hover .comm-icon-text {
 .comm-right-icon:focus-visible {
     outline: 2px solid #A8E40A;
     outline-offset: 2px;
-}
-
-/* Анимация появления */
-.header-communications {
-    animation: slideDown 0.3s ease-out;
 }
 
 @keyframes slideDown {

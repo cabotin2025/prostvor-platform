@@ -680,12 +680,15 @@ const TasksPanelUpdated = (function() {
     };
 })();
 
-// Автоматическая инициализация при загрузке DOM для авторизованного пользователя
-document.addEventListener('DOMContentLoaded', function() {
-    const currentUser = sessionStorage.getItem('current_user');
-    if (currentUser && typeof TasksPanelUpdated !== 'undefined') {
-        setTimeout(() => {
-            TasksPanelUpdated.init();
-        }, 500);
-    }
-});
+    // Инициализация панели задач при наличии авторизованного пользователя
+    document.addEventListener('DOMContentLoaded', function() {
+        const currentUser = sessionStorage.getItem('current_user');
+        if (currentUser && typeof TasksPanelUpdated !== 'undefined') {
+            console.log('Инициализация панели задач для пользователя:', currentUser);
+            setTimeout(() => {
+                TasksPanelUpdated.init();
+            }, 1000);
+        } else {
+            console.log('Пользователь не авторизован или TasksPanelUpdated не загружен');
+        }
+    });

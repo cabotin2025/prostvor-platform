@@ -14,6 +14,12 @@ window.CommunicationsIconsLoaded = true;
 const CommunicationsManager = (function() {
     // Тексты для разных страниц
     const pageTexts = {
+        index: {
+            favorite: 'добавить в избранное',
+            note: 'добавить заметку',
+            message: 'отправить сообщение',
+            smile: 'положительная оценка'
+        },
         projects: {
             favorite: 'добавить Проект в избранное',
             note: 'добавить заметку о Проекте',
@@ -794,6 +800,8 @@ const CommunicationsManager = (function() {
     // Вспомогательная функция для уведомлений
     function showNotification(message, type = 'info') {
         // Используем существующую систему уведомлений или создаем простую
+        class AppUpdated {
+        constructor() {
         if (typeof AppUpdated !== 'undefined' && AppUpdated.showNotification) {
             AppUpdated.showNotification(message, type);
         } else {
@@ -819,6 +827,8 @@ const CommunicationsManager = (function() {
                 notification.style.animation = 'slideOut 0.3s ease-out';
                 setTimeout(() => notification.remove(), 300);
             }, 3000);
+        }
+        }
         }
     }
 
@@ -852,152 +862,3 @@ const CommunicationsManager = (function() {
             CommunicationsManager.init();
         }, 1000);
     });
-
-    // Стили для модальных окон (с защитой от дублирования)
-    // Проверяем, не добавлены ли уже стили
-    if (!document.getElementById('communications-icons-styles')) {
-        const commStyle = document.createElement('style');
-        commStyle.id = 'communications-icons-styles';
-        commStyle.textContent = `
-            .communications-modal {
-                display: none;
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.5);
-                z-index: 9999;
-                animation: fadeIn 0.3s ease-out;
-            }
-            
-            .communications-modal .modal-content {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: white;
-                border-radius: 8px;
-                min-width: 400px;
-                max-width: 600px;
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            }
-            
-            .communications-modal .modal-header {
-                padding: 16px 20px;
-                border-bottom: 1px solid #eee;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
-            
-            .communications-modal .modal-header h3 {
-                margin: 0;
-                color: #001C33;
-                font-size: 18px;
-            }
-            
-            .communications-modal .modal-close {
-                background: none;
-                border: none;
-                font-size: 24px;
-                cursor: pointer;
-                color: #666;
-            }
-            
-            .communications-modal .modal-body {
-                padding: 20px;
-            }
-            
-            .communications-modal textarea {
-                width: 100%;
-                padding: 10px;
-                border: 1px solid #ddd;
-                border-radius: 4px;
-                font-family: inherit;
-                resize: vertical;
-            }
-            
-            .communications-modal .modal-footer {
-                padding: 16px 20px;
-                border-top: 1px solid #eee;
-                text-align: right;
-            }
-            
-            .communications-modal .btn-primary,
-            .communications-modal .btn-secondary {
-                padding: 8px 16px;
-                border: none;
-                border-radius: 4px;
-                cursor: pointer;
-                font-size: 14px;
-            }
-            
-            .communications-modal .btn-primary {
-                background: #001C33;
-                color: white;
-                margin-left: 8px;
-            }
-            
-            .communications-modal .btn-secondary {
-                background: #f0f0f0;
-                color: #333;
-            }
-            
-            .communications-modal .items-list {
-                max-height: 400px;
-                overflow-y: auto;
-            }
-            
-            .communications-modal .list-item {
-                padding: 12px;
-                border-bottom: 1px solid #eee;
-                cursor: pointer;
-            }
-            
-            .communications-modal .list-item:hover {
-                background: #f9f9f9;
-            }
-            
-            .communications-modal .item-title {
-                font-weight: bold;
-                color: #001C33;
-            }
-            
-            .communications-modal .item-meta {
-                font-size: 12px;
-                color: #666;
-                margin-top: 4px;
-            }
-            
-            .communications-modal .empty-list {
-                text-align: center;
-                padding: 40px 20px;
-                color: #666;
-            }
-            
-            @keyframes fadeIn {
-                from { opacity: 0; }
-                to { opacity: 1; }
-            }
-            
-            @keyframes slideIn {
-                from { transform: translateX(100%); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-            }
-            
-            @keyframes slideOut {
-                from { transform: translateX(0); opacity: 1; }
-                to { transform: translateX(100%); opacity: 0; }
-            }
-            
-            .simple-notification {
-                font-family: inherit;
-            }
-        `;
-        document.head.appendChild(commStyle);
-        console.log('✅ Стили communications-icons добавлены');
-    } else {
-        console.log('✅ Стили communications-icons уже существуют');
-    
-}

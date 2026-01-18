@@ -6,92 +6,11 @@
     <title>PROSTVOR - Платформа для создания творческих проектов</title>
     <meta name="description" content="PROSTVOR - платформа для создания творческих проектов. Найдите участников, ресурсы и идеи для ваших творческих начинаний.">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/user-display.css">
     <link rel="stylesheet" href="css/calendar-styles.css">
     <link rel="stylesheet" href="css/tasks-styles.css">
     <link rel="stylesheet" href="css/panels-styles-updated.css">
     <link rel="stylesheet" href="css/communications-icons.css">
-    <style>
-        /* Стили для горизонтального расположения элементов шапки */
-        .header-top {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            padding: 0px 0px;
-            box-sizing: border-box;   
-        }
-        
-        .logo-section {
-            display: flex;
-            align-items: center;
-            flex-shrink: 0;
-        }
-        
-        .nav-container {
-            flex: 1;
-            margin: 0 5px;
-            display: flex;
-            justify-content: center;
-        }
-        
-        .header-buttons {
-            display: flex;
-            align-items: center;
-            flex-shrink: 0;
-            gap: 10px;
-        }
-        
-        .header-communications {
-            width: 100%;
-            height: 50px;
-            padding: 0px 0px;
-            box-sizing: border-box;
-        }
-        
-        /* Адаптивность для мобильных устройств */
-        @media (max-width: 1024px) {
-            .header-top {
-                flex-wrap: wrap;
-                gap: 15px;
-            }
-            
-            .nav-container {
-                order: 3;
-                width: 100%;
-                margin: 10px 0 0 0;
-            }
-            
-            .logo-section,
-            .header-buttons {
-                flex: 1;
-                justify-content: space-between;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .header-top {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 10px;
-                padding: 10px;
-            }
-            
-            .logo-section,
-            .header-buttons {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .nav-container {
-                margin: 10px 0;
-            }
-            
-            .nav-menu {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-        }
-    </style>
 </head>
 <body>
     <!-- Шапка сайта -->
@@ -566,52 +485,11 @@
     <script src="js/auth-check.js"></script>
     <script src="js/auth-permissions.js"></script>
     <script src="js/status-manager.js"></script>
-    <script src="js/min-main.js"></script>
+    <script src="js/main-updated.js"></script>
     <script src="js/communications-icons.js"></script>
-
-    <script>
-     document.addEventListener('DOMContentLoaded', function() {
-     // Инициализация календаря при наличии авторизованного пользователя
-      const currentUser = sessionStorage.getItem('current_user');
-       if (currentUser && typeof CalendarUpdated !== 'undefined') {
-        setTimeout(() => {
-            CalendarUpdated.init();
-        }, 1000);
-       }
-    });
-    </script>
-    <script src="js/tasks-panel-updated.js"></script>
-    <script>
-    // Инициализация панели задач при наличии авторизованного пользователя
-    document.addEventListener('DOMContentLoaded', function() {
-        const currentUser = sessionStorage.getItem('current_user');
-        if (currentUser && typeof TasksPanelUpdated !== 'undefined') {
-            console.log('Инициализация панели задач для пользователя:', currentUser);
-            setTimeout(() => {
-                TasksPanelUpdated.init();
-            }, 1000);
-        } else {
-            console.log('Пользователь не авторизован или TasksPanelUpdated не загружен');
-        }
-    });
-    </script>
+    <script src="js/tasks-panel.js"></script>
     <script src="js/notifications-panel.js"></script>
-    <script src="js/calendar-panel-updated.js"></script>
-    <script>
-    // Проверка загрузки скрипта календаря
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log('CalendarPanelUpdated доступен:', typeof CalendarPanelUpdated !== 'undefined');
-        
-        // Если есть авторизованный пользователь, принудительно инициализируем календарь
-        setTimeout(() => {
-            const currentUser = sessionStorage.getItem('current_user');
-            if (currentUser && typeof CalendarPanelUpdated !== 'undefined') {
-                console.log('Принудительная инициализация календаря для авторизованного пользователя');
-                CalendarPanelUpdated.init();
-            }
-        }, 1000);
-    });
-    </script>
-
+    <script src="js/calendar-panel.js"></script>
+    
 </body>
 </html>

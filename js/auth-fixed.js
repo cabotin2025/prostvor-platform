@@ -291,4 +291,67 @@ function saveAuthData(result) {
     console.log('💾 Данные авторизации сохранены');
 }
 
+console.log('🔍 Проверяем кнопки...');
+setTimeout(() => {
+    const loginBtn = document.getElementById('loginButton');
+    const regBtn = document.getElementById('regButton');
+    console.log('Кнопка Войти найдена:', !!loginBtn);
+    console.log('Кнопка Регистрация найдена:', !!regBtn);
+    
+    // Принудительно назначаем обработчики
+    if (loginBtn) {
+        loginBtn.onclick = function() {
+            console.log('Кнопка Войти нажата!');
+            handleLogin('http://localhost:8000');
+        };
+    }
+}, 1000);
+
+    async function handleLogin(API_BASE) {
+    console.log('🎯 Обработка входа...');
+    
+    const email = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+    
+    console.log('📤 Отправляю запрос:', { email });
+    
+    try {
+        const response = await fetch(API_BASE + '/api/auth/login.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                email: email, 
+                password: password,
+                redirect_url: '/index.html' // Явно указываем
+            })
+        });
+        
+        console.log('📥 Статус ответа:', response.status);
+        const result = await response.json();
+        console.log('📦 Ответ сервера:', result);
+        
+        if (result.success) {
+            saveAuthData(result);
+            console.log('✅ Вход успешен! Токен сохранен');
+            
+            // Принудительно обновляем состояние
+            if (window.AppUpdated && window.AppUpdated.refreshAuthState) {
+                window.AppUpdated.refreshAuthState();
+            }
+            
+            // Явный редирект через 1 секунду
+            setTimeout(() => {
+                console.log('🔄 Перенаправляю на:', result.redirect_to || '/index.html');
+                window.location.href = result.redirect_to || '/index.html';
+            }, 1000);
+            
+        } else {
+            alert('❌ Ошибка: ' + (result.message || 'Неверный email или пароль'));
+        }
+    } catch (error) {
+        console.error('🔥 Ошибка при входе:', error);
+        alert('🚫 Ошибка подключения к серверу');
+    }
+}
+
 console.log('🚀 Auth Fixed инициализация завершена!');

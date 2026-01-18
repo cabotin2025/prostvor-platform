@@ -1,18 +1,6 @@
 // main-updated.js - Полная версия с поддержкой всех функций
 
-
-
-// Инициализация после определения
-document.addEventListener('DOMContentLoaded', function() {
-    const app = new AppUpdated();
-    app.init();
-});
-
-// Проверяем, находимся ли на странице входа
-if (window.location.pathname.includes('enter-reg')) {
-    console.log('main-updated.js: Пропускаем инициализацию на странице входа');
-}
-
+// ========== 1. ОБЪЯВЛЯЕМ AppUpdated В НАЧАЛЕ ==========
 const AppUpdated = (function() {
     // Конфигурация
     const config = {
@@ -134,9 +122,7 @@ const AppUpdated = (function() {
         }
     }
 
-    AppUpdated.refreshAuthState = function() {
-    console.log('🔄 AppUpdated.refreshAuthState() вызван');
-    
+   
     // Проверяем наличие данных в localStorage
     const authToken = localStorage.getItem('auth_token');
     const userDataStr = localStorage.getItem('user_data');
@@ -149,25 +135,6 @@ const AppUpdated = (function() {
             // Находим кнопку входа
             const enterButton = document.querySelector('.enter-button');
             if (enterButton) {
-                // Создаем иконку пользователя
-                const userIcon = document.createElement('div');
-                userIcon.className = 'user-display';
-                userIcon.innerHTML = `
-                    <img src="${getActorIconPath(userData.actor_type_id || 1)}" 
-                         alt="${userData.nickname}"
-                         style="width: 24px; height: 24px; border-radius: 50%; border: 2px solid ${userData.color_frame || getRandomColor()};">
-                    <span class="user-name" style="margin-left: 5px; font-size: 12px; color: white;">
-                        ${userData.nickname}
-                    </span>
-                `;
-                userIcon.style.cssText = `
-                    display: flex;
-                    align-items: center;
-                    padding: 5px 10px;
-                    background: rgba(0, 0, 0, 0.2);
-                    border-radius: 20px;
-                    cursor: pointer;
-                `;
                 
                 // Заменяем кнопку входа
                 enterButton.parentNode.replaceChild(userIcon, enterButton);
@@ -185,7 +152,6 @@ const AppUpdated = (function() {
     } else {
         console.log('🔓 Нет данных авторизации, сбрасываем UI');
         resetEnterButton();
-    }
     };
 
     // Проверка статуса авторизации
@@ -266,242 +232,204 @@ const AppUpdated = (function() {
     }
     }
 
-    // Функции для обновления кнопки входа на профиль
-    function getRandomColor() {
-        const colors = [
-            '#FF6B6B', '#4ECDC4', '#FFD166', '#06D6A0',
-            '#118AB2', '#7209B7', '#FF9E6D', '#83E377'
-        ];
-        return colors[Math.floor(Math.random() * colors.length)];
-    }
+ // Функции для обновления кнопки входа на профиль
+function getRandomColor() {
+    const colors = [
+        '#FF6B6B', '#4ECDC4', '#FFD166', '#06D6A0',
+        '#118AB2', '#7209B7', '#FF9E6D', '#83E377'
+    ];
+    return colors[Math.floor(Math.random() * colors.length)];
+}
 
-    function getActorIconPath(actorTypeId) {
-        switch(actorTypeId) {
-            case 1: return '../images/PersActor.svg';    // Человек
-            case 2: return '../images/CommActor.svg';    // Сообщество
-            case 3: return '../images/OrgActor.svg';     // Организация
-            default: return '../images/PersActor.svg';
-        }
+function getActorIconPath(actorTypeId) {
+    switch(actorTypeId) {
+        case 1: return '../images/PersActor.svg';    // Человек
+        case 2: return '../images/CommActor.svg';    // Сообщество
+        case 3: return '../images/OrgActor.svg';     // Организация
+        default: return '../images/PersActor.svg';
     }
+}
 
-    function formatUserStatus(status) {
-        if (!status) return 'Участник ТЦ';
-        
-        switch(status) {
-            case 'Руководитель ТЦ':
-                return 'Руководитель ТЦ';
-            case 'Куратор направления':
-                return 'Куратор направления';
-            default:
-                return 'Участник ТЦ';
-        }
+function formatUserStatus(status) {
+    if (!status) return 'Участник ТЦ';
+    
+    switch(status) {
+        case 'Руководитель ТЦ':
+            return 'Руководитель ТЦ';
+        case 'Куратор направления':
+            return 'Куратор направления';
+        default:
+            return 'Участник ТЦ';
     }
+}
 
-    function addLogoutLink() {
-        // Проверяем, есть ли уже ссылка выхода
-        if (document.getElementById('logoutLinkContainer')) {
-            return;
-        }
-        
-        const headerButtons = document.querySelector('.header-buttons');
-        if (!headerButtons) return;
-        
-        const logoutLink = document.createElement('a');
-        logoutLink.id = 'logoutLinkContainer';
-        logoutLink.href = '#';
-        logoutLink.className = 'logout-link';
-        logoutLink.innerHTML = 'Выйти';
-        logoutLink.style.cssText = `
-            margin-left: 10px;
-            font-size: 12px;
-            color: #00B0F0 !important;
-            font-weight: bold;
-            text-decoration: none;
-            cursor: pointer;
-            display: block;
-        `;
-        
-        logoutLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            handleLogout();
-        });
-        
-        headerButtons.appendChild(logoutLink);
+function addLogoutLink() {
+    if (document.getElementById('logoutLinkContainer')) {
+        return;
     }
+    
+    const headerButtons = document.querySelector('.header-buttons');
+    if (!headerButtons) return;
+    
+    const logoutLink = document.createElement('a');
+    logoutLink.id = 'logoutLinkContainer';
+    logoutLink.href = '#';
+    logoutLink.className = 'logout-link';
+    logoutLink.textContent = 'Выйти';
+    
+    logoutLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        handleLogout();
+    });
+    
+    headerButtons.appendChild(logoutLink);
+}
 
-    function handleLogout() {
-        if (confirm('Вы уверены, что хотите выйти?')) {
-            // Очищаем localStorage
-            localStorage.removeItem('auth_token');
-            localStorage.removeItem('actor_nickname');
-            localStorage.removeItem('actor_id');
-            localStorage.removeItem('actor_status');
-            localStorage.removeItem('actor_data');
-            localStorage.removeItem('actor_color_frame');
-            localStorage.removeItem('actor_email');
-            localStorage.removeItem('actor_status_id');
-            
-            // Сбрасываем состояние
-            appState.isAuthenticated = false;
-            appState.currentUser = null;
-            
-            // Сбрасываем кнопку
-            resetEnterButton();
-            
-            // Удаляем ссылку выхода
-            const logoutLink = document.getElementById('logoutLinkContainer');
-            if (logoutLink) {
-                logoutLink.remove();
-            }
-            
-            // Показываем уведомление
-            showNotification('Вы успешно вышли из системы', 'success');
-            
-            // Через секунду можно перезагрузить страницу
-            setTimeout(() => {
-                window.location.reload();
-            }, 1000);
+function handleLogout() {
+    if (confirm('Вы уверены, что хотите выйти?')) {
+        // Очищаем localStorage
+        localStorage.removeItem('auth_token');
+        localStorage.removeItem('actor_nickname');
+        localStorage.removeItem('actor_id');
+        localStorage.removeItem('actor_status');
+        localStorage.removeItem('actor_data');
+        localStorage.removeItem('actor_color_frame');
+        localStorage.removeItem('actor_email');
+        localStorage.removeItem('actor_status_id');
+        
+        // Сбрасываем состояние
+        appState.isAuthenticated = false;
+        appState.currentUser = null;
+        
+        // Сбрасываем кнопку
+        resetEnterButton();
+        
+        // Удаляем ссылку выхода
+        const logoutLink = document.getElementById('logoutLinkContainer');
+        if (logoutLink) {
+            logoutLink.remove();
         }
+        
+        // Удаляем кастомные CSS переменные
+        document.documentElement.style.removeProperty('--user-color-frame');
+        
+        // Показываем уведомление
+        showNotification('Вы успешно вышли из системы', 'success');
+        
+        // Через секунду можно перезагрузить страницу
+        setTimeout(() => {
+            window.location.reload();
+        }, 1000);
     }
+}
 
-    // Обновляет кнопку "Войти" на "Профиль" для авторизованных пользователей
-    function updateEnterButtonToProfile() {
-        if (!elements.enterButton || !appState.currentUser) {
-            console.error('❌ Не могу обновить кнопку: enterButton=', elements.enterButton, 'currentUser=', appState.currentUser);
-            return;
-        }
-        
-        console.log('🔧 Обновляю кнопку входа на значок участника для:', appState.currentUser.nickname);
-        
-        // Проверяем, не обновили ли уже
-        if (elements.enterButton.classList.contains('user-display-button')) {
-            console.log('⚠️ Кнопка уже обновлена');
-            return;
-        }
-        
-        // Получаем цвет рамки из localStorage или генерируем случайный
-        const colorFrame = localStorage.getItem('user_color_frame') || getRandomColor();
-        
-        // Получаем тип участника для иконки
-        const actorTypeId = appState.currentUser.actor_type_id || 1; // По умолчанию "Человек"
-        const iconPath = getActorIconPath(actorTypeId);
-        
-        // Форматируем статус
-        const statusText = formatUserStatus(appState.currentUser.actor_status);
-        
-        // Создаем HTML для значка участника
-        const userDisplayHTML = `
-            <div class="user-display-button-content" style="
-                background: #595959;
-                border: 3px solid ${colorFrame};
-                border-radius: 12px;
-                padding: 4px 8px;
-                min-width: 150px;
-                text-align: left;
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                min-height: 40px;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            ">
-                <div class="user-icon" style="width: 24px; height: 24px; flex-shrink: 0;">
-                    <img src="${iconPath}" alt="Иконка участника" style="width: 100%; height: 100%; object-fit: contain;">
-                </div>
-                <div class="user-info" style="flex: 1; min-width: 0; overflow: hidden;">
-                    <div class="user-nickname" style="
-                        font-size: 12px;
-                        font-weight: bold;
-                        color: #FFFFFF;
-                        white-space: nowrap;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                        text-decoration: underline;
-                    ">${appState.currentUser.nickname}</div>
-                    <div class="user-status" style="
-                        font-size: 10px;
-                        color: #FFFFFF;
-                        white-space: nowrap;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                    ">${statusText}</div>
-                </div>
+// Обновляет кнопку "Войти" на "Профиль" для авторизованных пользователей
+function updateEnterButtonToProfile() {
+    if (!elements.enterButton || !appState.currentUser) {
+        console.error('❌ Не могу обновить кнопку: enterButton=', elements.enterButton, 'currentUser=', appState.currentUser);
+        return;
+    }
+    
+    console.log('🔧 Обновляю кнопку входа на значок участника для:', appState.currentUser.nickname);
+    
+    // Проверяем, не обновили ли уже
+    if (elements.enterButton.classList.contains('user-display-button')) {
+        console.log('⚠️ Кнопка уже обновлена');
+        return;
+    }
+    
+    // Получаем цвет рамки из localStorage или генерируем случайный
+    const colorFrame = localStorage.getItem('user_color_frame') || getRandomColor();
+    
+    // Сохраняем цвет в CSS переменной
+    document.documentElement.style.setProperty('--user-color-frame', colorFrame);
+    
+    // Получаем тип участника для иконки
+    const actorTypeId = appState.currentUser.actor_type_id || 1;
+    const iconPath = getActorIconPath(actorTypeId);
+    
+    // Форматируем статус
+    const statusText = formatUserStatus(appState.currentUser.actor_status);
+    
+    // Создаем HTML для значка участника
+    const userDisplayHTML = `
+        <div class="user-display-button-content">
+            <div class="user-icon">
+                <img src="${iconPath}" alt="Иконка участника">
             </div>
-        `;
-        
-        // Сохраняем оригинальный HTML
-        const originalHTML = elements.enterButton.innerHTML;
-        elements.enterButton.setAttribute('data-original-html', originalHTML);
-        
-        // Меняем содержимое кнопки
-        elements.enterButton.innerHTML = userDisplayHTML;
-        
-        // Обновляем стили кнопки
-        elements.enterButton.style.padding = '0';
-        elements.enterButton.style.background = 'transparent';
-        elements.enterButton.style.border = 'none';
-        elements.enterButton.style.minWidth = 'auto';
-        
-        // Удаляем старый обработчик и добавляем новый
-        const newButton = elements.enterButton.cloneNode(true);
-        elements.enterButton.parentNode.replaceChild(newButton, elements.enterButton);
-        
-        // Обновляем ссылку на элемент
-        elements.enterButton = document.querySelector('.enter-button');
-        
-        // Добавляем обработчик для профиля
-        elements.enterButton.addEventListener('click', handleProfileClick);
-        
-        // Добавляем класс для стилизации
-        elements.enterButton.classList.add('user-display-button');
-        
-        // Добавляем ссылку выхода (рядом с кнопкой)
-        addLogoutLink();
-        
-        console.log('✅ Кнопка обновлена на значок участника');
-    }
+            <div class="user-info">
+                <div class="user-nickname">${appState.currentUser.nickname}</div>
+                <div class="user-status">${statusText}</div>
+            </div>
+        </div>
+    `;
+    
+    // Сохраняем оригинальный HTML
+    const originalHTML = elements.enterButton.innerHTML;
+    elements.enterButton.setAttribute('data-original-html', originalHTML);
+    
+    // Меняем содержимое кнопки
+    elements.enterButton.innerHTML = userDisplayHTML;
+    
+    // Обновляем стили кнопки через класс
+    elements.enterButton.classList.add('user-display-button');
+    
+    // Удаляем старый обработчик и добавляем новый
+    const oldEnterButton = elements.enterButton;
+    const newButton = oldEnterButton.cloneNode(true);
+    oldEnterButton.parentNode.replaceChild(newButton, oldEnterButton);
+    
+    // Обновляем ссылку на элемент
+    elements.enterButton = document.querySelector('.enter-button');
+    
+    // Добавляем обработчик для профиля
+    elements.enterButton.addEventListener('click', handleProfileClick);
+    
+    // Добавляем ссылку выхода
+    addLogoutLink();
+    
+    console.log('✅ Кнопка обновлена на значок участника');
+}
 
-    // Сброс кнопки на "Войти"
-    function resetEnterButton() {
-        if (!elements.enterButton) return;
-        
-        // Если есть сохраненный оригинальный HTML, восстанавливаем его
-        const originalHTML = elements.enterButton.getAttribute('data-original-html');
-        if (originalHTML) {
-            elements.enterButton.innerHTML = originalHTML;
-        }
-        
-        // Убираем класс пользовательского отображения
-        elements.enterButton.classList.remove('user-display-button');
-        
-        // Сбрасываем стили
-        elements.enterButton.style.padding = '';
-        elements.enterButton.style.background = '';
-        elements.enterButton.style.border = '';
-        elements.enterButton.style.minWidth = '';
-        
-        // Обновляем обработчик
-        const newButton = elements.enterButton.cloneNode(true);
-        elements.enterButton.parentNode.replaceChild(newButton, elements.enterButton);
-        elements.enterButton = document.querySelector('.enter-button');
-        elements.enterButton.addEventListener('click', handleEnterButton);
+// Сброс кнопки на "Войти"
+function resetEnterButton() {
+    if (!elements.enterButton) return;
+    
+    // Удаляем CSS переменную
+    document.documentElement.style.removeProperty('--user-color-frame');
+    
+    // Убираем класс пользовательского отображения
+    elements.enterButton.classList.remove('user-display-button');
+    
+    // Если есть сохраненный оригинальный HTML, восстанавливаем его
+    const originalHTML = elements.enterButton.getAttribute('data-original-html');
+    if (originalHTML) {
+        elements.enterButton.innerHTML = originalHTML;
     }
+    
+    // Обновляем обработчик
+    const oldButton = elements.enterButton;
+    const newButton = oldButton.cloneNode(true);
+    oldButton.parentNode.replaceChild(newButton, oldButton);
+    elements.enterButton = document.querySelector('.enter-button');
+    elements.enterButton.addEventListener('click', handleEnterButton);
+}
 
-    // Обработка кнопки входа
-    function handleEnterButton() {
-        if (appState.isAuthenticated && appState.currentUser) {
-            handleProfileClick();
-        } else {
-            window.location.href = 'pages/enter-reg.html';
-        }
+// Обработка кнопки входа
+function handleEnterButton() {
+    if (appState.isAuthenticated && appState.currentUser) {
+        handleProfileClick();
+    } else {
+        window.location.href = 'pages/enter-reg.html';
     }
+}
 
-    // Обработка клика по профилю
-    function handleProfileClick() {
-        if (appState.currentUser) {
-            alert(`Вы вошли как: ${appState.currentUser.nickname}\nСтатус: ${appState.currentUser.actor_status}`);
-        }
+// Обработка клика по профилю
+function handleProfileClick() {
+    if (appState.currentUser) {
+        alert(`Вы вошли как: ${appState.currentUser.nickname}\nСтатус: ${appState.currentUser.actor_status}`);
     }
+}
 
     // Инициализация боковых панелей
     function initSidebarPanels() {
@@ -976,8 +904,16 @@ const AppUpdated = (function() {
             });
             console.groupEnd();
         }
+
     };
 })();
+
+
+
+// Проверяем, находимся ли на странице входа
+if (window.location.pathname.includes('enter-reg')) {
+    console.log('main-updated.js: Пропускаем инициализацию на странице входа');
+}
 
 // Инициализация приложения
 document.addEventListener('DOMContentLoaded', function() {
