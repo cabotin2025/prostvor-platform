@@ -429,25 +429,64 @@ function ensureNickname() {
     }
     
     function addLogoutLink() {
-        if (document.getElementById('logoutLinkContainer')) {
+    console.log('🎯 Добавление кнопки "Выйти" под значком пользователя...');
+    
+        // Удаляем старую кнопку выхода если она есть
+        const existingLogoutLink = document.getElementById('logoutLinkContainer');
+        if (existingLogoutLink) {
+            existingLogoutLink.remove();
+        }
+        
+        // Находим кнопку пользователя
+        const userDisplayButton = document.querySelector('.enter-button.user-display-button');
+        if (!userDisplayButton) {
+            console.error('❌ Не найден user-display-button для добавления кнопки выхода');
             return;
         }
         
-        const headerButtons = document.querySelector('.header-buttons');
-        if (!headerButtons) return;
+        // Создаем контейнер для пользователя и кнопки выхода
+        const userContainer = document.createElement('div');
+        userContainer.className = 'user-container';
+        userContainer.style.cssText = `
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            margin-right: 10px;
+        `;
         
-        const logoutLink = document.createElement('a');
-        logoutLink.id = 'logoutLinkContainer';
-        logoutLink.href = '#';
-        logoutLink.className = 'logout-link';
-        logoutLink.textContent = 'Выйти';
+        // Обернем кнопку пользователя в этот контейнер
+        const parent = userDisplayButton.parentNode;
+        if (!parent) {
+            console.error('❌ Не найден родительский элемент для кнопки пользователя');
+            return;
+        }
         
-        logoutLink.addEventListener('click', function(e) {
+        parent.insertBefore(userContainer, userDisplayButton);
+        userContainer.appendChild(userDisplayButton);
+        
+        // Создаем кнопку выхода
+        const logoutButton = document.createElement('button');
+        logoutButton.id = 'logoutLinkContainer';
+        logoutButton.type = 'button';
+        logoutButton.className = 'logout-button-under';
+        logoutButton.innerHTML = `
+            <span class="logout-text">Выйти</span>
+        `;
+        
+        
+        // Добавляем обработчики для кнопки выхода
+        logoutButton.addEventListener('click', function(e) {
             e.preventDefault();
+            e.stopPropagation();
+            console.log('🎯 Нажата кнопка "Выйти" под значком пользователя');
             handleLogout();
         });
+                     
+        // Добавляем кнопку выхода под значком пользователя
+        userContainer.appendChild(logoutButton);
         
-        headerButtons.appendChild(logoutLink);
+        console.log('✅ Кнопка "Выйти" успешно добавлена под значком пользователя');    
     }
     
     function handleLogout() {
@@ -561,7 +600,7 @@ function ensureNickname() {
             window.location.reload();
         }, 1000);
     }
-    }
+}
     
     // Обновляет кнопку "Войти" на "Профиль" для авторизованных пользователей
     function updateEnterButtonToProfile() {
@@ -575,14 +614,11 @@ function ensureNickname() {
         
         // Проверяем, не обновили ли уже
         if (elements.enterButton.classList.contains('user-display-button')) {
-            console.log('⚠️ Кнопка уже обновлена');
+            console.log('⚠️ Кнопка уже обновлена, просто добавляем кнопку "Выйти"');
+            // Если кнопка уже обновлена, просто добавляем кнопку "Выйти"
+            addLogoutLink();
             return;
         }
-
-        // ВАЖНО: Принудительно показываем кнопку
-            elements.enterButton.style.display = 'block';
-            elements.enterButton.style.visibility = 'visible';
-            elements.enterButton.style.opacity = '1';
         
         // Получаем цвет рамки из localStorage или генерируем случайный
         const colorFrame = user.color_frame || localStorage.getItem('user_color_frame') || getRandomColor();
@@ -590,7 +626,7 @@ function ensureNickname() {
         // Сохраняем цвет в CSS переменной
         document.documentElement.style.setProperty('--user-color-frame', colorFrame);
         
-        // Получаем тип участника для иконки (по умолчанию 1 - Человек)
+        // Получаем тип участника для иконки
         const actorTypeId = user.actor_type_id || 1;
         const iconPath = getActorIconPath(actorTypeId);
         
@@ -604,7 +640,7 @@ function ensureNickname() {
                     <img src="${iconPath}" alt="Иконка участника">
                 </div>
                 <div class="user-info">
-                    <div class="user-nickname">${user.nickname}</div>
+                    <div class="user-nickname">${user.nickname || 'Пользователь'}</div>
                     <div class="user-status">${statusText}</div>
                 </div>
             </div>
@@ -620,7 +656,7 @@ function ensureNickname() {
         // Обновляем стили кнопки через класс
         elements.enterButton.classList.add('user-display-button');
         
-        // Удаляем старый обработчик и добавляем новый
+        // Удаляем старый обработчик и добавляем новый для профиля
         const oldEnterButton = elements.enterButton;
         const newButton = oldEnterButton.cloneNode(true);
         oldEnterButton.parentNode.replaceChild(newButton, oldEnterButton);
@@ -631,10 +667,10 @@ function ensureNickname() {
         // Добавляем обработчик для профиля
         elements.enterButton.addEventListener('click', handleProfileClick);
         
-        // Добавляем ссылку выхода
+        // Добавляем кнопку "Выйти" под значком
         addLogoutLink();
         
-        console.log('✅ Кнопка обновлена на значок участника');
+        console.log('✅ Кнопка обновлена на значок участника с кнопкой "Выйти"');
     }
     
     // Сброс кнопки на "Войти"
@@ -646,23 +682,37 @@ function ensureNickname() {
         
         console.log('🔄 Сброс кнопки входа (выход из системы)');
         
-        // 1. Удаляем CSS переменную
+        // 1. Удаляем контейнер пользователя если он есть
+        const userContainer = document.querySelector('.user-container');
+        if (userContainer) {
+            // Возвращаем кнопку входа на исходное место
+            const userDisplayButton = userContainer.querySelector('.enter-button');
+            if (userDisplayButton && userContainer.parentNode) {
+                userContainer.parentNode.insertBefore(userDisplayButton, userContainer);
+            }
+            userContainer.remove();
+            console.log('🗑️ Контейнер пользователя с кнопкой "Выйти" удален');
+        }
+        
+        // 2. Удаляем CSS переменную
         document.documentElement.style.removeProperty('--user-color-frame');
         
-        // 2. Убираем класс пользовательского отображения
+        // 3. Убираем класс пользовательского отображения
         elements.enterButton.classList.remove('user-display-button');
         
-        // 3. ОЧИЩАЕМ ВСЕ существующие обработчики (клонируем элемент)
-        const newButton = elements.enterButton.cloneNode(true);
-        elements.enterButton.parentNode.replaceChild(newButton, elements.enterButton);
+        // 4. Очищаем и восстанавливаем кнопку входа
+        const originalHTML = elements.enterButton.getAttribute('data-original-html');
+        if (originalHTML) {
+            elements.enterButton.innerHTML = originalHTML;
+        } else {
+            // Стандартное содержимое для кнопки входа
+            elements.enterButton.innerHTML = `
+                <img src="images/enter-reg.svg" alt="Войти/Зарегистрироваться" class="enter-button-img">
+            `;
+        }
         
-        // 4. Обновляем ссылку на элемент
-        elements.enterButton = document.querySelector('.enter-button');
-        
-        // 5. Устанавливаем стандартное содержимое для кнопки входа
-        elements.enterButton.innerHTML = `
-            <img src="images/enter-reg.svg" alt="Войти/Зарегистрироваться" class="enter-button-img">
-        `;
+        // 5. Сбрасываем все стили
+        elements.enterButton.style.cssText = '';
         
         // 6. Удаляем все возможные обработчики onclick
         elements.enterButton.onclick = null;
@@ -681,19 +731,6 @@ function ensureNickname() {
         elements.enterButton.style.visibility = 'visible';
         elements.enterButton.style.opacity = '1';
         elements.enterButton.style.pointerEvents = 'auto';
-        
-        // 9. Удаляем ссылку выхода
-        const logoutLink = document.getElementById('logoutLinkContainer');
-        if (logoutLink) {
-            logoutLink.remove();
-            console.log('🗑️ Ссылка "Выйти" удалена');
-        }
-        
-        // 10. Также скрываем любой возможный user-display-container
-        const userDisplayContainer = document.querySelector('.user-display-container');
-        if (userDisplayContainer) {
-            userDisplayContainer.style.display = 'none';
-        }
         
         console.log('✅ Кнопка входа полностью сброшена');
     }
