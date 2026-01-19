@@ -260,32 +260,39 @@ async function handleRegistration(API_BASE) {
 }
 
 function saveAuthData(result) {
+    console.log('💾 Сохранение данных авторизации:', result);
+    
     if (result.token) {
         localStorage.setItem('auth_token', result.token);
-    }
-    if (result.user && result.user.nickname) {
-        localStorage.setItem('user_nickname', result.user.nickname);
-    } else if (result.nickname) {
-        localStorage.setItem('user_nickname', result.nickname);
-    }
-    if (result.user && result.user.actor_id) {
-        localStorage.setItem('user_id', result.user.actor_id.toString());
-    } else if (result.actor_id) {
-        localStorage.setItem('user_id', result.actor_id.toString());
-    }
-    if (result.user && result.user.global_status) {
-        localStorage.setItem('user_status', result.user.global_status);
-    } else if (result.global_status) {
-        localStorage.setItem('user_status', result.global_status);
-    } else {
-        localStorage.setItem('user_status', 'Участник ТЦ');
+        console.log('✅ Токен сохранен');
     }
     
-    // Сохраняем цвет если есть
-    const colorFrame = (result.user && result.user.color_frame) || result.color_frame;
-    if (colorFrame) {
-        localStorage.setItem('user_color_frame', colorFrame);
-        console.log('🎨 Color frame сохранен:', colorFrame);
+    if (result.user) {
+        // Сохраняем полный объект пользователя
+        localStorage.setItem('user_data', JSON.stringify(result.user));
+        console.log('✅ Полный user_data сохранен:', result.user.nickname);
+        
+        // Также сохраняем отдельные поля для совместимости
+        if (result.user.nickname) {
+            localStorage.setItem('user_nickname', result.user.nickname);
+            console.log('✅ nickname сохранен:', result.user.nickname);
+        }
+        if (result.user.actor_id) {
+            localStorage.setItem('user_id', result.user.actor_id.toString());
+            console.log('✅ user_id сохранен:', result.user.actor_id);
+        }
+        if (result.user.status_id) {
+            localStorage.setItem('user_status_id', result.user.status_id.toString());
+            console.log('✅ status_id сохранен:', result.user.status_id);
+        }
+        if (result.user.color_frame) {
+            localStorage.setItem('user_color_frame', result.user.color_frame);
+            console.log('✅ color_frame сохранен:', result.user.color_frame);
+        }
+    } else if (result.nickname) {
+        // Если структура ответа другая
+        localStorage.setItem('user_nickname', result.nickname);
+        console.log('✅ nickname сохранен (из result.nickname):', result.nickname);
     }
     
     console.log('💾 Данные авторизации сохранены');

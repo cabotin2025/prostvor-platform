@@ -1,8 +1,10 @@
-// main-updated.js - Полная версия с поддержкой всех функций
+// main-updated.js - Упрощенная версия для интеграции с существующими модулями
+// Версия для архитектуры "Тонкий UI-менеджер"
+// Исправлено согласно структуре БД (таблица actor, статусы и т.д.)
 
-// ========== 1. ОБЪЯВЛЯЕМ AppUpdated В НАЧАЛЕ ==========
+// ========== ОБЪЯВЛЯЕМ AppUpdated В НАЧАЛЕ ==========
 const AppUpdated = (function() {
-    // Конфигурация
+    // Конфигурация UI-элементов (не API!)
     const config = {
         defaultLocations: [
             { name: 'Москва', type: 'город', region: 'Москва' },
@@ -33,6 +35,16 @@ const AppUpdated = (function() {
             'messages': 'images/MyMessages.svg',
             'conversations': 'images/MyConversations.svg',
             'themes': 'images/MyThemes.svg'
+        },
+        // Соответствие ID статусов из БД и их названий
+        statusMap: {
+            1: 'Руководитель ТЦ',
+            2: 'Куратор направления',
+            3: 'Проектный куратор',
+            4: 'Руководитель проекта',
+            5: 'Администратор проекта',
+            6: 'Участник проекта',
+            7: 'Участник ТЦ'
         }
     };
 
@@ -51,7 +63,7 @@ const AppUpdated = (function() {
         helpButton: document.querySelector('.help-button')
     };
 
-    // Состояние приложения
+    // Состояние приложения - УПРОЩЕННАЯ ВЕРСИЯ
     let appState = {
         isAuthenticated: false,
         currentUser: null,
@@ -60,22 +72,90 @@ const AppUpdated = (function() {
         locations: []
     };
 
-    // Инициализация приложения
+    // ========== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ (определяем в начале) ==========
+    
+    // Показать уведомление
+    function showNotification(message, type = 'info') {
+        if (!elements.notification) {
+            console.log(`[${type}] ${message}`);
+            return;
+        }
+        
+        elements.notification.textContent = message;
+        elements.notification.className = `notification ${type} show`;
+        
+        setTimeout(() => {
+            elements.notification.classList.remove('show');
+        }, 3000);
+    }
+
+    // Скрыть прелоадер
+    function hidePreloader() {
+        if (!elements.preloader) return;
+        
+        setTimeout(() => {
+            elements.preloader.classList.add('hidden');
+        }, 500);
+    }
+
+    // Переключение выпадающего списка городов
+    function toggleCityDropdown(e) {
+        if (!elements.cityDropdown) return;
+        
+        e.stopPropagation();
+        elements.cityDropdown.classList.toggle('show');
+    }
+
+    // Закрытие выпадающего списка городов
+    function closeCityDropdown() {
+        if (elements.cityDropdown) {
+            elements.cityDropdown.classList.remove('show');
+        }
+    }
+
+    // Обработка кликов в выпадающем списке
+    function handleCityDropdownClick(e) {
+        e.stopPropagation();
+    }
+
+    // ========== ФУНКЦИИ ДЛЯ РАБОТЫ СО СТАТУСАМИ (согласно БД) ==========
+    
+    // Получить название статуса по ID из БД
+    function getStatusName(statusId) {
+        return config.statusMap[statusId] || 'Участник ТЦ';
+    }
+    
+    // Проверка, может ли пользователь создать проект
+    function canCreateProject(userStatusId) {
+        // Создать проект может любой авторизованный пользователь
+        // В БД статусы от 1 (Руководитель ТЦ) до 7 (Участник ТЦ)
+        return userStatusId >= 1 && userStatusId <= 7;
+    }
+    
+    // ========== ИНИЦИАЛИЗАЦИЯ ПРИЛОЖЕНИЯ ==========
     async function init() {
         try {
-            console.log('🚀 AppUpdated запускается...');
-            console.log('🔍 Поиск элементов DOM:');
-            console.log('- .enter-button:', document.querySelector('.enter-button'));
-            console.log('- .header-buttons:', document.querySelector('.header-buttons'));
-            console.log('- #sidebarPanels:', document.getElementById('sidebarPanels'));
+            console.log('🚀 AppUpdated запускается (упрощенная версия)...');
+            console.log('🔍 Проверяем элементы DOM:', {
+                cityName: !!elements.cityName,
+                enterButton: !!elements.enterButton,
+                sidebarPanels: !!elements.sidebarPanels
+            });
             
             // Показываем прелоадер если есть
             if (elements.preloader) {
                 elements.preloader.style.display = 'block';
             }
             
-            // Проверяем авторизацию
-            await checkAuthStatus();
+            // Проверяем доступность глобальных модулей
+            checkGlobalDependencies();
+            
+            // Определяем состояние авторизации
+            await refreshAuthState();
+            ensureNickname();
+            
+            // Инициализируем систему прав (auth-permissions.js) если есть
+            await initAuthPermissions();
             
             // Настраиваем обработчики событий
             setupEventListeners();
@@ -92,14 +172,8 @@ const AppUpdated = (function() {
             // Настраиваем выпадающие меню
             setupDropdownMenu();
             
-            // Если пользователь авторизован, инициализируем панели
-            if (appState.isAuthenticated && appState.currentUser) {
-                initSidebarPanels();
-                updateEnterButtonToProfile();
-            } else {
-                // Если не авторизован, скрываем кнопку профиля
-                resetEnterButton();
-            }
+            // Обновляем UI в зависимости от статуса
+            updateUIByAuthStatus();
             
             // Скрываем прелоадер
             hidePreloader();
@@ -113,287 +187,412 @@ const AppUpdated = (function() {
             }, 100);
             
             console.log('✅ AppUpdated инициализирован');
-            console.log('👤 Пользователь:', appState.currentUser);
-            console.log('📊 Авторизован:', appState.isAuthenticated);
+            console.log('👤 Текущий пользователь:', appState.currentUser ? {
+                nickname: appState.currentUser.nickname,
+                status_id: appState.currentUser.status_id,
+                status: appState.currentUser.status
+            } : 'гость');
             
         } catch (error) {
             console.error('❌ Ошибка инициализации приложения:', error);
             hidePreloader();
+            showNotification('Ошибка инициализации приложения', 'error');
         }
     }
 
-   
-    // Проверяем наличие данных в localStorage
-    const authToken = localStorage.getItem('auth_token');
+    // ========== РАБОТА С ГЛОБАЛЬНЫМИ МОДУЛЯМИ ==========
+    
+    function checkGlobalDependencies() {
+        const missing = [];
+        
+        if (!window.apiService) {
+            console.warn('⚠️ window.apiService не найден. API-запросы могут не работать.');
+            missing.push('apiService');
+        }
+        
+        if (!window.authPermissions) {
+            console.warn('⚠️ window.authPermissions не найден. Проверка прав может не работать.');
+            missing.push('authPermissions');
+        }
+        
+        if (missing.length > 0) {
+            console.log('📋 Отсутствующие зависимости:', missing);
+        }
+    }
+    
+    async function initAuthPermissions() {
+        // Инициализируем auth-permissions.js если он еще не инициализирован
+        if (window.authPermissions && typeof window.authPermissions.init === 'function') {
+            try {
+                await window.authPermissions.init();
+                console.log('✅ AuthPermissions инициализирован');
+            } catch (error) {
+                console.error('❌ Ошибка инициализации AuthPermissions:', error);
+            }
+        }
+    }
+    
+        // ========== ОБНОВЛЕНИЕ СОСТОЯНИЯ АВТОРИЗАЦИИ ==========
+        
+    async function refreshAuthState() {
+    console.log('🔄 Обновление состояния авторизации...');
+    
+    // Определяем статус авторизации - проверяем несколько источников
+    const token = localStorage.getItem('auth_token');
     const userDataStr = localStorage.getItem('user_data');
     
-    if (authToken && userDataStr) {
+    appState.isAuthenticated = !!(token || userDataStr);
+    
+    if (appState.isAuthenticated) {
         try {
-            const userData = JSON.parse(userDataStr);
-            console.log('👤 Обновляем UI для:', userData.nickname);
+            // Пробуем получить данные из разных источников
+            let userData = null;
             
-            // Находим кнопку входа
-            const enterButton = document.querySelector('.enter-button');
-            if (enterButton) {
-                
-                // Заменяем кнопку входа
-                enterButton.parentNode.replaceChild(userIcon, enterButton);
-                
-                // Добавляем ссылку выхода
-                addLogoutLink();
+            // 1. Пробуем из user_data (если communications-icons.js сохранил)
+            if (userDataStr) {
+                try {
+                    const parsedUserData = JSON.parse(userDataStr);
+                    if (parsedUserData && parsedUserData.actor_id) {
+                        userData = parsedUserData;
+                        console.log('📦 Данные пользователя взяты из user_data:', {
+                            nickname: userData.nickname,
+                            actor_id: userData.actor_id
+                        });
+                    }
+                } catch (e) {
+                    console.warn('⚠️ Ошибка парсинга user_data:', e);
+                }
             }
             
-            appState.isAuthenticated = true;
+            // 2. Пробуем из authPermissions
+            if (!userData && window.authPermissions && window.authPermissions.currentUser) {
+                userData = window.authPermissions.currentUser;
+                console.log('📦 Данные пользователя взяты из authPermissions:', {
+                    nickname: userData.nickname,
+                    actor_id: userData.actor_id
+                });
+            }
+            // 3. Пробуем из window.currentUser
+            else if (!userData && window.currentUser && window.currentUser.actor_id) {
+                userData = window.currentUser;
+                console.log('📦 Данные пользователя взяты из window.currentUser:', {
+                    nickname: userData.nickname,
+                    actor_id: userData.actor_id
+                });
+            }
+            // 4. Собираем из localStorage отдельных полей
+            else if (!userData) {
+                const userId = localStorage.getItem('user_id');
+                const nickname = localStorage.getItem('user_nickname');
+                const statusId = localStorage.getItem('user_status_id') || '7';
+                
+                if (userId || nickname) {
+                    userData = {
+                        actor_id: userId ? parseInt(userId) : null,
+                        nickname: nickname || 'Пользователь',
+                        status_id: parseInt(statusId),
+                        status: getStatusName(parseInt(statusId)),
+                        actor_status: getStatusName(parseInt(statusId)),
+                        email: localStorage.getItem('user_email') || '',
+                        account: localStorage.getItem('user_account') || '',
+                        color_frame: localStorage.getItem('user_color_frame') || getRandomColor(),
+                        actor_type_id: parseInt(localStorage.getItem('user_type_id') || '1')
+                    };
+                    console.log('📦 Данные пользователя собраны из localStorage:', {
+                        nickname: userData.nickname,
+                        actor_id: userData.actor_id
+                    });
+                }
+            }
+            
             appState.currentUser = userData;
             
+            if (!userData) {
+                console.warn('⚠️ Есть токен/user_data, но не удалось получить данные пользователя');
+                appState.isAuthenticated = false;
+            }
+            
         } catch (error) {
-            console.error('Ошибка обновления UI:', error);
+            console.error('❌ Ошибка получения данных пользователя:', error);
+            appState.currentUser = null;
+            appState.isAuthenticated = false;
         }
     } else {
-        console.log('🔓 Нет данных авторизации, сбрасываем UI');
-        resetEnterButton();
-    };
-
-    // Проверка статуса авторизации
-    async function checkAuthStatus() {
-    console.log('🔐 Проверка авторизации...');
-    
-    const authToken = localStorage.getItem('auth_token');
-    
-    if (!authToken) {
-        console.log('❌ Нет токена в localStorage');
-        appState.isAuthenticated = false;
         appState.currentUser = null;
-        return false;
+        console.log('👤 Пользователь не авторизован (нет токена и user_data)');
     }
     
-    try {
-        // 1. Проверяем токен
-        const verifyResponse = await fetch('/api/auth/verify.php', {
-            headers: { 'Authorization': `Bearer ${authToken}` }
-        });
-        
-        const verifyData = await verifyResponse.json();
-        
-        if (!verifyData.success || !verifyData.valid) {
-            throw new Error('Токен невалиден');
-        }
-        
-        console.log('✅ Токен валиден');
-        
-        // 2. Получаем данные пользователя через me.php
-        const meResponse = await fetch('/api/auth/me.php', {
-            headers: { 'Authorization': `Bearer ${authToken}` }
-        });
-        
-        if (!meResponse.ok) {
-            throw new Error(`HTTP ${meResponse.status}`);
-        }
-        
-        const meData = await meResponse.json();
-        
-        if (!meData.success) {
-            throw new Error(meData.message || 'Ошибка получения данных');
-        }
-        
-        console.log('📦 Данные пользователя:', meData.actor);
-        
-        // 3. Создаем объект пользователя
-        appState.isAuthenticated = true;
-        appState.currentUser = {
-            actor_id: meData.actor.actor_id,
-            nickname: meData.actor.nickname,
-            display_name: meData.actor.display_name || meData.actor.nickname,
-            email: meData.actor.email,
-            status_id: meData.actor.actor_status_id || 7,
-            actor_status: meData.actor.actor_status || 'Участник ТЦ',
-            actor_type_id: meData.actor.actor_type_id || 1,
-            color_frame: meData.actor.color_frame || '#4ECDC4',
-            account: meData.actor.account || ''
-        };
-        
-        // 4. Сохраняем в localStorage для обратной совместимости
-        localStorage.setItem('user_id', appState.currentUser.actor_id.toString());
-        localStorage.setItem('user_nickname', appState.currentUser.nickname);
-        localStorage.setItem('user_email', appState.currentUser.email);
-        localStorage.setItem('user_status', appState.currentUser.actor_status);
-        localStorage.setItem('user_status_id', appState.currentUser.status_id.toString());
-        localStorage.setItem('user_data', JSON.stringify(appState.currentUser));
-        
-        console.log('✅ Пользователь авторизован:', appState.currentUser.nickname);
-        return true;
-        
-    } catch (error) {
-        console.error('❌ Ошибка проверки авторизации:', error);
-        appState.isAuthenticated = false;
-        appState.currentUser = null;
-        localStorage.removeItem('auth_token');
-        return false;
-    }
-    }
-
- // Функции для обновления кнопки входа на профиль
-function getRandomColor() {
-    const colors = [
-        '#FF6B6B', '#4ECDC4', '#FFD166', '#06D6A0',
-        '#118AB2', '#7209B7', '#FF9E6D', '#83E377'
-    ];
-    return colors[Math.floor(Math.random() * colors.length)];
-}
-
-function getActorIconPath(actorTypeId) {
-    switch(actorTypeId) {
-        case 1: return '../images/PersActor.svg';    // Человек
-        case 2: return '../images/CommActor.svg';    // Сообщество
-        case 3: return '../images/OrgActor.svg';     // Организация
-        default: return '../images/PersActor.svg';
-    }
-}
-
-function formatUserStatus(status) {
-    if (!status) return 'Участник ТЦ';
-    
-    switch(status) {
-        case 'Руководитель ТЦ':
-            return 'Руководитель ТЦ';
-        case 'Куратор направления':
-            return 'Куратор направления';
-        default:
-            return 'Участник ТЦ';
-    }
-}
-
-function addLogoutLink() {
-    if (document.getElementById('logoutLinkContainer')) {
-        return;
-    }
-    
-    const headerButtons = document.querySelector('.header-buttons');
-    if (!headerButtons) return;
-    
-    const logoutLink = document.createElement('a');
-    logoutLink.id = 'logoutLinkContainer';
-    logoutLink.href = '#';
-    logoutLink.className = 'logout-link';
-    logoutLink.textContent = 'Выйти';
-    
-    logoutLink.addEventListener('click', function(e) {
-        e.preventDefault();
-        handleLogout();
+    console.log('📊 Текущий статус:', {
+        isAuthenticated: appState.isAuthenticated,
+        user: appState.currentUser ? appState.currentUser.nickname : 'гость',
+        status_id: appState.currentUser ? appState.currentUser.status_id : 'нет',
+        full_user_object: appState.currentUser
     });
     
-    headerButtons.appendChild(logoutLink);
+    return appState.isAuthenticated;
 }
 
-function handleLogout() {
-    if (confirm('Вы уверены, что хотите выйти?')) {
-        // Очищаем localStorage
-        localStorage.removeItem('auth_token');
-        localStorage.removeItem('actor_nickname');
-        localStorage.removeItem('actor_id');
-        localStorage.removeItem('actor_status');
-        localStorage.removeItem('actor_data');
-        localStorage.removeItem('actor_color_frame');
-        localStorage.removeItem('actor_email');
-        localStorage.removeItem('actor_status_id');
+// Функция для принудительного обновления nickname
+function ensureNickname() {
+    if (appState.currentUser && !appState.currentUser.nickname) {
+        // Пробуем получить nickname из разных источников
+        const sources = [
+            localStorage.getItem('user_nickname'),
+            localStorage.getItem('user_data') ? JSON.parse(localStorage.getItem('user_data')).nickname : null,
+            window.currentUser?.nickname,
+            window.authPermissions?.currentUser?.nickname
+        ];
         
-        // Сбрасываем состояние
-        appState.isAuthenticated = false;
-        appState.currentUser = null;
-        
-        // Сбрасываем кнопку
-        resetEnterButton();
-        
-        // Удаляем ссылку выхода
-        const logoutLink = document.getElementById('logoutLinkContainer');
-        if (logoutLink) {
-            logoutLink.remove();
+        for (const source of sources) {
+            if (source) {
+                appState.currentUser.nickname = source;
+                console.log('✅ Nickname установлен из источника:', source);
+                return;
+            }
         }
         
-        // Удаляем кастомные CSS переменные
-        document.documentElement.style.removeProperty('--user-color-frame');
-        
-        // Показываем уведомление
-        showNotification('Вы успешно вышли из системы', 'success');
-        
-        // Через секунду можно перезагрузить страницу
-        setTimeout(() => {
-            window.location.reload();
-        }, 1000);
+        // Если ничего не найдено, установите значение по умолчанию
+        appState.currentUser.nickname = 'Пользователь';
+        console.log('⚠️ Nickname установлен по умолчанию');
     }
 }
-
-// Обновляет кнопку "Войти" на "Профиль" для авторизованных пользователей
-function updateEnterButtonToProfile() {
-    if (!elements.enterButton || !appState.currentUser) {
-        console.error('❌ Не могу обновить кнопку: enterButton=', elements.enterButton, 'currentUser=', appState.currentUser);
-        return;
+    
+    // ========== ОБНОВЛЕНИЕ UI ==========
+    
+    function updateUIByAuthStatus() {
+    console.log('🎨 Обновление UI по статусу авторизации...', {
+        isAuthenticated: appState.isAuthenticated,
+        user: appState.currentUser ? appState.currentUser.nickname : 'гость'
+    });
+    
+    // Обновляем кнопку входа/профиля
+    updateEnterButton();
+    
+    // Инициализируем или скрываем панели
+    if (appState.isAuthenticated && appState.currentUser) {
+        console.log('👤 Показываем панели для авторизованного пользователя');
+        initSidebarPanels();
+    } else {
+        console.log('👥 Скрываем панели для гостя');
+        // Скрываем панели для гостей
+        if (elements.sidebarPanels) {
+            elements.sidebarPanels.style.display = 'none';
+        }
+        // Также сбрасываем флаг инициализации
+        appState.panelsInitialized = false;
     }
     
-    console.log('🔧 Обновляю кнопку входа на значок участника для:', appState.currentUser.nickname);
-    
-    // Проверяем, не обновили ли уже
-    if (elements.enterButton.classList.contains('user-display-button')) {
-        console.log('⚠️ Кнопка уже обновлена');
-        return;
+    // Применяем права к UI (через authPermissions если есть)
+    if (window.authPermissions && typeof window.authPermissions.applyPermissionsToUI === 'function') {
+        try {
+            window.authPermissions.applyPermissionsToUI();
+        } catch (error) {
+            console.error('Ошибка применения прав к UI:', error);
+        }
+    }
     }
     
-    // Получаем цвет рамки из localStorage или генерируем случайный
-    const colorFrame = localStorage.getItem('user_color_frame') || getRandomColor();
+    // ========== ОБНОВЛЕНИЕ КНОПКИ ВХОДА ==========
     
-    // Сохраняем цвет в CSS переменной
-    document.documentElement.style.setProperty('--user-color-frame', colorFrame);
+    function updateEnterButton() {
+        if (!elements.enterButton) {
+            console.error('❌ Кнопка входа не найдена');
+            return;
+        }
+        
+        console.log('🔄 Обновление кнопки входа, статус:', appState.isAuthenticated ? 'авторизован' : 'гость');
+        
+        if (appState.isAuthenticated && appState.currentUser) {
+            updateEnterButtonToProfile();
+        } else {
+            resetEnterButton();
+        }
+    }
     
-    // Получаем тип участника для иконки
-    const actorTypeId = appState.currentUser.actor_type_id || 1;
-    const iconPath = getActorIconPath(actorTypeId);
+    // Функции для обновления кнопки входа на профиль
+    function getRandomColor() {
+        const colors = [
+            '#FF6B6B', '#4ECDC4', '#FFD166', '#06D6A0',
+            '#118AB2', '#7209B7', '#FF9E6D', '#83E377'
+        ];
+        return colors[Math.floor(Math.random() * colors.length)];
+    }
     
-    // Форматируем статус
-    const statusText = formatUserStatus(appState.currentUser.actor_status);
+    function getActorIconPath(actorTypeId) {
+        const typeId = actorTypeId || 1;
+        switch(typeId) {
+            case 1: return '../images/PersActor.svg';
+            case 2: return '../images/CommActor.svg';
+            case 3: return '../images/OrgActor.svg';
+            default: return '../images/PersActor.svg';
+        }
+    }
     
-    // Создаем HTML для значка участника
-    const userDisplayHTML = `
-        <div class="user-display-button-content">
-            <div class="user-icon">
-                <img src="${iconPath}" alt="Иконка участника">
-            </div>
-            <div class="user-info">
-                <div class="user-nickname">${appState.currentUser.nickname}</div>
-                <div class="user-status">${statusText}</div>
-            </div>
-        </div>
-    `;
+    function addLogoutLink() {
+        if (document.getElementById('logoutLinkContainer')) {
+            return;
+        }
+        
+        const headerButtons = document.querySelector('.header-buttons');
+        if (!headerButtons) return;
+        
+        const logoutLink = document.createElement('a');
+        logoutLink.id = 'logoutLinkContainer';
+        logoutLink.href = '#';
+        logoutLink.className = 'logout-link';
+        logoutLink.textContent = 'Выйти';
+        
+        logoutLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            handleLogout();
+        });
+        
+        headerButtons.appendChild(logoutLink);
+    }
     
-    // Сохраняем оригинальный HTML
-    const originalHTML = elements.enterButton.innerHTML;
-    elements.enterButton.setAttribute('data-original-html', originalHTML);
-    
-    // Меняем содержимое кнопки
-    elements.enterButton.innerHTML = userDisplayHTML;
-    
-    // Обновляем стили кнопки через класс
-    elements.enterButton.classList.add('user-display-button');
-    
-    // Удаляем старый обработчик и добавляем новый
-    const oldEnterButton = elements.enterButton;
-    const newButton = oldEnterButton.cloneNode(true);
-    oldEnterButton.parentNode.replaceChild(newButton, oldEnterButton);
-    
-    // Обновляем ссылку на элемент
-    elements.enterButton = document.querySelector('.enter-button');
-    
-    // Добавляем обработчик для профиля
-    elements.enterButton.addEventListener('click', handleProfileClick);
-    
-    // Добавляем ссылку выхода
-    addLogoutLink();
-    
-    console.log('✅ Кнопка обновлена на значок участника');
-}
+    function handleLogout() {
+        if (confirm('Вы уверены, что хотите выйти?')) {
+            // Очищаем localStorage
+            localStorage.removeItem('auth_token');
+            localStorage.removeItem('user_nickname');
+            localStorage.removeItem('user_id');
+            localStorage.removeItem('user_status_id');
+            localStorage.removeItem('user_email');
+            localStorage.removeItem('user_account');
+            localStorage.removeItem('user_color_frame');
+            
+            // Сбрасываем глобальные объекты если они есть
+            if (window.currentUser) {
+                window.currentUser = {
+                    actor_id: null,
+                    global_status: 'Гость',
+                    project_roles: {},
+                    permissions: {}
+                };
+            }
+            
+            if (window.authPermissions) {
+            try {
+                window.authPermissions.setGuestMode();
+                console.log('🔄 authPermissions переведен в режим гостя');
+            } catch (e) {
+                console.error('Ошибка сброса authPermissions:', e);
+            }
+            }
+            
+            // Сбрасываем состояние
+            appState.isAuthenticated = false;
+            appState.currentUser = null;
+            
+            // Сбрасываем кнопку
+            resetEnterButton();
+            
+            // Удаляем ссылку выхода
+            const logoutLink = document.getElementById('logoutLinkContainer');
+            if (logoutLink) {
+                logoutLink.remove();
+            }
+            
+            // Удаляем кастомные CSS переменные
+            document.documentElement.style.removeProperty('--user-color-frame');
+            
+            // Обновляем UI
+            updateUIByAuthStatus();
 
-// Сброс кнопки на "Войти"
-function resetEnterButton() {
+            // Скрываем панели для гостей
+            if (elements.sidebarPanels) {
+                elements.sidebarPanels.style.display = 'none';
+            }
+            
+            // Показываем уведомление
+            showNotification('Вы успешно вышли из системы', 'success');
+            
+            // Перезагружаем страницу через секунду
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
+        }
+    }
+    
+    // Обновляет кнопку "Войти" на "Профиль" для авторизованных пользователей
+    function updateEnterButtonToProfile() {
+        if (!elements.enterButton || !appState.currentUser) {
+            console.error('❌ Не могу обновить кнопку: enterButton или currentUser отсутствует');
+            return;
+        }
+        
+        const user = appState.currentUser;
+        console.log('🔧 Обновляю кнопку входа на значок участника для:', user.nickname);
+        
+        // Проверяем, не обновили ли уже
+        if (elements.enterButton.classList.contains('user-display-button')) {
+            console.log('⚠️ Кнопка уже обновлена');
+            return;
+        }
+
+        // ВАЖНО: Принудительно показываем кнопку
+            elements.enterButton.style.display = 'block';
+            elements.enterButton.style.visibility = 'visible';
+            elements.enterButton.style.opacity = '1';
+        
+        // Получаем цвет рамки из localStorage или генерируем случайный
+        const colorFrame = user.color_frame || localStorage.getItem('user_color_frame') || getRandomColor();
+        
+        // Сохраняем цвет в CSS переменной
+        document.documentElement.style.setProperty('--user-color-frame', colorFrame);
+        
+        // Получаем тип участника для иконки (по умолчанию 1 - Человек)
+        const actorTypeId = user.actor_type_id || 1;
+        const iconPath = getActorIconPath(actorTypeId);
+        
+        // Получаем статус пользователя
+        const statusText = user.status || user.actor_status || getStatusName(user.status_id) || 'Участник ТЦ';
+        
+        // Создаем HTML для значка участника
+        const userDisplayHTML = `
+            <div class="user-display-button-content">
+                <div class="user-icon">
+                    <img src="${iconPath}" alt="Иконка участника">
+                </div>
+                <div class="user-info">
+                    <div class="user-nickname">${user.nickname}</div>
+                    <div class="user-status">${statusText}</div>
+                </div>
+            </div>
+        `;
+        
+        // Сохраняем оригинальный HTML
+        const originalHTML = elements.enterButton.innerHTML;
+        elements.enterButton.setAttribute('data-original-html', originalHTML);
+        
+        // Меняем содержимое кнопки
+        elements.enterButton.innerHTML = userDisplayHTML;
+        
+        // Обновляем стили кнопки через класс
+        elements.enterButton.classList.add('user-display-button');
+        
+        // Удаляем старый обработчик и добавляем новый
+        const oldEnterButton = elements.enterButton;
+        const newButton = oldEnterButton.cloneNode(true);
+        oldEnterButton.parentNode.replaceChild(newButton, oldEnterButton);
+        
+        // Обновляем ссылку на элемент
+        elements.enterButton = document.querySelector('.enter-button');
+        
+        // Добавляем обработчик для профиля
+        elements.enterButton.addEventListener('click', handleProfileClick);
+        
+        // Добавляем ссылку выхода
+        addLogoutLink();
+        
+        console.log('✅ Кнопка обновлена на значок участника');
+    }
+    
+    // Сброс кнопки на "Войти"
+    function resetEnterButton() {
     if (!elements.enterButton) return;
+    
+    console.log('🔄 Сброс кнопки входа');
     
     // Удаляем CSS переменную
     document.documentElement.style.removeProperty('--user-color-frame');
@@ -401,36 +600,61 @@ function resetEnterButton() {
     // Убираем класс пользовательского отображения
     elements.enterButton.classList.remove('user-display-button');
     
-    // Если есть сохраненный оригинальный HTML, восстанавливаем его
-    const originalHTML = elements.enterButton.getAttribute('data-original-html');
-    if (originalHTML) {
-        elements.enterButton.innerHTML = originalHTML;
+    // ОЧИЩАЕМ ВСЕ существующие обработчики
+    const newButton = elements.enterButton.cloneNode(true);
+    elements.enterButton.parentNode.replaceChild(newButton, elements.enterButton);
+    
+    // Обновляем ссылку на элемент
+    elements.enterButton = document.querySelector('.enter-button');
+    
+    // Устанавливаем стандартное содержимое для кнопки входа
+    elements.enterButton.innerHTML = `
+        <img src="images/enter-reg.svg" alt="Войти/Зарегистрироваться" class="enter-button-img">
+    `;
+    
+    // Добавляем обработчик для перехода на страницу входа
+    elements.enterButton.addEventListener('click', handleEnterButton);
+    
+    // Убедимся, что кнопка видима
+    elements.enterButton.style.display = 'block';
+    elements.enterButton.style.visibility = 'visible';
+    elements.enterButton.style.opacity = '1';
+    
+    // Удаляем ссылку выхода
+    const logoutLink = document.getElementById('logoutLinkContainer');
+    if (logoutLink) {
+        logoutLink.remove();
     }
     
-    // Обновляем обработчик
-    const oldButton = elements.enterButton;
-    const newButton = oldButton.cloneNode(true);
-    oldButton.parentNode.replaceChild(newButton, oldButton);
-    elements.enterButton = document.querySelector('.enter-button');
-    elements.enterButton.addEventListener('click', handleEnterButton);
-}
-
-// Обработка кнопки входа
-function handleEnterButton() {
-    if (appState.isAuthenticated && appState.currentUser) {
-        handleProfileClick();
-    } else {
-        window.location.href = 'pages/enter-reg.html';
+    // Также скрываем любой возможный user-display-container
+    const userDisplayContainer = document.querySelector('.user-display-container');
+    if (userDisplayContainer) {
+        userDisplayContainer.style.display = 'none';
     }
-}
-
-// Обработка клика по профилю
-function handleProfileClick() {
-    if (appState.currentUser) {
-        alert(`Вы вошли как: ${appState.currentUser.nickname}\nСтатус: ${appState.currentUser.actor_status}`);
+    
+    console.log('✅ Кнопка входа сброшена');
     }
-}
-
+    
+    // Обработка кнопки входа
+    function handleEnterButton() {
+        if (appState.isAuthenticated && appState.currentUser) {
+            handleProfileClick();
+        } else {
+            window.location.href = 'pages/enter-reg.html';
+        }
+    }
+    
+    // Обработка клика по профилю
+    function handleProfileClick() {
+        if (appState.currentUser) {
+            const user = appState.currentUser;
+            const statusText = user.status || user.actor_status || getStatusName(user.status_id) || 'Участник ТЦ';
+            alert(`Вы вошли как: ${user.nickname}\nСтатус: ${statusText}\nID: ${user.actor_id}`);
+        }
+    }
+    
+    // ========== БОКОВЫЕ ПАНЕЛИ ==========
+    
     // Инициализация боковых панелей
     function initSidebarPanels() {
         if (appState.panelsInitialized || !elements.sidebarPanels) return;
@@ -569,9 +793,14 @@ function handleProfileClick() {
         });
     }
 
+    // ========== ГОРОДА И ЛОКАЦИИ ==========
+    
     // Инициализация городов
     function initializeCities() {
-        if (!elements.cityName) return;
+        if (!elements.cityName) {
+            console.warn('⚠️ Элемент cityName не найден');
+            return;
+        }
         
         const savedCity = localStorage.getItem('selectedCity') || 'Улан-Удэ';
         elements.cityName.textContent = savedCity;
@@ -594,7 +823,10 @@ function handleProfileClick() {
 
     // Рендер списка городов
     function renderCitiesList(cities) {
-        if (!elements.cityDropdown) return;
+        if (!elements.cityDropdown) {
+            console.warn('⚠️ Элемент cityDropdown не найден');
+            return;
+        }
         
         const addCityForm = document.querySelector('.add-city');
         
@@ -690,10 +922,14 @@ function handleProfileClick() {
         }
     }
 
+    // ========== НАВИГАЦИЯ ==========
+    
     // Настройка навигации
     function setupNavigation() {
         const navLinks = document.querySelectorAll('.nav-link');
         const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        
+        console.log('📍 Текущая страница:', currentPage);
         
         navLinks.forEach(link => {
             link.classList.remove('active');
@@ -728,7 +964,7 @@ function handleProfileClick() {
         activeIndicator.style.transition = 'all 0.3s ease';
     }
 
-    // Настройка шестиугольных кнопок
+    // Настройка шестиугольных кнопки
     function setupHexagonButtons() {
         Object.keys(config.hexagonButtons).forEach(buttonId => {
             const button = document.getElementById(buttonId);
@@ -736,6 +972,8 @@ function handleProfileClick() {
                 button.addEventListener('click', () => {
                     window.location.href = config.hexagonButtons[buttonId];
                 });
+            } else {
+                console.warn(`⚠️ Кнопка ${buttonId} не найдена`);
             }
         });
     }
@@ -772,15 +1010,18 @@ function handleProfileClick() {
         
         const userStatusId = appState.currentUser.status_id;
         
-        if (userStatusId >= 7) { // Участник ТЦ и выше
+        if (canCreateProject(userStatusId)) {
             window.location.href = 'pages/ProjectMain.html';
         } else {
-            showNotification(`Для создания проекта ваш статус "${appState.currentUser.actor_status}" недостаточен`, 'error');
+            const statusName = getStatusName(userStatusId);
+            showNotification(`Для создания проекта ваш статус "${statusName}" недостаточен`, 'error');
         }
     }
 
-    // Настройка обработчиков
+    // ========== НАСТРОЙКА ОБРАБОТЧИКОВ СОБЫТИЙ ==========
     function setupEventListeners() {
+        console.log('🔧 Настройка обработчиков событий...');
+        
         // Городской селектор
         if (elements.cityName) {
             elements.cityName.addEventListener('click', toggleCityDropdown);
@@ -812,7 +1053,7 @@ function handleProfileClick() {
         }
         
         if (elements.enterButton) {
-            elements.enterButton.addEventListener('click', handleEnterButton);
+            // Обработчик будет установлен в resetEnterButton или updateEnterButtonToProfile
         }
 
         // Ссылка "Как это работает"
@@ -822,67 +1063,25 @@ function handleProfileClick() {
                 window.location.href = 'pages/HowItWorks.html';
             });
         }
-    }
-
-    // Переключение выпадающего списка
-    function toggleCityDropdown(e) {
-        if (!elements.cityDropdown) return;
         
-        e.stopPropagation();
-        elements.cityDropdown.classList.toggle('show');
+        console.log('✅ Обработчики событий настроены');
     }
 
-    // Закрытие выпадающего списка
-    function closeCityDropdown() {
-        if (elements.cityDropdown) {
-            elements.cityDropdown.classList.remove('show');
-        }
-    }
-
-    // Обработка кликов в выпадающем списке
-    function handleCityDropdownClick(e) {
-        e.stopPropagation();
-    }
-
-    // Показать уведомление
-    function showNotification(message, type = 'info') {
-        if (!elements.notification) return;
-        
-        elements.notification.textContent = message;
-        elements.notification.className = `notification ${type} show`;
-        
-        setTimeout(() => {
-            elements.notification.classList.remove('show');
-        }, 3000);
-    }
-
-    // Скрыть прелоадер
-    function hidePreloader() {
-        if (!elements.preloader) return;
-        
-        setTimeout(() => {
-            elements.preloader.classList.add('hidden');
-        }, 500);
-    }
-
-    // Публичные методы
+    // ========== ПУБЛИЧНЫЕ МЕТОДЫ ==========
     return {
         init: init,
         showNotification: showNotification,
         updateActiveIndicator: updateActiveIndicator,
         
-        // Методы для обновления состояния
-        refreshAuthState: function() {
-            console.log('🔄 Обновление состояния авторизации...');
-            checkAuthStatus().then(() => {
-                if (appState.isAuthenticated) {
-                    initSidebarPanels();
-                    updateEnterButtonToProfile();
-                } else {
-                    resetEnterButton();
-                }
-            });
-        },
+        // Метод для обновления состояния авторизации
+        refreshAuthState: refreshAuthState,
+        
+        // Метод для обновления UI
+        updateUI: updateUIByAuthStatus,
+        
+        // Вспомогательные методы
+        getStatusName: getStatusName,
+        canCreateProject: canCreateProject,
         
         // Геттеры
         getState: function() {
@@ -897,6 +1096,11 @@ function handleProfileClick() {
         debugInfo: function() {
             console.group('📊 AppUpdated Debug Info');
             console.log('Состояние:', this.getState());
+            console.log('Глобальные объекты:', {
+                apiService: !!window.apiService,
+                authPermissions: !!window.authPermissions,
+                currentUser: !!window.currentUser
+            });
             console.log('Элементы:', {
                 sidebarPanels: !!elements.sidebarPanels,
                 enterButton: !!elements.enterButton,
@@ -904,30 +1108,34 @@ function handleProfileClick() {
             });
             console.groupEnd();
         }
-
     };
 })();
 
-
+// ========== ГЛОБАЛЬНАЯ ИНИЦИАЛИЗАЦИЯ ==========
 
 // Проверяем, находимся ли на странице входа
 if (window.location.pathname.includes('enter-reg')) {
     console.log('main-updated.js: Пропускаем инициализацию на странице входа');
+} else {
+    // Инициализация приложения
+    document.addEventListener('DOMContentLoaded', function() {
+        // Ждем немного, чтобы другие скрипты успели загрузиться
+        setTimeout(() => {
+            AppUpdated.init();
+        }, 100);
+    });
 }
 
-// Инициализация приложения
-document.addEventListener('DOMContentLoaded', function() {
-    AppUpdated.init();
-});
-
-// Экспорт
+// Экспорт для глобального использования
 window.AppUpdated = AppUpdated;
 
 // Слушаем события авторизации
 window.addEventListener('auth-changed', function() {
+    console.log('🎯 Событие auth-changed получено');
     if (window.AppUpdated && window.AppUpdated.refreshAuthState) {
         setTimeout(() => {
             window.AppUpdated.refreshAuthState();
+            window.AppUpdated.updateUI();
         }, 100);
     }
 });
@@ -936,21 +1144,30 @@ window.addEventListener('user-logged-in', function(e) {
     console.log('🎯 Событие user-logged-in получено', e.detail);
     if (AppUpdated.refreshAuthState) {
         AppUpdated.refreshAuthState();
+        AppUpdated.updateUI();
     }
 });
 
 // Также слушаем изменения localStorage
 window.addEventListener('storage', function(e) {
-    if (e.key === 'user_data' || e.key === 'auth_token') {
+    if (e.key === 'auth_token' || e.key === 'user_nickname' || e.key === 'user_status_id') {
         console.log('📦 Изменение в localStorage:', e.key);
         setTimeout(() => {
             if (AppUpdated.refreshAuthState) {
                 AppUpdated.refreshAuthState();
+                AppUpdated.updateUI();
             }
         }, 100);
     }
 });
 
+// Слушаем собственное событие выхода
+window.addEventListener('user-logged-out', function() {
+    console.log('🎯 AppUpdated получил событие выхода');
+    appState.isAuthenticated = false;
+    appState.currentUser = null;
+    updateUIByAuthStatus();
+});
 
-console.log('✅ main-updated.js загружен (полная версия)');
+console.log('✅ main-updated.js загружен (упрощенная версия для интеграции)');
 console.log('ℹ️ Используйте AppUpdated.refreshAuthState() после авторизации');

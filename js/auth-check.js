@@ -106,8 +106,10 @@ async function loadUserDataAndPermissions() {
         
         if (statusResponse.ok) {
             const statusData = await statusResponse.json();
+            // Здесь нужно убедиться, что получаем status_id, а не status
             window.currentUser.actor_id = userId;
-            window.currentUser.global_status = statusData.current_status?.status || 'Участник ТЦ';
+            window.currentUser.global_status_id = userData.actor_status_id || 7; // ID статуса
+            window.currentUser.global_status = userData.actor_status || 'Участник ТЦ';
             
             // Загружаем дополнительные права если есть
             await loadProjectRoles(userId);

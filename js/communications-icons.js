@@ -861,4 +861,17 @@ const CommunicationsManager = (function() {
         setTimeout(() => {
             CommunicationsManager.init();
         }, 1000);
+        window.addEventListener('user-logged-out', function() {
+        console.log('CommunicationsManager: получен сигнал выхода');
+        currentUser = null;
+        hideCommunicationBlocks();
+        // Очищаем выбранный элемент
+        selectedItem = null;
+        currentStatus = {
+            isFavorite: false,
+            hasRating: false,
+            hasNote: false,
+            hasMessage: false
+        };
+    });
     });

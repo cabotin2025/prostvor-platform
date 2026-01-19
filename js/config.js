@@ -1,4 +1,4 @@
-// js/config.js - ФИНАЛЬНАЯ ВЕРСИЯ
+// js/config.js - УНИФИЦИРОВАННАЯ ВЕРСИЯ
 (function() {
     'use strict';
     
@@ -7,39 +7,55 @@
         const hostname = window.location.hostname;
         const port = window.location.port;
         
-        // Локальная разработка
         if (hostname === 'localhost' || hostname === '127.0.0.1') {
-            return `http://${hostname}:${port || '8000'}/api`;
+            return `http://${hostname}:${port || '8000'}`;
         }
         
-        // Продакшен
-        return 'http://creative-center.site/api';
+        return 'http://creative-center.site';
     };
     
-    window.API_CONFIG = {
+    const API_CONFIG = {
         BASE_URL: getBaseUrl(),
         TIMEOUT: 10000,
-        DEBUG: true
-    };
-    
-    console.log('🌐 API Config loaded:', window.API_CONFIG);
-    
-    // Глобальная функция для API вызовов
-    window.prostvorAPI = {
-        async request(endpoint, options = {}) {
-            const url = `${API_CONFIG.BASE_URL}${endpoint}`;
+        DEBUG: true,
+        
+        // Структурированные endpoints
+        ENDPOINTS: {
+            AUTH: {
+                LOGIN: '/api/auth/login',
+                REGISTER: '/api/auth/register',
+                LOGOUT: '/api/auth/logout'
+            },
+            PROJECTS: {
+                LIST: '/api/projects',
+                CREATE: '/api/projects',
+                DETAIL: (id) => `/api/projects/${id}`,
+                UPDATE: (id) => `/api/projects/${id}`,
+                DELETE: (id) => `/api/projects/${id}`
+            },
+            ACTORS: {
+                LIST: '/api/actors',
+                DETAIL: (id) => `/api/actors/${id}`
+            }
+        },
+        
+        // Основная функция запроса
+        async request(endpoint, method = 'GET', data = null) {
+            const url = `${this.BASE_URL}${endpoint}`;
+            const token = localStorage.getItem('token');
             const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), API_CONFIG.TIMEOUT);
+            const timeoutId = setTimeout(() => controller.abort(), this.TIMEOUT);
             
             try {
                 const response = await fetch(url, {
-                    ...options,
+                    method,
                     signal: controller.signal,
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json',
-                        ...options.headers
-                    }
+                        ...(token && { 'Authorization': `Bearer ${token}` })
+                    },
+                    ...(data && { body: JSON.stringify(data) })
                 });
                 
                 clearTimeout(timeoutId);
@@ -50,13 +66,40 @@
                     throw new Error(`Ожидался JSON, но получен: ${contentType}`);
                 }
                 
-                return await response.json();
+                const result = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(result.error || 'API request failed');
+                }
+                
+                return result;
                 
             } catch (error) {
                 clearTimeout(timeoutId);
                 console.error('API Error:', error);
                 throw error;
             }
+        },
+        
+        // Вспомогательные методы
+        async login(email, password) {
+            return this.request(this.ENDPOINTS.AUTH.LOGIN, 'POST', { email, password });
+        },
+        
+        async register(userData) {
+            return this.request(this.ENDPOINTS.AUTH.REGISTER, 'POST', userData);
+        },
+        
+        async getProjects() {
+            return this.request(this.ENDPOINTS.PROJECTS.LIST);
+        },
+        
+        async getActors() {
+            return this.request(this.ENDPOINTS.ACTORS.LIST);
         }
     };
+    
+    // Экспорт для глобального использования
+    window.API = API_CONFIG;
+    console.log('🌐 API Config loaded:', window.API);
 })();
