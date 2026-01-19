@@ -113,6 +113,28 @@ const CommunicationsManager = (function() {
         }
     }
 
+        window.addEventListener('user-logged-out', function() {
+        console.log('CommunicationsManager: получен сигнал выхода');
+            
+            // Сбрасываем все данные
+            currentUser = null;
+            selectedItem = null;
+            currentStatus = {
+                isFavorite: false,
+                hasRating: false,
+                hasNote: false,
+                hasMessage: false
+            };
+            
+            // Скрываем блоки
+            hideCommunicationBlocks();
+            
+            // Удаляем класс активности
+            document.body.classList.remove('has-content');
+            
+            console.log('✅ CommunicationsManager сброшен после выхода');
+        });
+
     // Определение текущей страницы
     function detectCurrentPage() {
         const path = window.location.pathname.toLowerCase();

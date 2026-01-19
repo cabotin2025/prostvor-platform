@@ -451,67 +451,116 @@ function ensureNickname() {
     }
     
     function handleLogout() {
-        if (confirm('Вы уверены, что хотите выйти?')) {
-            // Очищаем localStorage
-            localStorage.removeItem('auth_token');
-            localStorage.removeItem('user_nickname');
-            localStorage.removeItem('user_id');
-            localStorage.removeItem('user_status_id');
-            localStorage.removeItem('user_email');
-            localStorage.removeItem('user_account');
-            localStorage.removeItem('user_color_frame');
-            
-            // Сбрасываем глобальные объекты если они есть
-            if (window.currentUser) {
-                window.currentUser = {
-                    actor_id: null,
-                    global_status: 'Гость',
-                    project_roles: {},
-                    permissions: {}
-                };
+    if (confirm('Вы уверены, что хотите выйти?')) {
+        console.log('🚪 Начало выхода из системы...');
+        
+        // 1. Очищаем ВСЕ данные авторизации в localStorage
+        const keysToRemove = [
+            'auth_token',
+            'user_data',           // Ключ из communications-icons.js
+            'user_nickname',
+            'user_id',
+            'user_status_id',
+            'user_status',
+            'user_email',
+            'user_account',
+            'user_color_frame',
+            'user_type_id',
+            'token',
+            'prostvor_token',
+            // Ключи для обратной совместимости
+            'actor_nickname',
+            'actor_id',
+            'actor_status',
+            'actor_data',
+            'actor_color_frame',
+            'actor_email',
+            'actor_status_id'
+        ];
+        
+        keysToRemove.forEach(key => {
+            if (localStorage.getItem(key)) {
+                localStorage.removeItem(key);
+                console.log(`🗑️ Удален ключ: ${key}`);
             }
-            
-            if (window.authPermissions) {
+        });
+        
+        // 2. Также очищаем sessionStorage на всякий случай
+        sessionStorage.clear();
+        console.log('🗑️ sessionStorage очищен');
+        
+        // 3. Сбрасываем глобальные объекты если они есть
+        if (window.currentUser) {
+            window.currentUser = {
+                actor_id: null,
+                global_status: 'Гость',
+                project_roles: {},
+                permissions: {}
+            };
+            console.log('🔄 window.currentUser сброшен');
+        }
+        
+        if (window.authPermissions) {
             try {
                 window.authPermissions.setGuestMode();
                 console.log('🔄 authPermissions переведен в режим гостя');
             } catch (e) {
                 console.error('Ошибка сброса authPermissions:', e);
             }
-            }
-            
-            // Сбрасываем состояние
-            appState.isAuthenticated = false;
-            appState.currentUser = null;
-            
-            // Сбрасываем кнопку
-            resetEnterButton();
-            
-            // Удаляем ссылку выхода
-            const logoutLink = document.getElementById('logoutLinkContainer');
-            if (logoutLink) {
-                logoutLink.remove();
-            }
-            
-            // Удаляем кастомные CSS переменные
-            document.documentElement.style.removeProperty('--user-color-frame');
-            
-            // Обновляем UI
-            updateUIByAuthStatus();
-
-            // Скрываем панели для гостей
-            if (elements.sidebarPanels) {
-                elements.sidebarPanels.style.display = 'none';
-            }
-            
-            // Показываем уведомление
-            showNotification('Вы успешно вышли из системы', 'success');
-            
-            // Перезагружаем страницу через секунду
-            setTimeout(() => {
-                window.location.reload();
-            }, 1000);
         }
+        
+        // 4. Отправляем глобальное событие о выходе
+        window.dispatchEvent(new CustomEvent('user-logged-out', {
+            detail: { timestamp: Date.now() }
+        }));
+        console.log('📢 Отправлено событие user-logged-out');
+        
+        // 5. Сбрасываем состояние AppUpdated
+        appState.isAuthenticated = false;
+        appState.currentUser = null;
+        appState.panelsInitialized = false;
+        
+        // 6. Удаляем кастомные CSS переменные
+        document.documentElement.style.removeProperty('--user-color-frame');
+        
+        // 7. Сбрасываем кнопку входа (ОЧЕНЬ ВАЖНО!)
+        resetEnterButton();
+        
+        // 8. Скрываем панели для гостей
+        if (elements.sidebarPanels) {
+            elements.sidebarPanels.style.display = 'none';
+        }
+        
+        // 9. Очищаем данные communications-icons.js
+        if (window.CommunicationsManager) {
+            try {
+                // Вызываем метод сброса если он есть
+                if (typeof window.CommunicationsManager.reset === 'function') {
+                    window.CommunicationsManager.reset();
+                }
+                // Или сбрасываем глобальные переменные
+                if (window.CommunicationsManager.currentUser) {
+                    window.CommunicationsManager.currentUser = null;
+                }
+                if (window.CommunicationsManager.selectedItem) {
+                    window.CommunicationsManager.selectedItem = null;
+                }
+                console.log('🔄 CommunicationsManager сброшен');
+            } catch (e) {
+                console.error('Ошибка сброса CommunicationsManager:', e);
+            }
+        }
+        
+        // 10. Показываем уведомление
+        showNotification('Вы успешно вышли из системы', 'success');
+        
+        console.log('✅ Выход выполнен, перезагружаем страницу...');
+        
+        // 11. Перезагружаем страницу через секунду
+        setTimeout(() => {
+            window.location.reload();
+        }, 1000);
+    }
     }
     
     // Обновляет кнопку "Войти" на "Профиль" для авторизованных пользователей
@@ -590,49 +639,63 @@ function ensureNickname() {
     
     // Сброс кнопки на "Войти"
     function resetEnterButton() {
-    if (!elements.enterButton) return;
-    
-    console.log('🔄 Сброс кнопки входа');
-    
-    // Удаляем CSS переменную
-    document.documentElement.style.removeProperty('--user-color-frame');
-    
-    // Убираем класс пользовательского отображения
-    elements.enterButton.classList.remove('user-display-button');
-    
-    // ОЧИЩАЕМ ВСЕ существующие обработчики
-    const newButton = elements.enterButton.cloneNode(true);
-    elements.enterButton.parentNode.replaceChild(newButton, elements.enterButton);
-    
-    // Обновляем ссылку на элемент
-    elements.enterButton = document.querySelector('.enter-button');
-    
-    // Устанавливаем стандартное содержимое для кнопки входа
-    elements.enterButton.innerHTML = `
-        <img src="images/enter-reg.svg" alt="Войти/Зарегистрироваться" class="enter-button-img">
-    `;
-    
-    // Добавляем обработчик для перехода на страницу входа
-    elements.enterButton.addEventListener('click', handleEnterButton);
-    
-    // Убедимся, что кнопка видима
-    elements.enterButton.style.display = 'block';
-    elements.enterButton.style.visibility = 'visible';
-    elements.enterButton.style.opacity = '1';
-    
-    // Удаляем ссылку выхода
-    const logoutLink = document.getElementById('logoutLinkContainer');
-    if (logoutLink) {
-        logoutLink.remove();
-    }
-    
-    // Также скрываем любой возможный user-display-container
-    const userDisplayContainer = document.querySelector('.user-display-container');
-    if (userDisplayContainer) {
-        userDisplayContainer.style.display = 'none';
-    }
-    
-    console.log('✅ Кнопка входа сброшена');
+        if (!elements.enterButton) {
+            console.error('❌ Кнопка входа не найдена для сброса');
+            return;
+        }
+        
+        console.log('🔄 Сброс кнопки входа (выход из системы)');
+        
+        // 1. Удаляем CSS переменную
+        document.documentElement.style.removeProperty('--user-color-frame');
+        
+        // 2. Убираем класс пользовательского отображения
+        elements.enterButton.classList.remove('user-display-button');
+        
+        // 3. ОЧИЩАЕМ ВСЕ существующие обработчики (клонируем элемент)
+        const newButton = elements.enterButton.cloneNode(true);
+        elements.enterButton.parentNode.replaceChild(newButton, elements.enterButton);
+        
+        // 4. Обновляем ссылку на элемент
+        elements.enterButton = document.querySelector('.enter-button');
+        
+        // 5. Устанавливаем стандартное содержимое для кнопки входа
+        elements.enterButton.innerHTML = `
+            <img src="images/enter-reg.svg" alt="Войти/Зарегистрироваться" class="enter-button-img">
+        `;
+        
+        // 6. Удаляем все возможные обработчики onclick
+        elements.enterButton.onclick = null;
+        elements.enterButton.removeAttribute('onclick');
+        
+        // 7. Добавляем НОВЫЙ обработчик для перехода на страницу входа
+        elements.enterButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('🎯 Кнопка "Войти" нажата (после выхода)');
+            window.location.href = 'pages/enter-reg.html';
+        });
+        
+        // 8. Убедимся, что кнопка видима
+        elements.enterButton.style.display = 'block';
+        elements.enterButton.style.visibility = 'visible';
+        elements.enterButton.style.opacity = '1';
+        elements.enterButton.style.pointerEvents = 'auto';
+        
+        // 9. Удаляем ссылку выхода
+        const logoutLink = document.getElementById('logoutLinkContainer');
+        if (logoutLink) {
+            logoutLink.remove();
+            console.log('🗑️ Ссылка "Выйти" удалена');
+        }
+        
+        // 10. Также скрываем любой возможный user-display-container
+        const userDisplayContainer = document.querySelector('.user-display-container');
+        if (userDisplayContainer) {
+            userDisplayContainer.style.display = 'none';
+        }
+        
+        console.log('✅ Кнопка входа полностью сброшена');
     }
     
     // Обработка кнопки входа

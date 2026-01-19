@@ -694,7 +694,8 @@ body {
     max-width: 95%;
     right: 50px;
     left: 50px;
-    top: 15px;
+    top: 5px;
+    bottom: 0px;
     z-index: 1
 }
 
