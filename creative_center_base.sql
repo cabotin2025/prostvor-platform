@@ -1,13 +1,91 @@
 --
+-- PostgreSQL database cluster dump
+--
+
+-- Started on 2026-01-20 20:05:09
+
+\restrict fYWowv3nXCgXgaYTbWgQxyDxGTrzvFwU8bQ0eacJS5ovhQvQftD9iysTsgYm3Ge
+
+SET default_transaction_read_only = off;
+
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+
+--
+-- Roles
+--
+
+CREATE ROLE postgres;
+ALTER ROLE postgres WITH SUPERUSER INHERIT CREATEROLE CREATEDB LOGIN REPLICATION BYPASSRLS;
+
+--
+-- User Configurations
+--
+
+
+
+
+
+
+
+
+\unrestrict fYWowv3nXCgXgaYTbWgQxyDxGTrzvFwU8bQ0eacJS5ovhQvQftD9iysTsgYm3Ge
+
+--
+-- Databases
+--
+
+--
+-- Database "template1" dump
+--
+
+\connect template1
+
+--
 -- PostgreSQL database dump
 --
 
-\restrict ooBMadl75pESfvp88GNTibLAXSqQozCPcUT0dk4oAkCOvelcWP5dPomPVvIxZ0M
+\restrict 95GSpW1i53CjOgOtoXEUmlwehUWKECERknSYrZcjwtcVkeSEDzGC7FMjMrAUgU5
 
 -- Dumped from database version 18.1
 -- Dumped by pg_dump version 18.1
 
--- Started on 2026-01-18 00:36:31
+-- Started on 2026-01-20 20:05:09
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+-- Completed on 2026-01-20 20:05:09
+
+--
+-- PostgreSQL database dump complete
+--
+
+\unrestrict 95GSpW1i53CjOgOtoXEUmlwehUWKECERknSYrZcjwtcVkeSEDzGC7FMjMrAUgU5
+
+--
+-- Database "creative_center_base" dump
+--
+
+--
+-- PostgreSQL database dump
+--
+
+\restrict MFGBGxndVTtwdxcO6mkjTW8MNWEp5yU92pddU96PiGvW6O05RX8wPanerlpZd2s
+
+-- Dumped from database version 18.1
+-- Dumped by pg_dump version 18.1
+
+-- Started on 2026-01-20 20:05:09
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -31,9 +109,9 @@ CREATE DATABASE creative_center_base WITH TEMPLATE = template0 ENCODING = 'UTF8'
 
 ALTER DATABASE creative_center_base OWNER TO postgres;
 
-\unrestrict ooBMadl75pESfvp88GNTibLAXSqQozCPcUT0dk4oAkCOvelcWP5dPomPVvIxZ0M
+\unrestrict MFGBGxndVTtwdxcO6mkjTW8MNWEp5yU92pddU96PiGvW6O05RX8wPanerlpZd2s
 \connect creative_center_base
-\restrict ooBMadl75pESfvp88GNTibLAXSqQozCPcUT0dk4oAkCOvelcWP5dPomPVvIxZ0M
+\restrict MFGBGxndVTtwdxcO6mkjTW8MNWEp5yU92pddU96PiGvW6O05RX8wPanerlpZd2s
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -4007,6 +4085,7 @@ COPY public.actor_statuses (actor_status_id, status, description) FROM stdin;
 5	Администратор проекта	\N
 6	Участник проекта	\N
 7	Участник ТЦ	\N
+0	Гость	\N
 \.
 
 
@@ -8483,11 +8562,17 @@ ALTER TABLE ONLY public.venues
     ADD CONSTRAINT venues_venue_type_id_fkey FOREIGN KEY (venue_type_id) REFERENCES public.venue_types(venue_type_id);
 
 
--- Completed on 2026-01-18 00:36:31
+-- Completed on 2026-01-20 20:05:10
 
 --
 -- PostgreSQL database dump complete
 --
 
-\unrestrict ooBMadl75pESfvp88GNTibLAXSqQozCPcUT0dk4oAkCOvelcWP5dPomPVvIxZ0M
+\unrestrict MFGBGxndVTtwdxcO6mkjTW8MNWEp5yU92pddU96PiGvW6O05RX8wPanerlpZd2s
+
+-- Completed on 2026-01-20 20:05:10
+
+--
+-- PostgreSQL database cluster dump complete
+--
 

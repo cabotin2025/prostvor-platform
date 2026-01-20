@@ -84,13 +84,13 @@ class StatusManager {
         // Карта соответствия статусов и их уровней
         this.statusLevelMap = {
             'Гость': 0,
-            'Участник ТЦ': 1,
-            'Участник проекта': 2,
-            'Администратор проекта': 3,
+            'Участник ТЦ': 7,
+            'Участник проекта': 6,
+            'Администратор проекта': 5,
             'Руководитель проекта': 4,
-            'Проектный куратор': 5,
-            'Куратор направления': 6,
-            'Руководитель ТЦ': 7
+            'Проектный куратор': 3,
+            'Куратор направления': 2,
+            'Руководитель ТЦ': 1
         };
         
         // Описания статусов для UI
@@ -177,7 +177,7 @@ class StatusManager {
                 // Если не удалось получить статусы, используем по умолчанию
                 this.currentUser.global_status = 'Участник ТЦ';
                 this.currentUser.all_statuses = ['Участник ТЦ'];
-                this.currentUser.max_level = 1;
+                this.currentUser.max_level = 7;
             }
             
             // Загружаем роли в проектах
@@ -226,7 +226,7 @@ class StatusManager {
                     success: true,
                     statuses: ['Участник ТЦ'],
                     current_status: { status: 'Участник ТЦ', actor_status_id: 7 },
-                    max_level: 1
+                    max_level: 7
                 };
             }
             
@@ -238,7 +238,7 @@ class StatusManager {
                 success: true,
                 statuses: ['Участник ТЦ'],
                 current_status: { status: 'Участник ТЦ', actor_status_id: 7 },
-                max_level: 1
+                max_level: 7
             };
         }
     }
