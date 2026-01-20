@@ -2,9 +2,9 @@
 -- PostgreSQL database cluster dump
 --
 
--- Started on 2026-01-21 02:57:05
+-- Started on 2026-01-21 03:29:53
 
-\restrict 3IS5UqaifJXNNFhRbjaBbBLKGxvKgHcYU6TwgJAJsJecGd5fi63ycAviQhyAJYV
+\restrict S4iakNhwjUhaMLOJi0UPqeDaaQ0EsYjpsf0l7ltlFBJCcSQ3fDTkvuBsAPvCFq7
 
 SET default_transaction_read_only = off;
 
@@ -29,7 +29,7 @@ ALTER ROLE postgres WITH SUPERUSER INHERIT CREATEROLE CREATEDB LOGIN REPLICATION
 
 
 
-\unrestrict 3IS5UqaifJXNNFhRbjaBbBLKGxvKgHcYU6TwgJAJsJecGd5fi63ycAviQhyAJYV
+\unrestrict S4iakNhwjUhaMLOJi0UPqeDaaQ0EsYjpsf0l7ltlFBJCcSQ3fDTkvuBsAPvCFq7
 
 --
 -- Databases
@@ -45,12 +45,12 @@ ALTER ROLE postgres WITH SUPERUSER INHERIT CREATEROLE CREATEDB LOGIN REPLICATION
 -- PostgreSQL database dump
 --
 
-\restrict lA1kJiOy0bPLTaAhY6EcaFTZwBNzMKJrGUzdiSJ4E2xcad34CroAvX1bLSnyLbf
+\restrict X9rlPxcg7IkibZLK2ejINeSMENuEL36VGBmmEfs5J1p4A3cwTOW3PI8CujUgmIs
 
 -- Dumped from database version 18.1
 -- Dumped by pg_dump version 18.1
 
--- Started on 2026-01-21 02:57:05
+-- Started on 2026-01-21 03:29:53
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -64,13 +64,13 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
--- Completed on 2026-01-21 02:57:06
+-- Completed on 2026-01-21 03:29:53
 
 --
 -- PostgreSQL database dump complete
 --
 
-\unrestrict lA1kJiOy0bPLTaAhY6EcaFTZwBNzMKJrGUzdiSJ4E2xcad34CroAvX1bLSnyLbf
+\unrestrict X9rlPxcg7IkibZLK2ejINeSMENuEL36VGBmmEfs5J1p4A3cwTOW3PI8CujUgmIs
 
 --
 -- Database "creative_center_base" dump
@@ -80,12 +80,12 @@ SET row_security = off;
 -- PostgreSQL database dump
 --
 
-\restrict cf0RM8QtL9kboCLBaU5IRi89xoFAJJsK6t1DpDzcn71fgGpWozCpWfFcXSEOHuU
+\restrict lEn4LWl2uMXSqASCyDJ4BwedHMuUa1Yur8r6eZCYnLBev1tUgx4pGOBce0TLmcb
 
 -- Dumped from database version 18.1
 -- Dumped by pg_dump version 18.1
 
--- Started on 2026-01-21 02:57:06
+-- Started on 2026-01-21 03:29:53
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -109,9 +109,9 @@ CREATE DATABASE creative_center_base WITH TEMPLATE = template0 ENCODING = 'UTF8'
 
 ALTER DATABASE creative_center_base OWNER TO postgres;
 
-\unrestrict cf0RM8QtL9kboCLBaU5IRi89xoFAJJsK6t1DpDzcn71fgGpWozCpWfFcXSEOHuU
+\unrestrict lEn4LWl2uMXSqASCyDJ4BwedHMuUa1Yur8r6eZCYnLBev1tUgx4pGOBce0TLmcb
 \connect creative_center_base
-\restrict cf0RM8QtL9kboCLBaU5IRi89xoFAJJsK6t1DpDzcn71fgGpWozCpWfFcXSEOHuU
+\restrict lEn4LWl2uMXSqASCyDJ4BwedHMuUa1Yur8r6eZCYnLBev1tUgx4pGOBce0TLmcb
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -4811,8 +4811,8 @@ COPY public.event_types (event_type_id, type) FROM stdin;
 --
 
 COPY public.events (event_id, title, description, date, start_time, end_time, event_type_id, attachment, deleted_at, created_at, updated_at, created_by, updated_by, rating_id) FROM stdin;
-1	Читка пьесы "Гамлет"	Первая читка сценария с актерами	2026-01-14	18:00:00	20:00:00	1	\N	\N	2026-01-07 00:38:38.629+08	2026-01-07 00:38:38.629+08	1	1	\N
-2	Открытая репетиция демо-проекта	Приглашаем всех желающих посмотреть на процесс создания арт-проекта	2026-01-14	19:00:00	21:00:00	1	\N	\N	2026-01-07 00:59:05.014+08	2026-01-07 00:59:05.014+08	1	1	\N
+1	Читка пьесы "Гамлет"	Первая читка сценария с актерами	2026-01-14	18:00:00	20:00:00	1	\N	\N	2026-01-07 00:38:38.629+08	2026-01-21 03:13:30.625486+08	1	1	3
+2	Открытая репетиция демо-проекта	Приглашаем всех желающих посмотреть на процесс создания арт-проекта	2026-01-14	19:00:00	21:00:00	1	\N	\N	2026-01-07 00:59:05.014+08	2026-01-21 03:14:27.734273+08	1	1	5
 \.
 
 
@@ -4823,6 +4823,7 @@ COPY public.events (event_id, title, description, date, start_time, end_time, ev
 --
 
 COPY public.events_notes (note_id, event_id, author_id) FROM stdin;
+15	1	1
 \.
 
 
@@ -5572,6 +5573,7 @@ COPY public.messages (message_id, message, author_id, created_at, updated_at, cr
 --
 
 COPY public.notes (note_id, note, author_id, created_at, updated_at, created_by, updated_by) FROM stdin;
+15	Тестовая заметка к событию 1	1	2026-01-21 03:25:17.385653+08	2026-01-21 03:25:17.385653+08	1	1
 \.
 
 
@@ -5773,6 +5775,8 @@ COPY public.rating_types (rating_type_id, type, description, created_at) FROM st
 --
 
 COPY public.ratings (rating_id, actor_id, rating_type_id, created_at) FROM stdin;
+3	1	1	2026-01-21 03:13:30.625486+08
+5	1	1	2026-01-21 03:14:27.734273+08
 \.
 
 
@@ -6008,6 +6012,8 @@ COPY public.templates_venues (template_id, venue_id) FROM stdin;
 --
 
 COPY public.theme_bookmarks (bookmark_id, theme_id, actor_id, last_read_discussion_id, last_read_position, scroll_position, created_at, updated_at) FROM stdin;
+2	1	1	1	\N	\N	2026-01-21 03:03:46.475277+08	2026-01-21 03:03:46.475277+08
+6	1	3	4	\N	\N	2026-01-21 03:25:17.385653+08	2026-01-21 03:25:17.385653+08
 \.
 
 
@@ -6028,6 +6034,8 @@ COPY public.theme_comments (theme_comment_id, comment, theme_id, actor_id, creat
 --
 
 COPY public.theme_discussions (discussion_id, theme_id, parent_discussion_id, author_id, content, position_in_thread, created_at, updated_at, deleted_at) FROM stdin;
+1	1	\N	1	Тестовое сообщение в обсуждении	\N	2026-01-21 03:03:46.475277+08	2026-01-21 03:03:46.475277+08	\N
+4	1	\N	3	Тестовое сообщение от автора 3	\N	2026-01-21 03:25:17.385653+08	2026-01-21 03:25:17.385653+08	\N
 \.
 
 
@@ -6058,6 +6066,7 @@ COPY public.theme_types (theme_type_id, type) FROM stdin;
 --
 
 COPY public.themes (theme_id, title, description, theme_type_id, actor_id, attachment, deleted_at, created_at, updated_at, created_by, updated_by, rating_id) FROM stdin;
+1	Тестовая тема	Для тестирования закладок	\N	\N	\N	\N	2026-01-21 03:03:46.475277+08	2026-01-21 03:03:46.475277+08	1	1	\N
 \.
 
 
@@ -6179,7 +6188,7 @@ SELECT pg_catalog.setval('public.event_types_event_type_id_seq', 1, false);
 -- Name: events_event_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.events_event_id_seq', 1, false);
+SELECT pg_catalog.setval('public.events_event_id_seq', 2, true);
 
 
 --
@@ -6305,7 +6314,7 @@ SELECT pg_catalog.setval('public.messages_message_id_seq', 1, false);
 -- Name: notes_note_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.notes_note_id_seq', 1, false);
+SELECT pg_catalog.setval('public.notes_note_id_seq', 17, true);
 
 
 --
@@ -6395,7 +6404,7 @@ SELECT pg_catalog.setval('public.rating_types_rating_type_id_seq', 2, true);
 -- Name: ratings_rating_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.ratings_rating_id_seq', 1, false);
+SELECT pg_catalog.setval('public.ratings_rating_id_seq', 5, true);
 
 
 --
@@ -6521,7 +6530,7 @@ SELECT pg_catalog.setval('public.templates_template_id_seq', 1, false);
 -- Name: theme_bookmarks_bookmark_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.theme_bookmarks_bookmark_id_seq', 1, false);
+SELECT pg_catalog.setval('public.theme_bookmarks_bookmark_id_seq', 6, true);
 
 
 --
@@ -6539,7 +6548,7 @@ SELECT pg_catalog.setval('public.theme_comments_theme_comment_id_seq', 1, false)
 -- Name: theme_discussions_discussion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.theme_discussions_discussion_id_seq', 1, false);
+SELECT pg_catalog.setval('public.theme_discussions_discussion_id_seq', 4, true);
 
 
 --
@@ -6566,7 +6575,7 @@ SELECT pg_catalog.setval('public.theme_types_theme_type_id_seq', 1, false);
 -- Name: themes_theme_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.themes_theme_id_seq', 1, false);
+SELECT pg_catalog.setval('public.themes_theme_id_seq', 1, true);
 
 
 --
@@ -10193,15 +10202,15 @@ ALTER TABLE ONLY public.venues
     ADD CONSTRAINT venues_venue_type_id_fkey FOREIGN KEY (venue_type_id) REFERENCES public.venue_types(venue_type_id);
 
 
--- Completed on 2026-01-21 02:57:06
+-- Completed on 2026-01-21 03:29:54
 
 --
 -- PostgreSQL database dump complete
 --
 
-\unrestrict cf0RM8QtL9kboCLBaU5IRi89xoFAJJsK6t1DpDzcn71fgGpWozCpWfFcXSEOHuU
+\unrestrict lEn4LWl2uMXSqASCyDJ4BwedHMuUa1Yur8r6eZCYnLBev1tUgx4pGOBce0TLmcb
 
--- Completed on 2026-01-21 02:57:06
+-- Completed on 2026-01-21 03:29:54
 
 --
 -- PostgreSQL database cluster dump complete
