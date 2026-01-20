@@ -2,9 +2,9 @@
 -- PostgreSQL database cluster dump
 --
 
--- Started on 2026-01-20 20:05:09
+-- Started on 2026-01-20 22:34:59
 
-\restrict fYWowv3nXCgXgaYTbWgQxyDxGTrzvFwU8bQ0eacJS5ovhQvQftD9iysTsgYm3Ge
+\restrict 2MUueNeH89z0MnQ9Y99peK8t5IT9neWHtmOwv1ASa2uS8vNy0TQvckUjEvhPCh5
 
 SET default_transaction_read_only = off;
 
@@ -29,7 +29,7 @@ ALTER ROLE postgres WITH SUPERUSER INHERIT CREATEROLE CREATEDB LOGIN REPLICATION
 
 
 
-\unrestrict fYWowv3nXCgXgaYTbWgQxyDxGTrzvFwU8bQ0eacJS5ovhQvQftD9iysTsgYm3Ge
+\unrestrict 2MUueNeH89z0MnQ9Y99peK8t5IT9neWHtmOwv1ASa2uS8vNy0TQvckUjEvhPCh5
 
 --
 -- Databases
@@ -45,12 +45,12 @@ ALTER ROLE postgres WITH SUPERUSER INHERIT CREATEROLE CREATEDB LOGIN REPLICATION
 -- PostgreSQL database dump
 --
 
-\restrict 95GSpW1i53CjOgOtoXEUmlwehUWKECERknSYrZcjwtcVkeSEDzGC7FMjMrAUgU5
+\restrict pr2Szh0GbgO0ZuBixVBz5LOZ5jibDWn0lR0dsZAA0VxktnopUbwEWY4wzTquJrQ
 
 -- Dumped from database version 18.1
 -- Dumped by pg_dump version 18.1
 
--- Started on 2026-01-20 20:05:09
+-- Started on 2026-01-20 22:34:59
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -64,13 +64,13 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
--- Completed on 2026-01-20 20:05:09
+-- Completed on 2026-01-20 22:35:00
 
 --
 -- PostgreSQL database dump complete
 --
 
-\unrestrict 95GSpW1i53CjOgOtoXEUmlwehUWKECERknSYrZcjwtcVkeSEDzGC7FMjMrAUgU5
+\unrestrict pr2Szh0GbgO0ZuBixVBz5LOZ5jibDWn0lR0dsZAA0VxktnopUbwEWY4wzTquJrQ
 
 --
 -- Database "creative_center_base" dump
@@ -80,12 +80,12 @@ SET row_security = off;
 -- PostgreSQL database dump
 --
 
-\restrict MFGBGxndVTtwdxcO6mkjTW8MNWEp5yU92pddU96PiGvW6O05RX8wPanerlpZd2s
+\restrict IbHtRZE5hZF1p2m6nP3GIYbeLpFYWoGmJaWPRyyQqgta25nuuvA8bUYfKOcb5Rs
 
 -- Dumped from database version 18.1
 -- Dumped by pg_dump version 18.1
 
--- Started on 2026-01-20 20:05:09
+-- Started on 2026-01-20 22:35:00
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -109,9 +109,9 @@ CREATE DATABASE creative_center_base WITH TEMPLATE = template0 ENCODING = 'UTF8'
 
 ALTER DATABASE creative_center_base OWNER TO postgres;
 
-\unrestrict MFGBGxndVTtwdxcO6mkjTW8MNWEp5yU92pddU96PiGvW6O05RX8wPanerlpZd2s
+\unrestrict IbHtRZE5hZF1p2m6nP3GIYbeLpFYWoGmJaWPRyyQqgta25nuuvA8bUYfKOcb5Rs
 \connect creative_center_base
-\restrict MFGBGxndVTtwdxcO6mkjTW8MNWEp5yU92pddU96PiGvW6O05RX8wPanerlpZd2s
+\restrict IbHtRZE5hZF1p2m6nP3GIYbeLpFYWoGmJaWPRyyQqgta25nuuvA8bUYfKOcb5Rs
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -8562,15 +8562,15 @@ ALTER TABLE ONLY public.venues
     ADD CONSTRAINT venues_venue_type_id_fkey FOREIGN KEY (venue_type_id) REFERENCES public.venue_types(venue_type_id);
 
 
--- Completed on 2026-01-20 20:05:10
+-- Completed on 2026-01-20 22:35:00
 
 --
 -- PostgreSQL database dump complete
 --
 
-\unrestrict MFGBGxndVTtwdxcO6mkjTW8MNWEp5yU92pddU96PiGvW6O05RX8wPanerlpZd2s
+\unrestrict IbHtRZE5hZF1p2m6nP3GIYbeLpFYWoGmJaWPRyyQqgta25nuuvA8bUYfKOcb5Rs
 
--- Completed on 2026-01-20 20:05:10
+-- Completed on 2026-01-20 22:35:00
 
 --
 -- PostgreSQL database cluster dump complete
