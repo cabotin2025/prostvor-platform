@@ -2,9 +2,9 @@
 -- PostgreSQL database cluster dump
 --
 
--- Started on 2026-01-21 23:16:22
+-- Started on 2026-01-22 20:57:08
 
-\restrict JuiAgQ5DrX9xOLJ2fbhSaSha1zhmF53xvOJ9fd95oQXeS5v5YlCIDgcbnV8gibB
+\restrict p0QoftRg42PSCBAdAI46gLG402UA6JIgYrbcDtn8dhZlg0dscaxo5OTfROom9ww
 
 SET default_transaction_read_only = off;
 
@@ -29,7 +29,7 @@ ALTER ROLE postgres WITH SUPERUSER INHERIT CREATEROLE CREATEDB LOGIN REPLICATION
 
 
 
-\unrestrict JuiAgQ5DrX9xOLJ2fbhSaSha1zhmF53xvOJ9fd95oQXeS5v5YlCIDgcbnV8gibB
+\unrestrict p0QoftRg42PSCBAdAI46gLG402UA6JIgYrbcDtn8dhZlg0dscaxo5OTfROom9ww
 
 --
 -- Databases
@@ -45,12 +45,12 @@ ALTER ROLE postgres WITH SUPERUSER INHERIT CREATEROLE CREATEDB LOGIN REPLICATION
 -- PostgreSQL database dump
 --
 
-\restrict nmOeOSs70zzhOfvfp5rOiR9OPuslGg3QAQgGTsBnHm7IVdkt23lbRwPjZZKYLGQ
+\restrict SJ9vGo2DUkmMYD8skNOqetm8KgXyMaXFGDd17E6g0OcttHLHK6TMYyvFjAftlfu
 
 -- Dumped from database version 18.1
 -- Dumped by pg_dump version 18.1
 
--- Started on 2026-01-21 23:16:23
+-- Started on 2026-01-22 20:57:08
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -64,13 +64,13 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
--- Completed on 2026-01-21 23:16:23
+-- Completed on 2026-01-22 20:57:08
 
 --
 -- PostgreSQL database dump complete
 --
 
-\unrestrict nmOeOSs70zzhOfvfp5rOiR9OPuslGg3QAQgGTsBnHm7IVdkt23lbRwPjZZKYLGQ
+\unrestrict SJ9vGo2DUkmMYD8skNOqetm8KgXyMaXFGDd17E6g0OcttHLHK6TMYyvFjAftlfu
 
 --
 -- Database "creative_center_base" dump
@@ -80,12 +80,12 @@ SET row_security = off;
 -- PostgreSQL database dump
 --
 
-\restrict fgrdVFUnsqa4g7NT78DYEqguupVdnUSdvcGJ5vxhIBaz5mPKtyE8jUocfRX3XHi
+\restrict 56hOQgs2RWwAOPEPCPgcDE2i7eFVBN0CAkm4hdKZi1N54vEPxHg3LW2H9AjDeyR
 
 -- Dumped from database version 18.1
 -- Dumped by pg_dump version 18.1
 
--- Started on 2026-01-21 23:16:23
+-- Started on 2026-01-22 20:57:08
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -100,7 +100,7 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- TOC entry 6531 (class 1262 OID 16388)
+-- TOC entry 6844 (class 1262 OID 16388)
 -- Name: creative_center_base; Type: DATABASE; Schema: -; Owner: postgres
 --
 
@@ -109,9 +109,9 @@ CREATE DATABASE creative_center_base WITH TEMPLATE = template0 ENCODING = 'UTF8'
 
 ALTER DATABASE creative_center_base OWNER TO postgres;
 
-\unrestrict fgrdVFUnsqa4g7NT78DYEqguupVdnUSdvcGJ5vxhIBaz5mPKtyE8jUocfRX3XHi
+\unrestrict 56hOQgs2RWwAOPEPCPgcDE2i7eFVBN0CAkm4hdKZi1N54vEPxHg3LW2H9AjDeyR
 \connect creative_center_base
-\restrict fgrdVFUnsqa4g7NT78DYEqguupVdnUSdvcGJ5vxhIBaz5mPKtyE8jUocfRX3XHi
+\restrict 56hOQgs2RWwAOPEPCPgcDE2i7eFVBN0CAkm4hdKZi1N54vEPxHg3LW2H9AjDeyR
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -134,7 +134,7 @@ CREATE EXTENSION IF NOT EXISTS pg_trgm WITH SCHEMA public;
 
 
 --
--- TOC entry 6532 (class 0 OID 0)
+-- TOC entry 6845 (class 0 OID 0)
 -- Dependencies: 2
 -- Name: EXTENSION pg_trgm; Type: COMMENT; Schema: -; Owner: 
 --
@@ -151,7 +151,7 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA public;
 
 
 --
--- TOC entry 6533 (class 0 OID 0)
+-- TOC entry 6846 (class 0 OID 0)
 -- Dependencies: 3
 -- Name: EXTENSION pgcrypto; Type: COMMENT; Schema: -; Owner: 
 --
@@ -168,7 +168,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public;
 
 
 --
--- TOC entry 6534 (class 0 OID 0)
+-- TOC entry 6847 (class 0 OID 0)
 -- Dependencies: 4
 -- Name: EXTENSION "uuid-ossp"; Type: COMMENT; Schema: -; Owner: 
 --
@@ -177,7 +177,7 @@ COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UU
 
 
 --
--- TOC entry 428 (class 1255 OID 19458)
+-- TOC entry 466 (class 1255 OID 19458)
 -- Name: add_offering_term(text, integer, integer, numeric, text, text); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -241,7 +241,39 @@ $$;
 ALTER FUNCTION public.add_offering_term(p_resource_type text, p_resource_id integer, p_offering_term_id integer, p_cost numeric, p_currency text, p_special_terms text) OWNER TO postgres;
 
 --
--- TOC entry 489 (class 1255 OID 16519)
+-- TOC entry 480 (class 1255 OID 19987)
+-- Name: add_request_term(integer, integer, numeric, text, boolean); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.add_request_term(p_request_id integer, p_offering_term_id integer, p_proposed_cost numeric DEFAULT NULL::numeric, p_request_terms text DEFAULT NULL::text, p_requester_approval boolean DEFAULT false) RETURNS integer
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+    v_request_term_id INTEGER;
+BEGIN
+    INSERT INTO request_offering_terms (
+        request_id,
+        offering_term_id,
+        proposed_cost,
+        request_terms,
+        requester_approval
+    ) VALUES (
+        p_request_id,
+        p_offering_term_id,
+        p_proposed_cost,
+        p_request_terms,
+        p_requester_approval
+    ) RETURNING request_term_id INTO v_request_term_id;
+    
+    RETURN v_request_term_id;
+END;
+$$;
+
+
+ALTER FUNCTION public.add_request_term(p_request_id integer, p_offering_term_id integer, p_proposed_cost numeric, p_request_terms text, p_requester_approval boolean) OWNER TO postgres;
+
+--
+-- TOC entry 534 (class 1255 OID 16519)
 -- Name: archive_old_records(integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -268,7 +300,7 @@ $$;
 ALTER FUNCTION public.archive_old_records(months_old integer) OWNER TO postgres;
 
 --
--- TOC entry 487 (class 1255 OID 16520)
+-- TOC entry 530 (class 1255 OID 16520)
 -- Name: authenticate_user(character varying, character varying); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -302,7 +334,33 @@ $$;
 ALTER FUNCTION public.authenticate_user(p_email character varying, p_password character varying) OWNER TO postgres;
 
 --
--- TOC entry 420 (class 1255 OID 19240)
+-- TOC entry 531 (class 1255 OID 19982)
+-- Name: check_actor_can_create_request(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.check_actor_can_create_request() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    -- В таблице actors нет поля actor_status_id, возможно проверка по другому полю
+    -- Пока пропускаем проверку или проверяем по другому критерию
+    -- Например, можно проверить что актор существует и не удален
+    IF NOT EXISTS (
+        SELECT 1 FROM actors 
+        WHERE actor_id = NEW.requester_id 
+        AND deleted_at IS NULL
+    ) THEN
+        RAISE EXCEPTION 'Участник не существует или удален';
+    END IF;
+    RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.check_actor_can_create_request() OWNER TO postgres;
+
+--
+-- TOC entry 458 (class 1255 OID 19240)
 -- Name: check_cost_for_free_terms(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -310,12 +368,102 @@ CREATE FUNCTION public.check_cost_for_free_terms() RETURNS trigger
     LANGUAGE plpgsql
     AS $$
 BEGIN
-    -- Проверяем бесплатные условия (id 2 и 3)
-    IF NEW.offering_term_id IN (2, 3) THEN
-        -- Для бесплатных типов cost должен быть 0 или NULL
+    -- Используем TG_TABLE_NAME для определения таблицы
+    IF TG_TABLE_NAME IN ('matresource_offering_terms', 'finresource_offering_terms', 
+                         'venue_offering_terms', 'idea_offering_terms',
+                         'template_offering_terms') THEN
+        -- Проверяем бесплатные условия (id 2 и 3)
+        IF NEW.offering_term_id IN (2, 3) THEN
+            -- Для бесплатных типов cost должен быть 0 или NULL
+            IF NEW.cost IS NOT NULL AND NEW.cost != 0 THEN
+                RAISE EXCEPTION 'Для безвозмездных условий стоимость должна быть 0 или NULL. Выбрано: %, установлена стоимость: %', 
+                (SELECT name FROM offering_terms WHERE id = NEW.offering_term_id), NEW.cost;
+            END IF;
+            -- Принудительно устанавливаем 0, если NULL
+            IF NEW.cost IS NULL THEN
+                NEW.cost = 0;
+            END IF;
+        END IF;
+    END IF;
+    
+    RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.check_cost_for_free_terms() OWNER TO postgres;
+
+--
+-- TOC entry 525 (class 1255 OID 19972)
+-- Name: check_project_owner_status(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.check_project_owner_status() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    -- Если указан проект, проверяем что reviewer имеет разрешение на проекты
+    IF NEW.project_id IS NOT NULL AND NEW.reviewed_by IS NOT NULL THEN
+        IF NOT EXISTS (
+            SELECT 1 
+            FROM actors a
+            LEFT JOIN actor_status_mapping asm ON a.rating_id = asm.rating_id
+            WHERE a.actor_id = NEW.reviewed_by 
+            AND asm.can_create_project = TRUE
+        ) THEN
+            RAISE EXCEPTION 'Только участники с разрешением на проекты могут указывать проект';
+        END IF;
+    END IF;
+    RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.check_project_owner_status() OWNER TO postgres;
+
+--
+-- TOC entry 532 (class 1255 OID 19969)
+-- Name: check_requester_status(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.check_requester_status() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    -- Простая проверка без подзапроса в CHECK constraint
+    -- Детальную проверку сделаем через триггер
+    IF NEW.requester_id IS NOT NULL THEN
+        -- Проверка будет в триггере
+        NULL;
+    END IF;
+    RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.check_requester_status() OWNER TO postgres;
+
+--
+-- TOC entry 455 (class 1255 OID 19551)
+-- Name: check_service_offering_terms(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.check_service_offering_terms() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    -- Проверяем что offering_term_id только 1 или 2
+    IF NEW.offering_term_id NOT IN (1, 2) THEN
+        RAISE EXCEPTION 'Для услуг offering_term_id может быть только 1 (Продажа) или 2 (Безвозмездная передача). Указано: %', 
+        NEW.offering_term_id;
+    END IF;
+    
+    -- Проверяем бесплатные условия (id = 2)
+    IF NEW.offering_term_id = 2 THEN
+        -- Для безвозмездной передачи cost должен быть 0 или NULL
         IF NEW.cost IS NOT NULL AND NEW.cost != 0 THEN
-            RAISE EXCEPTION 'Для безвозмездных условий стоимость должна быть 0 или NULL. Выбрано: %, установлена стоимость: %', 
-            (SELECT name FROM offering_terms WHERE id = NEW.offering_term_id), NEW.cost;
+            RAISE EXCEPTION 'Для безвозмездной передачи стоимость должна быть 0 или NULL. Установлена: %', 
+            NEW.cost;
         END IF;
         -- Принудительно устанавливаем 0, если NULL
         IF NEW.cost IS NULL THEN
@@ -328,10 +476,57 @@ END;
 $$;
 
 
-ALTER FUNCTION public.check_cost_for_free_terms() OWNER TO postgres;
+ALTER FUNCTION public.check_service_offering_terms() OWNER TO postgres;
 
 --
--- TOC entry 450 (class 1255 OID 16521)
+-- TOC entry 549 (class 1255 OID 20079)
+-- Name: check_system_status(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.check_system_status() RETURNS TABLE(component character varying, status character varying, details text)
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    -- Проверка таблиц
+    RETURN QUERY
+    SELECT 
+        'Таблицы данных'::VARCHAR, 
+        CASE WHEN (SELECT COUNT(*) FROM contracts) > 0 THEN '✅'::VARCHAR ELSE '❌'::VARCHAR END,
+        'Договоров: ' || (SELECT COUNT(*)::TEXT FROM contracts);
+    
+    -- Проверка автоматизации
+    RETURN QUERY
+    SELECT 
+        'Автоматизация'::VARCHAR,
+        CASE WHEN EXISTS (
+            SELECT 1 FROM information_schema.triggers 
+            WHERE trigger_name = 'trg_create_final_contract'
+        ) THEN '✅'::VARCHAR ELSE '❌'::VARCHAR END,
+        'Триггеры создания договоров';
+    
+    -- Проверка представлений
+    RETURN QUERY
+    SELECT 
+        'Мониторинг'::VARCHAR,
+        CASE WHEN EXISTS (SELECT 1 FROM v_contract_process_tracking LIMIT 1) 
+             THEN '✅'::VARCHAR ELSE '❌'::VARCHAR END,
+        'Представления отслеживания';
+    
+    -- Проверка данных
+    RETURN QUERY
+    SELECT 
+        'Тестовые данные'::VARCHAR,
+        CASE WHEN (SELECT COUNT(*) FROM requests) > 0 
+             THEN '✅'::VARCHAR ELSE '❌'::VARCHAR END,
+        'Запросов: ' || (SELECT COUNT(*)::TEXT FROM requests);
+END;
+$$;
+
+
+ALTER FUNCTION public.check_system_status() OWNER TO postgres;
+
+--
+-- TOC entry 490 (class 1255 OID 16521)
 -- Name: check_unique_for_active_records(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -361,7 +556,400 @@ $$;
 ALTER FUNCTION public.check_unique_for_active_records() OWNER TO postgres;
 
 --
--- TOC entry 471 (class 1255 OID 19519)
+-- TOC entry 528 (class 1255 OID 20070)
+-- Name: create_final_contract(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.create_final_contract() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+    v_contract_id INTEGER;
+    v_total_cost DECIMAL(15,2);
+    v_start_date DATE;
+    v_end_date DATE;
+    v_start_time TIME;
+    v_end_time TIME;
+    v_effective_from TIMESTAMP;
+BEGIN
+    -- Упрощенное условие: если обе подписи TRUE и нет финального договора
+    IF NEW.requester_signed = TRUE AND NEW.owner_signed = TRUE THEN
+        
+        -- Проверяем, нет ли уже финального договора
+        IF NOT EXISTS (
+            SELECT 1 FROM contracts c WHERE c.temp_contract_id = NEW.temp_contract_id
+        ) THEN
+            RAISE NOTICE 'ТРИГГЕР: Создание финального договора для временного договора ID: %', NEW.temp_contract_id;
+            
+            -- Рассчитываем общую стоимость
+            SELECT SUM(agreed_cost) INTO v_total_cost
+            FROM temp_contract_terms
+            WHERE temp_contract_id = NEW.temp_contract_id;
+            
+            -- Получаем даты из временного договора или используем текущую дату
+            v_start_date := COALESCE(NEW.start_date, CURRENT_DATE);
+            v_end_date := NEW.end_date;
+            v_start_time := NEW.start_time;
+            v_end_time := NEW.end_time;
+            v_effective_from := CURRENT_TIMESTAMP;
+            
+            -- Создаем финальный договор
+            INSERT INTO contracts (
+                temp_contract_id,
+                request_id,
+                contract_number,
+                contract_title,
+                contract_description,
+                requester_id,
+                owner_id,
+                resource_type,
+                resource_id,
+                start_date,
+                end_date,
+                start_time,
+                end_time,
+                total_cost,
+                currency,
+                contract_status,
+                requester_signed_at,
+                owner_signed_at,
+                signed_at,
+                effective_from
+            ) VALUES (
+                NEW.temp_contract_id,
+                NEW.request_id,
+                'CTR-' || TO_CHAR(CURRENT_DATE, 'YYYYMMDD-') || LPAD(NEXTVAL('contract_number_seq')::TEXT, 6, '0'),
+                NEW.contract_title,
+                NEW.contract_description,
+                NEW.requester_id,
+                NEW.owner_id,
+                NEW.resource_type,
+                NEW.resource_id,
+                v_start_date,
+                v_end_date,
+                v_start_time,
+                v_end_time,
+                COALESCE(v_total_cost, 0),
+                'руб.',
+                'active',
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP,
+                CURRENT_TIMESTAMP,
+                v_effective_from
+            ) RETURNING contract_id INTO v_contract_id;
+            
+            RAISE NOTICE 'ТРИГГЕР: ✅ Создан финальный договор ID: %', v_contract_id;
+            
+            -- Копируем условия
+            INSERT INTO contract_terms (
+                contract_id,
+                offering_term_id,
+                offering_term_name,
+                cost,
+                currency,
+                special_terms,
+                fulfillment_status
+            )
+            SELECT 
+                v_contract_id,
+                tct.offering_term_id,
+                COALESCE(ot.name, 'Условие ' || tct.offering_term_id::text),
+                tct.agreed_cost,
+                COALESCE(tct.agreed_currency, 'руб.'),
+                COALESCE(tct.special_terms, ''),
+                'pending'
+            FROM temp_contract_terms tct
+            LEFT JOIN offering_terms ot ON tct.offering_term_id = ot.id
+            WHERE tct.temp_contract_id = NEW.temp_contract_id;
+            
+            RAISE NOTICE 'ТРИГГЕР: Скопировано % условий', 
+                (SELECT COUNT(*) FROM contract_terms WHERE contract_id = v_contract_id);
+                
+            -- Обновляем статус временного договора
+            NEW.contract_status := 'active';
+        ELSE
+            RAISE NOTICE 'ТРИГГЕР: Финальный договор уже существует для временного договора ID: %', NEW.temp_contract_id;
+        END IF;
+    END IF;
+    
+    RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.create_final_contract() OWNER TO postgres;
+
+--
+-- TOC entry 492 (class 1255 OID 20053)
+-- Name: create_request(integer, character varying, integer, character varying, text, integer, date, date, time without time zone, time without time zone); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.create_request(p_requester_id integer, p_resource_type character varying, p_resource_id integer, p_request_title character varying, p_request_description text, p_project_id integer DEFAULT NULL::integer, p_start_date date DEFAULT NULL::date, p_end_date date DEFAULT NULL::date, p_start_time time without time zone DEFAULT NULL::time without time zone, p_end_time time without time zone DEFAULT NULL::time without time zone) RETURNS integer
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+    v_request_id INTEGER;
+BEGIN
+    -- Проверяем что resource_id не NULL
+    IF p_resource_id IS NULL THEN
+        RAISE EXCEPTION 'resource_id не может быть NULL';
+    END IF;
+    
+    -- Проверяем существование ресурса
+    IF p_resource_type = 'matresource' AND NOT EXISTS (
+        SELECT 1 FROM matresources WHERE matresource_id = p_resource_id
+    ) THEN
+        RAISE EXCEPTION 'Материальный ресурс с ID % не существует', p_resource_id;
+    ELSIF p_resource_type = 'service' AND NOT EXISTS (
+        SELECT 1 FROM services WHERE service_id = p_resource_id
+    ) THEN
+        RAISE EXCEPTION 'Услуга с ID % не существует', p_resource_id;
+    ELSIF p_resource_type = 'venue' AND NOT EXISTS (
+        SELECT 1 FROM venues WHERE venue_id = p_resource_id
+    ) THEN
+        RAISE EXCEPTION 'Место проведения с ID % не существует', p_resource_id;
+    ELSIF p_resource_type = 'finresource' AND NOT EXISTS (
+        SELECT 1 FROM finresources WHERE finresource_id = p_resource_id
+    ) THEN
+        RAISE EXCEPTION 'Финансовый ресурс с ID % не существует', p_resource_id;
+    END IF;
+    
+    -- Вставляем запрос
+    INSERT INTO requests (
+        requester_id,
+        resource_type,
+        resource_id,
+        request_title,
+        request_description,
+        project_id,
+        start_date,
+        end_date,
+        start_time,
+        end_time,
+        request_status
+    ) VALUES (
+        p_requester_id,
+        p_resource_type,
+        p_resource_id,
+        p_request_title,
+        p_request_description,
+        p_project_id,
+        p_start_date,
+        p_end_date,
+        p_start_time,
+        p_end_time,
+        'draft'
+    ) RETURNING request_id INTO v_request_id;
+    
+    RETURN v_request_id;
+END;
+$$;
+
+
+ALTER FUNCTION public.create_request(p_requester_id integer, p_resource_type character varying, p_resource_id integer, p_request_title character varying, p_request_description text, p_project_id integer, p_start_date date, p_end_date date, p_start_time time without time zone, p_end_time time without time zone) OWNER TO postgres;
+
+--
+-- TOC entry 475 (class 1255 OID 20028)
+-- Name: create_temp_contract_on_request_accept(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.create_temp_contract_on_request_accept() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+    v_owner_actor_id INTEGER;
+    v_resource_title VARCHAR(200);
+    v_temp_contract_id INTEGER;
+    v_offering_term_cost DECIMAL(15,2);
+    v_offering_term_currency VARCHAR(10);
+    v_offering_special_terms TEXT;
+BEGIN
+    -- Если статус изменился на 'accepted'
+    IF NEW.request_status = 'accepted' AND OLD.request_status != 'accepted' THEN
+        -- Находим владельца ресурса
+        IF NEW.resource_type = 'matresource' THEN
+            -- Для материальных ресурсов
+            SELECT mo.actor_id INTO v_owner_actor_id
+            FROM matresource_owners mo
+            WHERE mo.matresource_id = NEW.resource_id
+            LIMIT 1;
+            
+            SELECT title INTO v_resource_title
+            FROM matresources WHERE matresource_id = NEW.resource_id;
+            
+        ELSIF NEW.resource_type = 'finresource' THEN
+            -- Для финансовых ресурсов
+            SELECT fo.actor_id INTO v_owner_actor_id
+            FROM finresource_owners fo
+            WHERE fo.finresource_id = NEW.resource_id
+            LIMIT 1;
+            
+            SELECT title INTO v_resource_title
+            FROM finresources WHERE finresource_id = NEW.resource_id;
+            
+        ELSIF NEW.resource_type = 'venue' THEN
+            -- Для мест проведения
+            SELECT vo.actor_id INTO v_owner_actor_id
+            FROM venue_owners vo
+            WHERE vo.venue_id = NEW.resource_id 
+            AND vo.is_primary = TRUE
+            LIMIT 1;
+            
+            SELECT title INTO v_resource_title
+            FROM venues WHERE venue_id = NEW.resource_id;
+            
+        ELSIF NEW.resource_type = 'service' THEN
+            -- Для услуг
+            SELECT so.actor_id INTO v_owner_actor_id
+            FROM service_owners so
+            WHERE so.service_id = NEW.resource_id 
+            AND so.is_primary = TRUE
+            LIMIT 1;
+            
+            SELECT title INTO v_resource_title
+            FROM services WHERE service_id = NEW.resource_id;
+        END IF;
+        
+        -- Если владелец не найден, используем reviewed_by или любого администратора
+        IF v_owner_actor_id IS NULL THEN
+            -- Сначала пробуем reviewed_by
+            v_owner_actor_id := NEW.reviewed_by;
+            
+            -- Если и его нет, берем любого активного участника
+            IF v_owner_actor_id IS NULL THEN
+                SELECT actor_id INTO v_owner_actor_id
+                FROM actors 
+                WHERE deleted_at IS NULL
+                LIMIT 1;
+            END IF;
+        END IF;
+        
+        -- Если все еще нет владельца, генерируем ошибку
+        IF v_owner_actor_id IS NULL THEN
+            RAISE EXCEPTION 'Не удалось определить владельца ресурса для запроса %', NEW.request_id;
+        END IF;
+        
+        -- Создаем временный договор
+        INSERT INTO temp_contracts (
+            request_id,
+            contract_title,
+            contract_description,
+            requester_id,
+            owner_id,
+            resource_type,
+            resource_id,
+            start_date,
+            end_date,
+            start_time,
+            end_time,
+            contract_status
+        ) VALUES (
+            NEW.request_id,
+            'Временный договор: ' || COALESCE(v_resource_title, NEW.request_title),
+            COALESCE(NEW.request_description, 'Договор по запросу ' || NEW.request_id),
+            NEW.requester_id,
+            v_owner_actor_id,
+            NEW.resource_type,
+            NEW.resource_id,
+            NEW.start_date,
+            NEW.end_date,
+            NEW.start_time,
+            NEW.end_time,
+            'draft'
+        ) RETURNING temp_contract_id INTO v_temp_contract_id;
+        
+        RAISE NOTICE 'Создан временный договор ID: % для запроса ID: %', v_temp_contract_id, NEW.request_id;
+        
+        -- Копируем выбранные условия во временный договор
+        -- Нужно получить стоимость и условия из связанных таблиц (matresource_offering_terms и т.д.)
+        INSERT INTO temp_contract_terms (
+            temp_contract_id,
+            request_term_id,
+            offering_term_id,
+            agreed_cost,
+            agreed_currency,
+            special_terms
+        )
+        SELECT 
+            v_temp_contract_id,
+            rot.request_term_id,
+            rot.offering_term_id,
+            COALESCE(rot.proposed_cost, 
+                -- Получаем стоимость из соответствующей таблицы ресурсов
+                CASE NEW.resource_type
+                    WHEN 'matresource' THEN (SELECT mot.cost FROM matresource_offering_terms mot 
+                                            WHERE mot.matresource_id = NEW.resource_id 
+                                            AND mot.offering_term_id = rot.offering_term_id
+                                            LIMIT 1)
+                    WHEN 'finresource' THEN (SELECT fot.cost FROM finresource_offering_terms fot 
+                                            WHERE fot.finresource_id = NEW.resource_id 
+                                            AND fot.offering_term_id = rot.offering_term_id
+                                            LIMIT 1)
+                    WHEN 'venue' THEN (SELECT vot.cost FROM venue_offering_terms vot 
+                                      WHERE vot.venue_id = NEW.resource_id 
+                                      AND vot.offering_term_id = rot.offering_term_id
+                                      LIMIT 1)
+                    WHEN 'service' THEN (SELECT sot.cost FROM service_offering_terms sot 
+                                        WHERE sot.service_id = NEW.resource_id 
+                                        AND sot.offering_term_id = rot.offering_term_id
+                                        LIMIT 1)
+                END, 
+                0.00) as agreed_cost,
+            COALESCE(
+                CASE NEW.resource_type
+                    WHEN 'matresource' THEN (SELECT mot.currency FROM matresource_offering_terms mot 
+                                            WHERE mot.matresource_id = NEW.resource_id 
+                                            AND mot.offering_term_id = rot.offering_term_id
+                                            LIMIT 1)
+                    WHEN 'finresource' THEN (SELECT fot.currency FROM finresource_offering_terms fot 
+                                            WHERE fot.finresource_id = NEW.resource_id 
+                                            AND fot.offering_term_id = rot.offering_term_id
+                                            LIMIT 1)
+                    WHEN 'venue' THEN (SELECT vot.currency FROM venue_offering_terms vot 
+                                      WHERE vot.venue_id = NEW.resource_id 
+                                      AND vot.offering_term_id = rot.offering_term_id
+                                      LIMIT 1)
+                    WHEN 'service' THEN (SELECT sot.currency FROM service_offering_terms sot 
+                                        WHERE sot.service_id = NEW.resource_id 
+                                        AND sot.offering_term_id = rot.offering_term_id
+                                        LIMIT 1)
+                END,
+                'руб.') as agreed_currency,
+            COALESCE(rot.request_terms,
+                CASE NEW.resource_type
+                    WHEN 'matresource' THEN (SELECT mot.special_terms FROM matresource_offering_terms mot 
+                                            WHERE mot.matresource_id = NEW.resource_id 
+                                            AND mot.offering_term_id = rot.offering_term_id
+                                            LIMIT 1)
+                    WHEN 'finresource' THEN (SELECT fot.special_terms FROM finresource_offering_terms fot 
+                                            WHERE fot.finresource_id = NEW.resource_id 
+                                            AND fot.offering_term_id = rot.offering_term_id
+                                            LIMIT 1)
+                    WHEN 'venue' THEN (SELECT vot.special_terms FROM venue_offering_terms vot 
+                                      WHERE vot.venue_id = NEW.resource_id 
+                                      AND vot.offering_term_id = rot.offering_term_id
+                                      LIMIT 1)
+                    WHEN 'service' THEN (SELECT sot.special_terms FROM service_offering_terms sot 
+                                        WHERE sot.service_id = NEW.resource_id 
+                                        AND sot.offering_term_id = rot.offering_term_id
+                                        LIMIT 1)
+                END,
+                '') as special_terms
+        FROM request_offering_terms rot
+        WHERE rot.request_id = NEW.request_id;
+        
+        RAISE NOTICE 'Добавлено % условий во временный договор', (SELECT COUNT(*) FROM temp_contract_terms WHERE temp_contract_id = v_temp_contract_id);
+    END IF;
+    
+    RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.create_temp_contract_on_request_accept() OWNER TO postgres;
+
+--
+-- TOC entry 512 (class 1255 OID 19519)
 -- Name: find_free_resources(text[]); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -387,7 +975,7 @@ $$;
 ALTER FUNCTION public.find_free_resources(p_resource_types text[]) OWNER TO postgres;
 
 --
--- TOC entry 452 (class 1255 OID 19518)
+-- TOC entry 493 (class 1255 OID 19518)
 -- Name: find_rental_resources(numeric); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -414,7 +1002,7 @@ $$;
 ALTER FUNCTION public.find_rental_resources(p_max_daily_price numeric) OWNER TO postgres;
 
 --
--- TOC entry 419 (class 1255 OID 18340)
+-- TOC entry 457 (class 1255 OID 18340)
 -- Name: fix_actor_integrity(integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -461,7 +1049,27 @@ $$;
 ALTER FUNCTION public.fix_actor_integrity(p_actor_id integer) OWNER TO postgres;
 
 --
--- TOC entry 468 (class 1255 OID 16522)
+-- TOC entry 454 (class 1255 OID 19970)
+-- Name: generate_contract_number(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.generate_contract_number() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+    IF NEW.contract_number IS NULL THEN
+        NEW.contract_number := 'CTR-' || TO_CHAR(CURRENT_DATE, 'YYYYMMDD-') || 
+                              LPAD(NEXTVAL('contract_number_seq')::TEXT, 6, '0');
+    END IF;
+    RETURN NEW;
+END;
+$$;
+
+
+ALTER FUNCTION public.generate_contract_number() OWNER TO postgres;
+
+--
+-- TOC entry 509 (class 1255 OID 16522)
 -- Name: get_actor_current_status(integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -483,7 +1091,7 @@ $$;
 ALTER FUNCTION public.get_actor_current_status(actor_id_param integer) OWNER TO postgres;
 
 --
--- TOC entry 445 (class 1255 OID 19237)
+-- TOC entry 485 (class 1255 OID 19237)
 -- Name: get_cost_display(numeric, character varying, integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -524,7 +1132,7 @@ $$;
 ALTER FUNCTION public.get_cost_display(p_cost numeric, p_currency character varying, p_offering_term_id integer) OWNER TO postgres;
 
 --
--- TOC entry 460 (class 1255 OID 16523)
+-- TOC entry 501 (class 1255 OID 16523)
 -- Name: get_project_participants_count(integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -547,7 +1155,7 @@ $$;
 ALTER FUNCTION public.get_project_participants_count(project_id_param integer) OWNER TO postgres;
 
 --
--- TOC entry 501 (class 1255 OID 19500)
+-- TOC entry 546 (class 1255 OID 19500)
 -- Name: get_resource_description(text, integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -591,7 +1199,7 @@ $$;
 ALTER FUNCTION public.get_resource_description(p_resource_type text, p_resource_id integer) OWNER TO postgres;
 
 --
--- TOC entry 461 (class 1255 OID 19489)
+-- TOC entry 502 (class 1255 OID 19489)
 -- Name: get_resource_offerings(text, integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -622,7 +1230,7 @@ $$;
 ALTER FUNCTION public.get_resource_offerings(p_resource_type text, p_resource_id integer) OWNER TO postgres;
 
 --
--- TOC entry 477 (class 1255 OID 19520)
+-- TOC entry 518 (class 1255 OID 19520)
 -- Name: quick_search_resources(text); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -657,7 +1265,7 @@ $$;
 ALTER FUNCTION public.quick_search_resources(p_search_text text) OWNER TO postgres;
 
 --
--- TOC entry 473 (class 1255 OID 16524)
+-- TOC entry 514 (class 1255 OID 16524)
 -- Name: register_person(character varying, character varying, character varying, character varying, character varying, integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -716,7 +1324,7 @@ $_$;
 ALTER FUNCTION public.register_person(p_email character varying, p_password character varying, p_nickname character varying, p_name character varying, p_last_name character varying, p_location_id integer) OWNER TO postgres;
 
 --
--- TOC entry 407 (class 1255 OID 16525)
+-- TOC entry 443 (class 1255 OID 16525)
 -- Name: search_by_keywords(text); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -780,7 +1388,7 @@ $$;
 ALTER FUNCTION public.search_by_keywords(search_query text) OWNER TO postgres;
 
 --
--- TOC entry 479 (class 1255 OID 19516)
+-- TOC entry 520 (class 1255 OID 19516)
 -- Name: search_resources_by_criteria(text[], numeric, numeric, boolean, text); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -818,7 +1426,7 @@ $$;
 ALTER FUNCTION public.search_resources_by_criteria(p_resource_types text[], p_min_price numeric, p_max_price numeric, p_include_free boolean, p_search_text text) OWNER TO postgres;
 
 --
--- TOC entry 416 (class 1255 OID 16526)
+-- TOC entry 452 (class 1255 OID 16526)
 -- Name: soft_delete_record(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -835,7 +1443,7 @@ $$;
 ALTER FUNCTION public.soft_delete_record() OWNER TO postgres;
 
 --
--- TOC entry 492 (class 1255 OID 19522)
+-- TOC entry 537 (class 1255 OID 19522)
 -- Name: system_health_check(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -932,7 +1540,7 @@ $$;
 ALTER FUNCTION public.system_health_check() OWNER TO postgres;
 
 --
--- TOC entry 424 (class 1255 OID 19521)
+-- TOC entry 462 (class 1255 OID 19521)
 -- Name: test_system(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -1007,7 +1615,7 @@ $$;
 ALTER FUNCTION public.test_system() OWNER TO postgres;
 
 --
--- TOC entry 439 (class 1255 OID 16527)
+-- TOC entry 478 (class 1255 OID 16527)
 -- Name: update_last_login(integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -1025,7 +1633,7 @@ $$;
 ALTER FUNCTION public.update_last_login(actor_id_param integer) OWNER TO postgres;
 
 --
--- TOC entry 481 (class 1255 OID 16528)
+-- TOC entry 522 (class 1255 OID 16528)
 -- Name: update_updated_at_column(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -1042,7 +1650,7 @@ $$;
 ALTER FUNCTION public.update_updated_at_column() OWNER TO postgres;
 
 --
--- TOC entry 470 (class 1255 OID 18335)
+-- TOC entry 511 (class 1255 OID 18335)
 -- Name: validate_actor_integrity(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -1105,7 +1713,7 @@ $$;
 ALTER FUNCTION public.validate_actor_integrity() OWNER TO postgres;
 
 --
--- TOC entry 462 (class 1255 OID 18352)
+-- TOC entry 503 (class 1255 OID 18352)
 -- Name: validate_actor_type_integrity(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -1201,7 +1809,7 @@ CREATE SEQUENCE public.actor_current_statuses_actor_current_status_id_seq
 ALTER SEQUENCE public.actor_current_statuses_actor_current_status_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6535 (class 0 OID 0)
+-- TOC entry 6848 (class 0 OID 0)
 -- Dependencies: 224
 -- Name: actor_current_statuses_actor_current_status_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -1248,7 +1856,7 @@ CREATE TABLE public.actors (
 ALTER TABLE public.actors OWNER TO postgres;
 
 --
--- TOC entry 6536 (class 0 OID 0)
+-- TOC entry 6849 (class 0 OID 0)
 -- Dependencies: 229
 -- Name: COLUMN actors.color_frame; Type: COMMENT; Schema: public; Owner: postgres
 --
@@ -1522,6 +2130,20 @@ CREATE VIEW public.actor_persons_view AS
 ALTER VIEW public.actor_persons_view OWNER TO postgres;
 
 --
+-- TOC entry 428 (class 1259 OID 20009)
+-- Name: actor_status_mapping; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.actor_status_mapping (
+    rating_id integer NOT NULL,
+    status_name character varying(50),
+    can_create_project boolean DEFAULT false
+);
+
+
+ALTER TABLE public.actor_status_mapping OWNER TO postgres;
+
+--
 -- TOC entry 226 (class 1259 OID 16553)
 -- Name: actor_statuses_actor_status_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
@@ -1538,7 +2160,7 @@ CREATE SEQUENCE public.actor_statuses_actor_status_id_seq
 ALTER SEQUENCE public.actor_statuses_actor_status_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6537 (class 0 OID 0)
+-- TOC entry 6850 (class 0 OID 0)
 -- Dependencies: 226
 -- Name: actor_statuses_actor_status_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -1563,7 +2185,7 @@ CREATE SEQUENCE public.actor_types_actor_type_id_seq
 ALTER SEQUENCE public.actor_types_actor_type_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6538 (class 0 OID 0)
+-- TOC entry 6851 (class 0 OID 0)
 -- Dependencies: 228
 -- Name: actor_types_actor_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -1588,7 +2210,7 @@ CREATE SEQUENCE public.actors_actor_id_seq
 ALTER SEQUENCE public.actors_actor_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6539 (class 0 OID 0)
+-- TOC entry 6852 (class 0 OID 0)
 -- Dependencies: 230
 -- Name: actors_actor_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -1724,7 +2346,7 @@ CREATE SEQUENCE public.bookmarks_bookmark_id_seq
 ALTER SEQUENCE public.bookmarks_bookmark_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6540 (class 0 OID 0)
+-- TOC entry 6853 (class 0 OID 0)
 -- Dependencies: 361
 -- Name: bookmarks_bookmark_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -1749,12 +2371,136 @@ CREATE SEQUENCE public.communities_community_id_seq
 ALTER SEQUENCE public.communities_community_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6541 (class 0 OID 0)
+-- TOC entry 6854 (class 0 OID 0)
 -- Dependencies: 239
 -- Name: communities_community_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.communities_community_id_seq OWNED BY public.communities.community_id;
+
+
+--
+-- TOC entry 423 (class 1259 OID 19968)
+-- Name: contract_number_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.contract_number_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.contract_number_seq OWNER TO postgres;
+
+--
+-- TOC entry 422 (class 1259 OID 19905)
+-- Name: contract_terms; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.contract_terms (
+    contract_term_id integer NOT NULL,
+    contract_id integer NOT NULL,
+    offering_term_id integer NOT NULL,
+    offering_term_name character varying(100) NOT NULL,
+    cost numeric(15,2) NOT NULL,
+    currency character varying(10) DEFAULT 'руб.'::character varying,
+    special_terms text,
+    fulfillment_status character varying(20) DEFAULT 'pending'::character varying,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT chk_fulfillment_status CHECK (((fulfillment_status)::text = ANY ((ARRAY['pending'::character varying, 'in_progress'::character varying, 'completed'::character varying, 'cancelled'::character varying])::text[])))
+);
+
+
+ALTER TABLE public.contract_terms OWNER TO postgres;
+
+--
+-- TOC entry 421 (class 1259 OID 19904)
+-- Name: contract_terms_contract_term_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.contract_terms_contract_term_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.contract_terms_contract_term_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 6855 (class 0 OID 0)
+-- Dependencies: 421
+-- Name: contract_terms_contract_term_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.contract_terms_contract_term_id_seq OWNED BY public.contract_terms.contract_term_id;
+
+
+--
+-- TOC entry 420 (class 1259 OID 19856)
+-- Name: contracts; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.contracts (
+    contract_id integer NOT NULL,
+    temp_contract_id integer NOT NULL,
+    request_id integer NOT NULL,
+    contract_number character varying(50) NOT NULL,
+    contract_title character varying(200) NOT NULL,
+    contract_description text,
+    requester_id integer NOT NULL,
+    owner_id integer NOT NULL,
+    resource_type character varying(20) NOT NULL,
+    resource_id integer NOT NULL,
+    start_date date,
+    end_date date,
+    start_time time without time zone,
+    end_time time without time zone,
+    contract_status character varying(20) DEFAULT 'active'::character varying,
+    total_cost numeric(15,2) NOT NULL,
+    currency character varying(10) DEFAULT 'руб.'::character varying,
+    requester_signed_at timestamp without time zone,
+    owner_signed_at timestamp without time zone,
+    signed_at timestamp without time zone,
+    effective_from timestamp without time zone,
+    effective_until timestamp without time zone,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT chk_contract_resource_type CHECK (((resource_type)::text = ANY ((ARRAY['matresource'::character varying, 'finresource'::character varying, 'venue'::character varying, 'service'::character varying])::text[]))),
+    CONSTRAINT chk_contract_status CHECK (((contract_status)::text = ANY ((ARRAY['active'::character varying, 'suspended'::character varying, 'completed'::character varying, 'terminated'::character varying, 'cancelled'::character varying])::text[])))
+);
+
+
+ALTER TABLE public.contracts OWNER TO postgres;
+
+--
+-- TOC entry 419 (class 1259 OID 19855)
+-- Name: contracts_contract_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.contracts_contract_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.contracts_contract_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 6856 (class 0 OID 0)
+-- Dependencies: 419
+-- Name: contracts_contract_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.contracts_contract_id_seq OWNED BY public.contracts.contract_id;
 
 
 --
@@ -1808,7 +2554,7 @@ CREATE SEQUENCE public.directions_direction_id_seq
 ALTER SEQUENCE public.directions_direction_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6542 (class 0 OID 0)
+-- TOC entry 6857 (class 0 OID 0)
 -- Dependencies: 241
 -- Name: directions_direction_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -1846,7 +2592,7 @@ CREATE SEQUENCE public.event_types_event_type_id_seq
 ALTER SEQUENCE public.event_types_event_type_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6543 (class 0 OID 0)
+-- TOC entry 6858 (class 0 OID 0)
 -- Dependencies: 243
 -- Name: event_types_event_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -1901,7 +2647,7 @@ CREATE SEQUENCE public.events_event_id_seq
 ALTER SEQUENCE public.events_event_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6544 (class 0 OID 0)
+-- TOC entry 6859 (class 0 OID 0)
 -- Dependencies: 245
 -- Name: events_event_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -1940,7 +2686,7 @@ CREATE TABLE public.favorites (
 ALTER TABLE public.favorites OWNER TO postgres;
 
 --
--- TOC entry 6545 (class 0 OID 0)
+-- TOC entry 6860 (class 0 OID 0)
 -- Dependencies: 360
 -- Name: TABLE favorites; Type: COMMENT; Schema: public; Owner: postgres
 --
@@ -1965,12 +2711,55 @@ CREATE SEQUENCE public.favorites_favorite_id_seq
 ALTER SEQUENCE public.favorites_favorite_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6546 (class 0 OID 0)
+-- TOC entry 6861 (class 0 OID 0)
 -- Dependencies: 359
 -- Name: favorites_favorite_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.favorites_favorite_id_seq OWNED BY public.favorites.favorite_id;
+
+
+--
+-- TOC entry 400 (class 1259 OID 19556)
+-- Name: finresource_offering_terms; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.finresource_offering_terms (
+    id integer NOT NULL,
+    finresource_id integer NOT NULL,
+    offering_term_id integer NOT NULL,
+    cost numeric(15,2) DEFAULT 0,
+    currency character varying(10) DEFAULT 'руб.'::character varying,
+    special_terms text,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+);
+
+
+ALTER TABLE public.finresource_offering_terms OWNER TO postgres;
+
+--
+-- TOC entry 399 (class 1259 OID 19555)
+-- Name: finresource_offering_terms_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.finresource_offering_terms_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.finresource_offering_terms_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 6862 (class 0 OID 0)
+-- Dependencies: 399
+-- Name: finresource_offering_terms_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.finresource_offering_terms_id_seq OWNED BY public.finresource_offering_terms.id;
 
 
 --
@@ -1980,11 +2769,37 @@ ALTER SEQUENCE public.favorites_favorite_id_seq OWNED BY public.favorites.favori
 
 CREATE TABLE public.finresource_owners (
     finresource_id integer NOT NULL,
-    actor_id integer NOT NULL
+    actor_id integer NOT NULL,
+    finresource_owner_id integer NOT NULL
 );
 
 
 ALTER TABLE public.finresource_owners OWNER TO postgres;
+
+--
+-- TOC entry 406 (class 1259 OID 19654)
+-- Name: finresource_owners_finresource_owner_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.finresource_owners_finresource_owner_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.finresource_owners_finresource_owner_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 6863 (class 0 OID 0)
+-- Dependencies: 406
+-- Name: finresource_owners_finresource_owner_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.finresource_owners_finresource_owner_id_seq OWNED BY public.finresource_owners.finresource_owner_id;
+
 
 --
 -- TOC entry 248 (class 1259 OID 16664)
@@ -2016,7 +2831,7 @@ CREATE SEQUENCE public.finresource_types_finresource_type_id_seq
 ALTER SEQUENCE public.finresource_types_finresource_type_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6547 (class 0 OID 0)
+-- TOC entry 6864 (class 0 OID 0)
 -- Dependencies: 249
 -- Name: finresource_types_finresource_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -2040,11 +2855,7 @@ CREATE TABLE public.finresources (
     updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     created_by integer,
     updated_by integer,
-    rating_id integer,
-    cost numeric(15,2) DEFAULT 0,
-    currency character varying(10) DEFAULT 'руб.'::character varying,
-    offering_term_id integer DEFAULT 2,
-    special_terms text
+    rating_id integer
 );
 
 
@@ -2067,7 +2878,7 @@ CREATE SEQUENCE public.finresources_finresource_id_seq
 ALTER SEQUENCE public.finresources_finresource_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6548 (class 0 OID 0)
+-- TOC entry 6865 (class 0 OID 0)
 -- Dependencies: 251
 -- Name: finresources_finresource_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -2094,7 +2905,7 @@ CREATE TABLE public.finresources_notes (
 ALTER TABLE public.finresources_notes OWNER TO postgres;
 
 --
--- TOC entry 6549 (class 0 OID 0)
+-- TOC entry 6866 (class 0 OID 0)
 -- Dependencies: 365
 -- Name: TABLE finresources_notes; Type: COMMENT; Schema: public; Owner: postgres
 --
@@ -2119,7 +2930,7 @@ CREATE SEQUENCE public.finresources_notes_finresource_note_id_seq
 ALTER SEQUENCE public.finresources_notes_finresource_note_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6550 (class 0 OID 0)
+-- TOC entry 6867 (class 0 OID 0)
 -- Dependencies: 364
 -- Name: finresources_notes_finresource_note_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -2172,7 +2983,7 @@ CREATE SEQUENCE public.functions_function_id_seq
 ALTER SEQUENCE public.functions_function_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6551 (class 0 OID 0)
+-- TOC entry 6868 (class 0 OID 0)
 -- Dependencies: 254
 -- Name: functions_function_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -2223,7 +3034,7 @@ CREATE SEQUENCE public.idea_categories_idea_category_id_seq
 ALTER SEQUENCE public.idea_categories_idea_category_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6552 (class 0 OID 0)
+-- TOC entry 6869 (class 0 OID 0)
 -- Dependencies: 257
 -- Name: idea_categories_idea_category_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -2266,7 +3077,7 @@ CREATE SEQUENCE public.idea_offering_terms_id_seq
 ALTER SEQUENCE public.idea_offering_terms_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6553 (class 0 OID 0)
+-- TOC entry 6870 (class 0 OID 0)
 -- Dependencies: 376
 -- Name: idea_offering_terms_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -2304,7 +3115,7 @@ CREATE SEQUENCE public.idea_types_idea_type_id_seq
 ALTER SEQUENCE public.idea_types_idea_type_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6554 (class 0 OID 0)
+-- TOC entry 6871 (class 0 OID 0)
 -- Dependencies: 259
 -- Name: idea_types_idea_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -2368,7 +3179,7 @@ CREATE SEQUENCE public.ideas_idea_id_seq
 ALTER SEQUENCE public.ideas_idea_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6555 (class 0 OID 0)
+-- TOC entry 6872 (class 0 OID 0)
 -- Dependencies: 262
 -- Name: ideas_idea_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -2496,7 +3307,7 @@ CREATE SEQUENCE public.local_events_local_event_id_seq
 ALTER SEQUENCE public.local_events_local_event_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6556 (class 0 OID 0)
+-- TOC entry 6873 (class 0 OID 0)
 -- Dependencies: 266
 -- Name: local_events_local_event_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -2542,7 +3353,7 @@ CREATE SEQUENCE public.locations_location_id_seq
 ALTER SEQUENCE public.locations_location_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6557 (class 0 OID 0)
+-- TOC entry 6874 (class 0 OID 0)
 -- Dependencies: 268
 -- Name: locations_location_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -2585,7 +3396,7 @@ CREATE SEQUENCE public.matresource_offering_terms_id_seq
 ALTER SEQUENCE public.matresource_offering_terms_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6558 (class 0 OID 0)
+-- TOC entry 6875 (class 0 OID 0)
 -- Dependencies: 378
 -- Name: matresource_offering_terms_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -2600,11 +3411,37 @@ ALTER SEQUENCE public.matresource_offering_terms_id_seq OWNED BY public.matresou
 
 CREATE TABLE public.matresource_owners (
     matresource_id integer NOT NULL,
-    actor_id integer NOT NULL
+    actor_id integer NOT NULL,
+    matresource_owner_id integer NOT NULL
 );
 
 
 ALTER TABLE public.matresource_owners OWNER TO postgres;
+
+--
+-- TOC entry 405 (class 1259 OID 19646)
+-- Name: matresource_owners_matresource_owner_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.matresource_owners_matresource_owner_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.matresource_owners_matresource_owner_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 6876 (class 0 OID 0)
+-- Dependencies: 405
+-- Name: matresource_owners_matresource_owner_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.matresource_owners_matresource_owner_id_seq OWNED BY public.matresource_owners.matresource_owner_id;
+
 
 --
 -- TOC entry 270 (class 1259 OID 16766)
@@ -2638,7 +3475,7 @@ CREATE SEQUENCE public.matresource_types_matresource_type_id_seq
 ALTER SEQUENCE public.matresource_types_matresource_type_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6559 (class 0 OID 0)
+-- TOC entry 6877 (class 0 OID 0)
 -- Dependencies: 271
 -- Name: matresource_types_matresource_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -2685,7 +3522,7 @@ CREATE SEQUENCE public.matresources_matresource_id_seq
 ALTER SEQUENCE public.matresources_matresource_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6560 (class 0 OID 0)
+-- TOC entry 6878 (class 0 OID 0)
 -- Dependencies: 273
 -- Name: matresources_matresource_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -2774,7 +3611,7 @@ CREATE SEQUENCE public.messages_message_id_seq
 ALTER SEQUENCE public.messages_message_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6561 (class 0 OID 0)
+-- TOC entry 6879 (class 0 OID 0)
 -- Dependencies: 276
 -- Name: messages_message_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -2817,7 +3654,7 @@ CREATE SEQUENCE public.notes_note_id_seq
 ALTER SEQUENCE public.notes_note_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6562 (class 0 OID 0)
+-- TOC entry 6880 (class 0 OID 0)
 -- Dependencies: 278
 -- Name: notes_note_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -2861,7 +3698,7 @@ CREATE SEQUENCE public.notifications_notification_id_seq
 ALTER SEQUENCE public.notifications_notification_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6563 (class 0 OID 0)
+-- TOC entry 6881 (class 0 OID 0)
 -- Dependencies: 280
 -- Name: notifications_notification_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -2886,7 +3723,7 @@ CREATE SEQUENCE public.offering_terms_id_seq
 ALTER SEQUENCE public.offering_terms_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6564 (class 0 OID 0)
+-- TOC entry 6882 (class 0 OID 0)
 -- Dependencies: 374
 -- Name: offering_terms_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -2911,7 +3748,7 @@ CREATE SEQUENCE public.organizations_organization_id_seq
 ALTER SEQUENCE public.organizations_organization_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6565 (class 0 OID 0)
+-- TOC entry 6883 (class 0 OID 0)
 -- Dependencies: 282
 -- Name: organizations_organization_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -2936,7 +3773,7 @@ CREATE SEQUENCE public.persons_person_id_seq
 ALTER SEQUENCE public.persons_person_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6566 (class 0 OID 0)
+-- TOC entry 6884 (class 0 OID 0)
 -- Dependencies: 284
 -- Name: persons_person_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -2964,7 +3801,7 @@ CREATE TABLE public.project_actor_roles (
 ALTER TABLE public.project_actor_roles OWNER TO postgres;
 
 --
--- TOC entry 6567 (class 0 OID 0)
+-- TOC entry 6885 (class 0 OID 0)
 -- Dependencies: 285
 -- Name: TABLE project_actor_roles; Type: COMMENT; Schema: public; Owner: postgres
 --
@@ -2973,7 +3810,7 @@ COMMENT ON TABLE public.project_actor_roles IS 'Хранит роли актор
 
 
 --
--- TOC entry 6568 (class 0 OID 0)
+-- TOC entry 6886 (class 0 OID 0)
 -- Dependencies: 285
 -- Name: COLUMN project_actor_roles.role_type; Type: COMMENT; Schema: public; Owner: postgres
 --
@@ -2982,7 +3819,7 @@ COMMENT ON COLUMN public.project_actor_roles.role_type IS 'Тип роли: lead
 
 
 --
--- TOC entry 6569 (class 0 OID 0)
+-- TOC entry 6887 (class 0 OID 0)
 -- Dependencies: 285
 -- Name: COLUMN project_actor_roles.assigned_at; Type: COMMENT; Schema: public; Owner: postgres
 --
@@ -2991,7 +3828,7 @@ COMMENT ON COLUMN public.project_actor_roles.assigned_at IS 'Дата и вре�
 
 
 --
--- TOC entry 6570 (class 0 OID 0)
+-- TOC entry 6888 (class 0 OID 0)
 -- Dependencies: 285
 -- Name: COLUMN project_actor_roles.assigned_by; Type: COMMENT; Schema: public; Owner: postgres
 --
@@ -3016,7 +3853,7 @@ CREATE SEQUENCE public.project_actor_roles_project_actor_role_id_seq
 ALTER SEQUENCE public.project_actor_roles_project_actor_role_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6571 (class 0 OID 0)
+-- TOC entry 6889 (class 0 OID 0)
 -- Dependencies: 286
 -- Name: project_actor_roles_project_actor_role_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -3060,7 +3897,7 @@ CREATE SEQUENCE public.project_groups_project_group_id_seq
 ALTER SEQUENCE public.project_groups_project_group_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6572 (class 0 OID 0)
+-- TOC entry 6890 (class 0 OID 0)
 -- Dependencies: 288
 -- Name: project_groups_project_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -3099,7 +3936,7 @@ CREATE SEQUENCE public.project_statuses_project_status_id_seq
 ALTER SEQUENCE public.project_statuses_project_status_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6573 (class 0 OID 0)
+-- TOC entry 6891 (class 0 OID 0)
 -- Dependencies: 290
 -- Name: project_statuses_project_status_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -3137,7 +3974,7 @@ CREATE SEQUENCE public.project_types_project_type_id_seq
 ALTER SEQUENCE public.project_types_project_type_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6574 (class 0 OID 0)
+-- TOC entry 6892 (class 0 OID 0)
 -- Dependencies: 292
 -- Name: project_types_project_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -3264,7 +4101,7 @@ CREATE SEQUENCE public.projects_project_id_seq
 ALTER SEQUENCE public.projects_project_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6575 (class 0 OID 0)
+-- TOC entry 6893 (class 0 OID 0)
 -- Dependencies: 299
 -- Name: projects_project_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -3318,7 +4155,7 @@ CREATE SEQUENCE public.rating_types_rating_type_id_seq
 ALTER SEQUENCE public.rating_types_rating_type_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6576 (class 0 OID 0)
+-- TOC entry 6894 (class 0 OID 0)
 -- Dependencies: 355
 -- Name: rating_types_rating_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -3342,7 +4179,7 @@ CREATE TABLE public.ratings (
 ALTER TABLE public.ratings OWNER TO postgres;
 
 --
--- TOC entry 6577 (class 0 OID 0)
+-- TOC entry 6895 (class 0 OID 0)
 -- Dependencies: 358
 -- Name: TABLE ratings; Type: COMMENT; Schema: public; Owner: postgres
 --
@@ -3367,12 +4204,120 @@ CREATE SEQUENCE public.ratings_rating_id_seq
 ALTER SEQUENCE public.ratings_rating_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6578 (class 0 OID 0)
+-- TOC entry 6896 (class 0 OID 0)
 -- Dependencies: 357
 -- Name: ratings_rating_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.ratings_rating_id_seq OWNED BY public.ratings.rating_id;
+
+
+--
+-- TOC entry 414 (class 1259 OID 19756)
+-- Name: request_offering_terms; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.request_offering_terms (
+    request_term_id integer NOT NULL,
+    request_id integer NOT NULL,
+    offering_term_id integer NOT NULL,
+    proposed_cost numeric(15,2),
+    request_terms text,
+    requester_approval boolean DEFAULT false,
+    owner_response character varying(20),
+    owner_approved_cost numeric(15,2),
+    owner_terms text,
+    owner_approval boolean DEFAULT false,
+    term_status character varying(20) DEFAULT 'pending'::character varying,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT chk_owner_response CHECK (((owner_response)::text = ANY ((ARRAY['pending'::character varying, 'approved'::character varying, 'modified'::character varying, 'rejected'::character varying])::text[]))),
+    CONSTRAINT chk_term_status CHECK (((term_status)::text = ANY ((ARRAY['pending'::character varying, 'negotiating'::character varying, 'agreed'::character varying, 'rejected'::character varying])::text[])))
+);
+
+
+ALTER TABLE public.request_offering_terms OWNER TO postgres;
+
+--
+-- TOC entry 413 (class 1259 OID 19755)
+-- Name: request_offering_terms_request_term_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.request_offering_terms_request_term_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.request_offering_terms_request_term_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 6897 (class 0 OID 0)
+-- Dependencies: 413
+-- Name: request_offering_terms_request_term_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.request_offering_terms_request_term_id_seq OWNED BY public.request_offering_terms.request_term_id;
+
+
+--
+-- TOC entry 412 (class 1259 OID 19721)
+-- Name: requests; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.requests (
+    request_id integer NOT NULL,
+    requester_id integer NOT NULL,
+    resource_type character varying(20) NOT NULL,
+    resource_id integer NOT NULL,
+    project_id integer,
+    start_date date,
+    end_date date,
+    start_time time without time zone,
+    end_time time without time zone,
+    request_title character varying(200) NOT NULL,
+    request_description text,
+    requester_notes text,
+    request_status character varying(20) DEFAULT 'draft'::character varying,
+    submitted_at timestamp without time zone,
+    reviewed_at timestamp without time zone,
+    responded_at timestamp without time zone,
+    reviewed_by integer,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT chk_request_status CHECK (((request_status)::text = ANY ((ARRAY['draft'::character varying, 'submitted'::character varying, 'under_review'::character varying, 'accepted'::character varying, 'rejected'::character varying, 'cancelled'::character varying])::text[]))),
+    CONSTRAINT chk_resource_type CHECK (((resource_type)::text = ANY ((ARRAY['matresource'::character varying, 'finresource'::character varying, 'venue'::character varying, 'service'::character varying])::text[])))
+);
+
+
+ALTER TABLE public.requests OWNER TO postgres;
+
+--
+-- TOC entry 411 (class 1259 OID 19720)
+-- Name: requests_request_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.requests_request_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.requests_request_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 6898 (class 0 OID 0)
+-- Dependencies: 411
+-- Name: requests_request_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.requests_request_id_seq OWNED BY public.requests.request_id;
 
 
 --
@@ -3410,12 +4355,57 @@ CREATE SEQUENCE public.service_offering_terms_id_seq
 ALTER SEQUENCE public.service_offering_terms_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6579 (class 0 OID 0)
+-- TOC entry 6899 (class 0 OID 0)
 -- Dependencies: 380
 -- Name: service_offering_terms_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.service_offering_terms_id_seq OWNED BY public.service_offering_terms.id;
+
+
+--
+-- TOC entry 410 (class 1259 OID 19680)
+-- Name: service_owners; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.service_owners (
+    service_owner_id integer NOT NULL,
+    service_id integer NOT NULL,
+    actor_id integer NOT NULL,
+    ownership_type character varying(50) DEFAULT 'owner'::character varying,
+    ownership_share numeric(5,2) DEFAULT 100.00,
+    is_primary boolean DEFAULT true,
+    special_conditions text,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+);
+
+
+ALTER TABLE public.service_owners OWNER TO postgres;
+
+--
+-- TOC entry 409 (class 1259 OID 19679)
+-- Name: service_owners_service_owner_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.service_owners_service_owner_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.service_owners_service_owner_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 6900 (class 0 OID 0)
+-- Dependencies: 409
+-- Name: service_owners_service_owner_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.service_owners_service_owner_id_seq OWNED BY public.service_owners.service_owner_id;
 
 
 --
@@ -3470,7 +4460,7 @@ CREATE SEQUENCE public.services_service_id_seq
 ALTER SEQUENCE public.services_service_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6580 (class 0 OID 0)
+-- TOC entry 6901 (class 0 OID 0)
 -- Dependencies: 303
 -- Name: services_service_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -3508,7 +4498,7 @@ CREATE SEQUENCE public.stage_architecture_stage_architecture_id_seq
 ALTER SEQUENCE public.stage_architecture_stage_architecture_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6581 (class 0 OID 0)
+-- TOC entry 6902 (class 0 OID 0)
 -- Dependencies: 305
 -- Name: stage_architecture_stage_architecture_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -3565,7 +4555,7 @@ CREATE SEQUENCE public.stage_audio_stage_audio_id_seq
 ALTER SEQUENCE public.stage_audio_stage_audio_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6582 (class 0 OID 0)
+-- TOC entry 6903 (class 0 OID 0)
 -- Dependencies: 308
 -- Name: stage_audio_stage_audio_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -3622,7 +4612,7 @@ CREATE SEQUENCE public.stage_effects_stage_effects_id_seq
 ALTER SEQUENCE public.stage_effects_stage_effects_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6583 (class 0 OID 0)
+-- TOC entry 6904 (class 0 OID 0)
 -- Dependencies: 311
 -- Name: stage_effects_stage_effects_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -3679,7 +4669,7 @@ CREATE SEQUENCE public.stage_light_stage_light_id_seq
 ALTER SEQUENCE public.stage_light_stage_light_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6584 (class 0 OID 0)
+-- TOC entry 6905 (class 0 OID 0)
 -- Dependencies: 314
 -- Name: stage_light_stage_light_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -3717,7 +4707,7 @@ CREATE SEQUENCE public.stage_mobility_stage_mobility_id_seq
 ALTER SEQUENCE public.stage_mobility_stage_mobility_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6585 (class 0 OID 0)
+-- TOC entry 6906 (class 0 OID 0)
 -- Dependencies: 316
 -- Name: stage_mobility_stage_mobility_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -3755,7 +4745,7 @@ CREATE SEQUENCE public.stage_types_stage_type_id_seq
 ALTER SEQUENCE public.stage_types_stage_type_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6586 (class 0 OID 0)
+-- TOC entry 6907 (class 0 OID 0)
 -- Dependencies: 318
 -- Name: stage_types_stage_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -3812,7 +4802,7 @@ CREATE SEQUENCE public.stage_video_stage_video_id_seq
 ALTER SEQUENCE public.stage_video_stage_video_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6587 (class 0 OID 0)
+-- TOC entry 6908 (class 0 OID 0)
 -- Dependencies: 321
 -- Name: stage_video_stage_video_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -3870,12 +4860,94 @@ CREATE SEQUENCE public.stages_stage_id_seq
 ALTER SEQUENCE public.stages_stage_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6588 (class 0 OID 0)
+-- TOC entry 6909 (class 0 OID 0)
 -- Dependencies: 323
 -- Name: stages_stage_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.stages_stage_id_seq OWNED BY public.stages.stage_id;
+
+
+--
+-- TOC entry 438 (class 1259 OID 20086)
+-- Name: system_commands; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.system_commands (
+    id integer NOT NULL,
+    category text,
+    command text,
+    description text
+);
+
+
+ALTER TABLE public.system_commands OWNER TO postgres;
+
+--
+-- TOC entry 437 (class 1259 OID 20085)
+-- Name: system_commands_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.system_commands_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.system_commands_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 6910 (class 0 OID 0)
+-- Dependencies: 437
+-- Name: system_commands_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.system_commands_id_seq OWNED BY public.system_commands.id;
+
+
+--
+-- TOC entry 434 (class 1259 OID 20055)
+-- Name: system_deployment_log; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.system_deployment_log (
+    deployment_id integer NOT NULL,
+    component_name character varying(100) NOT NULL,
+    component_type character varying(50) NOT NULL,
+    status character varying(20) NOT NULL,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    notes text
+);
+
+
+ALTER TABLE public.system_deployment_log OWNER TO postgres;
+
+--
+-- TOC entry 433 (class 1259 OID 20054)
+-- Name: system_deployment_log_deployment_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.system_deployment_log_deployment_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.system_deployment_log_deployment_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 6911 (class 0 OID 0)
+-- Dependencies: 433
+-- Name: system_deployment_log_deployment_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.system_deployment_log_deployment_id_seq OWNED BY public.system_deployment_log.deployment_id;
 
 
 --
@@ -3908,7 +4980,7 @@ CREATE SEQUENCE public.task_types_task_type_id_seq
 ALTER SEQUENCE public.task_types_task_type_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6589 (class 0 OID 0)
+-- TOC entry 6912 (class 0 OID 0)
 -- Dependencies: 325
 -- Name: task_types_task_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -3955,12 +5027,116 @@ CREATE SEQUENCE public.tasks_task_id_seq
 ALTER SEQUENCE public.tasks_task_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6590 (class 0 OID 0)
+-- TOC entry 6913 (class 0 OID 0)
 -- Dependencies: 327
 -- Name: tasks_task_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.tasks_task_id_seq OWNED BY public.tasks.task_id;
+
+
+--
+-- TOC entry 418 (class 1259 OID 19823)
+-- Name: temp_contract_terms; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.temp_contract_terms (
+    temp_term_id integer NOT NULL,
+    temp_contract_id integer NOT NULL,
+    request_term_id integer NOT NULL,
+    offering_term_id integer NOT NULL,
+    agreed_cost numeric(15,2),
+    agreed_currency character varying(10) DEFAULT 'руб.'::character varying,
+    special_terms text,
+    term_status character varying(20) DEFAULT 'pending'::character varying,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT chk_temp_term_status CHECK (((term_status)::text = ANY ((ARRAY['pending'::character varying, 'agreed'::character varying, 'rejected'::character varying])::text[])))
+);
+
+
+ALTER TABLE public.temp_contract_terms OWNER TO postgres;
+
+--
+-- TOC entry 417 (class 1259 OID 19822)
+-- Name: temp_contract_terms_temp_term_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.temp_contract_terms_temp_term_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.temp_contract_terms_temp_term_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 6914 (class 0 OID 0)
+-- Dependencies: 417
+-- Name: temp_contract_terms_temp_term_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.temp_contract_terms_temp_term_id_seq OWNED BY public.temp_contract_terms.temp_term_id;
+
+
+--
+-- TOC entry 416 (class 1259 OID 19785)
+-- Name: temp_contracts; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.temp_contracts (
+    temp_contract_id integer NOT NULL,
+    request_id integer NOT NULL,
+    contract_title character varying(200) NOT NULL,
+    contract_description text,
+    requester_id integer NOT NULL,
+    owner_id integer NOT NULL,
+    resource_type character varying(20) NOT NULL,
+    resource_id integer NOT NULL,
+    start_date date,
+    end_date date,
+    start_time time without time zone,
+    end_time time without time zone,
+    contract_status character varying(20) DEFAULT 'draft'::character varying,
+    requester_signed boolean DEFAULT false,
+    owner_signed boolean DEFAULT false,
+    valid_from timestamp without time zone,
+    valid_until timestamp without time zone,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT chk_temp_contract_status CHECK (((contract_status)::text = ANY ((ARRAY['draft'::character varying, 'under_review'::character varying, 'pending_signatures'::character varying, 'active'::character varying, 'expired'::character varying, 'cancelled'::character varying])::text[]))),
+    CONSTRAINT chk_temp_resource_type CHECK (((resource_type)::text = ANY ((ARRAY['matresource'::character varying, 'finresource'::character varying, 'venue'::character varying, 'service'::character varying])::text[])))
+);
+
+
+ALTER TABLE public.temp_contracts OWNER TO postgres;
+
+--
+-- TOC entry 415 (class 1259 OID 19784)
+-- Name: temp_contracts_temp_contract_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.temp_contracts_temp_contract_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.temp_contracts_temp_contract_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 6915 (class 0 OID 0)
+-- Dependencies: 415
+-- Name: temp_contracts_temp_contract_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.temp_contracts_temp_contract_id_seq OWNED BY public.temp_contracts.temp_contract_id;
 
 
 --
@@ -3998,7 +5174,7 @@ CREATE SEQUENCE public.template_offering_terms_id_seq
 ALTER SEQUENCE public.template_offering_terms_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6591 (class 0 OID 0)
+-- TOC entry 6916 (class 0 OID 0)
 -- Dependencies: 382
 -- Name: template_offering_terms_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -4085,7 +5261,7 @@ CREATE TABLE public.templates_notes (
 ALTER TABLE public.templates_notes OWNER TO postgres;
 
 --
--- TOC entry 6592 (class 0 OID 0)
+-- TOC entry 6917 (class 0 OID 0)
 -- Dependencies: 367
 -- Name: TABLE templates_notes; Type: COMMENT; Schema: public; Owner: postgres
 --
@@ -4110,7 +5286,7 @@ CREATE SEQUENCE public.templates_notes_template_note_id_seq
 ALTER SEQUENCE public.templates_notes_template_note_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6593 (class 0 OID 0)
+-- TOC entry 6918 (class 0 OID 0)
 -- Dependencies: 366
 -- Name: templates_notes_template_note_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -4135,7 +5311,7 @@ CREATE SEQUENCE public.templates_template_id_seq
 ALTER SEQUENCE public.templates_template_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6594 (class 0 OID 0)
+-- TOC entry 6919 (class 0 OID 0)
 -- Dependencies: 332
 -- Name: templates_template_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -4176,7 +5352,7 @@ CREATE TABLE public.theme_bookmarks (
 ALTER TABLE public.theme_bookmarks OWNER TO postgres;
 
 --
--- TOC entry 6595 (class 0 OID 0)
+-- TOC entry 6920 (class 0 OID 0)
 -- Dependencies: 373
 -- Name: TABLE theme_bookmarks; Type: COMMENT; Schema: public; Owner: postgres
 --
@@ -4201,7 +5377,7 @@ CREATE SEQUENCE public.theme_bookmarks_bookmark_id_seq
 ALTER SEQUENCE public.theme_bookmarks_bookmark_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6596 (class 0 OID 0)
+-- TOC entry 6921 (class 0 OID 0)
 -- Dependencies: 372
 -- Name: theme_bookmarks_bookmark_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -4245,7 +5421,7 @@ CREATE SEQUENCE public.theme_comments_theme_comment_id_seq
 ALTER SEQUENCE public.theme_comments_theme_comment_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6597 (class 0 OID 0)
+-- TOC entry 6922 (class 0 OID 0)
 -- Dependencies: 335
 -- Name: theme_comments_theme_comment_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -4290,7 +5466,7 @@ CREATE SEQUENCE public.theme_discussions_discussion_id_seq
 ALTER SEQUENCE public.theme_discussions_discussion_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6598 (class 0 OID 0)
+-- TOC entry 6923 (class 0 OID 0)
 -- Dependencies: 370
 -- Name: theme_discussions_discussion_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -4317,7 +5493,7 @@ CREATE TABLE public.theme_notes (
 ALTER TABLE public.theme_notes OWNER TO postgres;
 
 --
--- TOC entry 6599 (class 0 OID 0)
+-- TOC entry 6924 (class 0 OID 0)
 -- Dependencies: 369
 -- Name: TABLE theme_notes; Type: COMMENT; Schema: public; Owner: postgres
 --
@@ -4342,7 +5518,7 @@ CREATE SEQUENCE public.theme_notes_theme_note_id_seq
 ALTER SEQUENCE public.theme_notes_theme_note_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6600 (class 0 OID 0)
+-- TOC entry 6925 (class 0 OID 0)
 -- Dependencies: 368
 -- Name: theme_notes_theme_note_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -4380,7 +5556,7 @@ CREATE SEQUENCE public.theme_types_theme_type_id_seq
 ALTER SEQUENCE public.theme_types_theme_type_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6601 (class 0 OID 0)
+-- TOC entry 6926 (class 0 OID 0)
 -- Dependencies: 337
 -- Name: theme_types_theme_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -4428,13 +5604,41 @@ CREATE SEQUENCE public.themes_theme_id_seq
 ALTER SEQUENCE public.themes_theme_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6602 (class 0 OID 0)
+-- TOC entry 6927 (class 0 OID 0)
 -- Dependencies: 339
 -- Name: themes_theme_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.themes_theme_id_seq OWNED BY public.themes.theme_id;
 
+
+--
+-- TOC entry 426 (class 1259 OID 19999)
+-- Name: v_active_contracts; Type: VIEW; Schema: public; Owner: postgres
+--
+
+CREATE VIEW public.v_active_contracts AS
+SELECT
+    NULL::integer AS contract_id,
+    NULL::character varying(50) AS contract_number,
+    NULL::character varying(200) AS contract_title,
+    NULL::character varying(20) AS resource_type,
+    NULL::integer AS resource_id,
+    NULL::character varying AS resource_title,
+    NULL::integer AS requester_id,
+    NULL::character varying(100) AS requester_name,
+    NULL::integer AS owner_id,
+    NULL::character varying(100) AS owner_name,
+    NULL::numeric(15,2) AS total_cost,
+    NULL::character varying(10) AS currency,
+    NULL::character varying(20) AS contract_status,
+    NULL::timestamp without time zone AS effective_from,
+    NULL::timestamp without time zone AS effective_until,
+    NULL::bigint AS terms_count,
+    NULL::bigint AS completed_terms;
+
+
+ALTER VIEW public.v_active_contracts OWNER TO postgres;
 
 --
 -- TOC entry 389 (class 1259 OID 19433)
@@ -4762,6 +5966,146 @@ CREATE VIEW public.v_all_resources_offerings_enhanced AS
 ALTER VIEW public.v_all_resources_offerings_enhanced OWNER TO postgres;
 
 --
+-- TOC entry 431 (class 1259 OID 20043)
+-- Name: v_business_intelligence; Type: VIEW; Schema: public; Owner: postgres
+--
+
+CREATE VIEW public.v_business_intelligence AS
+ WITH request_stats AS (
+         SELECT count(*) AS total_requests,
+            count(*) FILTER (WHERE ((requests.request_status)::text = 'accepted'::text)) AS accepted_requests
+           FROM public.requests
+        ), contract_stats AS (
+         SELECT count(*) AS total_temp_contracts,
+            count(*) AS total_final_contracts
+           FROM public.temp_contracts,
+            public.contracts
+        ), financial_stats AS (
+         SELECT COALESCE(sum(contracts.total_cost), (0)::numeric) AS total_contract_value,
+            COALESCE(avg(contracts.total_cost), (0)::numeric) AS avg_contract_value
+           FROM public.contracts
+          WHERE ((contracts.contract_status)::text = 'active'::text)
+        ), resource_stats AS (
+         SELECT count(DISTINCT requests.resource_type) AS resource_types_count,
+            string_agg(DISTINCT (requests.resource_type)::text, ', '::text) AS resource_types_list
+           FROM public.requests
+        )
+ SELECT rs.total_requests,
+    rs.accepted_requests,
+    cs.total_temp_contracts,
+    cs.total_final_contracts,
+    fs.total_contract_value,
+    fs.avg_contract_value,
+    rsc.resource_types_count,
+    rsc.resource_types_list,
+        CASE
+            WHEN (rs.accepted_requests > 0) THEN round((((cs.total_final_contracts)::numeric / (rs.accepted_requests)::numeric) * (100)::numeric), 2)
+            ELSE (0)::numeric
+        END AS conversion_rate_percent,
+    ( SELECT max(requests.created_at) AS max
+           FROM public.requests) AS last_request_date,
+    ( SELECT max(contracts.created_at) AS max
+           FROM public.contracts) AS last_contract_date
+   FROM request_stats rs,
+    contract_stats cs,
+    financial_stats fs,
+    resource_stats rsc;
+
+
+ALTER VIEW public.v_business_intelligence OWNER TO postgres;
+
+--
+-- TOC entry 430 (class 1259 OID 20038)
+-- Name: v_contract_process_tracking; Type: VIEW; Schema: public; Owner: postgres
+--
+
+CREATE VIEW public.v_contract_process_tracking AS
+ SELECT r.request_id,
+    r.request_title,
+    r.resource_type,
+        CASE r.resource_type
+            WHEN 'matresource'::text THEN ( SELECT matresources.title
+               FROM public.matresources
+              WHERE (matresources.matresource_id = r.resource_id))
+            WHEN 'service'::text THEN ( SELECT services.title
+               FROM public.services
+              WHERE (services.service_id = r.resource_id))
+            WHEN 'venue'::text THEN ( SELECT venues.title
+               FROM public.venues
+              WHERE (venues.venue_id = r.resource_id))
+            WHEN 'finresource'::text THEN ( SELECT finresources.title
+               FROM public.finresources
+              WHERE (finresources.finresource_id = r.resource_id))
+            ELSE NULL::character varying
+        END AS resource_name,
+    r.request_status,
+    a1.nickname AS requester,
+    tc.temp_contract_id,
+    tc.contract_status AS temp_contract_status,
+    tc.requester_signed AS temp_requester_signed,
+    tc.owner_signed AS temp_owner_signed,
+    a2.nickname AS owner,
+    c.contract_id,
+    c.contract_number,
+    c.contract_status AS final_contract_status,
+    c.total_cost,
+    c.currency,
+        CASE
+            WHEN (c.contract_id IS NOT NULL) THEN 'Завершён'::text
+            WHEN ((tc.temp_contract_id IS NOT NULL) AND tc.requester_signed AND tc.owner_signed) THEN 'Ожидает финального договора'::text
+            WHEN (tc.temp_contract_id IS NOT NULL) THEN 'На согласовании'::text
+            WHEN ((r.request_status)::text = 'accepted'::text) THEN 'Ожидает временного договора'::text
+            WHEN ((r.request_status)::text = 'submitted'::text) THEN 'На рассмотрении'::text
+            ELSE 'Черновик'::text
+        END AS process_status,
+    r.created_at AS request_created,
+    tc.created_at AS temp_contract_created,
+    c.created_at AS final_contract_created
+   FROM ((((public.requests r
+     LEFT JOIN public.actors a1 ON ((r.requester_id = a1.actor_id)))
+     LEFT JOIN public.temp_contracts tc ON ((r.request_id = tc.request_id)))
+     LEFT JOIN public.actors a2 ON ((tc.owner_id = a2.actor_id)))
+     LEFT JOIN public.contracts c ON ((tc.temp_contract_id = c.temp_contract_id)))
+  ORDER BY r.created_at DESC;
+
+
+ALTER VIEW public.v_contract_process_tracking OWNER TO postgres;
+
+--
+-- TOC entry 401 (class 1259 OID 19585)
+-- Name: v_finresources_offerings; Type: VIEW; Schema: public; Owner: postgres
+--
+
+CREATE VIEW public.v_finresources_offerings AS
+ SELECT f.finresource_id,
+    f.title,
+    f.description,
+    f.finresource_type_id,
+    f.attachment,
+    f.deleted_at,
+    f.created_at,
+    f.updated_at,
+    f.created_by,
+    f.updated_by,
+    f.rating_id,
+    fot.id AS offering_mapping_id,
+    fot.offering_term_id,
+    ot.name AS offering_term_name,
+    ot.code AS offering_term_code,
+    ot.is_paid,
+    ot.is_temporary,
+    fot.cost,
+    fot.currency,
+    fot.special_terms AS offering_special_terms,
+    fot.created_at AS offering_created_at
+   FROM ((public.finresources f
+     LEFT JOIN public.finresource_offering_terms fot ON ((f.finresource_id = fot.finresource_id)))
+     LEFT JOIN public.offering_terms ot ON ((fot.offering_term_id = ot.id)));
+
+
+ALTER VIEW public.v_finresources_offerings OWNER TO postgres;
+
+--
 -- TOC entry 395 (class 1259 OID 19463)
 -- Name: v_free_offerings; Type: VIEW; Schema: public; Owner: postgres
 --
@@ -4841,7 +6185,109 @@ CREATE VIEW public.v_paid_offerings AS
 ALTER VIEW public.v_paid_offerings OWNER TO postgres;
 
 --
--- TOC entry 399 (class 1259 OID 19490)
+-- TOC entry 427 (class 1259 OID 20004)
+-- Name: v_pending_contracts; Type: VIEW; Schema: public; Owner: postgres
+--
+
+CREATE VIEW public.v_pending_contracts AS
+SELECT
+    NULL::integer AS temp_contract_id,
+    NULL::character varying(200) AS contract_title,
+    NULL::character varying(20) AS resource_type,
+    NULL::integer AS resource_id,
+    NULL::character varying AS resource_title,
+    NULL::integer AS requester_id,
+    NULL::character varying(100) AS requester_name,
+    NULL::integer AS owner_id,
+    NULL::character varying(100) AS owner_name,
+    NULL::character varying(20) AS contract_status,
+    NULL::boolean AS requester_signed,
+    NULL::boolean AS owner_signed,
+    NULL::bigint AS terms_count,
+    NULL::bigint AS agreed_terms;
+
+
+ALTER VIEW public.v_pending_contracts OWNER TO postgres;
+
+--
+-- TOC entry 425 (class 1259 OID 19993)
+-- Name: v_request_terms_details; Type: VIEW; Schema: public; Owner: postgres
+--
+
+CREATE VIEW public.v_request_terms_details AS
+ SELECT r.request_id,
+    r.request_title,
+    r.resource_type,
+    r.resource_id,
+    rot.request_term_id,
+    ot.name AS term_name,
+    rot.proposed_cost,
+    rot.request_terms,
+    rot.requester_approval,
+    rot.owner_response,
+    rot.owner_approved_cost,
+    rot.owner_terms,
+    rot.owner_approval,
+    rot.term_status,
+        CASE
+            WHEN ((rot.requester_approval = true) AND (rot.owner_approval = true)) THEN 'fully_agreed'::text
+            WHEN ((rot.requester_approval = true) OR (rot.owner_approval = true)) THEN 'partially_agreed'::text
+            ELSE 'under_negotiation'::text
+        END AS agreement_status
+   FROM ((public.requests r
+     JOIN public.request_offering_terms rot ON ((r.request_id = rot.request_id)))
+     JOIN public.offering_terms ot ON ((rot.offering_term_id = ot.id)));
+
+
+ALTER VIEW public.v_request_terms_details OWNER TO postgres;
+
+--
+-- TOC entry 429 (class 1259 OID 20020)
+-- Name: v_requests_details; Type: VIEW; Schema: public; Owner: postgres
+--
+
+CREATE VIEW public.v_requests_details AS
+ SELECT r.request_id,
+    r.request_title,
+    r.request_description,
+    r.resource_type,
+    r.resource_id,
+        CASE r.resource_type
+            WHEN 'matresource'::text THEN ( SELECT matresources.title
+               FROM public.matresources
+              WHERE (matresources.matresource_id = r.resource_id))
+            WHEN 'finresource'::text THEN ( SELECT finresources.title
+               FROM public.finresources
+              WHERE (finresources.finresource_id = r.resource_id))
+            WHEN 'venue'::text THEN ( SELECT venues.title
+               FROM public.venues
+              WHERE (venues.venue_id = r.resource_id))
+            WHEN 'service'::text THEN ( SELECT services.title
+               FROM public.services
+              WHERE (services.service_id = r.resource_id))
+            ELSE NULL::character varying
+        END AS resource_title,
+    r.requester_id,
+    a1.nickname AS requester_name,
+    a1.rating_id AS requester_status,
+    r.project_id,
+    p.title AS project_title,
+    r.request_status,
+    r.start_date,
+    r.end_date,
+    r.created_at,
+    ( SELECT count(*) AS count
+           FROM public.request_offering_terms rot
+          WHERE (rot.request_id = r.request_id)) AS selected_terms_count
+   FROM ((public.requests r
+     LEFT JOIN public.actors a1 ON ((r.requester_id = a1.actor_id)))
+     LEFT JOIN public.projects p ON ((r.project_id = p.project_id)));
+
+
+ALTER VIEW public.v_requests_details OWNER TO postgres;
+
+--
+-- TOC entry 402 (class 1259 OID 19599)
 -- Name: v_resource_catalog; Type: VIEW; Schema: public; Owner: postgres
 --
 
@@ -4853,29 +6299,36 @@ CREATE VIEW public.v_resource_catalog AS
             'material'::text AS category
            FROM public.matresources
         UNION ALL
-         SELECT 'idea'::text,
-            ideas.idea_id,
-            ideas.title,
-            'idea'::text
-           FROM public.ideas
+         SELECT 'finresource'::text,
+            finresources.finresource_id,
+            finresources.title,
+            'financial'::text
+           FROM public.finresources
         UNION ALL
          SELECT 'service'::text,
-            services.service_id,
+            min(services.service_id) AS id,
             services.title,
             'service'::text
            FROM public.services
-        UNION ALL
-         SELECT 'template'::text,
-            templates.template_id,
-            templates.title,
-            'template'::text
-           FROM public.templates
+          GROUP BY services.title, services.description
         UNION ALL
          SELECT 'venue'::text,
             venues.venue_id,
             venues.title,
             'venue'::text
            FROM public.venues
+        UNION ALL
+         SELECT 'idea'::text,
+            ideas.idea_id,
+            ideas.title,
+            'idea'::text
+           FROM public.ideas
+        UNION ALL
+         SELECT 'template'::text,
+            templates.template_id,
+            templates.title,
+            'template'::text
+           FROM public.templates
         )
  SELECT rd.resource_type,
     rd.id,
@@ -4904,7 +6357,7 @@ CREATE VIEW public.v_resource_catalog AS
 ALTER VIEW public.v_resource_catalog OWNER TO postgres;
 
 --
--- TOC entry 400 (class 1259 OID 19495)
+-- TOC entry 403 (class 1259 OID 19604)
 -- Name: v_resource_catalog_detailed; Type: VIEW; Schema: public; Owner: postgres
 --
 
@@ -4919,50 +6372,207 @@ CREATE VIEW public.v_resource_catalog_detailed AS
     max_price,
     has_free_offers,
     has_paid_offers,
-        CASE resource_type
-            WHEN 'matresource'::text THEN ( SELECT COALESCE(matresources.description, ''::text) AS "coalesce"
-               FROM public.matresources
-              WHERE (matresources.matresource_id = rc.id))
-            WHEN 'idea'::text THEN ( SELECT COALESCE(ideas.short_description, ideas.detail_description, ideas.full_description, ''::text) AS "coalesce"
-               FROM public.ideas
-              WHERE (ideas.idea_id = rc.id))
-            WHEN 'service'::text THEN ( SELECT COALESCE(services.description, ''::text) AS "coalesce"
-               FROM public.services
-              WHERE (services.service_id = rc.id))
-            WHEN 'template'::text THEN ( SELECT COALESCE(templates.description, ''::text) AS "coalesce"
-               FROM public.templates
-              WHERE (templates.template_id = rc.id))
-            WHEN 'venue'::text THEN ( SELECT COALESCE(venues.description, ''::text) AS "coalesce"
-               FROM public.venues
-              WHERE (venues.venue_id = rc.id))
-            ELSE ''::text
-        END AS description
+    public.get_resource_description(resource_type, id) AS description
    FROM public.v_resource_catalog rc;
 
 
 ALTER VIEW public.v_resource_catalog_detailed OWNER TO postgres;
 
 --
--- TOC entry 401 (class 1259 OID 19501)
--- Name: v_resource_catalog_with_desc; Type: VIEW; Schema: public; Owner: postgres
+-- TOC entry 408 (class 1259 OID 19663)
+-- Name: venue_owners; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE VIEW public.v_resource_catalog_with_desc AS
- SELECT resource_type,
-    id,
-    title,
-    category,
-    offering_count,
-    offering_terms,
-    min_price,
-    max_price,
-    has_free_offers,
-    has_paid_offers,
-    public.get_resource_description(resource_type, id) AS description
-   FROM public.v_resource_catalog rc;
+CREATE TABLE public.venue_owners (
+    venue_owner_id integer NOT NULL,
+    venue_id integer NOT NULL,
+    actor_id integer NOT NULL,
+    ownership_type character varying(50) DEFAULT 'owner'::character varying,
+    ownership_share numeric(5,2) DEFAULT 100.00,
+    is_primary boolean DEFAULT true,
+    special_conditions text,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+);
 
 
-ALTER VIEW public.v_resource_catalog_with_desc OWNER TO postgres;
+ALTER TABLE public.venue_owners OWNER TO postgres;
+
+--
+-- TOC entry 424 (class 1259 OID 19988)
+-- Name: v_resource_owners; Type: VIEW; Schema: public; Owner: postgres
+--
+
+CREATE VIEW public.v_resource_owners AS
+ SELECT 'matresource'::text AS resource_type,
+    m.matresource_id AS resource_id,
+    m.title AS resource_title,
+    mo.actor_id AS owner_id,
+    a.nickname AS owner_name,
+    a.rating_id AS owner_status,
+    true AS is_primary,
+    100.00 AS ownership_share
+   FROM ((public.matresources m
+     JOIN public.matresource_owners mo ON ((m.matresource_id = mo.matresource_id)))
+     LEFT JOIN public.actors a ON ((mo.actor_id = a.actor_id)))
+UNION ALL
+ SELECT 'finresource'::text AS resource_type,
+    f.finresource_id AS resource_id,
+    f.title AS resource_title,
+    fo.actor_id AS owner_id,
+    a.nickname AS owner_name,
+    a.rating_id AS owner_status,
+    true AS is_primary,
+    100.00 AS ownership_share
+   FROM ((public.finresources f
+     JOIN public.finresource_owners fo ON ((f.finresource_id = fo.finresource_id)))
+     LEFT JOIN public.actors a ON ((fo.actor_id = a.actor_id)))
+UNION ALL
+ SELECT 'venue'::text AS resource_type,
+    v.venue_id AS resource_id,
+    v.title AS resource_title,
+    vo.actor_id AS owner_id,
+    a.nickname AS owner_name,
+    a.rating_id AS owner_status,
+    vo.is_primary,
+    vo.ownership_share
+   FROM ((public.venues v
+     JOIN public.venue_owners vo ON ((v.venue_id = vo.venue_id)))
+     LEFT JOIN public.actors a ON ((vo.actor_id = a.actor_id)))
+UNION ALL
+ SELECT 'service'::text AS resource_type,
+    s.service_id AS resource_id,
+    s.title AS resource_title,
+    so.actor_id AS owner_id,
+    a.nickname AS owner_name,
+    a.rating_id AS owner_status,
+    so.is_primary,
+    so.ownership_share
+   FROM ((public.services s
+     JOIN public.service_owners so ON ((s.service_id = so.service_id)))
+     LEFT JOIN public.actors a ON ((so.actor_id = a.actor_id)));
+
+
+ALTER VIEW public.v_resource_owners OWNER TO postgres;
+
+--
+-- TOC entry 436 (class 1259 OID 20080)
+-- Name: v_simple_final_status; Type: VIEW; Schema: public; Owner: postgres
+--
+
+CREATE VIEW public.v_simple_final_status AS
+ SELECT '🎉 СИСТЕМА ГОТОВА'::text AS message,
+    '✅'::text AS status
+UNION ALL
+ SELECT ('Договоров создано: '::text || ( SELECT (count(*))::text AS count
+           FROM public.contracts)) AS message,
+    (( SELECT (COALESCE(sum(contracts.total_cost), (0)::numeric))::text AS "coalesce"
+           FROM public.contracts) || ' руб.'::text) AS status
+UNION ALL
+ SELECT 'Автоматизация работает'::text AS message,
+        CASE
+            WHEN (EXISTS ( SELECT 1
+               FROM information_schema.triggers
+              WHERE ((triggers.trigger_name)::name = 'trg_create_final_contract'::name))) THEN '✅'::text
+            ELSE '❌'::text
+        END AS status
+UNION ALL
+ SELECT 'Мониторинг доступен'::text AS message,
+        CASE
+            WHEN (EXISTS ( SELECT 1
+               FROM public.v_contract_process_tracking
+             LIMIT 1)) THEN '✅'::text
+            ELSE '❌'::text
+        END AS status;
+
+
+ALTER VIEW public.v_simple_final_status OWNER TO postgres;
+
+--
+-- TOC entry 432 (class 1259 OID 20048)
+-- Name: v_system_guide; Type: VIEW; Schema: public; Owner: postgres
+--
+
+CREATE VIEW public.v_system_guide AS
+ SELECT 'Таблицы'::text AS object_type,
+    tables.table_name AS object_name,
+    'Хранение данных'::text AS purpose
+   FROM information_schema.tables
+  WHERE (((tables.table_schema)::name = 'public'::name) AND ((tables.table_name)::name = ANY (ARRAY['requests'::name, 'request_offering_terms'::name, 'temp_contracts'::name, 'temp_contract_terms'::name, 'contracts'::name, 'contract_terms'::name, 'venue_owners'::name, 'service_owners'::name])))
+UNION ALL
+ SELECT 'Функции'::text AS object_type,
+    routines.routine_name AS object_name,
+    'Автоматизация процессов'::text AS purpose
+   FROM information_schema.routines
+  WHERE (((routines.routine_schema)::name = 'public'::name) AND ((routines.routine_name)::name = ANY (ARRAY['create_request'::name, 'add_request_term'::name, 'create_temp_contract_on_request_accept'::name, 'create_final_contract'::name, 'update_updated_at_column'::name])))
+UNION ALL
+ SELECT 'Представления'::text AS object_type,
+    views.table_name AS object_name,
+    'Мониторинг и аналитика'::text AS purpose
+   FROM information_schema.views
+  WHERE (((views.table_schema)::name = 'public'::name) AND ((views.table_name)::name = ANY (ARRAY['v_contract_process_tracking'::name, 'v_business_intelligence'::name, 'v_requests_details'::name, 'v_active_contracts'::name, 'v_pending_contracts'::name, 'v_resource_owners'::name])))
+  ORDER BY 1, 2;
+
+
+ALTER VIEW public.v_system_guide OWNER TO postgres;
+
+--
+-- TOC entry 435 (class 1259 OID 20072)
+-- Name: v_system_health_check; Type: VIEW; Schema: public; Owner: postgres
+--
+
+CREATE VIEW public.v_system_health_check AS
+ SELECT 'requests'::text AS table_name,
+        CASE
+            WHEN (count(*) > 0) THEN '✅'::text
+            ELSE '❌'::text
+        END AS data_status,
+    count(*) AS record_count
+   FROM public.requests
+UNION ALL
+ SELECT 'temp_contracts'::text AS table_name,
+        CASE
+            WHEN (count(*) > 0) THEN '✅'::text
+            ELSE '❌'::text
+        END AS data_status,
+    count(*) AS record_count
+   FROM public.temp_contracts
+UNION ALL
+ SELECT 'contracts'::text AS table_name,
+        CASE
+            WHEN (count(*) > 0) THEN '✅'::text
+            ELSE '❌'::text
+        END AS data_status,
+    count(*) AS record_count
+   FROM public.contracts
+UNION ALL
+ SELECT 'request_offering_terms'::text AS table_name,
+        CASE
+            WHEN (count(*) > 0) THEN '✅'::text
+            ELSE '❌'::text
+        END AS data_status,
+    count(*) AS record_count
+   FROM public.request_offering_terms
+UNION ALL
+ SELECT 'temp_contract_terms'::text AS table_name,
+        CASE
+            WHEN (count(*) > 0) THEN '✅'::text
+            ELSE '❌'::text
+        END AS data_status,
+    count(*) AS record_count
+   FROM public.temp_contract_terms
+UNION ALL
+ SELECT 'contract_terms'::text AS table_name,
+        CASE
+            WHEN (count(*) > 0) THEN '✅'::text
+            ELSE '❌'::text
+        END AS data_status,
+    count(*) AS record_count
+   FROM public.contract_terms
+  ORDER BY 1;
+
+
+ALTER VIEW public.v_system_health_check OWNER TO postgres;
 
 --
 -- TOC entry 396 (class 1259 OID 19467)
@@ -4988,7 +6598,7 @@ CREATE VIEW public.v_temporary_offerings AS
 ALTER VIEW public.v_temporary_offerings OWNER TO postgres;
 
 --
--- TOC entry 402 (class 1259 OID 19511)
+-- TOC entry 404 (class 1259 OID 19608)
 -- Name: v_top_multioffer_resources; Type: VIEW; Schema: public; Owner: postgres
 --
 
@@ -5027,12 +6637,37 @@ CREATE SEQUENCE public.venue_offering_terms_id_seq
 ALTER SEQUENCE public.venue_offering_terms_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6603 (class 0 OID 0)
+-- TOC entry 6928 (class 0 OID 0)
 -- Dependencies: 384
 -- Name: venue_offering_terms_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.venue_offering_terms_id_seq OWNED BY public.venue_offering_terms.id;
+
+
+--
+-- TOC entry 407 (class 1259 OID 19662)
+-- Name: venue_owners_venue_owner_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.venue_owners_venue_owner_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.venue_owners_venue_owner_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 6929 (class 0 OID 0)
+-- Dependencies: 407
+-- Name: venue_owners_venue_owner_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.venue_owners_venue_owner_id_seq OWNED BY public.venue_owners.venue_owner_id;
 
 
 --
@@ -5065,7 +6700,7 @@ CREATE SEQUENCE public.venue_types_venue_type_id_seq
 ALTER SEQUENCE public.venue_types_venue_type_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6604 (class 0 OID 0)
+-- TOC entry 6930 (class 0 OID 0)
 -- Dependencies: 341
 -- Name: venue_types_venue_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -5117,7 +6752,7 @@ CREATE SEQUENCE public.venues_venue_id_seq
 ALTER SEQUENCE public.venues_venue_id_seq OWNER TO postgres;
 
 --
--- TOC entry 6605 (class 0 OID 0)
+-- TOC entry 6931 (class 0 OID 0)
 -- Dependencies: 344
 -- Name: venues_venue_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -5277,7 +6912,7 @@ CREATE VIEW public.vw_projects_statistics AS
 ALTER VIEW public.vw_projects_statistics OWNER TO postgres;
 
 --
--- TOC entry 5416 (class 2604 OID 17192)
+-- TOC entry 5528 (class 2604 OID 17192)
 -- Name: actor_current_statuses actor_current_status_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5285,7 +6920,7 @@ ALTER TABLE ONLY public.actor_current_statuses ALTER COLUMN actor_current_status
 
 
 --
--- TOC entry 5419 (class 2604 OID 17193)
+-- TOC entry 5531 (class 2604 OID 17193)
 -- Name: actor_statuses actor_status_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5293,7 +6928,7 @@ ALTER TABLE ONLY public.actor_statuses ALTER COLUMN actor_status_id SET DEFAULT 
 
 
 --
--- TOC entry 5420 (class 2604 OID 17194)
+-- TOC entry 5532 (class 2604 OID 17194)
 -- Name: actor_types actor_type_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5301,7 +6936,7 @@ ALTER TABLE ONLY public.actor_types ALTER COLUMN actor_type_id SET DEFAULT nextv
 
 
 --
--- TOC entry 5421 (class 2604 OID 17195)
+-- TOC entry 5533 (class 2604 OID 17195)
 -- Name: actors actor_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5309,7 +6944,7 @@ ALTER TABLE ONLY public.actors ALTER COLUMN actor_id SET DEFAULT nextval('public
 
 
 --
--- TOC entry 5532 (class 2604 OID 18418)
+-- TOC entry 5643 (class 2604 OID 18418)
 -- Name: bookmarks bookmark_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5317,7 +6952,7 @@ ALTER TABLE ONLY public.bookmarks ALTER COLUMN bookmark_id SET DEFAULT nextval('
 
 
 --
--- TOC entry 5426 (class 2604 OID 17196)
+-- TOC entry 5538 (class 2604 OID 17196)
 -- Name: communities community_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5325,7 +6960,23 @@ ALTER TABLE ONLY public.communities ALTER COLUMN community_id SET DEFAULT nextva
 
 
 --
--- TOC entry 5429 (class 2604 OID 17197)
+-- TOC entry 5725 (class 2604 OID 19908)
+-- Name: contract_terms contract_term_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.contract_terms ALTER COLUMN contract_term_id SET DEFAULT nextval('public.contract_terms_contract_term_id_seq'::regclass);
+
+
+--
+-- TOC entry 5720 (class 2604 OID 19859)
+-- Name: contracts contract_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.contracts ALTER COLUMN contract_id SET DEFAULT nextval('public.contracts_contract_id_seq'::regclass);
+
+
+--
+-- TOC entry 5541 (class 2604 OID 17197)
 -- Name: directions direction_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5333,7 +6984,7 @@ ALTER TABLE ONLY public.directions ALTER COLUMN direction_id SET DEFAULT nextval
 
 
 --
--- TOC entry 5430 (class 2604 OID 17198)
+-- TOC entry 5542 (class 2604 OID 17198)
 -- Name: event_types event_type_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5341,7 +6992,7 @@ ALTER TABLE ONLY public.event_types ALTER COLUMN event_type_id SET DEFAULT nextv
 
 
 --
--- TOC entry 5431 (class 2604 OID 17199)
+-- TOC entry 5543 (class 2604 OID 17199)
 -- Name: events event_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5349,7 +7000,7 @@ ALTER TABLE ONLY public.events ALTER COLUMN event_id SET DEFAULT nextval('public
 
 
 --
--- TOC entry 5530 (class 2604 OID 18398)
+-- TOC entry 5641 (class 2604 OID 18398)
 -- Name: favorites favorite_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5357,7 +7008,23 @@ ALTER TABLE ONLY public.favorites ALTER COLUMN favorite_id SET DEFAULT nextval('
 
 
 --
--- TOC entry 5437 (class 2604 OID 17200)
+-- TOC entry 5683 (class 2604 OID 19559)
+-- Name: finresource_offering_terms id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.finresource_offering_terms ALTER COLUMN id SET DEFAULT nextval('public.finresource_offering_terms_id_seq'::regclass);
+
+
+--
+-- TOC entry 5549 (class 2604 OID 19655)
+-- Name: finresource_owners finresource_owner_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.finresource_owners ALTER COLUMN finresource_owner_id SET DEFAULT nextval('public.finresource_owners_finresource_owner_id_seq'::regclass);
+
+
+--
+-- TOC entry 5550 (class 2604 OID 17200)
 -- Name: finresource_types finresource_type_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5365,7 +7032,7 @@ ALTER TABLE ONLY public.finresource_types ALTER COLUMN finresource_type_id SET D
 
 
 --
--- TOC entry 5438 (class 2604 OID 17201)
+-- TOC entry 5551 (class 2604 OID 17201)
 -- Name: finresources finresource_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5373,7 +7040,7 @@ ALTER TABLE ONLY public.finresources ALTER COLUMN finresource_id SET DEFAULT nex
 
 
 --
--- TOC entry 5534 (class 2604 OID 18520)
+-- TOC entry 5645 (class 2604 OID 18520)
 -- Name: finresources_notes finresource_note_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5381,7 +7048,7 @@ ALTER TABLE ONLY public.finresources_notes ALTER COLUMN finresource_note_id SET 
 
 
 --
--- TOC entry 5444 (class 2604 OID 17202)
+-- TOC entry 5554 (class 2604 OID 17202)
 -- Name: functions function_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5389,7 +7056,7 @@ ALTER TABLE ONLY public.functions ALTER COLUMN function_id SET DEFAULT nextval('
 
 
 --
--- TOC entry 5445 (class 2604 OID 17203)
+-- TOC entry 5555 (class 2604 OID 17203)
 -- Name: idea_categories idea_category_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5397,7 +7064,7 @@ ALTER TABLE ONLY public.idea_categories ALTER COLUMN idea_category_id SET DEFAUL
 
 
 --
--- TOC entry 5552 (class 2604 OID 19261)
+-- TOC entry 5663 (class 2604 OID 19261)
 -- Name: idea_offering_terms id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5405,7 +7072,7 @@ ALTER TABLE ONLY public.idea_offering_terms ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
--- TOC entry 5446 (class 2604 OID 17204)
+-- TOC entry 5556 (class 2604 OID 17204)
 -- Name: idea_types idea_type_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5413,7 +7080,7 @@ ALTER TABLE ONLY public.idea_types ALTER COLUMN idea_type_id SET DEFAULT nextval
 
 
 --
--- TOC entry 5447 (class 2604 OID 17205)
+-- TOC entry 5557 (class 2604 OID 17205)
 -- Name: ideas idea_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5421,7 +7088,7 @@ ALTER TABLE ONLY public.ideas ALTER COLUMN idea_id SET DEFAULT nextval('public.i
 
 
 --
--- TOC entry 5450 (class 2604 OID 17206)
+-- TOC entry 5560 (class 2604 OID 17206)
 -- Name: local_events local_event_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5429,7 +7096,7 @@ ALTER TABLE ONLY public.local_events ALTER COLUMN local_event_id SET DEFAULT nex
 
 
 --
--- TOC entry 5453 (class 2604 OID 17207)
+-- TOC entry 5563 (class 2604 OID 17207)
 -- Name: locations location_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5437,7 +7104,7 @@ ALTER TABLE ONLY public.locations ALTER COLUMN location_id SET DEFAULT nextval('
 
 
 --
--- TOC entry 5556 (class 2604 OID 19288)
+-- TOC entry 5667 (class 2604 OID 19288)
 -- Name: matresource_offering_terms id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5445,7 +7112,15 @@ ALTER TABLE ONLY public.matresource_offering_terms ALTER COLUMN id SET DEFAULT n
 
 
 --
--- TOC entry 5454 (class 2604 OID 17208)
+-- TOC entry 5564 (class 2604 OID 19647)
+-- Name: matresource_owners matresource_owner_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.matresource_owners ALTER COLUMN matresource_owner_id SET DEFAULT nextval('public.matresource_owners_matresource_owner_id_seq'::regclass);
+
+
+--
+-- TOC entry 5565 (class 2604 OID 17208)
 -- Name: matresource_types matresource_type_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5453,7 +7128,7 @@ ALTER TABLE ONLY public.matresource_types ALTER COLUMN matresource_type_id SET D
 
 
 --
--- TOC entry 5455 (class 2604 OID 17209)
+-- TOC entry 5566 (class 2604 OID 17209)
 -- Name: matresources matresource_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5461,7 +7136,7 @@ ALTER TABLE ONLY public.matresources ALTER COLUMN matresource_id SET DEFAULT nex
 
 
 --
--- TOC entry 5458 (class 2604 OID 17210)
+-- TOC entry 5569 (class 2604 OID 17210)
 -- Name: messages message_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5469,7 +7144,7 @@ ALTER TABLE ONLY public.messages ALTER COLUMN message_id SET DEFAULT nextval('pu
 
 
 --
--- TOC entry 5461 (class 2604 OID 17211)
+-- TOC entry 5572 (class 2604 OID 17211)
 -- Name: notes note_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5477,7 +7152,7 @@ ALTER TABLE ONLY public.notes ALTER COLUMN note_id SET DEFAULT nextval('public.n
 
 
 --
--- TOC entry 5464 (class 2604 OID 17212)
+-- TOC entry 5575 (class 2604 OID 17212)
 -- Name: notifications notification_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5485,7 +7160,7 @@ ALTER TABLE ONLY public.notifications ALTER COLUMN notification_id SET DEFAULT n
 
 
 --
--- TOC entry 5549 (class 2604 OID 18934)
+-- TOC entry 5660 (class 2604 OID 18934)
 -- Name: offering_terms id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5493,7 +7168,7 @@ ALTER TABLE ONLY public.offering_terms ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
--- TOC entry 5468 (class 2604 OID 17213)
+-- TOC entry 5579 (class 2604 OID 17213)
 -- Name: organizations organization_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5501,7 +7176,7 @@ ALTER TABLE ONLY public.organizations ALTER COLUMN organization_id SET DEFAULT n
 
 
 --
--- TOC entry 5471 (class 2604 OID 17214)
+-- TOC entry 5582 (class 2604 OID 17214)
 -- Name: persons person_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5509,7 +7184,7 @@ ALTER TABLE ONLY public.persons ALTER COLUMN person_id SET DEFAULT nextval('publ
 
 
 --
--- TOC entry 5474 (class 2604 OID 17215)
+-- TOC entry 5585 (class 2604 OID 17215)
 -- Name: project_actor_roles project_actor_role_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5517,7 +7192,7 @@ ALTER TABLE ONLY public.project_actor_roles ALTER COLUMN project_actor_role_id S
 
 
 --
--- TOC entry 5476 (class 2604 OID 17216)
+-- TOC entry 5587 (class 2604 OID 17216)
 -- Name: project_groups project_group_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5525,7 +7200,7 @@ ALTER TABLE ONLY public.project_groups ALTER COLUMN project_group_id SET DEFAULT
 
 
 --
--- TOC entry 5479 (class 2604 OID 17217)
+-- TOC entry 5590 (class 2604 OID 17217)
 -- Name: project_statuses project_status_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5533,7 +7208,7 @@ ALTER TABLE ONLY public.project_statuses ALTER COLUMN project_status_id SET DEFA
 
 
 --
--- TOC entry 5480 (class 2604 OID 17218)
+-- TOC entry 5591 (class 2604 OID 17218)
 -- Name: project_types project_type_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5541,7 +7216,7 @@ ALTER TABLE ONLY public.project_types ALTER COLUMN project_type_id SET DEFAULT n
 
 
 --
--- TOC entry 5481 (class 2604 OID 17219)
+-- TOC entry 5592 (class 2604 OID 17219)
 -- Name: projects project_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5549,7 +7224,7 @@ ALTER TABLE ONLY public.projects ALTER COLUMN project_id SET DEFAULT nextval('pu
 
 
 --
--- TOC entry 5526 (class 2604 OID 18360)
+-- TOC entry 5637 (class 2604 OID 18360)
 -- Name: rating_types rating_type_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5557,7 +7232,7 @@ ALTER TABLE ONLY public.rating_types ALTER COLUMN rating_type_id SET DEFAULT nex
 
 
 --
--- TOC entry 5528 (class 2604 OID 18375)
+-- TOC entry 5639 (class 2604 OID 18375)
 -- Name: ratings rating_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5565,7 +7240,23 @@ ALTER TABLE ONLY public.ratings ALTER COLUMN rating_id SET DEFAULT nextval('publ
 
 
 --
--- TOC entry 5560 (class 2604 OID 19315)
+-- TOC entry 5703 (class 2604 OID 19759)
+-- Name: request_offering_terms request_term_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.request_offering_terms ALTER COLUMN request_term_id SET DEFAULT nextval('public.request_offering_terms_request_term_id_seq'::regclass);
+
+
+--
+-- TOC entry 5699 (class 2604 OID 19724)
+-- Name: requests request_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.requests ALTER COLUMN request_id SET DEFAULT nextval('public.requests_request_id_seq'::regclass);
+
+
+--
+-- TOC entry 5671 (class 2604 OID 19315)
 -- Name: service_offering_terms id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5573,7 +7264,15 @@ ALTER TABLE ONLY public.service_offering_terms ALTER COLUMN id SET DEFAULT nextv
 
 
 --
--- TOC entry 5487 (class 2604 OID 17220)
+-- TOC entry 5693 (class 2604 OID 19683)
+-- Name: service_owners service_owner_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.service_owners ALTER COLUMN service_owner_id SET DEFAULT nextval('public.service_owners_service_owner_id_seq'::regclass);
+
+
+--
+-- TOC entry 5598 (class 2604 OID 17220)
 -- Name: services service_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5581,7 +7280,7 @@ ALTER TABLE ONLY public.services ALTER COLUMN service_id SET DEFAULT nextval('pu
 
 
 --
--- TOC entry 5490 (class 2604 OID 17221)
+-- TOC entry 5601 (class 2604 OID 17221)
 -- Name: stage_architecture stage_architecture_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5589,7 +7288,7 @@ ALTER TABLE ONLY public.stage_architecture ALTER COLUMN stage_architecture_id SE
 
 
 --
--- TOC entry 5491 (class 2604 OID 17222)
+-- TOC entry 5602 (class 2604 OID 17222)
 -- Name: stage_audio stage_audio_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5597,7 +7296,7 @@ ALTER TABLE ONLY public.stage_audio ALTER COLUMN stage_audio_id SET DEFAULT next
 
 
 --
--- TOC entry 5494 (class 2604 OID 17223)
+-- TOC entry 5605 (class 2604 OID 17223)
 -- Name: stage_effects stage_effects_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5605,7 +7304,7 @@ ALTER TABLE ONLY public.stage_effects ALTER COLUMN stage_effects_id SET DEFAULT 
 
 
 --
--- TOC entry 5497 (class 2604 OID 17224)
+-- TOC entry 5608 (class 2604 OID 17224)
 -- Name: stage_light stage_light_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5613,7 +7312,7 @@ ALTER TABLE ONLY public.stage_light ALTER COLUMN stage_light_id SET DEFAULT next
 
 
 --
--- TOC entry 5500 (class 2604 OID 17225)
+-- TOC entry 5611 (class 2604 OID 17225)
 -- Name: stage_mobility stage_mobility_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5621,7 +7320,7 @@ ALTER TABLE ONLY public.stage_mobility ALTER COLUMN stage_mobility_id SET DEFAUL
 
 
 --
--- TOC entry 5501 (class 2604 OID 17226)
+-- TOC entry 5612 (class 2604 OID 17226)
 -- Name: stage_types stage_type_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5629,7 +7328,7 @@ ALTER TABLE ONLY public.stage_types ALTER COLUMN stage_type_id SET DEFAULT nextv
 
 
 --
--- TOC entry 5502 (class 2604 OID 17227)
+-- TOC entry 5613 (class 2604 OID 17227)
 -- Name: stage_video stage_video_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5637,7 +7336,7 @@ ALTER TABLE ONLY public.stage_video ALTER COLUMN stage_video_id SET DEFAULT next
 
 
 --
--- TOC entry 5505 (class 2604 OID 17228)
+-- TOC entry 5616 (class 2604 OID 17228)
 -- Name: stages stage_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5645,7 +7344,23 @@ ALTER TABLE ONLY public.stages ALTER COLUMN stage_id SET DEFAULT nextval('public
 
 
 --
--- TOC entry 5508 (class 2604 OID 17229)
+-- TOC entry 5733 (class 2604 OID 20089)
+-- Name: system_commands id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.system_commands ALTER COLUMN id SET DEFAULT nextval('public.system_commands_id_seq'::regclass);
+
+
+--
+-- TOC entry 5731 (class 2604 OID 20058)
+-- Name: system_deployment_log deployment_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.system_deployment_log ALTER COLUMN deployment_id SET DEFAULT nextval('public.system_deployment_log_deployment_id_seq'::regclass);
+
+
+--
+-- TOC entry 5619 (class 2604 OID 17229)
 -- Name: task_types task_type_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5653,7 +7368,7 @@ ALTER TABLE ONLY public.task_types ALTER COLUMN task_type_id SET DEFAULT nextval
 
 
 --
--- TOC entry 5509 (class 2604 OID 17230)
+-- TOC entry 5620 (class 2604 OID 17230)
 -- Name: tasks task_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5661,7 +7376,23 @@ ALTER TABLE ONLY public.tasks ALTER COLUMN task_id SET DEFAULT nextval('public.t
 
 
 --
--- TOC entry 5564 (class 2604 OID 19342)
+-- TOC entry 5715 (class 2604 OID 19826)
+-- Name: temp_contract_terms temp_term_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.temp_contract_terms ALTER COLUMN temp_term_id SET DEFAULT nextval('public.temp_contract_terms_temp_term_id_seq'::regclass);
+
+
+--
+-- TOC entry 5709 (class 2604 OID 19788)
+-- Name: temp_contracts temp_contract_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.temp_contracts ALTER COLUMN temp_contract_id SET DEFAULT nextval('public.temp_contracts_temp_contract_id_seq'::regclass);
+
+
+--
+-- TOC entry 5675 (class 2604 OID 19342)
 -- Name: template_offering_terms id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5669,7 +7400,7 @@ ALTER TABLE ONLY public.template_offering_terms ALTER COLUMN id SET DEFAULT next
 
 
 --
--- TOC entry 5512 (class 2604 OID 17231)
+-- TOC entry 5623 (class 2604 OID 17231)
 -- Name: templates template_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5677,7 +7408,7 @@ ALTER TABLE ONLY public.templates ALTER COLUMN template_id SET DEFAULT nextval('
 
 
 --
--- TOC entry 5537 (class 2604 OID 18550)
+-- TOC entry 5648 (class 2604 OID 18550)
 -- Name: templates_notes template_note_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5685,7 +7416,7 @@ ALTER TABLE ONLY public.templates_notes ALTER COLUMN template_note_id SET DEFAUL
 
 
 --
--- TOC entry 5546 (class 2604 OID 18725)
+-- TOC entry 5657 (class 2604 OID 18725)
 -- Name: theme_bookmarks bookmark_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5693,7 +7424,7 @@ ALTER TABLE ONLY public.theme_bookmarks ALTER COLUMN bookmark_id SET DEFAULT nex
 
 
 --
--- TOC entry 5515 (class 2604 OID 17232)
+-- TOC entry 5626 (class 2604 OID 17232)
 -- Name: theme_comments theme_comment_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5701,7 +7432,7 @@ ALTER TABLE ONLY public.theme_comments ALTER COLUMN theme_comment_id SET DEFAULT
 
 
 --
--- TOC entry 5543 (class 2604 OID 18695)
+-- TOC entry 5654 (class 2604 OID 18695)
 -- Name: theme_discussions discussion_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5709,7 +7440,7 @@ ALTER TABLE ONLY public.theme_discussions ALTER COLUMN discussion_id SET DEFAULT
 
 
 --
--- TOC entry 5540 (class 2604 OID 18620)
+-- TOC entry 5651 (class 2604 OID 18620)
 -- Name: theme_notes theme_note_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5717,7 +7448,7 @@ ALTER TABLE ONLY public.theme_notes ALTER COLUMN theme_note_id SET DEFAULT nextv
 
 
 --
--- TOC entry 5518 (class 2604 OID 17233)
+-- TOC entry 5629 (class 2604 OID 17233)
 -- Name: theme_types theme_type_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5725,7 +7456,7 @@ ALTER TABLE ONLY public.theme_types ALTER COLUMN theme_type_id SET DEFAULT nextv
 
 
 --
--- TOC entry 5519 (class 2604 OID 17234)
+-- TOC entry 5630 (class 2604 OID 17234)
 -- Name: themes theme_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5733,7 +7464,7 @@ ALTER TABLE ONLY public.themes ALTER COLUMN theme_id SET DEFAULT nextval('public
 
 
 --
--- TOC entry 5568 (class 2604 OID 19369)
+-- TOC entry 5679 (class 2604 OID 19369)
 -- Name: venue_offering_terms id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5741,7 +7472,15 @@ ALTER TABLE ONLY public.venue_offering_terms ALTER COLUMN id SET DEFAULT nextval
 
 
 --
--- TOC entry 5522 (class 2604 OID 17235)
+-- TOC entry 5687 (class 2604 OID 19666)
+-- Name: venue_owners venue_owner_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.venue_owners ALTER COLUMN venue_owner_id SET DEFAULT nextval('public.venue_owners_venue_owner_id_seq'::regclass);
+
+
+--
+-- TOC entry 5633 (class 2604 OID 17235)
 -- Name: venue_types venue_type_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5749,7 +7488,7 @@ ALTER TABLE ONLY public.venue_types ALTER COLUMN venue_type_id SET DEFAULT nextv
 
 
 --
--- TOC entry 5523 (class 2604 OID 17236)
+-- TOC entry 5634 (class 2604 OID 17236)
 -- Name: venues venue_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -5757,7 +7496,7 @@ ALTER TABLE ONLY public.venues ALTER COLUMN venue_id SET DEFAULT nextval('public
 
 
 --
--- TOC entry 6371 (class 0 OID 16529)
+-- TOC entry 6658 (class 0 OID 16529)
 -- Dependencies: 222
 -- Data for Name: actor_credentials; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -5780,7 +7519,7 @@ COPY public.actor_credentials (actor_id, password_hash, created_at) FROM stdin;
 
 
 --
--- TOC entry 6372 (class 0 OID 16535)
+-- TOC entry 6659 (class 0 OID 16535)
 -- Dependencies: 223
 -- Data for Name: actor_current_statuses; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -5802,7 +7541,19 @@ COPY public.actor_current_statuses (actor_current_status_id, actor_id, actor_sta
 
 
 --
--- TOC entry 6374 (class 0 OID 16546)
+-- TOC entry 6834 (class 0 OID 20009)
+-- Dependencies: 428
+-- Data for Name: actor_status_mapping; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.actor_status_mapping (rating_id, status_name, can_create_project) FROM stdin;
+4	Руководитель	t
+5	Администратор Проекта	t
+\.
+
+
+--
+-- TOC entry 6661 (class 0 OID 16546)
 -- Dependencies: 225
 -- Data for Name: actor_statuses; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -5820,7 +7571,7 @@ COPY public.actor_statuses (actor_status_id, status, description) FROM stdin;
 
 
 --
--- TOC entry 6376 (class 0 OID 16554)
+-- TOC entry 6663 (class 0 OID 16554)
 -- Dependencies: 227
 -- Data for Name: actor_types; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -5833,7 +7584,7 @@ COPY public.actor_types (actor_type_id, type, description) FROM stdin;
 
 
 --
--- TOC entry 6378 (class 0 OID 16562)
+-- TOC entry 6665 (class 0 OID 16562)
 -- Dependencies: 229
 -- Data for Name: actors; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -5856,7 +7607,7 @@ COPY public.actors (actor_id, nickname, actor_type_id, icon, keywords, account, 
 
 
 --
--- TOC entry 6380 (class 0 OID 16574)
+-- TOC entry 6667 (class 0 OID 16574)
 -- Dependencies: 231
 -- Data for Name: actors_directions; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -5866,7 +7617,7 @@ COPY public.actors_directions (actor_id, direction_id) FROM stdin;
 
 
 --
--- TOC entry 6381 (class 0 OID 16579)
+-- TOC entry 6668 (class 0 OID 16579)
 -- Dependencies: 232
 -- Data for Name: actors_events; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -5876,7 +7627,7 @@ COPY public.actors_events (actor_id, event_id) FROM stdin;
 
 
 --
--- TOC entry 6382 (class 0 OID 16584)
+-- TOC entry 6669 (class 0 OID 16584)
 -- Dependencies: 233
 -- Data for Name: actors_locations; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -5886,7 +7637,7 @@ COPY public.actors_locations (actor_id, location_id) FROM stdin;
 
 
 --
--- TOC entry 6383 (class 0 OID 16589)
+-- TOC entry 6670 (class 0 OID 16589)
 -- Dependencies: 234
 -- Data for Name: actors_messages; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -5896,7 +7647,7 @@ COPY public.actors_messages (message_id, actor_id) FROM stdin;
 
 
 --
--- TOC entry 6384 (class 0 OID 16594)
+-- TOC entry 6671 (class 0 OID 16594)
 -- Dependencies: 235
 -- Data for Name: actors_notes; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -5906,7 +7657,7 @@ COPY public.actors_notes (note_id, actor_id, author_id) FROM stdin;
 
 
 --
--- TOC entry 6385 (class 0 OID 16599)
+-- TOC entry 6672 (class 0 OID 16599)
 -- Dependencies: 236
 -- Data for Name: actors_projects; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -5916,7 +7667,7 @@ COPY public.actors_projects (actor_id, project_id, created_at, updated_at, creat
 
 
 --
--- TOC entry 6386 (class 0 OID 16608)
+-- TOC entry 6673 (class 0 OID 16608)
 -- Dependencies: 237
 -- Data for Name: actors_tasks; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -5927,7 +7678,7 @@ COPY public.actors_tasks (task_id, actor_id) FROM stdin;
 
 
 --
--- TOC entry 6502 (class 0 OID 18415)
+-- TOC entry 6789 (class 0 OID 18415)
 -- Dependencies: 362
 -- Data for Name: bookmarks; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -5937,7 +7688,7 @@ COPY public.bookmarks (bookmark_id, actor_id, theme_id, created_at) FROM stdin;
 
 
 --
--- TOC entry 6387 (class 0 OID 16613)
+-- TOC entry 6674 (class 0 OID 16613)
 -- Dependencies: 238
 -- Data for Name: communities; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -5947,7 +7698,33 @@ COPY public.communities (community_id, title, full_title, email, email_2, partic
 
 
 --
--- TOC entry 6494 (class 0 OID 18292)
+-- TOC entry 6832 (class 0 OID 19905)
+-- Dependencies: 422
+-- Data for Name: contract_terms; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.contract_terms (contract_term_id, contract_id, offering_term_id, offering_term_name, cost, currency, special_terms, fulfillment_status, created_at, updated_at) FROM stdin;
+3	2	4	Временное предоставление за плату	3000.00	руб.	Требуется гарантийный депозит 5000 руб.	pending	2026-01-22 14:57:49.32984	2026-01-22 14:57:49.32984
+4	3	1	Продажа	2000.00	руб.	Финальные тестовые условия	pending	2026-01-22 15:33:17.630863	2026-01-22 15:33:17.630863
+5	6	1	Продажа	5000.00	руб.	Финальные тестовые условия	pending	2026-01-22 16:12:55.698069	2026-01-22 16:12:55.698069
+\.
+
+
+--
+-- TOC entry 6830 (class 0 OID 19856)
+-- Dependencies: 420
+-- Data for Name: contracts; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.contracts (contract_id, temp_contract_id, request_id, contract_number, contract_title, contract_description, requester_id, owner_id, resource_type, resource_id, start_date, end_date, start_time, end_time, contract_status, total_cost, currency, requester_signed_at, owner_signed_at, signed_at, effective_from, effective_until, created_at, updated_at) FROM stdin;
+2	7	6	CTR-20260122-001001	Временный договор: Тестовая гармонь	Требуется звуковое оборудование на 2 дня	9	1	matresource	1	2026-01-25	2026-01-26	08:00:00	22:00:00	active	3000.00	руб.	2026-01-22 14:57:49.32984	2026-01-22 14:57:49.32984	2026-01-22 14:57:49.32984	2026-01-22 14:57:49.32984	\N	2026-01-22 14:57:49.32984	2026-01-22 14:57:49.32984
+3	8	8	CTR-20260122-000002	Временный договор: Консультация юриста	Тестирование полного цикла создания договора	13	1	service	1	2026-01-23	2026-01-23	\N	\N	active	2000.00	руб.	2026-01-22 15:33:17.630863	2026-01-22 15:33:17.630863	2026-01-22 15:33:17.630863	2026-01-22 15:33:17.630863	\N	2026-01-22 15:33:17.630863	2026-01-22 15:33:17.630863
+6	9	9	CTR-20260122-000005	Временный договор: Консультация юриста	Последний тест перед сдачей системы в эксплуатацию	1	1	service	1	2026-01-22	\N	\N	\N	active	5000.00	руб.	2026-01-22 16:12:55.698069	2026-01-22 16:12:55.698069	2026-01-22 16:12:55.698069	2026-01-22 16:12:55.698069	\N	2026-01-22 16:12:55.698069	2026-01-22 16:12:55.698069
+\.
+
+
+--
+-- TOC entry 6781 (class 0 OID 18292)
 -- Dependencies: 351
 -- Data for Name: creative_center_base; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -5979,7 +7756,7 @@ COPY public.creative_center_base (project_actor_role_id, actor_id, project_id, r
 
 
 --
--- TOC entry 6389 (class 0 OID 16627)
+-- TOC entry 6676 (class 0 OID 16627)
 -- Dependencies: 240
 -- Data for Name: directions; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -6210,7 +7987,7 @@ COPY public.directions (direction_id, type, subtype, title, description) FROM st
 
 
 --
--- TOC entry 6391 (class 0 OID 16634)
+-- TOC entry 6678 (class 0 OID 16634)
 -- Dependencies: 242
 -- Data for Name: event_types; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -6222,7 +7999,7 @@ COPY public.event_types (event_type_id, type) FROM stdin;
 
 
 --
--- TOC entry 6393 (class 0 OID 16640)
+-- TOC entry 6680 (class 0 OID 16640)
 -- Dependencies: 244
 -- Data for Name: events; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -6235,7 +8012,7 @@ COPY public.events (event_id, title, description, date, start_time, end_time, ev
 
 
 --
--- TOC entry 6395 (class 0 OID 16654)
+-- TOC entry 6682 (class 0 OID 16654)
 -- Dependencies: 246
 -- Data for Name: events_notes; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -6245,7 +8022,7 @@ COPY public.events_notes (note_id, event_id, author_id) FROM stdin;
 
 
 --
--- TOC entry 6500 (class 0 OID 18395)
+-- TOC entry 6787 (class 0 OID 18395)
 -- Dependencies: 360
 -- Data for Name: favorites; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -6255,17 +8032,30 @@ COPY public.favorites (favorite_id, actor_id, entity_type, entity_id, created_at
 
 
 --
--- TOC entry 6396 (class 0 OID 16659)
--- Dependencies: 247
--- Data for Name: finresource_owners; Type: TABLE DATA; Schema: public; Owner: postgres
+-- TOC entry 6814 (class 0 OID 19556)
+-- Dependencies: 400
+-- Data for Name: finresource_offering_terms; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.finresource_owners (finresource_id, actor_id) FROM stdin;
+COPY public.finresource_offering_terms (id, finresource_id, offering_term_id, cost, currency, special_terms, created_at) FROM stdin;
+1	3	1	1000000.00	руб.	Инвестиции от 1 млн руб.	2026-01-22 01:16:43.751267
+2	3	4	50000.00	руб.	Кредит на 12 месяцев	2026-01-22 01:16:43.751267
+3	3	2	0.00	руб.	Грант для стартапов	2026-01-22 01:16:43.751267
 \.
 
 
 --
--- TOC entry 6397 (class 0 OID 16664)
+-- TOC entry 6683 (class 0 OID 16659)
+-- Dependencies: 247
+-- Data for Name: finresource_owners; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.finresource_owners (finresource_id, actor_id, finresource_owner_id) FROM stdin;
+\.
+
+
+--
+-- TOC entry 6684 (class 0 OID 16664)
 -- Dependencies: 248
 -- Data for Name: finresource_types; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -6281,17 +8071,18 @@ COPY public.finresource_types (finresource_type_id, type) FROM stdin;
 
 
 --
--- TOC entry 6399 (class 0 OID 16670)
+-- TOC entry 6686 (class 0 OID 16670)
 -- Dependencies: 250
 -- Data for Name: finresources; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.finresources (finresource_id, title, description, finresource_type_id, attachment, deleted_at, created_at, updated_at, created_by, updated_by, rating_id, cost, currency, offering_term_id, special_terms) FROM stdin;
+COPY public.finresources (finresource_id, title, description, finresource_type_id, attachment, deleted_at, created_at, updated_at, created_by, updated_by, rating_id) FROM stdin;
+3	Инвестиционный фонд	Фонд для инвестиций в творческие проекты	\N	\N	\N	2026-01-22 01:16:43.751267+08	2026-01-22 01:16:43.751267+08	\N	\N	\N
 \.
 
 
 --
--- TOC entry 6505 (class 0 OID 18517)
+-- TOC entry 6792 (class 0 OID 18517)
 -- Dependencies: 365
 -- Data for Name: finresources_notes; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -6301,7 +8092,7 @@ COPY public.finresources_notes (finresource_note_id, finresource_id, note_id, au
 
 
 --
--- TOC entry 6401 (class 0 OID 16682)
+-- TOC entry 6688 (class 0 OID 16682)
 -- Dependencies: 252
 -- Data for Name: functions; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -6743,7 +8534,7 @@ COPY public.functions (function_id, title, description, keywords) FROM stdin;
 
 
 --
--- TOC entry 6402 (class 0 OID 16689)
+-- TOC entry 6689 (class 0 OID 16689)
 -- Dependencies: 253
 -- Data for Name: functions_directions; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -6753,7 +8544,7 @@ COPY public.functions_directions (function_id, direction_id) FROM stdin;
 
 
 --
--- TOC entry 6404 (class 0 OID 16695)
+-- TOC entry 6691 (class 0 OID 16695)
 -- Dependencies: 255
 -- Data for Name: group_tasks; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -6763,7 +8554,7 @@ COPY public.group_tasks (task_id, project_group_id) FROM stdin;
 
 
 --
--- TOC entry 6405 (class 0 OID 16700)
+-- TOC entry 6692 (class 0 OID 16700)
 -- Dependencies: 256
 -- Data for Name: idea_categories; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -6775,7 +8566,7 @@ COPY public.idea_categories (idea_category_id, category) FROM stdin;
 
 
 --
--- TOC entry 6517 (class 0 OID 19258)
+-- TOC entry 6804 (class 0 OID 19258)
 -- Dependencies: 377
 -- Data for Name: idea_offering_terms; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -6785,7 +8576,7 @@ COPY public.idea_offering_terms (id, idea_id, offering_term_id, cost, currency, 
 
 
 --
--- TOC entry 6407 (class 0 OID 16706)
+-- TOC entry 6694 (class 0 OID 16706)
 -- Dependencies: 258
 -- Data for Name: idea_types; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -6797,7 +8588,7 @@ COPY public.idea_types (idea_type_id, type) FROM stdin;
 
 
 --
--- TOC entry 6409 (class 0 OID 16712)
+-- TOC entry 6696 (class 0 OID 16712)
 -- Dependencies: 260
 -- Data for Name: ideas; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -6807,7 +8598,7 @@ COPY public.ideas (idea_id, title, short_description, full_description, detail_d
 
 
 --
--- TOC entry 6410 (class 0 OID 16723)
+-- TOC entry 6697 (class 0 OID 16723)
 -- Dependencies: 261
 -- Data for Name: ideas_directions; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -6817,7 +8608,7 @@ COPY public.ideas_directions (idea_id, direction_id) FROM stdin;
 
 
 --
--- TOC entry 6412 (class 0 OID 16729)
+-- TOC entry 6699 (class 0 OID 16729)
 -- Dependencies: 263
 -- Data for Name: ideas_notes; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -6827,7 +8618,7 @@ COPY public.ideas_notes (note_id, idea_id, author_id) FROM stdin;
 
 
 --
--- TOC entry 6413 (class 0 OID 16734)
+-- TOC entry 6700 (class 0 OID 16734)
 -- Dependencies: 264
 -- Data for Name: ideas_projects; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -6837,7 +8628,7 @@ COPY public.ideas_projects (idea_id, project_id) FROM stdin;
 
 
 --
--- TOC entry 6414 (class 0 OID 16739)
+-- TOC entry 6701 (class 0 OID 16739)
 -- Dependencies: 265
 -- Data for Name: local_events; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -6847,7 +8638,7 @@ COPY public.local_events (local_event_id, title, description, date, start_time, 
 
 
 --
--- TOC entry 6416 (class 0 OID 16753)
+-- TOC entry 6703 (class 0 OID 16753)
 -- Dependencies: 267
 -- Data for Name: locations; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -6862,7 +8653,7 @@ COPY public.locations (location_id, name, type, district, region, country, main_
 
 
 --
--- TOC entry 6519 (class 0 OID 19285)
+-- TOC entry 6806 (class 0 OID 19285)
 -- Dependencies: 379
 -- Data for Name: matresource_offering_terms; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -6874,21 +8665,24 @@ COPY public.matresource_offering_terms (id, matresource_id, offering_term_id, co
 7	1	4	3000.00	руб.	Временное предоставление за плату для коммерческих мероприятий. Стоимость указана за сутки.	2026-01-21 22:13:23.503668
 11	1	4	5000.00	руб.	Аренда на неделю со скидкой	2026-01-21 22:15:17.118404
 12	1	4	2500.00	руб.	Аренда гармони на выходные	2026-01-21 22:20:51.886412
+21	1	4	3500.00	руб.	Депозит 5000 руб., возвращается при возврате в исправном состоянии	2026-01-22 14:48:16.815889
 \.
 
 
 --
--- TOC entry 6418 (class 0 OID 16761)
+-- TOC entry 6705 (class 0 OID 16761)
 -- Dependencies: 269
 -- Data for Name: matresource_owners; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.matresource_owners (matresource_id, actor_id) FROM stdin;
+COPY public.matresource_owners (matresource_id, actor_id, matresource_owner_id) FROM stdin;
+1	1	2
+1	10	4
 \.
 
 
 --
--- TOC entry 6419 (class 0 OID 16766)
+-- TOC entry 6706 (class 0 OID 16766)
 -- Dependencies: 270
 -- Data for Name: matresource_types; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -6978,7 +8772,7 @@ COPY public.matresource_types (matresource_type_id, category, sub_category, titl
 
 
 --
--- TOC entry 6421 (class 0 OID 16771)
+-- TOC entry 6708 (class 0 OID 16771)
 -- Dependencies: 272
 -- Data for Name: matresources; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -6990,7 +8784,7 @@ COPY public.matresources (matresource_id, title, description, matresource_type_i
 
 
 --
--- TOC entry 6423 (class 0 OID 16783)
+-- TOC entry 6710 (class 0 OID 16783)
 -- Dependencies: 274
 -- Data for Name: matresources_notes; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7000,7 +8794,7 @@ COPY public.matresources_notes (note_id, matresource_id, author_id) FROM stdin;
 
 
 --
--- TOC entry 6424 (class 0 OID 16788)
+-- TOC entry 6711 (class 0 OID 16788)
 -- Dependencies: 275
 -- Data for Name: messages; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7010,7 +8804,7 @@ COPY public.messages (message_id, message, author_id, created_at, updated_at, cr
 
 
 --
--- TOC entry 6426 (class 0 OID 16801)
+-- TOC entry 6713 (class 0 OID 16801)
 -- Dependencies: 277
 -- Data for Name: notes; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7021,7 +8815,7 @@ COPY public.notes (note_id, note, author_id, created_at, updated_at, created_by,
 
 
 --
--- TOC entry 6428 (class 0 OID 16814)
+-- TOC entry 6715 (class 0 OID 16814)
 -- Dependencies: 279
 -- Data for Name: notifications; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7032,7 +8826,7 @@ COPY public.notifications (notification_id, notification, recipient, is_read, cr
 
 
 --
--- TOC entry 6515 (class 0 OID 18931)
+-- TOC entry 6802 (class 0 OID 18931)
 -- Dependencies: 375
 -- Data for Name: offering_terms; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7046,7 +8840,7 @@ COPY public.offering_terms (id, code, name, is_paid, is_temporary) FROM stdin;
 
 
 --
--- TOC entry 6430 (class 0 OID 16828)
+-- TOC entry 6717 (class 0 OID 16828)
 -- Dependencies: 281
 -- Data for Name: organizations; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7056,7 +8850,7 @@ COPY public.organizations (organization_id, title, full_title, email, email_2, s
 
 
 --
--- TOC entry 6432 (class 0 OID 16842)
+-- TOC entry 6719 (class 0 OID 16842)
 -- Dependencies: 283
 -- Data for Name: persons; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7079,7 +8873,7 @@ COPY public.persons (person_id, name, patronymic, last_name, gender, birth_date,
 
 
 --
--- TOC entry 6434 (class 0 OID 16859)
+-- TOC entry 6721 (class 0 OID 16859)
 -- Dependencies: 285
 -- Data for Name: project_actor_roles; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7089,7 +8883,7 @@ COPY public.project_actor_roles (project_actor_role_id, actor_id, project_id, ro
 
 
 --
--- TOC entry 6436 (class 0 OID 16871)
+-- TOC entry 6723 (class 0 OID 16871)
 -- Dependencies: 287
 -- Data for Name: project_groups; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7099,7 +8893,7 @@ COPY public.project_groups (project_group_id, title, project_id, actor_id, creat
 
 
 --
--- TOC entry 6438 (class 0 OID 16882)
+-- TOC entry 6725 (class 0 OID 16882)
 -- Dependencies: 289
 -- Data for Name: project_statuses; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7115,7 +8909,7 @@ COPY public.project_statuses (project_status_id, status, description) FROM stdin
 
 
 --
--- TOC entry 6440 (class 0 OID 16890)
+-- TOC entry 6727 (class 0 OID 16890)
 -- Dependencies: 291
 -- Data for Name: project_types; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7127,7 +8921,7 @@ COPY public.project_types (project_type_id, type) FROM stdin;
 
 
 --
--- TOC entry 6442 (class 0 OID 16896)
+-- TOC entry 6729 (class 0 OID 16896)
 -- Dependencies: 293
 -- Data for Name: projects; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7137,7 +8931,7 @@ COPY public.projects (project_id, title, full_title, description, author_id, dir
 
 
 --
--- TOC entry 6443 (class 0 OID 16908)
+-- TOC entry 6730 (class 0 OID 16908)
 -- Dependencies: 294
 -- Data for Name: projects_directions; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7147,7 +8941,7 @@ COPY public.projects_directions (project_id, direction_id) FROM stdin;
 
 
 --
--- TOC entry 6444 (class 0 OID 16913)
+-- TOC entry 6731 (class 0 OID 16913)
 -- Dependencies: 295
 -- Data for Name: projects_functions; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7157,7 +8951,7 @@ COPY public.projects_functions (project_id, function_id) FROM stdin;
 
 
 --
--- TOC entry 6445 (class 0 OID 16918)
+-- TOC entry 6732 (class 0 OID 16918)
 -- Dependencies: 296
 -- Data for Name: projects_local_events; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7167,7 +8961,7 @@ COPY public.projects_local_events (project_id, local_event_id) FROM stdin;
 
 
 --
--- TOC entry 6446 (class 0 OID 16923)
+-- TOC entry 6733 (class 0 OID 16923)
 -- Dependencies: 297
 -- Data for Name: projects_locations; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7177,7 +8971,7 @@ COPY public.projects_locations (project_id, location_id) FROM stdin;
 
 
 --
--- TOC entry 6447 (class 0 OID 16928)
+-- TOC entry 6734 (class 0 OID 16928)
 -- Dependencies: 298
 -- Data for Name: projects_notes; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7187,7 +8981,7 @@ COPY public.projects_notes (note_id, project_id, author_id) FROM stdin;
 
 
 --
--- TOC entry 6449 (class 0 OID 16934)
+-- TOC entry 6736 (class 0 OID 16934)
 -- Dependencies: 300
 -- Data for Name: projects_tasks; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7197,7 +8991,7 @@ COPY public.projects_tasks (task_id, project_id) FROM stdin;
 
 
 --
--- TOC entry 6496 (class 0 OID 18357)
+-- TOC entry 6783 (class 0 OID 18357)
 -- Dependencies: 356
 -- Data for Name: rating_types; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7209,7 +9003,7 @@ COPY public.rating_types (rating_type_id, type, description, created_at) FROM st
 
 
 --
--- TOC entry 6498 (class 0 OID 18372)
+-- TOC entry 6785 (class 0 OID 18372)
 -- Dependencies: 358
 -- Data for Name: ratings; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7221,27 +9015,71 @@ COPY public.ratings (rating_id, actor_id, rating_type_id, created_at) FROM stdin
 
 
 --
--- TOC entry 6521 (class 0 OID 19312)
+-- TOC entry 6824 (class 0 OID 19756)
+-- Dependencies: 414
+-- Data for Name: request_offering_terms; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.request_offering_terms (request_term_id, request_id, offering_term_id, proposed_cost, request_terms, requester_approval, owner_response, owner_approved_cost, owner_terms, owner_approval, term_status, created_at, updated_at) FROM stdin;
+1	1	1	1000.00	Особые условия тестового запроса	f	\N	\N	\N	f	pending	2026-01-22 13:21:04.822558	2026-01-22 13:21:04.822558
+7	6	4	3000.00	Требуется гарантийный депозит 5000 руб.	f	\N	\N	\N	f	pending	2026-01-22 14:48:16.815889	2026-01-22 14:48:16.815889
+8	8	1	2000.00	Финальные тестовые условия	f	\N	\N	\N	f	pending	2026-01-22 15:20:43.094949	2026-01-22 15:20:43.094949
+9	9	1	5000.00	Финальные тестовые условия	f	\N	\N	\N	f	pending	2026-01-22 15:42:40.017138	2026-01-22 15:42:40.017138
+\.
+
+
+--
+-- TOC entry 6822 (class 0 OID 19721)
+-- Dependencies: 412
+-- Data for Name: requests; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.requests (request_id, requester_id, resource_type, resource_id, project_id, start_date, end_date, start_time, end_time, request_title, request_description, requester_notes, request_status, submitted_at, reviewed_at, responded_at, reviewed_by, created_at, updated_at) FROM stdin;
+1	1	matresource	1	\N	2026-01-29	2026-01-30	\N	\N	Тестовый запрос на ресурс	Пример запроса для тестирования системы	\N	accepted	\N	2026-01-22 14:05:03.349765	\N	1	2026-01-22 13:21:04.822558	2026-01-22 14:05:03.349765
+6	9	matresource	1	\N	2026-01-25	2026-01-26	08:00:00	22:00:00	Аренда оборудования для мероприятия	Требуется звуковое оборудование на 2 дня	\N	accepted	\N	2026-01-22 14:48:16.815889	\N	1	2026-01-22 14:48:16.815889	2026-01-22 14:48:16.815889
+8	13	service	1	\N	2026-01-23	2026-01-23	\N	\N	Финальный тест системы	Тестирование полного цикла создания договора	\N	accepted	\N	2026-01-22 15:20:43.094949	\N	1	2026-01-22 15:20:43.094949	2026-01-22 15:20:43.094949
+9	1	service	1	\N	\N	\N	\N	\N	Финальный тест готовности системы	Последний тест перед сдачей системы в эксплуатацию	\N	accepted	\N	2026-01-22 15:42:40.017138	\N	\N	2026-01-22 15:42:40.017138	2026-01-22 15:42:40.017138
+\.
+
+
+--
+-- TOC entry 6808 (class 0 OID 19312)
 -- Dependencies: 381
 -- Data for Name: service_offering_terms; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.service_offering_terms (id, service_id, offering_term_id, cost, currency, special_terms, created_at) FROM stdin;
+1	1	1	5000.00	руб.	Консультация 1 час	2026-01-22 01:10:14.90451
+2	1	2	0.00	руб.	Бесплатная первичная консультация 30 мин	2026-01-22 01:10:14.90451
+17	1	1	2500.00	руб.	Тестовые условия предоставления услуги	2026-01-22 15:20:43.094949
 \.
 
 
 --
--- TOC entry 6450 (class 0 OID 16939)
+-- TOC entry 6820 (class 0 OID 19680)
+-- Dependencies: 410
+-- Data for Name: service_owners; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.service_owners (service_owner_id, service_id, actor_id, ownership_type, ownership_share, is_primary, special_conditions, created_at, updated_at) FROM stdin;
+2	1	1	owner	100.00	t	\N	2026-01-22 14:04:11.288807	2026-01-22 14:04:11.288807
+3	1	14	owner	100.00	t	\N	2026-01-22 15:20:43.094949	2026-01-22 15:20:43.094949
+\.
+
+
+--
+-- TOC entry 6737 (class 0 OID 16939)
 -- Dependencies: 301
 -- Data for Name: services; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.services (service_id, title, description, attachment, deleted_at, created_at, updated_at, created_by, updated_by, rating_id) FROM stdin;
+1	Консультация юриста	Юридическая консультация по авторскому праву	\N	\N	2026-01-22 01:10:14.90451+08	2026-01-22 01:10:14.90451+08	\N	\N	\N
 \.
 
 
 --
--- TOC entry 6451 (class 0 OID 16950)
+-- TOC entry 6738 (class 0 OID 16950)
 -- Dependencies: 302
 -- Data for Name: services_notes; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7251,7 +9089,7 @@ COPY public.services_notes (note_id, service_id, author_id) FROM stdin;
 
 
 --
--- TOC entry 6453 (class 0 OID 16956)
+-- TOC entry 6740 (class 0 OID 16956)
 -- Dependencies: 304
 -- Data for Name: stage_architecture; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7261,7 +9099,7 @@ COPY public.stage_architecture (stage_architecture_id, architecture) FROM stdin;
 
 
 --
--- TOC entry 6455 (class 0 OID 16962)
+-- TOC entry 6742 (class 0 OID 16962)
 -- Dependencies: 306
 -- Data for Name: stage_audio; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7271,7 +9109,7 @@ COPY public.stage_audio (stage_audio_id, title, description, attachment, created
 
 
 --
--- TOC entry 6456 (class 0 OID 16973)
+-- TOC entry 6743 (class 0 OID 16973)
 -- Dependencies: 307
 -- Data for Name: stage_audio_set; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7281,7 +9119,7 @@ COPY public.stage_audio_set (stage_id, stage_audio_id) FROM stdin;
 
 
 --
--- TOC entry 6458 (class 0 OID 16979)
+-- TOC entry 6745 (class 0 OID 16979)
 -- Dependencies: 309
 -- Data for Name: stage_effects; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7291,7 +9129,7 @@ COPY public.stage_effects (stage_effects_id, title, description, attachment, cre
 
 
 --
--- TOC entry 6459 (class 0 OID 16990)
+-- TOC entry 6746 (class 0 OID 16990)
 -- Dependencies: 310
 -- Data for Name: stage_effects_set; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7301,7 +9139,7 @@ COPY public.stage_effects_set (stage_id, stage_effects_id) FROM stdin;
 
 
 --
--- TOC entry 6461 (class 0 OID 16996)
+-- TOC entry 6748 (class 0 OID 16996)
 -- Dependencies: 312
 -- Data for Name: stage_light; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7311,7 +9149,7 @@ COPY public.stage_light (stage_light_id, title, description, attachment, created
 
 
 --
--- TOC entry 6462 (class 0 OID 17007)
+-- TOC entry 6749 (class 0 OID 17007)
 -- Dependencies: 313
 -- Data for Name: stage_light_set; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7321,7 +9159,7 @@ COPY public.stage_light_set (stage_id, stage_light_id) FROM stdin;
 
 
 --
--- TOC entry 6464 (class 0 OID 17013)
+-- TOC entry 6751 (class 0 OID 17013)
 -- Dependencies: 315
 -- Data for Name: stage_mobility; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7331,7 +9169,7 @@ COPY public.stage_mobility (stage_mobility_id, mobility) FROM stdin;
 
 
 --
--- TOC entry 6466 (class 0 OID 17019)
+-- TOC entry 6753 (class 0 OID 17019)
 -- Dependencies: 317
 -- Data for Name: stage_types; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7341,7 +9179,7 @@ COPY public.stage_types (stage_type_id, type) FROM stdin;
 
 
 --
--- TOC entry 6468 (class 0 OID 17025)
+-- TOC entry 6755 (class 0 OID 17025)
 -- Dependencies: 319
 -- Data for Name: stage_video; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7351,7 +9189,7 @@ COPY public.stage_video (stage_video_id, title, description, attachment, created
 
 
 --
--- TOC entry 6469 (class 0 OID 17036)
+-- TOC entry 6756 (class 0 OID 17036)
 -- Dependencies: 320
 -- Data for Name: stage_video_set; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7361,7 +9199,7 @@ COPY public.stage_video_set (stage_id, stage_video_id) FROM stdin;
 
 
 --
--- TOC entry 6471 (class 0 OID 17042)
+-- TOC entry 6758 (class 0 OID 17042)
 -- Dependencies: 322
 -- Data for Name: stages; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7371,7 +9209,45 @@ COPY public.stages (stage_id, title, full_title, stage_type_id, stage_architectu
 
 
 --
--- TOC entry 6473 (class 0 OID 17058)
+-- TOC entry 6838 (class 0 OID 20086)
+-- Dependencies: 438
+-- Data for Name: system_commands; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.system_commands (id, category, command, description) FROM stdin;
+1	Создание	SELECT create_request(1, 'service', 1, 'Заголовок', 'Описание');	Создать новый запрос
+2	Условия	SELECT add_request_term(1, 1, 1000.00, 'Условия');	Добавить условия к запросу
+3	Принятие	UPDATE requests SET request_status = 'accepted' WHERE request_id = 1;	Принять запрос
+4	Подписание	UPDATE temp_contracts SET requester_signed = TRUE, owner_signed = TRUE WHERE request_id = 1;	Подписать договор
+5	Мониторинг	SELECT * FROM v_contract_process_tracking;	Отслеживание процессов
+6	Аналитика	SELECT * FROM v_business_intelligence;	Бизнес-статистика
+\.
+
+
+--
+-- TOC entry 6836 (class 0 OID 20055)
+-- Dependencies: 434
+-- Data for Name: system_deployment_log; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.system_deployment_log (deployment_id, component_name, component_type, status, created_at, notes) FROM stdin;
+1	Система управления запросами и договорами	Полная система	Успешно	2026-01-22 15:41:53.873912	Развернута в соответствии с ТЗ
+2	Таблицы (8 шт.)	Хранение данных	Успешно	2026-01-22 15:41:53.873912	requests, temp_contracts, contracts и связанные таблицы
+3	Функции (6 шт.)	Автоматизация	Успешно	2026-01-22 15:41:53.873912	create_request, add_request_term, create_final_contract и др.
+4	Триггеры (4 шт.)	Бизнес-логика	Успешно	2026-01-22 15:41:53.873912	Автоматическое создание договоров, обновление меток времени
+5	Представления (6 шт.)	Мониторинг	Успешно	2026-01-22 15:41:53.873912	v_contract_process_tracking, v_business_intelligence и др.
+6	Тестовые данные	Данные	Успешно	2026-01-22 15:41:53.873912	Созданы тестовые запросы, договоры и условия
+8	Финальная верификация	Качество	Успешно	2026-01-22 16:27:19.705437	Все компоненты системы проверены и работают
+9	Автоматизация договоров	Бизнес-процессы	Успешно	2026-01-22 16:27:19.705437	Триггеры создания временных и финальных договоров работают
+10	Мониторинг и аналитика	Управление	Успешно	2026-01-22 16:27:19.705437	Все представления созданы и отображают данные
+11	Тестовые данные	Данные	Успешно	2026-01-22 16:27:19.705437	Созданы тестовые запросы и договоры для демонстрации
+7	Триггер создания финальных договоров	Автоматизация	Успешно	2026-01-22 16:07:55.979752	Триггер исправлен и работает. Созданы договоры автоматически: 1 для temp_contract_id=9
+12	Проект завершен	Итог	Успешно	2026-01-22 16:42:07.513817	Система управления запросами и договорами успешно создана. Договоров: 3, Общая стоимость: 10000.00 руб., Все требования ТЗ выполнены.
+\.
+
+
+--
+-- TOC entry 6760 (class 0 OID 17058)
 -- Dependencies: 324
 -- Data for Name: task_types; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7385,7 +9261,7 @@ COPY public.task_types (task_type_id, type) FROM stdin;
 
 
 --
--- TOC entry 6475 (class 0 OID 17064)
+-- TOC entry 6762 (class 0 OID 17064)
 -- Dependencies: 326
 -- Data for Name: tasks; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7396,7 +9272,33 @@ COPY public.tasks (task_id, task, task_type_id, due_date, priority, deleted_at, 
 
 
 --
--- TOC entry 6523 (class 0 OID 19339)
+-- TOC entry 6828 (class 0 OID 19823)
+-- Dependencies: 418
+-- Data for Name: temp_contract_terms; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.temp_contract_terms (temp_term_id, temp_contract_id, request_term_id, offering_term_id, agreed_cost, agreed_currency, special_terms, term_status, created_at, updated_at) FROM stdin;
+5	7	7	4	3000.00	руб.	Требуется гарантийный депозит 5000 руб.	pending	2026-01-22 14:48:16.815889	2026-01-22 14:48:16.815889
+6	8	8	1	2000.00	руб.	Финальные тестовые условия	pending	2026-01-22 15:20:43.094949	2026-01-22 15:20:43.094949
+7	9	9	1	5000.00	руб.	Финальные тестовые условия	pending	2026-01-22 15:42:40.017138	2026-01-22 15:42:40.017138
+\.
+
+
+--
+-- TOC entry 6826 (class 0 OID 19785)
+-- Dependencies: 416
+-- Data for Name: temp_contracts; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.temp_contracts (temp_contract_id, request_id, contract_title, contract_description, requester_id, owner_id, resource_type, resource_id, start_date, end_date, start_time, end_time, contract_status, requester_signed, owner_signed, valid_from, valid_until, created_at, updated_at) FROM stdin;
+7	6	Временный договор: Тестовая гармонь	Требуется звуковое оборудование на 2 дня	9	1	matresource	1	2026-01-25	2026-01-26	08:00:00	22:00:00	pending_signatures	t	t	\N	\N	2026-01-22 14:48:16.815889	2026-01-22 15:19:40.934525
+8	8	Временный договор: Консультация юриста	Тестирование полного цикла создания договора	13	1	service	1	2026-01-23	2026-01-23	\N	\N	draft	t	t	\N	\N	2026-01-22 15:20:43.094949	2026-01-22 15:32:40.174906
+9	9	Временный договор: Консультация юриста	Последний тест перед сдачей системы в эксплуатацию	1	1	service	1	\N	\N	\N	\N	active	t	t	\N	\N	2026-01-22 15:42:40.017138	2026-01-22 16:12:55.698069
+\.
+
+
+--
+-- TOC entry 6810 (class 0 OID 19339)
 -- Dependencies: 383
 -- Data for Name: template_offering_terms; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7406,7 +9308,7 @@ COPY public.template_offering_terms (id, template_id, offering_term_id, cost, cu
 
 
 --
--- TOC entry 6477 (class 0 OID 17077)
+-- TOC entry 6764 (class 0 OID 17077)
 -- Dependencies: 328
 -- Data for Name: templates; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7416,7 +9318,7 @@ COPY public.templates (template_id, title, description, direction_id, deleted_at
 
 
 --
--- TOC entry 6478 (class 0 OID 17088)
+-- TOC entry 6765 (class 0 OID 17088)
 -- Dependencies: 329
 -- Data for Name: templates_finresources; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7426,7 +9328,7 @@ COPY public.templates_finresources (template_id, finresource_id) FROM stdin;
 
 
 --
--- TOC entry 6479 (class 0 OID 17093)
+-- TOC entry 6766 (class 0 OID 17093)
 -- Dependencies: 330
 -- Data for Name: templates_functions; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7436,7 +9338,7 @@ COPY public.templates_functions (template_id, function_id) FROM stdin;
 
 
 --
--- TOC entry 6480 (class 0 OID 17098)
+-- TOC entry 6767 (class 0 OID 17098)
 -- Dependencies: 331
 -- Data for Name: templates_matresources; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7446,7 +9348,7 @@ COPY public.templates_matresources (template_id, matresource_id) FROM stdin;
 
 
 --
--- TOC entry 6507 (class 0 OID 18547)
+-- TOC entry 6794 (class 0 OID 18547)
 -- Dependencies: 367
 -- Data for Name: templates_notes; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7456,7 +9358,7 @@ COPY public.templates_notes (template_note_id, template_id, note_id, author_id, 
 
 
 --
--- TOC entry 6482 (class 0 OID 17104)
+-- TOC entry 6769 (class 0 OID 17104)
 -- Dependencies: 333
 -- Data for Name: templates_venues; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7466,7 +9368,7 @@ COPY public.templates_venues (template_id, venue_id) FROM stdin;
 
 
 --
--- TOC entry 6513 (class 0 OID 18722)
+-- TOC entry 6800 (class 0 OID 18722)
 -- Dependencies: 373
 -- Data for Name: theme_bookmarks; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7478,7 +9380,7 @@ COPY public.theme_bookmarks (bookmark_id, theme_id, actor_id, last_read_discussi
 
 
 --
--- TOC entry 6483 (class 0 OID 17109)
+-- TOC entry 6770 (class 0 OID 17109)
 -- Dependencies: 334
 -- Data for Name: theme_comments; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7488,7 +9390,7 @@ COPY public.theme_comments (theme_comment_id, comment, theme_id, actor_id, creat
 
 
 --
--- TOC entry 6511 (class 0 OID 18692)
+-- TOC entry 6798 (class 0 OID 18692)
 -- Dependencies: 371
 -- Data for Name: theme_discussions; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7500,7 +9402,7 @@ COPY public.theme_discussions (discussion_id, theme_id, parent_discussion_id, au
 
 
 --
--- TOC entry 6509 (class 0 OID 18617)
+-- TOC entry 6796 (class 0 OID 18617)
 -- Dependencies: 369
 -- Data for Name: theme_notes; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7510,7 +9412,7 @@ COPY public.theme_notes (theme_note_id, theme_id, note_id, author_id, created_at
 
 
 --
--- TOC entry 6485 (class 0 OID 17123)
+-- TOC entry 6772 (class 0 OID 17123)
 -- Dependencies: 336
 -- Data for Name: theme_types; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7520,7 +9422,7 @@ COPY public.theme_types (theme_type_id, type) FROM stdin;
 
 
 --
--- TOC entry 6487 (class 0 OID 17129)
+-- TOC entry 6774 (class 0 OID 17129)
 -- Dependencies: 338
 -- Data for Name: themes; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7531,17 +9433,33 @@ COPY public.themes (theme_id, title, description, theme_type_id, actor_id, attac
 
 
 --
--- TOC entry 6525 (class 0 OID 19366)
+-- TOC entry 6812 (class 0 OID 19366)
 -- Dependencies: 385
 -- Data for Name: venue_offering_terms; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.venue_offering_terms (id, venue_id, offering_term_id, cost, currency, special_terms, created_at) FROM stdin;
+1	1	4	20000.00	руб.	Аренда на день	2026-01-22 01:10:42.992244
+2	1	3	0.00	руб.	Бесплатно для некоммерческих выставок	2026-01-22 01:10:42.992244
+3	1	1	5000000.00	руб.	Продажа помещения	2026-01-22 01:10:42.992244
+7	2	4	20000.00	руб.	Аренда на день	2026-01-22 01:16:43.751267
+8	2	3	0.00	руб.	Бесплатно для некоммерческих выставок	2026-01-22 01:16:43.751267
+9	2	1	5000000.00	руб.	Продажа помещения	2026-01-22 01:16:43.751267
 \.
 
 
 --
--- TOC entry 6489 (class 0 OID 17141)
+-- TOC entry 6818 (class 0 OID 19663)
+-- Dependencies: 408
+-- Data for Name: venue_owners; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.venue_owners (venue_owner_id, venue_id, actor_id, ownership_type, ownership_share, is_primary, special_conditions, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- TOC entry 6776 (class 0 OID 17141)
 -- Dependencies: 340
 -- Data for Name: venue_types; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7551,17 +9469,19 @@ COPY public.venue_types (venue_type_id, type) FROM stdin;
 
 
 --
--- TOC entry 6491 (class 0 OID 17147)
+-- TOC entry 6778 (class 0 OID 17147)
 -- Dependencies: 342
 -- Data for Name: venues; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.venues (venue_id, title, full_title, venue_type_id, description, actor_id, location_id, attachment, deleted_at, created_at, updated_at, created_by, updated_by, rating_id) FROM stdin;
+1	Выставочный зал	\N	\N	Просторный зал для выставок	\N	\N	\N	\N	2026-01-22 01:10:42.992244+08	2026-01-22 01:10:42.992244+08	\N	\N	\N
+2	Выставочный зал	\N	\N	Просторный зал для выставок	\N	\N	\N	\N	2026-01-22 01:16:43.751267+08	2026-01-22 01:16:43.751267+08	\N	\N	\N
 \.
 
 
 --
--- TOC entry 6503 (class 0 OID 18447)
+-- TOC entry 6790 (class 0 OID 18447)
 -- Dependencies: 363
 -- Data for Name: venues_notes; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7571,7 +9491,7 @@ COPY public.venues_notes (note_id, venue_id, author_id) FROM stdin;
 
 
 --
--- TOC entry 6492 (class 0 OID 17158)
+-- TOC entry 6779 (class 0 OID 17158)
 -- Dependencies: 343
 -- Data for Name: venues_stages; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -7581,7 +9501,7 @@ COPY public.venues_stages (venue_id, stage_id) FROM stdin;
 
 
 --
--- TOC entry 6606 (class 0 OID 0)
+-- TOC entry 6932 (class 0 OID 0)
 -- Dependencies: 224
 -- Name: actor_current_statuses_actor_current_status_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7590,7 +9510,7 @@ SELECT pg_catalog.setval('public.actor_current_statuses_actor_current_status_id_
 
 
 --
--- TOC entry 6607 (class 0 OID 0)
+-- TOC entry 6933 (class 0 OID 0)
 -- Dependencies: 226
 -- Name: actor_statuses_actor_status_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7599,7 +9519,7 @@ SELECT pg_catalog.setval('public.actor_statuses_actor_status_id_seq', 1, false);
 
 
 --
--- TOC entry 6608 (class 0 OID 0)
+-- TOC entry 6934 (class 0 OID 0)
 -- Dependencies: 228
 -- Name: actor_types_actor_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7608,7 +9528,7 @@ SELECT pg_catalog.setval('public.actor_types_actor_type_id_seq', 1, false);
 
 
 --
--- TOC entry 6609 (class 0 OID 0)
+-- TOC entry 6935 (class 0 OID 0)
 -- Dependencies: 230
 -- Name: actors_actor_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7617,7 +9537,7 @@ SELECT pg_catalog.setval('public.actors_actor_id_seq', 3, true);
 
 
 --
--- TOC entry 6610 (class 0 OID 0)
+-- TOC entry 6936 (class 0 OID 0)
 -- Dependencies: 361
 -- Name: bookmarks_bookmark_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7626,7 +9546,7 @@ SELECT pg_catalog.setval('public.bookmarks_bookmark_id_seq', 1, false);
 
 
 --
--- TOC entry 6611 (class 0 OID 0)
+-- TOC entry 6937 (class 0 OID 0)
 -- Dependencies: 239
 -- Name: communities_community_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7635,7 +9555,34 @@ SELECT pg_catalog.setval('public.communities_community_id_seq', 1, false);
 
 
 --
--- TOC entry 6612 (class 0 OID 0)
+-- TOC entry 6938 (class 0 OID 0)
+-- Dependencies: 423
+-- Name: contract_number_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.contract_number_seq', 6, true);
+
+
+--
+-- TOC entry 6939 (class 0 OID 0)
+-- Dependencies: 421
+-- Name: contract_terms_contract_term_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.contract_terms_contract_term_id_seq', 6, true);
+
+
+--
+-- TOC entry 6940 (class 0 OID 0)
+-- Dependencies: 419
+-- Name: contracts_contract_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.contracts_contract_id_seq', 7, true);
+
+
+--
+-- TOC entry 6941 (class 0 OID 0)
 -- Dependencies: 241
 -- Name: directions_direction_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7644,7 +9591,7 @@ SELECT pg_catalog.setval('public.directions_direction_id_seq', 221, true);
 
 
 --
--- TOC entry 6613 (class 0 OID 0)
+-- TOC entry 6942 (class 0 OID 0)
 -- Dependencies: 243
 -- Name: event_types_event_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7653,7 +9600,7 @@ SELECT pg_catalog.setval('public.event_types_event_type_id_seq', 1, false);
 
 
 --
--- TOC entry 6614 (class 0 OID 0)
+-- TOC entry 6943 (class 0 OID 0)
 -- Dependencies: 245
 -- Name: events_event_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7662,7 +9609,7 @@ SELECT pg_catalog.setval('public.events_event_id_seq', 6, true);
 
 
 --
--- TOC entry 6615 (class 0 OID 0)
+-- TOC entry 6944 (class 0 OID 0)
 -- Dependencies: 359
 -- Name: favorites_favorite_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7671,7 +9618,25 @@ SELECT pg_catalog.setval('public.favorites_favorite_id_seq', 1, false);
 
 
 --
--- TOC entry 6616 (class 0 OID 0)
+-- TOC entry 6945 (class 0 OID 0)
+-- Dependencies: 399
+-- Name: finresource_offering_terms_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.finresource_offering_terms_id_seq', 3, true);
+
+
+--
+-- TOC entry 6946 (class 0 OID 0)
+-- Dependencies: 406
+-- Name: finresource_owners_finresource_owner_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.finresource_owners_finresource_owner_id_seq', 1, false);
+
+
+--
+-- TOC entry 6947 (class 0 OID 0)
 -- Dependencies: 249
 -- Name: finresource_types_finresource_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7680,16 +9645,16 @@ SELECT pg_catalog.setval('public.finresource_types_finresource_type_id_seq', 1, 
 
 
 --
--- TOC entry 6617 (class 0 OID 0)
+-- TOC entry 6948 (class 0 OID 0)
 -- Dependencies: 251
 -- Name: finresources_finresource_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.finresources_finresource_id_seq', 1, false);
+SELECT pg_catalog.setval('public.finresources_finresource_id_seq', 3, true);
 
 
 --
--- TOC entry 6618 (class 0 OID 0)
+-- TOC entry 6949 (class 0 OID 0)
 -- Dependencies: 364
 -- Name: finresources_notes_finresource_note_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7698,7 +9663,7 @@ SELECT pg_catalog.setval('public.finresources_notes_finresource_note_id_seq', 1,
 
 
 --
--- TOC entry 6619 (class 0 OID 0)
+-- TOC entry 6950 (class 0 OID 0)
 -- Dependencies: 254
 -- Name: functions_function_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7707,7 +9672,7 @@ SELECT pg_catalog.setval('public.functions_function_id_seq', 432, true);
 
 
 --
--- TOC entry 6620 (class 0 OID 0)
+-- TOC entry 6951 (class 0 OID 0)
 -- Dependencies: 257
 -- Name: idea_categories_idea_category_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7716,7 +9681,7 @@ SELECT pg_catalog.setval('public.idea_categories_idea_category_id_seq', 1, false
 
 
 --
--- TOC entry 6621 (class 0 OID 0)
+-- TOC entry 6952 (class 0 OID 0)
 -- Dependencies: 376
 -- Name: idea_offering_terms_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7725,7 +9690,7 @@ SELECT pg_catalog.setval('public.idea_offering_terms_id_seq', 1, false);
 
 
 --
--- TOC entry 6622 (class 0 OID 0)
+-- TOC entry 6953 (class 0 OID 0)
 -- Dependencies: 259
 -- Name: idea_types_idea_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7734,7 +9699,7 @@ SELECT pg_catalog.setval('public.idea_types_idea_type_id_seq', 1, false);
 
 
 --
--- TOC entry 6623 (class 0 OID 0)
+-- TOC entry 6954 (class 0 OID 0)
 -- Dependencies: 262
 -- Name: ideas_idea_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7743,7 +9708,7 @@ SELECT pg_catalog.setval('public.ideas_idea_id_seq', 1, false);
 
 
 --
--- TOC entry 6624 (class 0 OID 0)
+-- TOC entry 6955 (class 0 OID 0)
 -- Dependencies: 266
 -- Name: local_events_local_event_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7752,7 +9717,7 @@ SELECT pg_catalog.setval('public.local_events_local_event_id_seq', 1, false);
 
 
 --
--- TOC entry 6625 (class 0 OID 0)
+-- TOC entry 6956 (class 0 OID 0)
 -- Dependencies: 268
 -- Name: locations_location_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7761,16 +9726,25 @@ SELECT pg_catalog.setval('public.locations_location_id_seq', 1, false);
 
 
 --
--- TOC entry 6626 (class 0 OID 0)
+-- TOC entry 6957 (class 0 OID 0)
 -- Dependencies: 378
 -- Name: matresource_offering_terms_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.matresource_offering_terms_id_seq', 17, true);
+SELECT pg_catalog.setval('public.matresource_offering_terms_id_seq', 21, true);
 
 
 --
--- TOC entry 6627 (class 0 OID 0)
+-- TOC entry 6958 (class 0 OID 0)
+-- Dependencies: 405
+-- Name: matresource_owners_matresource_owner_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.matresource_owners_matresource_owner_id_seq', 4, true);
+
+
+--
+-- TOC entry 6959 (class 0 OID 0)
 -- Dependencies: 271
 -- Name: matresource_types_matresource_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7779,7 +9753,7 @@ SELECT pg_catalog.setval('public.matresource_types_matresource_type_id_seq', 80,
 
 
 --
--- TOC entry 6628 (class 0 OID 0)
+-- TOC entry 6960 (class 0 OID 0)
 -- Dependencies: 273
 -- Name: matresources_matresource_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7788,7 +9762,7 @@ SELECT pg_catalog.setval('public.matresources_matresource_id_seq', 2, true);
 
 
 --
--- TOC entry 6629 (class 0 OID 0)
+-- TOC entry 6961 (class 0 OID 0)
 -- Dependencies: 276
 -- Name: messages_message_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7797,7 +9771,7 @@ SELECT pg_catalog.setval('public.messages_message_id_seq', 1, false);
 
 
 --
--- TOC entry 6630 (class 0 OID 0)
+-- TOC entry 6962 (class 0 OID 0)
 -- Dependencies: 278
 -- Name: notes_note_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7806,7 +9780,7 @@ SELECT pg_catalog.setval('public.notes_note_id_seq', 17, true);
 
 
 --
--- TOC entry 6631 (class 0 OID 0)
+-- TOC entry 6963 (class 0 OID 0)
 -- Dependencies: 280
 -- Name: notifications_notification_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7815,7 +9789,7 @@ SELECT pg_catalog.setval('public.notifications_notification_id_seq', 1, false);
 
 
 --
--- TOC entry 6632 (class 0 OID 0)
+-- TOC entry 6964 (class 0 OID 0)
 -- Dependencies: 374
 -- Name: offering_terms_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7824,7 +9798,7 @@ SELECT pg_catalog.setval('public.offering_terms_id_seq', 1, false);
 
 
 --
--- TOC entry 6633 (class 0 OID 0)
+-- TOC entry 6965 (class 0 OID 0)
 -- Dependencies: 282
 -- Name: organizations_organization_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7833,7 +9807,7 @@ SELECT pg_catalog.setval('public.organizations_organization_id_seq', 1, false);
 
 
 --
--- TOC entry 6634 (class 0 OID 0)
+-- TOC entry 6966 (class 0 OID 0)
 -- Dependencies: 284
 -- Name: persons_person_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7842,7 +9816,7 @@ SELECT pg_catalog.setval('public.persons_person_id_seq', 1, true);
 
 
 --
--- TOC entry 6635 (class 0 OID 0)
+-- TOC entry 6967 (class 0 OID 0)
 -- Dependencies: 286
 -- Name: project_actor_roles_project_actor_role_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7851,7 +9825,7 @@ SELECT pg_catalog.setval('public.project_actor_roles_project_actor_role_id_seq',
 
 
 --
--- TOC entry 6636 (class 0 OID 0)
+-- TOC entry 6968 (class 0 OID 0)
 -- Dependencies: 288
 -- Name: project_groups_project_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7860,7 +9834,7 @@ SELECT pg_catalog.setval('public.project_groups_project_group_id_seq', 1, false)
 
 
 --
--- TOC entry 6637 (class 0 OID 0)
+-- TOC entry 6969 (class 0 OID 0)
 -- Dependencies: 290
 -- Name: project_statuses_project_status_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7869,7 +9843,7 @@ SELECT pg_catalog.setval('public.project_statuses_project_status_id_seq', 1, fal
 
 
 --
--- TOC entry 6638 (class 0 OID 0)
+-- TOC entry 6970 (class 0 OID 0)
 -- Dependencies: 292
 -- Name: project_types_project_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7878,7 +9852,7 @@ SELECT pg_catalog.setval('public.project_types_project_type_id_seq', 1, false);
 
 
 --
--- TOC entry 6639 (class 0 OID 0)
+-- TOC entry 6971 (class 0 OID 0)
 -- Dependencies: 299
 -- Name: projects_project_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7887,7 +9861,7 @@ SELECT pg_catalog.setval('public.projects_project_id_seq', 1, false);
 
 
 --
--- TOC entry 6640 (class 0 OID 0)
+-- TOC entry 6972 (class 0 OID 0)
 -- Dependencies: 355
 -- Name: rating_types_rating_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7896,7 +9870,7 @@ SELECT pg_catalog.setval('public.rating_types_rating_type_id_seq', 2, true);
 
 
 --
--- TOC entry 6641 (class 0 OID 0)
+-- TOC entry 6973 (class 0 OID 0)
 -- Dependencies: 357
 -- Name: ratings_rating_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7905,25 +9879,52 @@ SELECT pg_catalog.setval('public.ratings_rating_id_seq', 5, true);
 
 
 --
--- TOC entry 6642 (class 0 OID 0)
+-- TOC entry 6974 (class 0 OID 0)
+-- Dependencies: 413
+-- Name: request_offering_terms_request_term_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.request_offering_terms_request_term_id_seq', 10, true);
+
+
+--
+-- TOC entry 6975 (class 0 OID 0)
+-- Dependencies: 411
+-- Name: requests_request_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.requests_request_id_seq', 10, true);
+
+
+--
+-- TOC entry 6976 (class 0 OID 0)
 -- Dependencies: 380
 -- Name: service_offering_terms_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.service_offering_terms_id_seq', 1, false);
+SELECT pg_catalog.setval('public.service_offering_terms_id_seq', 17, true);
 
 
 --
--- TOC entry 6643 (class 0 OID 0)
+-- TOC entry 6977 (class 0 OID 0)
+-- Dependencies: 409
+-- Name: service_owners_service_owner_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.service_owners_service_owner_id_seq', 3, true);
+
+
+--
+-- TOC entry 6978 (class 0 OID 0)
 -- Dependencies: 303
 -- Name: services_service_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.services_service_id_seq', 1, false);
+SELECT pg_catalog.setval('public.services_service_id_seq', 2, true);
 
 
 --
--- TOC entry 6644 (class 0 OID 0)
+-- TOC entry 6979 (class 0 OID 0)
 -- Dependencies: 305
 -- Name: stage_architecture_stage_architecture_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7932,7 +9933,7 @@ SELECT pg_catalog.setval('public.stage_architecture_stage_architecture_id_seq', 
 
 
 --
--- TOC entry 6645 (class 0 OID 0)
+-- TOC entry 6980 (class 0 OID 0)
 -- Dependencies: 308
 -- Name: stage_audio_stage_audio_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7941,7 +9942,7 @@ SELECT pg_catalog.setval('public.stage_audio_stage_audio_id_seq', 1, false);
 
 
 --
--- TOC entry 6646 (class 0 OID 0)
+-- TOC entry 6981 (class 0 OID 0)
 -- Dependencies: 311
 -- Name: stage_effects_stage_effects_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7950,7 +9951,7 @@ SELECT pg_catalog.setval('public.stage_effects_stage_effects_id_seq', 1, false);
 
 
 --
--- TOC entry 6647 (class 0 OID 0)
+-- TOC entry 6982 (class 0 OID 0)
 -- Dependencies: 314
 -- Name: stage_light_stage_light_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7959,7 +9960,7 @@ SELECT pg_catalog.setval('public.stage_light_stage_light_id_seq', 1, false);
 
 
 --
--- TOC entry 6648 (class 0 OID 0)
+-- TOC entry 6983 (class 0 OID 0)
 -- Dependencies: 316
 -- Name: stage_mobility_stage_mobility_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7968,7 +9969,7 @@ SELECT pg_catalog.setval('public.stage_mobility_stage_mobility_id_seq', 1, false
 
 
 --
--- TOC entry 6649 (class 0 OID 0)
+-- TOC entry 6984 (class 0 OID 0)
 -- Dependencies: 318
 -- Name: stage_types_stage_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7977,7 +9978,7 @@ SELECT pg_catalog.setval('public.stage_types_stage_type_id_seq', 1, false);
 
 
 --
--- TOC entry 6650 (class 0 OID 0)
+-- TOC entry 6985 (class 0 OID 0)
 -- Dependencies: 321
 -- Name: stage_video_stage_video_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7986,7 +9987,7 @@ SELECT pg_catalog.setval('public.stage_video_stage_video_id_seq', 1, false);
 
 
 --
--- TOC entry 6651 (class 0 OID 0)
+-- TOC entry 6986 (class 0 OID 0)
 -- Dependencies: 323
 -- Name: stages_stage_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -7995,7 +9996,25 @@ SELECT pg_catalog.setval('public.stages_stage_id_seq', 1, false);
 
 
 --
--- TOC entry 6652 (class 0 OID 0)
+-- TOC entry 6987 (class 0 OID 0)
+-- Dependencies: 437
+-- Name: system_commands_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.system_commands_id_seq', 6, true);
+
+
+--
+-- TOC entry 6988 (class 0 OID 0)
+-- Dependencies: 433
+-- Name: system_deployment_log_deployment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.system_deployment_log_deployment_id_seq', 12, true);
+
+
+--
+-- TOC entry 6989 (class 0 OID 0)
 -- Dependencies: 325
 -- Name: task_types_task_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -8004,7 +10023,7 @@ SELECT pg_catalog.setval('public.task_types_task_type_id_seq', 1, false);
 
 
 --
--- TOC entry 6653 (class 0 OID 0)
+-- TOC entry 6990 (class 0 OID 0)
 -- Dependencies: 327
 -- Name: tasks_task_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -8013,7 +10032,25 @@ SELECT pg_catalog.setval('public.tasks_task_id_seq', 1, false);
 
 
 --
--- TOC entry 6654 (class 0 OID 0)
+-- TOC entry 6991 (class 0 OID 0)
+-- Dependencies: 417
+-- Name: temp_contract_terms_temp_term_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.temp_contract_terms_temp_term_id_seq', 8, true);
+
+
+--
+-- TOC entry 6992 (class 0 OID 0)
+-- Dependencies: 415
+-- Name: temp_contracts_temp_contract_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.temp_contracts_temp_contract_id_seq', 10, true);
+
+
+--
+-- TOC entry 6993 (class 0 OID 0)
 -- Dependencies: 382
 -- Name: template_offering_terms_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -8022,7 +10059,7 @@ SELECT pg_catalog.setval('public.template_offering_terms_id_seq', 1, false);
 
 
 --
--- TOC entry 6655 (class 0 OID 0)
+-- TOC entry 6994 (class 0 OID 0)
 -- Dependencies: 366
 -- Name: templates_notes_template_note_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -8031,7 +10068,7 @@ SELECT pg_catalog.setval('public.templates_notes_template_note_id_seq', 1, false
 
 
 --
--- TOC entry 6656 (class 0 OID 0)
+-- TOC entry 6995 (class 0 OID 0)
 -- Dependencies: 332
 -- Name: templates_template_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -8040,7 +10077,7 @@ SELECT pg_catalog.setval('public.templates_template_id_seq', 1, false);
 
 
 --
--- TOC entry 6657 (class 0 OID 0)
+-- TOC entry 6996 (class 0 OID 0)
 -- Dependencies: 372
 -- Name: theme_bookmarks_bookmark_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -8049,7 +10086,7 @@ SELECT pg_catalog.setval('public.theme_bookmarks_bookmark_id_seq', 6, true);
 
 
 --
--- TOC entry 6658 (class 0 OID 0)
+-- TOC entry 6997 (class 0 OID 0)
 -- Dependencies: 335
 -- Name: theme_comments_theme_comment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -8058,7 +10095,7 @@ SELECT pg_catalog.setval('public.theme_comments_theme_comment_id_seq', 1, false)
 
 
 --
--- TOC entry 6659 (class 0 OID 0)
+-- TOC entry 6998 (class 0 OID 0)
 -- Dependencies: 370
 -- Name: theme_discussions_discussion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -8067,7 +10104,7 @@ SELECT pg_catalog.setval('public.theme_discussions_discussion_id_seq', 4, true);
 
 
 --
--- TOC entry 6660 (class 0 OID 0)
+-- TOC entry 6999 (class 0 OID 0)
 -- Dependencies: 368
 -- Name: theme_notes_theme_note_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -8076,7 +10113,7 @@ SELECT pg_catalog.setval('public.theme_notes_theme_note_id_seq', 1, false);
 
 
 --
--- TOC entry 6661 (class 0 OID 0)
+-- TOC entry 7000 (class 0 OID 0)
 -- Dependencies: 337
 -- Name: theme_types_theme_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -8085,7 +10122,7 @@ SELECT pg_catalog.setval('public.theme_types_theme_type_id_seq', 1, false);
 
 
 --
--- TOC entry 6662 (class 0 OID 0)
+-- TOC entry 7001 (class 0 OID 0)
 -- Dependencies: 339
 -- Name: themes_theme_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -8094,16 +10131,25 @@ SELECT pg_catalog.setval('public.themes_theme_id_seq', 1, true);
 
 
 --
--- TOC entry 6663 (class 0 OID 0)
+-- TOC entry 7002 (class 0 OID 0)
 -- Dependencies: 384
 -- Name: venue_offering_terms_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.venue_offering_terms_id_seq', 1, false);
+SELECT pg_catalog.setval('public.venue_offering_terms_id_seq', 12, true);
 
 
 --
--- TOC entry 6664 (class 0 OID 0)
+-- TOC entry 7003 (class 0 OID 0)
+-- Dependencies: 407
+-- Name: venue_owners_venue_owner_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.venue_owners_venue_owner_id_seq', 2, true);
+
+
+--
+-- TOC entry 7004 (class 0 OID 0)
 -- Dependencies: 341
 -- Name: venue_types_venue_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -8112,16 +10158,16 @@ SELECT pg_catalog.setval('public.venue_types_venue_type_id_seq', 1, false);
 
 
 --
--- TOC entry 6665 (class 0 OID 0)
+-- TOC entry 7005 (class 0 OID 0)
 -- Dependencies: 344
 -- Name: venues_venue_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.venues_venue_id_seq', 1, false);
+SELECT pg_catalog.setval('public.venues_venue_id_seq', 2, true);
 
 
 --
--- TOC entry 5592 (class 2606 OID 17238)
+-- TOC entry 5764 (class 2606 OID 17238)
 -- Name: actor_credentials actor_credentials_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8130,7 +10176,7 @@ ALTER TABLE ONLY public.actor_credentials
 
 
 --
--- TOC entry 5594 (class 2606 OID 17240)
+-- TOC entry 5766 (class 2606 OID 17240)
 -- Name: actor_current_statuses actor_current_statuses_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8139,7 +10185,16 @@ ALTER TABLE ONLY public.actor_current_statuses
 
 
 --
--- TOC entry 5596 (class 2606 OID 17242)
+-- TOC entry 6192 (class 2606 OID 20015)
+-- Name: actor_status_mapping actor_status_mapping_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.actor_status_mapping
+    ADD CONSTRAINT actor_status_mapping_pkey PRIMARY KEY (rating_id);
+
+
+--
+-- TOC entry 5768 (class 2606 OID 17242)
 -- Name: actor_statuses actor_statuses_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8148,7 +10203,7 @@ ALTER TABLE ONLY public.actor_statuses
 
 
 --
--- TOC entry 5598 (class 2606 OID 17244)
+-- TOC entry 5770 (class 2606 OID 17244)
 -- Name: actor_statuses actor_statuses_status_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8157,7 +10212,7 @@ ALTER TABLE ONLY public.actor_statuses
 
 
 --
--- TOC entry 5600 (class 2606 OID 17246)
+-- TOC entry 5772 (class 2606 OID 17246)
 -- Name: actor_types actor_types_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8166,7 +10221,7 @@ ALTER TABLE ONLY public.actor_types
 
 
 --
--- TOC entry 5602 (class 2606 OID 17248)
+-- TOC entry 5774 (class 2606 OID 17248)
 -- Name: actor_types actor_types_type_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8175,7 +10230,7 @@ ALTER TABLE ONLY public.actor_types
 
 
 --
--- TOC entry 5604 (class 2606 OID 17250)
+-- TOC entry 5776 (class 2606 OID 17250)
 -- Name: actors actors_account_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8184,7 +10239,7 @@ ALTER TABLE ONLY public.actors
 
 
 --
--- TOC entry 5614 (class 2606 OID 17252)
+-- TOC entry 5786 (class 2606 OID 17252)
 -- Name: actors_directions actors_directions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8193,7 +10248,7 @@ ALTER TABLE ONLY public.actors_directions
 
 
 --
--- TOC entry 5617 (class 2606 OID 17254)
+-- TOC entry 5789 (class 2606 OID 17254)
 -- Name: actors_events actors_events_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8202,7 +10257,7 @@ ALTER TABLE ONLY public.actors_events
 
 
 --
--- TOC entry 5619 (class 2606 OID 17256)
+-- TOC entry 5791 (class 2606 OID 17256)
 -- Name: actors_locations actors_locations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8211,7 +10266,7 @@ ALTER TABLE ONLY public.actors_locations
 
 
 --
--- TOC entry 5621 (class 2606 OID 17258)
+-- TOC entry 5793 (class 2606 OID 17258)
 -- Name: actors_messages actors_messages_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8220,7 +10275,7 @@ ALTER TABLE ONLY public.actors_messages
 
 
 --
--- TOC entry 5623 (class 2606 OID 18881)
+-- TOC entry 5795 (class 2606 OID 18881)
 -- Name: actors_notes actors_notes_actor_id_author_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8229,7 +10284,7 @@ ALTER TABLE ONLY public.actors_notes
 
 
 --
--- TOC entry 5625 (class 2606 OID 17260)
+-- TOC entry 5797 (class 2606 OID 17260)
 -- Name: actors_notes actors_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8238,7 +10293,7 @@ ALTER TABLE ONLY public.actors_notes
 
 
 --
--- TOC entry 5606 (class 2606 OID 17262)
+-- TOC entry 5778 (class 2606 OID 17262)
 -- Name: actors actors_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8247,7 +10302,7 @@ ALTER TABLE ONLY public.actors
 
 
 --
--- TOC entry 5628 (class 2606 OID 17264)
+-- TOC entry 5800 (class 2606 OID 17264)
 -- Name: actors_projects actors_projects_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8256,7 +10311,7 @@ ALTER TABLE ONLY public.actors_projects
 
 
 --
--- TOC entry 5632 (class 2606 OID 17266)
+-- TOC entry 5804 (class 2606 OID 17266)
 -- Name: actors_tasks actors_tasks_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8265,7 +10320,7 @@ ALTER TABLE ONLY public.actors_tasks
 
 
 --
--- TOC entry 5873 (class 2606 OID 18426)
+-- TOC entry 6044 (class 2606 OID 18426)
 -- Name: bookmarks bookmarks_actor_id_theme_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8274,7 +10329,7 @@ ALTER TABLE ONLY public.bookmarks
 
 
 --
--- TOC entry 5875 (class 2606 OID 18424)
+-- TOC entry 6046 (class 2606 OID 18424)
 -- Name: bookmarks bookmarks_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8283,7 +10338,7 @@ ALTER TABLE ONLY public.bookmarks
 
 
 --
--- TOC entry 5634 (class 2606 OID 17268)
+-- TOC entry 5806 (class 2606 OID 17268)
 -- Name: communities communities_actor_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8292,7 +10347,7 @@ ALTER TABLE ONLY public.communities
 
 
 --
--- TOC entry 5636 (class 2606 OID 17270)
+-- TOC entry 5808 (class 2606 OID 17270)
 -- Name: communities communities_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8301,7 +10356,34 @@ ALTER TABLE ONLY public.communities
 
 
 --
--- TOC entry 5638 (class 2606 OID 17272)
+-- TOC entry 6187 (class 2606 OID 19921)
+-- Name: contract_terms contract_terms_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.contract_terms
+    ADD CONSTRAINT contract_terms_pkey PRIMARY KEY (contract_term_id);
+
+
+--
+-- TOC entry 6173 (class 2606 OID 19881)
+-- Name: contracts contracts_contract_number_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.contracts
+    ADD CONSTRAINT contracts_contract_number_key UNIQUE (contract_number);
+
+
+--
+-- TOC entry 6175 (class 2606 OID 19879)
+-- Name: contracts contracts_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.contracts
+    ADD CONSTRAINT contracts_pkey PRIMARY KEY (contract_id);
+
+
+--
+-- TOC entry 5810 (class 2606 OID 17272)
 -- Name: directions directions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8310,7 +10392,7 @@ ALTER TABLE ONLY public.directions
 
 
 --
--- TOC entry 5642 (class 2606 OID 17274)
+-- TOC entry 5814 (class 2606 OID 17274)
 -- Name: event_types event_types_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8319,7 +10401,7 @@ ALTER TABLE ONLY public.event_types
 
 
 --
--- TOC entry 5644 (class 2606 OID 17276)
+-- TOC entry 5816 (class 2606 OID 17276)
 -- Name: event_types event_types_type_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8328,7 +10410,7 @@ ALTER TABLE ONLY public.event_types
 
 
 --
--- TOC entry 5655 (class 2606 OID 18883)
+-- TOC entry 5827 (class 2606 OID 18883)
 -- Name: events_notes events_notes_event_id_author_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8337,7 +10419,7 @@ ALTER TABLE ONLY public.events_notes
 
 
 --
--- TOC entry 5657 (class 2606 OID 17278)
+-- TOC entry 5829 (class 2606 OID 17278)
 -- Name: events_notes events_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8346,7 +10428,7 @@ ALTER TABLE ONLY public.events_notes
 
 
 --
--- TOC entry 5646 (class 2606 OID 17280)
+-- TOC entry 5818 (class 2606 OID 17280)
 -- Name: events events_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8355,7 +10437,7 @@ ALTER TABLE ONLY public.events
 
 
 --
--- TOC entry 5868 (class 2606 OID 18407)
+-- TOC entry 6039 (class 2606 OID 18407)
 -- Name: favorites favorites_actor_id_entity_type_entity_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8364,7 +10446,7 @@ ALTER TABLE ONLY public.favorites
 
 
 --
--- TOC entry 5871 (class 2606 OID 18405)
+-- TOC entry 6042 (class 2606 OID 18405)
 -- Name: favorites favorites_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8373,7 +10455,25 @@ ALTER TABLE ONLY public.favorites
 
 
 --
--- TOC entry 5660 (class 2606 OID 17282)
+-- TOC entry 6128 (class 2606 OID 19571)
+-- Name: finresource_offering_terms finresource_offering_terms_finresource_id_offering_term_id__key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.finresource_offering_terms
+    ADD CONSTRAINT finresource_offering_terms_finresource_id_offering_term_id__key UNIQUE (finresource_id, offering_term_id, cost, currency);
+
+
+--
+-- TOC entry 6130 (class 2606 OID 19569)
+-- Name: finresource_offering_terms finresource_offering_terms_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.finresource_offering_terms
+    ADD CONSTRAINT finresource_offering_terms_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 5832 (class 2606 OID 17282)
 -- Name: finresource_owners finresource_owners_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8382,7 +10482,7 @@ ALTER TABLE ONLY public.finresource_owners
 
 
 --
--- TOC entry 5662 (class 2606 OID 17284)
+-- TOC entry 5835 (class 2606 OID 17284)
 -- Name: finresource_types finresource_types_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8391,7 +10491,7 @@ ALTER TABLE ONLY public.finresource_types
 
 
 --
--- TOC entry 5664 (class 2606 OID 17286)
+-- TOC entry 5837 (class 2606 OID 17286)
 -- Name: finresource_types finresource_types_type_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8400,7 +10500,7 @@ ALTER TABLE ONLY public.finresource_types
 
 
 --
--- TOC entry 5882 (class 2606 OID 18530)
+-- TOC entry 6053 (class 2606 OID 18530)
 -- Name: finresources_notes finresources_notes_finresource_id_author_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8409,7 +10509,7 @@ ALTER TABLE ONLY public.finresources_notes
 
 
 --
--- TOC entry 5884 (class 2606 OID 18885)
+-- TOC entry 6055 (class 2606 OID 18885)
 -- Name: finresources_notes finresources_notes_finresource_id_author_id_key1; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8418,7 +10518,7 @@ ALTER TABLE ONLY public.finresources_notes
 
 
 --
--- TOC entry 5886 (class 2606 OID 18528)
+-- TOC entry 6057 (class 2606 OID 18528)
 -- Name: finresources_notes finresources_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8427,7 +10527,7 @@ ALTER TABLE ONLY public.finresources_notes
 
 
 --
--- TOC entry 5666 (class 2606 OID 17288)
+-- TOC entry 5839 (class 2606 OID 17288)
 -- Name: finresources finresources_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8436,7 +10536,7 @@ ALTER TABLE ONLY public.finresources
 
 
 --
--- TOC entry 5673 (class 2606 OID 17290)
+-- TOC entry 5843 (class 2606 OID 17290)
 -- Name: functions_directions functions_directions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8445,7 +10545,7 @@ ALTER TABLE ONLY public.functions_directions
 
 
 --
--- TOC entry 5671 (class 2606 OID 17292)
+-- TOC entry 5841 (class 2606 OID 17292)
 -- Name: functions functions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8454,7 +10554,7 @@ ALTER TABLE ONLY public.functions
 
 
 --
--- TOC entry 5675 (class 2606 OID 17294)
+-- TOC entry 5845 (class 2606 OID 17294)
 -- Name: group_tasks group_tasks_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8463,7 +10563,7 @@ ALTER TABLE ONLY public.group_tasks
 
 
 --
--- TOC entry 5677 (class 2606 OID 17296)
+-- TOC entry 5847 (class 2606 OID 17296)
 -- Name: idea_categories idea_categories_category_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8472,7 +10572,7 @@ ALTER TABLE ONLY public.idea_categories
 
 
 --
--- TOC entry 5679 (class 2606 OID 17298)
+-- TOC entry 5849 (class 2606 OID 17298)
 -- Name: idea_categories idea_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8481,7 +10581,7 @@ ALTER TABLE ONLY public.idea_categories
 
 
 --
--- TOC entry 5917 (class 2606 OID 19273)
+-- TOC entry 6088 (class 2606 OID 19273)
 -- Name: idea_offering_terms idea_offering_terms_idea_id_offering_term_id_cost_currency_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8490,7 +10590,7 @@ ALTER TABLE ONLY public.idea_offering_terms
 
 
 --
--- TOC entry 5919 (class 2606 OID 19271)
+-- TOC entry 6090 (class 2606 OID 19271)
 -- Name: idea_offering_terms idea_offering_terms_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8499,7 +10599,7 @@ ALTER TABLE ONLY public.idea_offering_terms
 
 
 --
--- TOC entry 5681 (class 2606 OID 17300)
+-- TOC entry 5851 (class 2606 OID 17300)
 -- Name: idea_types idea_types_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8508,7 +10608,7 @@ ALTER TABLE ONLY public.idea_types
 
 
 --
--- TOC entry 5683 (class 2606 OID 17302)
+-- TOC entry 5853 (class 2606 OID 17302)
 -- Name: idea_types idea_types_type_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8517,7 +10617,7 @@ ALTER TABLE ONLY public.idea_types
 
 
 --
--- TOC entry 5692 (class 2606 OID 17304)
+-- TOC entry 5862 (class 2606 OID 17304)
 -- Name: ideas_directions ideas_directions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8526,7 +10626,7 @@ ALTER TABLE ONLY public.ideas_directions
 
 
 --
--- TOC entry 5694 (class 2606 OID 18887)
+-- TOC entry 5864 (class 2606 OID 18887)
 -- Name: ideas_notes ideas_notes_idea_id_author_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8535,7 +10635,7 @@ ALTER TABLE ONLY public.ideas_notes
 
 
 --
--- TOC entry 5696 (class 2606 OID 17306)
+-- TOC entry 5866 (class 2606 OID 17306)
 -- Name: ideas_notes ideas_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8544,7 +10644,7 @@ ALTER TABLE ONLY public.ideas_notes
 
 
 --
--- TOC entry 5685 (class 2606 OID 17308)
+-- TOC entry 5855 (class 2606 OID 17308)
 -- Name: ideas ideas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8553,7 +10653,7 @@ ALTER TABLE ONLY public.ideas
 
 
 --
--- TOC entry 5699 (class 2606 OID 17310)
+-- TOC entry 5869 (class 2606 OID 17310)
 -- Name: ideas_projects ideas_projects_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8562,7 +10662,7 @@ ALTER TABLE ONLY public.ideas_projects
 
 
 --
--- TOC entry 5701 (class 2606 OID 17312)
+-- TOC entry 5871 (class 2606 OID 17312)
 -- Name: local_events local_events_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8571,7 +10671,7 @@ ALTER TABLE ONLY public.local_events
 
 
 --
--- TOC entry 5703 (class 2606 OID 17314)
+-- TOC entry 5873 (class 2606 OID 17314)
 -- Name: locations locations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8580,7 +10680,7 @@ ALTER TABLE ONLY public.locations
 
 
 --
--- TOC entry 5931 (class 2606 OID 19300)
+-- TOC entry 6102 (class 2606 OID 19300)
 -- Name: matresource_offering_terms matresource_offering_terms_matresource_id_offering_term_id__key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8589,7 +10689,7 @@ ALTER TABLE ONLY public.matresource_offering_terms
 
 
 --
--- TOC entry 5933 (class 2606 OID 19298)
+-- TOC entry 6104 (class 2606 OID 19298)
 -- Name: matresource_offering_terms matresource_offering_terms_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8598,7 +10698,7 @@ ALTER TABLE ONLY public.matresource_offering_terms
 
 
 --
--- TOC entry 5705 (class 2606 OID 17316)
+-- TOC entry 5876 (class 2606 OID 17316)
 -- Name: matresource_owners matresource_owners_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8607,7 +10707,7 @@ ALTER TABLE ONLY public.matresource_owners
 
 
 --
--- TOC entry 5707 (class 2606 OID 17318)
+-- TOC entry 5878 (class 2606 OID 17318)
 -- Name: matresource_types matresource_types_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8616,7 +10716,7 @@ ALTER TABLE ONLY public.matresource_types
 
 
 --
--- TOC entry 5712 (class 2606 OID 18889)
+-- TOC entry 5883 (class 2606 OID 18889)
 -- Name: matresources_notes matresources_notes_matresource_id_author_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8625,7 +10725,7 @@ ALTER TABLE ONLY public.matresources_notes
 
 
 --
--- TOC entry 5714 (class 2606 OID 17320)
+-- TOC entry 5885 (class 2606 OID 17320)
 -- Name: matresources_notes matresources_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8634,7 +10734,7 @@ ALTER TABLE ONLY public.matresources_notes
 
 
 --
--- TOC entry 5709 (class 2606 OID 17322)
+-- TOC entry 5880 (class 2606 OID 17322)
 -- Name: matresources matresources_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8643,7 +10743,7 @@ ALTER TABLE ONLY public.matresources
 
 
 --
--- TOC entry 5716 (class 2606 OID 17324)
+-- TOC entry 5887 (class 2606 OID 17324)
 -- Name: messages messages_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8652,7 +10752,7 @@ ALTER TABLE ONLY public.messages
 
 
 --
--- TOC entry 5718 (class 2606 OID 17326)
+-- TOC entry 5889 (class 2606 OID 17326)
 -- Name: notes notes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8661,7 +10761,7 @@ ALTER TABLE ONLY public.notes
 
 
 --
--- TOC entry 5723 (class 2606 OID 17328)
+-- TOC entry 5894 (class 2606 OID 17328)
 -- Name: notifications notifications_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8670,7 +10770,7 @@ ALTER TABLE ONLY public.notifications
 
 
 --
--- TOC entry 5913 (class 2606 OID 18945)
+-- TOC entry 6084 (class 2606 OID 18945)
 -- Name: offering_terms offering_terms_code_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8679,7 +10779,7 @@ ALTER TABLE ONLY public.offering_terms
 
 
 --
--- TOC entry 5915 (class 2606 OID 18943)
+-- TOC entry 6086 (class 2606 OID 18943)
 -- Name: offering_terms offering_terms_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8688,7 +10788,7 @@ ALTER TABLE ONLY public.offering_terms
 
 
 --
--- TOC entry 5725 (class 2606 OID 17330)
+-- TOC entry 5896 (class 2606 OID 17330)
 -- Name: organizations organizations_actor_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8697,7 +10797,7 @@ ALTER TABLE ONLY public.organizations
 
 
 --
--- TOC entry 5727 (class 2606 OID 17332)
+-- TOC entry 5898 (class 2606 OID 17332)
 -- Name: organizations organizations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8706,7 +10806,7 @@ ALTER TABLE ONLY public.organizations
 
 
 --
--- TOC entry 5734 (class 2606 OID 17334)
+-- TOC entry 5905 (class 2606 OID 17334)
 -- Name: persons persons_actor_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8715,7 +10815,7 @@ ALTER TABLE ONLY public.persons
 
 
 --
--- TOC entry 5736 (class 2606 OID 17336)
+-- TOC entry 5907 (class 2606 OID 17336)
 -- Name: persons persons_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8724,7 +10824,7 @@ ALTER TABLE ONLY public.persons
 
 
 --
--- TOC entry 5742 (class 2606 OID 17338)
+-- TOC entry 5913 (class 2606 OID 17338)
 -- Name: project_actor_roles project_actor_roles_actor_id_project_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8733,7 +10833,7 @@ ALTER TABLE ONLY public.project_actor_roles
 
 
 --
--- TOC entry 5744 (class 2606 OID 17340)
+-- TOC entry 5915 (class 2606 OID 17340)
 -- Name: project_actor_roles project_actor_roles_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8742,7 +10842,7 @@ ALTER TABLE ONLY public.project_actor_roles
 
 
 --
--- TOC entry 5746 (class 2606 OID 17342)
+-- TOC entry 5917 (class 2606 OID 17342)
 -- Name: project_groups project_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8751,7 +10851,7 @@ ALTER TABLE ONLY public.project_groups
 
 
 --
--- TOC entry 5748 (class 2606 OID 17344)
+-- TOC entry 5919 (class 2606 OID 17344)
 -- Name: project_statuses project_statuses_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8760,7 +10860,7 @@ ALTER TABLE ONLY public.project_statuses
 
 
 --
--- TOC entry 5750 (class 2606 OID 17346)
+-- TOC entry 5921 (class 2606 OID 17346)
 -- Name: project_statuses project_statuses_status_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8769,7 +10869,7 @@ ALTER TABLE ONLY public.project_statuses
 
 
 --
--- TOC entry 5752 (class 2606 OID 17348)
+-- TOC entry 5923 (class 2606 OID 17348)
 -- Name: project_types project_types_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8778,7 +10878,7 @@ ALTER TABLE ONLY public.project_types
 
 
 --
--- TOC entry 5754 (class 2606 OID 17350)
+-- TOC entry 5925 (class 2606 OID 17350)
 -- Name: project_types project_types_type_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8787,7 +10887,7 @@ ALTER TABLE ONLY public.project_types
 
 
 --
--- TOC entry 5767 (class 2606 OID 17352)
+-- TOC entry 5938 (class 2606 OID 17352)
 -- Name: projects projects_account_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8796,7 +10896,7 @@ ALTER TABLE ONLY public.projects
 
 
 --
--- TOC entry 5772 (class 2606 OID 17354)
+-- TOC entry 5943 (class 2606 OID 17354)
 -- Name: projects_directions projects_directions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8805,7 +10905,7 @@ ALTER TABLE ONLY public.projects_directions
 
 
 --
--- TOC entry 5774 (class 2606 OID 17356)
+-- TOC entry 5945 (class 2606 OID 17356)
 -- Name: projects_functions projects_functions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8814,7 +10914,7 @@ ALTER TABLE ONLY public.projects_functions
 
 
 --
--- TOC entry 5776 (class 2606 OID 17358)
+-- TOC entry 5947 (class 2606 OID 17358)
 -- Name: projects_local_events projects_local_events_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8823,7 +10923,7 @@ ALTER TABLE ONLY public.projects_local_events
 
 
 --
--- TOC entry 5779 (class 2606 OID 17360)
+-- TOC entry 5950 (class 2606 OID 17360)
 -- Name: projects_locations projects_locations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8832,7 +10932,7 @@ ALTER TABLE ONLY public.projects_locations
 
 
 --
--- TOC entry 5782 (class 2606 OID 17362)
+-- TOC entry 5953 (class 2606 OID 17362)
 -- Name: projects_notes projects_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8841,7 +10941,7 @@ ALTER TABLE ONLY public.projects_notes
 
 
 --
--- TOC entry 5784 (class 2606 OID 18891)
+-- TOC entry 5955 (class 2606 OID 18891)
 -- Name: projects_notes projects_notes_project_id_author_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8850,7 +10950,7 @@ ALTER TABLE ONLY public.projects_notes
 
 
 --
--- TOC entry 5769 (class 2606 OID 17364)
+-- TOC entry 5940 (class 2606 OID 17364)
 -- Name: projects projects_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8859,7 +10959,7 @@ ALTER TABLE ONLY public.projects
 
 
 --
--- TOC entry 5786 (class 2606 OID 17366)
+-- TOC entry 5957 (class 2606 OID 17366)
 -- Name: projects_tasks projects_tasks_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8868,7 +10968,7 @@ ALTER TABLE ONLY public.projects_tasks
 
 
 --
--- TOC entry 5860 (class 2606 OID 18368)
+-- TOC entry 6031 (class 2606 OID 18368)
 -- Name: rating_types rating_types_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8877,7 +10977,7 @@ ALTER TABLE ONLY public.rating_types
 
 
 --
--- TOC entry 5862 (class 2606 OID 18370)
+-- TOC entry 6033 (class 2606 OID 18370)
 -- Name: rating_types rating_types_type_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8886,7 +10986,7 @@ ALTER TABLE ONLY public.rating_types
 
 
 --
--- TOC entry 5864 (class 2606 OID 18383)
+-- TOC entry 6035 (class 2606 OID 18383)
 -- Name: ratings ratings_actor_id_rating_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8895,7 +10995,7 @@ ALTER TABLE ONLY public.ratings
 
 
 --
--- TOC entry 5866 (class 2606 OID 18381)
+-- TOC entry 6037 (class 2606 OID 18381)
 -- Name: ratings ratings_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8904,7 +11004,25 @@ ALTER TABLE ONLY public.ratings
 
 
 --
--- TOC entry 5939 (class 2606 OID 19325)
+-- TOC entry 6157 (class 2606 OID 19771)
+-- Name: request_offering_terms request_offering_terms_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.request_offering_terms
+    ADD CONSTRAINT request_offering_terms_pkey PRIMARY KEY (request_term_id);
+
+
+--
+-- TOC entry 6152 (class 2606 OID 19736)
+-- Name: requests requests_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.requests
+    ADD CONSTRAINT requests_pkey PRIMARY KEY (request_id);
+
+
+--
+-- TOC entry 6110 (class 2606 OID 19325)
 -- Name: service_offering_terms service_offering_terms_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8913,7 +11031,7 @@ ALTER TABLE ONLY public.service_offering_terms
 
 
 --
--- TOC entry 5941 (class 2606 OID 19327)
+-- TOC entry 6112 (class 2606 OID 19327)
 -- Name: service_offering_terms service_offering_terms_service_id_offering_term_id_cost_cur_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8922,7 +11040,16 @@ ALTER TABLE ONLY public.service_offering_terms
 
 
 --
--- TOC entry 5791 (class 2606 OID 17368)
+-- TOC entry 6142 (class 2606 OID 19695)
+-- Name: service_owners service_owners_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.service_owners
+    ADD CONSTRAINT service_owners_pkey PRIMARY KEY (service_owner_id);
+
+
+--
+-- TOC entry 5962 (class 2606 OID 17368)
 -- Name: services_notes services_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8931,7 +11058,7 @@ ALTER TABLE ONLY public.services_notes
 
 
 --
--- TOC entry 5793 (class 2606 OID 18893)
+-- TOC entry 5964 (class 2606 OID 18893)
 -- Name: services_notes services_notes_service_id_author_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8940,7 +11067,7 @@ ALTER TABLE ONLY public.services_notes
 
 
 --
--- TOC entry 5788 (class 2606 OID 17370)
+-- TOC entry 5959 (class 2606 OID 17370)
 -- Name: services services_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8949,7 +11076,7 @@ ALTER TABLE ONLY public.services
 
 
 --
--- TOC entry 5795 (class 2606 OID 17372)
+-- TOC entry 5966 (class 2606 OID 17372)
 -- Name: stage_architecture stage_architecture_architecture_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8958,7 +11085,7 @@ ALTER TABLE ONLY public.stage_architecture
 
 
 --
--- TOC entry 5797 (class 2606 OID 17374)
+-- TOC entry 5968 (class 2606 OID 17374)
 -- Name: stage_architecture stage_architecture_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8967,7 +11094,7 @@ ALTER TABLE ONLY public.stage_architecture
 
 
 --
--- TOC entry 5799 (class 2606 OID 17376)
+-- TOC entry 5970 (class 2606 OID 17376)
 -- Name: stage_audio stage_audio_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8976,7 +11103,7 @@ ALTER TABLE ONLY public.stage_audio
 
 
 --
--- TOC entry 5801 (class 2606 OID 17378)
+-- TOC entry 5972 (class 2606 OID 17378)
 -- Name: stage_audio_set stage_audio_set_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8985,7 +11112,7 @@ ALTER TABLE ONLY public.stage_audio_set
 
 
 --
--- TOC entry 5803 (class 2606 OID 17380)
+-- TOC entry 5974 (class 2606 OID 17380)
 -- Name: stage_effects stage_effects_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -8994,7 +11121,7 @@ ALTER TABLE ONLY public.stage_effects
 
 
 --
--- TOC entry 5805 (class 2606 OID 17382)
+-- TOC entry 5976 (class 2606 OID 17382)
 -- Name: stage_effects_set stage_effects_set_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9003,7 +11130,7 @@ ALTER TABLE ONLY public.stage_effects_set
 
 
 --
--- TOC entry 5807 (class 2606 OID 17384)
+-- TOC entry 5978 (class 2606 OID 17384)
 -- Name: stage_light stage_light_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9012,7 +11139,7 @@ ALTER TABLE ONLY public.stage_light
 
 
 --
--- TOC entry 5809 (class 2606 OID 17386)
+-- TOC entry 5980 (class 2606 OID 17386)
 -- Name: stage_light_set stage_light_set_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9021,7 +11148,7 @@ ALTER TABLE ONLY public.stage_light_set
 
 
 --
--- TOC entry 5811 (class 2606 OID 17388)
+-- TOC entry 5982 (class 2606 OID 17388)
 -- Name: stage_mobility stage_mobility_mobility_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9030,7 +11157,7 @@ ALTER TABLE ONLY public.stage_mobility
 
 
 --
--- TOC entry 5813 (class 2606 OID 17390)
+-- TOC entry 5984 (class 2606 OID 17390)
 -- Name: stage_mobility stage_mobility_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9039,7 +11166,7 @@ ALTER TABLE ONLY public.stage_mobility
 
 
 --
--- TOC entry 5815 (class 2606 OID 17392)
+-- TOC entry 5986 (class 2606 OID 17392)
 -- Name: stage_types stage_types_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9048,7 +11175,7 @@ ALTER TABLE ONLY public.stage_types
 
 
 --
--- TOC entry 5817 (class 2606 OID 17394)
+-- TOC entry 5988 (class 2606 OID 17394)
 -- Name: stage_types stage_types_type_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9057,7 +11184,7 @@ ALTER TABLE ONLY public.stage_types
 
 
 --
--- TOC entry 5819 (class 2606 OID 17396)
+-- TOC entry 5990 (class 2606 OID 17396)
 -- Name: stage_video stage_video_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9066,7 +11193,7 @@ ALTER TABLE ONLY public.stage_video
 
 
 --
--- TOC entry 5821 (class 2606 OID 17398)
+-- TOC entry 5992 (class 2606 OID 17398)
 -- Name: stage_video_set stage_video_set_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9075,7 +11202,7 @@ ALTER TABLE ONLY public.stage_video_set
 
 
 --
--- TOC entry 5823 (class 2606 OID 17400)
+-- TOC entry 5994 (class 2606 OID 17400)
 -- Name: stages stages_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9084,7 +11211,25 @@ ALTER TABLE ONLY public.stages
 
 
 --
--- TOC entry 5825 (class 2606 OID 17402)
+-- TOC entry 6196 (class 2606 OID 20094)
+-- Name: system_commands system_commands_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.system_commands
+    ADD CONSTRAINT system_commands_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 6194 (class 2606 OID 20067)
+-- Name: system_deployment_log system_deployment_log_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.system_deployment_log
+    ADD CONSTRAINT system_deployment_log_pkey PRIMARY KEY (deployment_id);
+
+
+--
+-- TOC entry 5996 (class 2606 OID 17402)
 -- Name: task_types task_types_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9093,7 +11238,7 @@ ALTER TABLE ONLY public.task_types
 
 
 --
--- TOC entry 5827 (class 2606 OID 17404)
+-- TOC entry 5998 (class 2606 OID 17404)
 -- Name: task_types task_types_type_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9102,7 +11247,7 @@ ALTER TABLE ONLY public.task_types
 
 
 --
--- TOC entry 5832 (class 2606 OID 17406)
+-- TOC entry 6003 (class 2606 OID 17406)
 -- Name: tasks tasks_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9111,7 +11256,25 @@ ALTER TABLE ONLY public.tasks
 
 
 --
--- TOC entry 5946 (class 2606 OID 19352)
+-- TOC entry 6171 (class 2606 OID 19838)
+-- Name: temp_contract_terms temp_contract_terms_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.temp_contract_terms
+    ADD CONSTRAINT temp_contract_terms_pkey PRIMARY KEY (temp_term_id);
+
+
+--
+-- TOC entry 6166 (class 2606 OID 19804)
+-- Name: temp_contracts temp_contracts_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.temp_contracts
+    ADD CONSTRAINT temp_contracts_pkey PRIMARY KEY (temp_contract_id);
+
+
+--
+-- TOC entry 6117 (class 2606 OID 19352)
 -- Name: template_offering_terms template_offering_terms_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9120,7 +11283,7 @@ ALTER TABLE ONLY public.template_offering_terms
 
 
 --
--- TOC entry 5948 (class 2606 OID 19354)
+-- TOC entry 6119 (class 2606 OID 19354)
 -- Name: template_offering_terms template_offering_terms_template_id_offering_term_id_cost_c_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9129,7 +11292,7 @@ ALTER TABLE ONLY public.template_offering_terms
 
 
 --
--- TOC entry 5836 (class 2606 OID 17408)
+-- TOC entry 6007 (class 2606 OID 17408)
 -- Name: templates_finresources templates_finresources_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9138,7 +11301,7 @@ ALTER TABLE ONLY public.templates_finresources
 
 
 --
--- TOC entry 5838 (class 2606 OID 17410)
+-- TOC entry 6009 (class 2606 OID 17410)
 -- Name: templates_functions templates_functions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9147,7 +11310,7 @@ ALTER TABLE ONLY public.templates_functions
 
 
 --
--- TOC entry 5840 (class 2606 OID 17412)
+-- TOC entry 6011 (class 2606 OID 17412)
 -- Name: templates_matresources templates_matresources_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9156,7 +11319,7 @@ ALTER TABLE ONLY public.templates_matresources
 
 
 --
--- TOC entry 5890 (class 2606 OID 18558)
+-- TOC entry 6061 (class 2606 OID 18558)
 -- Name: templates_notes templates_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9165,7 +11328,7 @@ ALTER TABLE ONLY public.templates_notes
 
 
 --
--- TOC entry 5892 (class 2606 OID 18560)
+-- TOC entry 6063 (class 2606 OID 18560)
 -- Name: templates_notes templates_notes_template_id_author_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9174,7 +11337,7 @@ ALTER TABLE ONLY public.templates_notes
 
 
 --
--- TOC entry 5834 (class 2606 OID 17414)
+-- TOC entry 6005 (class 2606 OID 17414)
 -- Name: templates templates_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9183,7 +11346,7 @@ ALTER TABLE ONLY public.templates
 
 
 --
--- TOC entry 5842 (class 2606 OID 17416)
+-- TOC entry 6013 (class 2606 OID 17416)
 -- Name: templates_venues templates_venues_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9192,7 +11355,7 @@ ALTER TABLE ONLY public.templates_venues
 
 
 --
--- TOC entry 5908 (class 2606 OID 18734)
+-- TOC entry 6079 (class 2606 OID 18734)
 -- Name: theme_bookmarks theme_bookmarks_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9201,7 +11364,7 @@ ALTER TABLE ONLY public.theme_bookmarks
 
 
 --
--- TOC entry 5910 (class 2606 OID 18736)
+-- TOC entry 6081 (class 2606 OID 18736)
 -- Name: theme_bookmarks theme_bookmarks_theme_id_actor_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9210,7 +11373,7 @@ ALTER TABLE ONLY public.theme_bookmarks
 
 
 --
--- TOC entry 5844 (class 2606 OID 17418)
+-- TOC entry 6015 (class 2606 OID 17418)
 -- Name: theme_comments theme_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9219,7 +11382,7 @@ ALTER TABLE ONLY public.theme_comments
 
 
 --
--- TOC entry 5904 (class 2606 OID 18705)
+-- TOC entry 6075 (class 2606 OID 18705)
 -- Name: theme_discussions theme_discussions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9228,7 +11391,7 @@ ALTER TABLE ONLY public.theme_discussions
 
 
 --
--- TOC entry 5895 (class 2606 OID 18628)
+-- TOC entry 6066 (class 2606 OID 18628)
 -- Name: theme_notes theme_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9237,7 +11400,7 @@ ALTER TABLE ONLY public.theme_notes
 
 
 --
--- TOC entry 5897 (class 2606 OID 18630)
+-- TOC entry 6068 (class 2606 OID 18630)
 -- Name: theme_notes theme_notes_theme_id_author_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9246,7 +11409,7 @@ ALTER TABLE ONLY public.theme_notes
 
 
 --
--- TOC entry 5899 (class 2606 OID 18753)
+-- TOC entry 6070 (class 2606 OID 18753)
 -- Name: theme_notes theme_notes_theme_id_author_id_key1; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9255,7 +11418,7 @@ ALTER TABLE ONLY public.theme_notes
 
 
 --
--- TOC entry 5846 (class 2606 OID 17420)
+-- TOC entry 6017 (class 2606 OID 17420)
 -- Name: theme_types theme_types_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9264,7 +11427,7 @@ ALTER TABLE ONLY public.theme_types
 
 
 --
--- TOC entry 5848 (class 2606 OID 17422)
+-- TOC entry 6019 (class 2606 OID 17422)
 -- Name: theme_types theme_types_type_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9273,7 +11436,7 @@ ALTER TABLE ONLY public.theme_types
 
 
 --
--- TOC entry 5850 (class 2606 OID 17424)
+-- TOC entry 6021 (class 2606 OID 17424)
 -- Name: themes themes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9282,7 +11445,25 @@ ALTER TABLE ONLY public.themes
 
 
 --
--- TOC entry 5953 (class 2606 OID 19379)
+-- TOC entry 6144 (class 2606 OID 19719)
+-- Name: service_owners uq_service_owners_service_actor; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.service_owners
+    ADD CONSTRAINT uq_service_owners_service_actor UNIQUE (service_id, actor_id);
+
+
+--
+-- TOC entry 6135 (class 2606 OID 19717)
+-- Name: venue_owners uq_venue_owners_venue_actor; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.venue_owners
+    ADD CONSTRAINT uq_venue_owners_venue_actor UNIQUE (venue_id, actor_id);
+
+
+--
+-- TOC entry 6124 (class 2606 OID 19379)
 -- Name: venue_offering_terms venue_offering_terms_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9291,7 +11472,7 @@ ALTER TABLE ONLY public.venue_offering_terms
 
 
 --
--- TOC entry 5955 (class 2606 OID 19381)
+-- TOC entry 6126 (class 2606 OID 19381)
 -- Name: venue_offering_terms venue_offering_terms_venue_id_offering_term_id_cost_currenc_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9300,7 +11481,16 @@ ALTER TABLE ONLY public.venue_offering_terms
 
 
 --
--- TOC entry 5852 (class 2606 OID 17426)
+-- TOC entry 6137 (class 2606 OID 19678)
+-- Name: venue_owners venue_owners_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.venue_owners
+    ADD CONSTRAINT venue_owners_pkey PRIMARY KEY (venue_owner_id);
+
+
+--
+-- TOC entry 6023 (class 2606 OID 17426)
 -- Name: venue_types venue_types_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9309,7 +11499,7 @@ ALTER TABLE ONLY public.venue_types
 
 
 --
--- TOC entry 5854 (class 2606 OID 17428)
+-- TOC entry 6025 (class 2606 OID 17428)
 -- Name: venue_types venue_types_type_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9318,7 +11508,7 @@ ALTER TABLE ONLY public.venue_types
 
 
 --
--- TOC entry 5878 (class 2606 OID 18453)
+-- TOC entry 6049 (class 2606 OID 18453)
 -- Name: venues_notes venues_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9327,7 +11517,7 @@ ALTER TABLE ONLY public.venues_notes
 
 
 --
--- TOC entry 5880 (class 2606 OID 18895)
+-- TOC entry 6051 (class 2606 OID 18895)
 -- Name: venues_notes venues_notes_venue_id_author_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9336,7 +11526,7 @@ ALTER TABLE ONLY public.venues_notes
 
 
 --
--- TOC entry 5856 (class 2606 OID 17430)
+-- TOC entry 6027 (class 2606 OID 17430)
 -- Name: venues venues_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9345,7 +11535,7 @@ ALTER TABLE ONLY public.venues
 
 
 --
--- TOC entry 5858 (class 2606 OID 17432)
+-- TOC entry 6029 (class 2606 OID 17432)
 -- Name: venues_stages venues_stages_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -9354,7 +11544,7 @@ ALTER TABLE ONLY public.venues_stages
 
 
 --
--- TOC entry 5869 (class 1259 OID 18413)
+-- TOC entry 6040 (class 1259 OID 18413)
 -- Name: favorites_entity_type_entity_id_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9362,7 +11552,7 @@ CREATE INDEX favorites_entity_type_entity_id_idx ON public.favorites USING btree
 
 
 --
--- TOC entry 5607 (class 1259 OID 17433)
+-- TOC entry 5779 (class 1259 OID 17433)
 -- Name: idx_actors_account; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9370,7 +11560,7 @@ CREATE INDEX idx_actors_account ON public.actors USING btree (account);
 
 
 --
--- TOC entry 5608 (class 1259 OID 17434)
+-- TOC entry 5780 (class 1259 OID 17434)
 -- Name: idx_actors_created_at; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9378,7 +11568,7 @@ CREATE INDEX idx_actors_created_at ON public.actors USING btree (created_at);
 
 
 --
--- TOC entry 5609 (class 1259 OID 17435)
+-- TOC entry 5781 (class 1259 OID 17435)
 -- Name: idx_actors_deleted; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9386,7 +11576,7 @@ CREATE INDEX idx_actors_deleted ON public.actors USING btree (deleted_at) WHERE 
 
 
 --
--- TOC entry 5615 (class 1259 OID 17436)
+-- TOC entry 5787 (class 1259 OID 17436)
 -- Name: idx_actors_directions_actor; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9394,7 +11584,7 @@ CREATE INDEX idx_actors_directions_actor ON public.actors_directions USING btree
 
 
 --
--- TOC entry 5610 (class 1259 OID 17437)
+-- TOC entry 5782 (class 1259 OID 17437)
 -- Name: idx_actors_keywords_gin; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9402,7 +11592,7 @@ CREATE INDEX idx_actors_keywords_gin ON public.actors USING gin (keywords public
 
 
 --
--- TOC entry 5626 (class 1259 OID 18896)
+-- TOC entry 5798 (class 1259 OID 18896)
 -- Name: idx_actors_notes_author; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9410,7 +11600,7 @@ CREATE INDEX idx_actors_notes_author ON public.actors_notes USING btree (author_
 
 
 --
--- TOC entry 5629 (class 1259 OID 17438)
+-- TOC entry 5801 (class 1259 OID 17438)
 -- Name: idx_actors_projects_actor; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9418,7 +11608,7 @@ CREATE INDEX idx_actors_projects_actor ON public.actors_projects USING btree (ac
 
 
 --
--- TOC entry 5630 (class 1259 OID 17439)
+-- TOC entry 5802 (class 1259 OID 17439)
 -- Name: idx_actors_projects_project; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9426,7 +11616,7 @@ CREATE INDEX idx_actors_projects_project ON public.actors_projects USING btree (
 
 
 --
--- TOC entry 5611 (class 1259 OID 17440)
+-- TOC entry 5783 (class 1259 OID 17440)
 -- Name: idx_actors_type; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9434,7 +11624,111 @@ CREATE INDEX idx_actors_type ON public.actors USING btree (actor_type_id);
 
 
 --
--- TOC entry 5639 (class 1259 OID 17441)
+-- TOC entry 6188 (class 1259 OID 19965)
+-- Name: idx_contract_terms_contract; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_contract_terms_contract ON public.contract_terms USING btree (contract_id);
+
+
+--
+-- TOC entry 6189 (class 1259 OID 19966)
+-- Name: idx_contract_terms_offering; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_contract_terms_offering ON public.contract_terms USING btree (offering_term_id);
+
+
+--
+-- TOC entry 6190 (class 1259 OID 19967)
+-- Name: idx_contract_terms_status; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_contract_terms_status ON public.contract_terms USING btree (fulfillment_status);
+
+
+--
+-- TOC entry 6176 (class 1259 OID 20018)
+-- Name: idx_contracts_created; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_contracts_created ON public.contracts USING btree (created_at);
+
+
+--
+-- TOC entry 6177 (class 1259 OID 19963)
+-- Name: idx_contracts_dates; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_contracts_dates ON public.contracts USING btree (start_date, end_date);
+
+
+--
+-- TOC entry 6178 (class 1259 OID 19964)
+-- Name: idx_contracts_effective; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_contracts_effective ON public.contracts USING btree (effective_from, effective_until);
+
+
+--
+-- TOC entry 6179 (class 1259 OID 19956)
+-- Name: idx_contracts_number; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_contracts_number ON public.contracts USING btree (contract_number);
+
+
+--
+-- TOC entry 6180 (class 1259 OID 19960)
+-- Name: idx_contracts_owner; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_contracts_owner ON public.contracts USING btree (owner_id);
+
+
+--
+-- TOC entry 6181 (class 1259 OID 19957)
+-- Name: idx_contracts_request; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_contracts_request ON public.contracts USING btree (request_id);
+
+
+--
+-- TOC entry 6182 (class 1259 OID 19959)
+-- Name: idx_contracts_requester; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_contracts_requester ON public.contracts USING btree (requester_id);
+
+
+--
+-- TOC entry 6183 (class 1259 OID 19961)
+-- Name: idx_contracts_resource; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_contracts_resource ON public.contracts USING btree (resource_type, resource_id);
+
+
+--
+-- TOC entry 6184 (class 1259 OID 19962)
+-- Name: idx_contracts_status; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_contracts_status ON public.contracts USING btree (contract_status);
+
+
+--
+-- TOC entry 6185 (class 1259 OID 19958)
+-- Name: idx_contracts_temp; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_contracts_temp ON public.contracts USING btree (temp_contract_id);
+
+
+--
+-- TOC entry 5811 (class 1259 OID 17441)
 -- Name: idx_directions_description_gin; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9442,7 +11736,7 @@ CREATE INDEX idx_directions_description_gin ON public.directions USING gin (to_t
 
 
 --
--- TOC entry 5640 (class 1259 OID 17442)
+-- TOC entry 5812 (class 1259 OID 17442)
 -- Name: idx_directions_title_gin; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9450,7 +11744,7 @@ CREATE INDEX idx_directions_title_gin ON public.directions USING gin (to_tsvecto
 
 
 --
--- TOC entry 5647 (class 1259 OID 19222)
+-- TOC entry 5819 (class 1259 OID 19222)
 -- Name: idx_events_cost; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9458,7 +11752,7 @@ CREATE INDEX idx_events_cost ON public.events USING btree (cost) WHERE (cost > (
 
 
 --
--- TOC entry 5648 (class 1259 OID 17443)
+-- TOC entry 5820 (class 1259 OID 17443)
 -- Name: idx_events_date; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9466,7 +11760,7 @@ CREATE INDEX idx_events_date ON public.events USING btree (date);
 
 
 --
--- TOC entry 5649 (class 1259 OID 17444)
+-- TOC entry 5821 (class 1259 OID 17444)
 -- Name: idx_events_deleted; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9474,7 +11768,7 @@ CREATE INDEX idx_events_deleted ON public.events USING btree (deleted_at) WHERE 
 
 
 --
--- TOC entry 5658 (class 1259 OID 18897)
+-- TOC entry 5830 (class 1259 OID 18897)
 -- Name: idx_events_notes_author; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9482,7 +11776,7 @@ CREATE INDEX idx_events_notes_author ON public.events_notes USING btree (author_
 
 
 --
--- TOC entry 5650 (class 1259 OID 19221)
+-- TOC entry 5822 (class 1259 OID 19221)
 -- Name: idx_events_offering_term; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9490,7 +11784,7 @@ CREATE INDEX idx_events_offering_term ON public.events USING btree (offering_ter
 
 
 --
--- TOC entry 5651 (class 1259 OID 19249)
+-- TOC entry 5823 (class 1259 OID 19249)
 -- Name: idx_events_offering_term_cost; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9498,7 +11792,7 @@ CREATE INDEX idx_events_offering_term_cost ON public.events USING btree (offerin
 
 
 --
--- TOC entry 5652 (class 1259 OID 17445)
+-- TOC entry 5824 (class 1259 OID 17445)
 -- Name: idx_events_title_gin; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9506,7 +11800,7 @@ CREATE INDEX idx_events_title_gin ON public.events USING gin (to_tsvector('russi
 
 
 --
--- TOC entry 5653 (class 1259 OID 17446)
+-- TOC entry 5825 (class 1259 OID 17446)
 -- Name: idx_events_type; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9514,15 +11808,15 @@ CREATE INDEX idx_events_type ON public.events USING btree (event_type_id);
 
 
 --
--- TOC entry 5667 (class 1259 OID 19224)
--- Name: idx_finresources_cost; Type: INDEX; Schema: public; Owner: postgres
+-- TOC entry 5833 (class 1259 OID 19661)
+-- Name: idx_finresource_owners_unique; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE INDEX idx_finresources_cost ON public.finresources USING btree (cost) WHERE (cost > (0)::numeric);
+CREATE UNIQUE INDEX idx_finresource_owners_unique ON public.finresource_owners USING btree (finresource_owner_id);
 
 
 --
--- TOC entry 5887 (class 1259 OID 18898)
+-- TOC entry 6058 (class 1259 OID 18898)
 -- Name: idx_finresources_notes_author; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9530,23 +11824,7 @@ CREATE INDEX idx_finresources_notes_author ON public.finresources_notes USING bt
 
 
 --
--- TOC entry 5668 (class 1259 OID 19223)
--- Name: idx_finresources_offering_term; Type: INDEX; Schema: public; Owner: postgres
---
-
-CREATE INDEX idx_finresources_offering_term ON public.finresources USING btree (offering_term_id);
-
-
---
--- TOC entry 5669 (class 1259 OID 19250)
--- Name: idx_finresources_offering_term_cost; Type: INDEX; Schema: public; Owner: postgres
---
-
-CREATE INDEX idx_finresources_offering_term_cost ON public.finresources USING btree (offering_term_id, cost);
-
-
---
--- TOC entry 5920 (class 1259 OID 19400)
+-- TOC entry 6091 (class 1259 OID 19400)
 -- Name: idx_idea_offering_cost; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9554,7 +11832,7 @@ CREATE INDEX idx_idea_offering_cost ON public.idea_offering_terms USING btree (c
 
 
 --
--- TOC entry 5921 (class 1259 OID 19398)
+-- TOC entry 6092 (class 1259 OID 19398)
 -- Name: idx_idea_offering_idea; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9562,7 +11840,7 @@ CREATE INDEX idx_idea_offering_idea ON public.idea_offering_terms USING btree (i
 
 
 --
--- TOC entry 5922 (class 1259 OID 19399)
+-- TOC entry 6093 (class 1259 OID 19399)
 -- Name: idx_idea_offering_term; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9570,7 +11848,7 @@ CREATE INDEX idx_idea_offering_term ON public.idea_offering_terms USING btree (o
 
 
 --
--- TOC entry 5923 (class 1259 OID 19484)
+-- TOC entry 6094 (class 1259 OID 19484)
 -- Name: idx_idea_offerings_cost; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9578,7 +11856,7 @@ CREATE INDEX idx_idea_offerings_cost ON public.idea_offering_terms USING btree (
 
 
 --
--- TOC entry 5686 (class 1259 OID 17447)
+-- TOC entry 5856 (class 1259 OID 17447)
 -- Name: idx_ideas_actor; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9586,7 +11864,7 @@ CREATE INDEX idx_ideas_actor ON public.ideas USING btree (actor_id);
 
 
 --
--- TOC entry 5687 (class 1259 OID 17448)
+-- TOC entry 5857 (class 1259 OID 17448)
 -- Name: idx_ideas_category; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9594,7 +11872,7 @@ CREATE INDEX idx_ideas_category ON public.ideas USING btree (idea_category_id);
 
 
 --
--- TOC entry 5688 (class 1259 OID 17449)
+-- TOC entry 5858 (class 1259 OID 17449)
 -- Name: idx_ideas_deleted; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9602,7 +11880,7 @@ CREATE INDEX idx_ideas_deleted ON public.ideas USING btree (deleted_at) WHERE (d
 
 
 --
--- TOC entry 5689 (class 1259 OID 17450)
+-- TOC entry 5859 (class 1259 OID 17450)
 -- Name: idx_ideas_description_gin; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9610,7 +11888,7 @@ CREATE INDEX idx_ideas_description_gin ON public.ideas USING gin (to_tsvector('r
 
 
 --
--- TOC entry 5697 (class 1259 OID 18899)
+-- TOC entry 5867 (class 1259 OID 18899)
 -- Name: idx_ideas_notes_author; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9618,7 +11896,7 @@ CREATE INDEX idx_ideas_notes_author ON public.ideas_notes USING btree (author_id
 
 
 --
--- TOC entry 5690 (class 1259 OID 17451)
+-- TOC entry 5860 (class 1259 OID 17451)
 -- Name: idx_ideas_title_gin; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9626,7 +11904,7 @@ CREATE INDEX idx_ideas_title_gin ON public.ideas USING gin (to_tsvector('russian
 
 
 --
--- TOC entry 5924 (class 1259 OID 19403)
+-- TOC entry 6095 (class 1259 OID 19403)
 -- Name: idx_matresource_offering_cost; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9634,7 +11912,7 @@ CREATE INDEX idx_matresource_offering_cost ON public.matresource_offering_terms 
 
 
 --
--- TOC entry 5925 (class 1259 OID 19401)
+-- TOC entry 6096 (class 1259 OID 19401)
 -- Name: idx_matresource_offering_mat; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9642,7 +11920,7 @@ CREATE INDEX idx_matresource_offering_mat ON public.matresource_offering_terms U
 
 
 --
--- TOC entry 5926 (class 1259 OID 19402)
+-- TOC entry 6097 (class 1259 OID 19402)
 -- Name: idx_matresource_offering_term; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9650,7 +11928,7 @@ CREATE INDEX idx_matresource_offering_term ON public.matresource_offering_terms 
 
 
 --
--- TOC entry 5927 (class 1259 OID 19482)
+-- TOC entry 6098 (class 1259 OID 19482)
 -- Name: idx_matresource_offerings_cost; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9658,7 +11936,7 @@ CREATE INDEX idx_matresource_offerings_cost ON public.matresource_offering_terms
 
 
 --
--- TOC entry 5928 (class 1259 OID 19486)
+-- TOC entry 6099 (class 1259 OID 19486)
 -- Name: idx_matresource_offerings_special_terms; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9666,7 +11944,7 @@ CREATE INDEX idx_matresource_offerings_special_terms ON public.matresource_offer
 
 
 --
--- TOC entry 5929 (class 1259 OID 19483)
+-- TOC entry 6100 (class 1259 OID 19483)
 -- Name: idx_matresource_offerings_term; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9674,7 +11952,15 @@ CREATE INDEX idx_matresource_offerings_term ON public.matresource_offering_terms
 
 
 --
--- TOC entry 5710 (class 1259 OID 18900)
+-- TOC entry 5874 (class 1259 OID 19653)
+-- Name: idx_matresource_owners_unique; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE UNIQUE INDEX idx_matresource_owners_unique ON public.matresource_owners USING btree (matresource_owner_id);
+
+
+--
+-- TOC entry 5881 (class 1259 OID 18900)
 -- Name: idx_matresources_notes_author; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9682,7 +11968,7 @@ CREATE INDEX idx_matresources_notes_author ON public.matresources_notes USING bt
 
 
 --
--- TOC entry 5719 (class 1259 OID 17452)
+-- TOC entry 5890 (class 1259 OID 17452)
 -- Name: idx_notifications_created; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9690,7 +11976,7 @@ CREATE INDEX idx_notifications_created ON public.notifications USING btree (crea
 
 
 --
--- TOC entry 5720 (class 1259 OID 17453)
+-- TOC entry 5891 (class 1259 OID 17453)
 -- Name: idx_notifications_read; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9698,7 +11984,7 @@ CREATE INDEX idx_notifications_read ON public.notifications USING btree (is_read
 
 
 --
--- TOC entry 5721 (class 1259 OID 17454)
+-- TOC entry 5892 (class 1259 OID 17454)
 -- Name: idx_notifications_recipient; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9706,7 +11992,7 @@ CREATE INDEX idx_notifications_recipient ON public.notifications USING btree (re
 
 
 --
--- TOC entry 5911 (class 1259 OID 18946)
+-- TOC entry 6082 (class 1259 OID 18946)
 -- Name: idx_offering_terms_paid; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9714,7 +12000,7 @@ CREATE INDEX idx_offering_terms_paid ON public.offering_terms USING btree (is_pa
 
 
 --
--- TOC entry 5728 (class 1259 OID 17455)
+-- TOC entry 5899 (class 1259 OID 17455)
 -- Name: idx_persons_actor; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9722,7 +12008,7 @@ CREATE INDEX idx_persons_actor ON public.persons USING btree (actor_id);
 
 
 --
--- TOC entry 5729 (class 1259 OID 17456)
+-- TOC entry 5900 (class 1259 OID 17456)
 -- Name: idx_persons_deleted; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9730,7 +12016,7 @@ CREATE INDEX idx_persons_deleted ON public.persons USING btree (deleted_at) WHER
 
 
 --
--- TOC entry 5730 (class 1259 OID 17457)
+-- TOC entry 5901 (class 1259 OID 17457)
 -- Name: idx_persons_email; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9738,7 +12024,7 @@ CREATE INDEX idx_persons_email ON public.persons USING btree (email);
 
 
 --
--- TOC entry 5731 (class 1259 OID 17458)
+-- TOC entry 5902 (class 1259 OID 17458)
 -- Name: idx_persons_name_gin; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9746,7 +12032,7 @@ CREATE INDEX idx_persons_name_gin ON public.persons USING gin (to_tsvector('russ
 
 
 --
--- TOC entry 5732 (class 1259 OID 17459)
+-- TOC entry 5903 (class 1259 OID 17459)
 -- Name: idx_persons_phone; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9754,7 +12040,7 @@ CREATE INDEX idx_persons_phone ON public.persons USING btree (phone_number);
 
 
 --
--- TOC entry 5737 (class 1259 OID 17460)
+-- TOC entry 5908 (class 1259 OID 17460)
 -- Name: idx_project_actor_roles_actor; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9762,7 +12048,7 @@ CREATE INDEX idx_project_actor_roles_actor ON public.project_actor_roles USING b
 
 
 --
--- TOC entry 5738 (class 1259 OID 17461)
+-- TOC entry 5909 (class 1259 OID 17461)
 -- Name: idx_project_actor_roles_actor_project; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9770,7 +12056,7 @@ CREATE INDEX idx_project_actor_roles_actor_project ON public.project_actor_roles
 
 
 --
--- TOC entry 5739 (class 1259 OID 17462)
+-- TOC entry 5910 (class 1259 OID 17462)
 -- Name: idx_project_actor_roles_project; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9778,7 +12064,7 @@ CREATE INDEX idx_project_actor_roles_project ON public.project_actor_roles USING
 
 
 --
--- TOC entry 5740 (class 1259 OID 17463)
+-- TOC entry 5911 (class 1259 OID 17463)
 -- Name: idx_project_actor_roles_role; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9786,7 +12072,7 @@ CREATE INDEX idx_project_actor_roles_role ON public.project_actor_roles USING bt
 
 
 --
--- TOC entry 5755 (class 1259 OID 17464)
+-- TOC entry 5926 (class 1259 OID 17464)
 -- Name: idx_projects_author; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9794,7 +12080,7 @@ CREATE INDEX idx_projects_author ON public.projects USING btree (author_id);
 
 
 --
--- TOC entry 5756 (class 1259 OID 19230)
+-- TOC entry 5927 (class 1259 OID 19230)
 -- Name: idx_projects_cost; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9802,7 +12088,7 @@ CREATE INDEX idx_projects_cost ON public.projects USING btree (cost) WHERE (cost
 
 
 --
--- TOC entry 5757 (class 1259 OID 17465)
+-- TOC entry 5928 (class 1259 OID 17465)
 -- Name: idx_projects_dates; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9810,7 +12096,7 @@ CREATE INDEX idx_projects_dates ON public.projects USING btree (start_date, end_
 
 
 --
--- TOC entry 5758 (class 1259 OID 17466)
+-- TOC entry 5929 (class 1259 OID 17466)
 -- Name: idx_projects_deleted; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9818,7 +12104,7 @@ CREATE INDEX idx_projects_deleted ON public.projects USING btree (deleted_at) WH
 
 
 --
--- TOC entry 5759 (class 1259 OID 17467)
+-- TOC entry 5930 (class 1259 OID 17467)
 -- Name: idx_projects_description_gin; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9826,7 +12112,7 @@ CREATE INDEX idx_projects_description_gin ON public.projects USING gin (to_tsvec
 
 
 --
--- TOC entry 5770 (class 1259 OID 17468)
+-- TOC entry 5941 (class 1259 OID 17468)
 -- Name: idx_projects_directions_project; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9834,7 +12120,7 @@ CREATE INDEX idx_projects_directions_project ON public.projects_directions USING
 
 
 --
--- TOC entry 5760 (class 1259 OID 17469)
+-- TOC entry 5931 (class 1259 OID 17469)
 -- Name: idx_projects_keywords_gin; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9842,7 +12128,7 @@ CREATE INDEX idx_projects_keywords_gin ON public.projects USING gin (keywords pu
 
 
 --
--- TOC entry 5777 (class 1259 OID 17470)
+-- TOC entry 5948 (class 1259 OID 17470)
 -- Name: idx_projects_locations_project; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9850,7 +12136,7 @@ CREATE INDEX idx_projects_locations_project ON public.projects_locations USING b
 
 
 --
--- TOC entry 5780 (class 1259 OID 18901)
+-- TOC entry 5951 (class 1259 OID 18901)
 -- Name: idx_projects_notes_author; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9858,7 +12144,7 @@ CREATE INDEX idx_projects_notes_author ON public.projects_notes USING btree (aut
 
 
 --
--- TOC entry 5761 (class 1259 OID 19229)
+-- TOC entry 5932 (class 1259 OID 19229)
 -- Name: idx_projects_offering_term; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9866,7 +12152,7 @@ CREATE INDEX idx_projects_offering_term ON public.projects USING btree (offering
 
 
 --
--- TOC entry 5762 (class 1259 OID 19253)
+-- TOC entry 5933 (class 1259 OID 19253)
 -- Name: idx_projects_offering_term_cost; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9874,7 +12160,7 @@ CREATE INDEX idx_projects_offering_term_cost ON public.projects USING btree (off
 
 
 --
--- TOC entry 5763 (class 1259 OID 17471)
+-- TOC entry 5934 (class 1259 OID 17471)
 -- Name: idx_projects_status; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9882,7 +12168,7 @@ CREATE INDEX idx_projects_status ON public.projects USING btree (project_status_
 
 
 --
--- TOC entry 5764 (class 1259 OID 17472)
+-- TOC entry 5935 (class 1259 OID 17472)
 -- Name: idx_projects_title_gin; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9890,7 +12176,7 @@ CREATE INDEX idx_projects_title_gin ON public.projects USING gin (to_tsvector('r
 
 
 --
--- TOC entry 5765 (class 1259 OID 17473)
+-- TOC entry 5936 (class 1259 OID 17473)
 -- Name: idx_projects_type; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9898,7 +12184,79 @@ CREATE INDEX idx_projects_type ON public.projects USING btree (project_type_id);
 
 
 --
--- TOC entry 5934 (class 1259 OID 19406)
+-- TOC entry 6153 (class 1259 OID 19945)
+-- Name: idx_request_terms_offering; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_request_terms_offering ON public.request_offering_terms USING btree (offering_term_id);
+
+
+--
+-- TOC entry 6154 (class 1259 OID 19944)
+-- Name: idx_request_terms_request; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_request_terms_request ON public.request_offering_terms USING btree (request_id);
+
+
+--
+-- TOC entry 6155 (class 1259 OID 19946)
+-- Name: idx_request_terms_status; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_request_terms_status ON public.request_offering_terms USING btree (term_status);
+
+
+--
+-- TOC entry 6145 (class 1259 OID 20017)
+-- Name: idx_requests_created; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_requests_created ON public.requests USING btree (created_at);
+
+
+--
+-- TOC entry 6146 (class 1259 OID 19943)
+-- Name: idx_requests_dates; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_requests_dates ON public.requests USING btree (start_date, end_date);
+
+
+--
+-- TOC entry 6147 (class 1259 OID 19942)
+-- Name: idx_requests_project; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_requests_project ON public.requests USING btree (project_id);
+
+
+--
+-- TOC entry 6148 (class 1259 OID 19939)
+-- Name: idx_requests_requester; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_requests_requester ON public.requests USING btree (requester_id);
+
+
+--
+-- TOC entry 6149 (class 1259 OID 19940)
+-- Name: idx_requests_resource; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_requests_resource ON public.requests USING btree (resource_type, resource_id);
+
+
+--
+-- TOC entry 6150 (class 1259 OID 19941)
+-- Name: idx_requests_status; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_requests_status ON public.requests USING btree (request_status);
+
+
+--
+-- TOC entry 6105 (class 1259 OID 19406)
 -- Name: idx_service_offering_cost; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9906,7 +12264,7 @@ CREATE INDEX idx_service_offering_cost ON public.service_offering_terms USING bt
 
 
 --
--- TOC entry 5935 (class 1259 OID 19404)
+-- TOC entry 6106 (class 1259 OID 19404)
 -- Name: idx_service_offering_service; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9914,7 +12272,7 @@ CREATE INDEX idx_service_offering_service ON public.service_offering_terms USING
 
 
 --
--- TOC entry 5936 (class 1259 OID 19405)
+-- TOC entry 6107 (class 1259 OID 19405)
 -- Name: idx_service_offering_term; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9922,7 +12280,7 @@ CREATE INDEX idx_service_offering_term ON public.service_offering_terms USING bt
 
 
 --
--- TOC entry 5937 (class 1259 OID 19485)
+-- TOC entry 6108 (class 1259 OID 19485)
 -- Name: idx_service_offerings_cost; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9930,7 +12288,31 @@ CREATE INDEX idx_service_offerings_cost ON public.service_offering_terms USING b
 
 
 --
--- TOC entry 5789 (class 1259 OID 18902)
+-- TOC entry 6138 (class 1259 OID 19937)
+-- Name: idx_service_owners_actor; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_service_owners_actor ON public.service_owners USING btree (actor_id);
+
+
+--
+-- TOC entry 6139 (class 1259 OID 19938)
+-- Name: idx_service_owners_primary; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_service_owners_primary ON public.service_owners USING btree (is_primary) WHERE (is_primary = true);
+
+
+--
+-- TOC entry 6140 (class 1259 OID 19936)
+-- Name: idx_service_owners_service; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_service_owners_service ON public.service_owners USING btree (service_id);
+
+
+--
+-- TOC entry 5960 (class 1259 OID 18902)
 -- Name: idx_services_notes_author; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9938,7 +12320,7 @@ CREATE INDEX idx_services_notes_author ON public.services_notes USING btree (aut
 
 
 --
--- TOC entry 5828 (class 1259 OID 17474)
+-- TOC entry 5999 (class 1259 OID 17474)
 -- Name: idx_tasks_deleted; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9946,7 +12328,7 @@ CREATE INDEX idx_tasks_deleted ON public.tasks USING btree (deleted_at) WHERE (d
 
 
 --
--- TOC entry 5829 (class 1259 OID 17475)
+-- TOC entry 6000 (class 1259 OID 17475)
 -- Name: idx_tasks_due_date; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9954,7 +12336,7 @@ CREATE INDEX idx_tasks_due_date ON public.tasks USING btree (due_date);
 
 
 --
--- TOC entry 5830 (class 1259 OID 17476)
+-- TOC entry 6001 (class 1259 OID 17476)
 -- Name: idx_tasks_priority; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9962,7 +12344,87 @@ CREATE INDEX idx_tasks_priority ON public.tasks USING btree (priority);
 
 
 --
--- TOC entry 5942 (class 1259 OID 19409)
+-- TOC entry 6167 (class 1259 OID 19953)
+-- Name: idx_temp_contract_terms_contract; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_temp_contract_terms_contract ON public.temp_contract_terms USING btree (temp_contract_id);
+
+
+--
+-- TOC entry 6168 (class 1259 OID 19955)
+-- Name: idx_temp_contract_terms_offering; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_temp_contract_terms_offering ON public.temp_contract_terms USING btree (offering_term_id);
+
+
+--
+-- TOC entry 6169 (class 1259 OID 19954)
+-- Name: idx_temp_contract_terms_request; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_temp_contract_terms_request ON public.temp_contract_terms USING btree (request_term_id);
+
+
+--
+-- TOC entry 6158 (class 1259 OID 20019)
+-- Name: idx_temp_contracts_created; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_temp_contracts_created ON public.temp_contracts USING btree (created_at);
+
+
+--
+-- TOC entry 6159 (class 1259 OID 19952)
+-- Name: idx_temp_contracts_dates; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_temp_contracts_dates ON public.temp_contracts USING btree (start_date, end_date);
+
+
+--
+-- TOC entry 6160 (class 1259 OID 19949)
+-- Name: idx_temp_contracts_owner; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_temp_contracts_owner ON public.temp_contracts USING btree (owner_id);
+
+
+--
+-- TOC entry 6161 (class 1259 OID 19947)
+-- Name: idx_temp_contracts_request; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_temp_contracts_request ON public.temp_contracts USING btree (request_id);
+
+
+--
+-- TOC entry 6162 (class 1259 OID 19948)
+-- Name: idx_temp_contracts_requester; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_temp_contracts_requester ON public.temp_contracts USING btree (requester_id);
+
+
+--
+-- TOC entry 6163 (class 1259 OID 19950)
+-- Name: idx_temp_contracts_resource; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_temp_contracts_resource ON public.temp_contracts USING btree (resource_type, resource_id);
+
+
+--
+-- TOC entry 6164 (class 1259 OID 19951)
+-- Name: idx_temp_contracts_status; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_temp_contracts_status ON public.temp_contracts USING btree (contract_status);
+
+
+--
+-- TOC entry 6113 (class 1259 OID 19409)
 -- Name: idx_template_offering_cost; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9970,7 +12432,7 @@ CREATE INDEX idx_template_offering_cost ON public.template_offering_terms USING 
 
 
 --
--- TOC entry 5943 (class 1259 OID 19407)
+-- TOC entry 6114 (class 1259 OID 19407)
 -- Name: idx_template_offering_template; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9978,7 +12440,7 @@ CREATE INDEX idx_template_offering_template ON public.template_offering_terms US
 
 
 --
--- TOC entry 5944 (class 1259 OID 19408)
+-- TOC entry 6115 (class 1259 OID 19408)
 -- Name: idx_template_offering_term; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9986,7 +12448,7 @@ CREATE INDEX idx_template_offering_term ON public.template_offering_terms USING 
 
 
 --
--- TOC entry 5888 (class 1259 OID 18904)
+-- TOC entry 6059 (class 1259 OID 18904)
 -- Name: idx_templates_notes_author; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -9994,7 +12456,7 @@ CREATE INDEX idx_templates_notes_author ON public.templates_notes USING btree (a
 
 
 --
--- TOC entry 5905 (class 1259 OID 18762)
+-- TOC entry 6076 (class 1259 OID 18762)
 -- Name: idx_theme_bookmarks_actor; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -10002,7 +12464,7 @@ CREATE INDEX idx_theme_bookmarks_actor ON public.theme_bookmarks USING btree (ac
 
 
 --
--- TOC entry 5906 (class 1259 OID 18761)
+-- TOC entry 6077 (class 1259 OID 18761)
 -- Name: idx_theme_bookmarks_theme; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -10010,7 +12472,7 @@ CREATE INDEX idx_theme_bookmarks_theme ON public.theme_bookmarks USING btree (th
 
 
 --
--- TOC entry 5900 (class 1259 OID 18760)
+-- TOC entry 6071 (class 1259 OID 18760)
 -- Name: idx_theme_discussions_author; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -10018,7 +12480,7 @@ CREATE INDEX idx_theme_discussions_author ON public.theme_discussions USING btre
 
 
 --
--- TOC entry 5901 (class 1259 OID 18758)
+-- TOC entry 6072 (class 1259 OID 18758)
 -- Name: idx_theme_discussions_parent; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -10026,7 +12488,7 @@ CREATE INDEX idx_theme_discussions_parent ON public.theme_discussions USING btre
 
 
 --
--- TOC entry 5902 (class 1259 OID 18757)
+-- TOC entry 6073 (class 1259 OID 18757)
 -- Name: idx_theme_discussions_theme; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -10034,7 +12496,7 @@ CREATE INDEX idx_theme_discussions_theme ON public.theme_discussions USING btree
 
 
 --
--- TOC entry 5893 (class 1259 OID 18903)
+-- TOC entry 6064 (class 1259 OID 18903)
 -- Name: idx_theme_notes_author; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -10042,7 +12504,7 @@ CREATE INDEX idx_theme_notes_author ON public.theme_notes USING btree (author_id
 
 
 --
--- TOC entry 5949 (class 1259 OID 19412)
+-- TOC entry 6120 (class 1259 OID 19412)
 -- Name: idx_venue_offering_cost; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -10050,7 +12512,7 @@ CREATE INDEX idx_venue_offering_cost ON public.venue_offering_terms USING btree 
 
 
 --
--- TOC entry 5950 (class 1259 OID 19411)
+-- TOC entry 6121 (class 1259 OID 19411)
 -- Name: idx_venue_offering_term; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -10058,7 +12520,7 @@ CREATE INDEX idx_venue_offering_term ON public.venue_offering_terms USING btree 
 
 
 --
--- TOC entry 5951 (class 1259 OID 19410)
+-- TOC entry 6122 (class 1259 OID 19410)
 -- Name: idx_venue_offering_venue; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -10066,7 +12528,31 @@ CREATE INDEX idx_venue_offering_venue ON public.venue_offering_terms USING btree
 
 
 --
--- TOC entry 5876 (class 1259 OID 18905)
+-- TOC entry 6131 (class 1259 OID 19934)
+-- Name: idx_venue_owners_actor; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_venue_owners_actor ON public.venue_owners USING btree (actor_id);
+
+
+--
+-- TOC entry 6132 (class 1259 OID 19935)
+-- Name: idx_venue_owners_primary; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_venue_owners_primary ON public.venue_owners USING btree (is_primary) WHERE (is_primary = true);
+
+
+--
+-- TOC entry 6133 (class 1259 OID 19933)
+-- Name: idx_venue_owners_venue; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_venue_owners_venue ON public.venue_owners USING btree (venue_id);
+
+
+--
+-- TOC entry 6047 (class 1259 OID 18905)
 -- Name: idx_venues_notes_author; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -10074,7 +12560,7 @@ CREATE INDEX idx_venues_notes_author ON public.venues_notes USING btree (author_
 
 
 --
--- TOC entry 5612 (class 1259 OID 17477)
+-- TOC entry 5784 (class 1259 OID 17477)
 -- Name: unique_human_nickname; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -10082,7 +12568,102 @@ CREATE UNIQUE INDEX unique_human_nickname ON public.actors USING btree (nickname
 
 
 --
--- TOC entry 6346 (class 2618 OID 17172)
+-- TOC entry 6650 (class 2618 OID 20002)
+-- Name: v_active_contracts _RETURN; Type: RULE; Schema: public; Owner: postgres
+--
+
+CREATE OR REPLACE VIEW public.v_active_contracts AS
+ SELECT c.contract_id,
+    c.contract_number,
+    c.contract_title,
+    c.resource_type,
+    c.resource_id,
+        CASE c.resource_type
+            WHEN 'matresource'::text THEN ( SELECT matresources.title
+               FROM public.matresources
+              WHERE (matresources.matresource_id = c.resource_id))
+            WHEN 'finresource'::text THEN ( SELECT finresources.title
+               FROM public.finresources
+              WHERE (finresources.finresource_id = c.resource_id))
+            WHEN 'venue'::text THEN ( SELECT venues.title
+               FROM public.venues
+              WHERE (venues.venue_id = c.resource_id))
+            WHEN 'service'::text THEN ( SELECT services.title
+               FROM public.services
+              WHERE (services.service_id = c.resource_id))
+            ELSE NULL::character varying
+        END AS resource_title,
+    c.requester_id,
+    req.nickname AS requester_name,
+    c.owner_id,
+    own.nickname AS owner_name,
+    c.total_cost,
+    c.currency,
+    c.contract_status,
+    c.effective_from,
+    c.effective_until,
+    count(ct.contract_term_id) AS terms_count,
+    sum(
+        CASE
+            WHEN ((ct.fulfillment_status)::text = 'completed'::text) THEN 1
+            ELSE 0
+        END) AS completed_terms
+   FROM (((public.contracts c
+     LEFT JOIN public.actors req ON ((c.requester_id = req.actor_id)))
+     LEFT JOIN public.actors own ON ((c.owner_id = own.actor_id)))
+     LEFT JOIN public.contract_terms ct ON ((c.contract_id = ct.contract_id)))
+  WHERE ((c.contract_status)::text = 'active'::text)
+  GROUP BY c.contract_id, req.nickname, own.nickname;
+
+
+--
+-- TOC entry 6651 (class 2618 OID 20007)
+-- Name: v_pending_contracts _RETURN; Type: RULE; Schema: public; Owner: postgres
+--
+
+CREATE OR REPLACE VIEW public.v_pending_contracts AS
+ SELECT tc.temp_contract_id,
+    tc.contract_title,
+    tc.resource_type,
+    tc.resource_id,
+        CASE tc.resource_type
+            WHEN 'matresource'::text THEN ( SELECT matresources.title
+               FROM public.matresources
+              WHERE (matresources.matresource_id = tc.resource_id))
+            WHEN 'finresource'::text THEN ( SELECT finresources.title
+               FROM public.finresources
+              WHERE (finresources.finresource_id = tc.resource_id))
+            WHEN 'venue'::text THEN ( SELECT venues.title
+               FROM public.venues
+              WHERE (venues.venue_id = tc.resource_id))
+            WHEN 'service'::text THEN ( SELECT services.title
+               FROM public.services
+              WHERE (services.service_id = tc.resource_id))
+            ELSE NULL::character varying
+        END AS resource_title,
+    tc.requester_id,
+    req.nickname AS requester_name,
+    tc.owner_id,
+    own.nickname AS owner_name,
+    tc.contract_status,
+    tc.requester_signed,
+    tc.owner_signed,
+    count(tct.temp_term_id) AS terms_count,
+    sum(
+        CASE
+            WHEN ((tct.term_status)::text = 'agreed'::text) THEN 1
+            ELSE 0
+        END) AS agreed_terms
+   FROM (((public.temp_contracts tc
+     LEFT JOIN public.actors req ON ((tc.requester_id = req.actor_id)))
+     LEFT JOIN public.actors own ON ((tc.owner_id = own.actor_id)))
+     LEFT JOIN public.temp_contract_terms tct ON ((tc.temp_contract_id = tct.temp_contract_id)))
+  WHERE ((tc.contract_status)::text <> ALL ((ARRAY['expired'::character varying, 'cancelled'::character varying])::text[]))
+  GROUP BY tc.temp_contract_id, req.nickname, own.nickname;
+
+
+--
+-- TOC entry 6623 (class 2618 OID 17172)
 -- Name: vw_active_events_calendar _RETURN; Type: RULE; Schema: public; Owner: postgres
 --
 
@@ -10104,7 +12685,7 @@ CREATE OR REPLACE VIEW public.vw_active_events_calendar AS
 
 
 --
--- TOC entry 6347 (class 2618 OID 17176)
+-- TOC entry 6624 (class 2618 OID 17176)
 -- Name: vw_active_projects_summary _RETURN; Type: RULE; Schema: public; Owner: postgres
 --
 
@@ -10128,7 +12709,7 @@ CREATE OR REPLACE VIEW public.vw_active_projects_summary AS
 
 
 --
--- TOC entry 6185 (class 2620 OID 17481)
+-- TOC entry 6447 (class 2620 OID 17481)
 -- Name: persons check_persons_email_unique; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -10136,7 +12717,15 @@ CREATE TRIGGER check_persons_email_unique BEFORE INSERT OR UPDATE ON public.pers
 
 
 --
--- TOC entry 6179 (class 2620 OID 19241)
+-- TOC entry 6464 (class 2620 OID 19983)
+-- Name: requests trg_check_actor_can_create_request; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER trg_check_actor_can_create_request BEFORE INSERT ON public.requests FOR EACH ROW EXECUTE FUNCTION public.check_actor_can_create_request();
+
+
+--
+-- TOC entry 6441 (class 2620 OID 19241)
 -- Name: events trg_check_cost_events; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -10144,7 +12733,15 @@ CREATE TRIGGER trg_check_cost_events BEFORE INSERT OR UPDATE ON public.events FO
 
 
 --
--- TOC entry 6181 (class 2620 OID 19242)
+-- TOC entry 6461 (class 2620 OID 19582)
+-- Name: finresource_offering_terms trg_check_cost_finresource_offering; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER trg_check_cost_finresource_offering BEFORE INSERT OR UPDATE ON public.finresource_offering_terms FOR EACH ROW EXECUTE FUNCTION public.check_cost_for_free_terms();
+
+
+--
+-- TOC entry 6443 (class 2620 OID 19242)
 -- Name: finresources trg_check_cost_finresources; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -10152,7 +12749,7 @@ CREATE TRIGGER trg_check_cost_finresources BEFORE INSERT OR UPDATE ON public.fin
 
 
 --
--- TOC entry 6193 (class 2620 OID 19393)
+-- TOC entry 6455 (class 2620 OID 19393)
 -- Name: idea_offering_terms trg_check_cost_idea_offering; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -10160,7 +12757,7 @@ CREATE TRIGGER trg_check_cost_idea_offering BEFORE INSERT OR UPDATE ON public.id
 
 
 --
--- TOC entry 6194 (class 2620 OID 19394)
+-- TOC entry 6456 (class 2620 OID 19394)
 -- Name: matresource_offering_terms trg_check_cost_matresource_offering; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -10168,7 +12765,7 @@ CREATE TRIGGER trg_check_cost_matresource_offering BEFORE INSERT OR UPDATE ON pu
 
 
 --
--- TOC entry 6189 (class 2620 OID 19245)
+-- TOC entry 6451 (class 2620 OID 19245)
 -- Name: projects trg_check_cost_projects; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -10176,7 +12773,7 @@ CREATE TRIGGER trg_check_cost_projects BEFORE INSERT OR UPDATE ON public.project
 
 
 --
--- TOC entry 6195 (class 2620 OID 19395)
+-- TOC entry 6457 (class 2620 OID 19395)
 -- Name: service_offering_terms trg_check_cost_service_offering; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -10184,7 +12781,7 @@ CREATE TRIGGER trg_check_cost_service_offering BEFORE INSERT OR UPDATE ON public
 
 
 --
--- TOC entry 6196 (class 2620 OID 19396)
+-- TOC entry 6459 (class 2620 OID 19396)
 -- Name: template_offering_terms trg_check_cost_template_offering; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -10192,7 +12789,7 @@ CREATE TRIGGER trg_check_cost_template_offering BEFORE INSERT OR UPDATE ON publi
 
 
 --
--- TOC entry 6197 (class 2620 OID 19397)
+-- TOC entry 6460 (class 2620 OID 19583)
 -- Name: venue_offering_terms trg_check_cost_venue_offering; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -10200,7 +12797,111 @@ CREATE TRIGGER trg_check_cost_venue_offering BEFORE INSERT OR UPDATE ON public.v
 
 
 --
--- TOC entry 6175 (class 2620 OID 18339)
+-- TOC entry 6465 (class 2620 OID 20016)
+-- Name: requests trg_check_project_owner; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER trg_check_project_owner BEFORE INSERT OR UPDATE ON public.requests FOR EACH ROW EXECUTE FUNCTION public.check_project_owner_status();
+
+
+--
+-- TOC entry 6458 (class 2620 OID 19584)
+-- Name: service_offering_terms trg_check_service_offering_terms; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER trg_check_service_offering_terms BEFORE INSERT OR UPDATE ON public.service_offering_terms FOR EACH ROW EXECUTE FUNCTION public.check_service_offering_terms();
+
+
+--
+-- TOC entry 6469 (class 2620 OID 20071)
+-- Name: temp_contracts trg_create_final_contract; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER trg_create_final_contract BEFORE UPDATE ON public.temp_contracts FOR EACH ROW EXECUTE FUNCTION public.create_final_contract();
+
+
+--
+-- TOC entry 6466 (class 2620 OID 20030)
+-- Name: requests trg_create_temp_contract_on_accept; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER trg_create_temp_contract_on_accept AFTER UPDATE ON public.requests FOR EACH ROW EXECUTE FUNCTION public.create_temp_contract_on_request_accept();
+
+
+--
+-- TOC entry 6472 (class 2620 OID 19971)
+-- Name: contracts trg_generate_contract_number; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER trg_generate_contract_number BEFORE INSERT ON public.contracts FOR EACH ROW EXECUTE FUNCTION public.generate_contract_number();
+
+
+--
+-- TOC entry 6474 (class 2620 OID 19979)
+-- Name: contract_terms trg_update_updated_at_contract_terms; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER trg_update_updated_at_contract_terms BEFORE UPDATE ON public.contract_terms FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
+
+
+--
+-- TOC entry 6473 (class 2620 OID 19978)
+-- Name: contracts trg_update_updated_at_contracts; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER trg_update_updated_at_contracts BEFORE UPDATE ON public.contracts FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
+
+
+--
+-- TOC entry 6468 (class 2620 OID 19975)
+-- Name: request_offering_terms trg_update_updated_at_request_offering_terms; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER trg_update_updated_at_request_offering_terms BEFORE UPDATE ON public.request_offering_terms FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
+
+
+--
+-- TOC entry 6467 (class 2620 OID 19974)
+-- Name: requests trg_update_updated_at_requests; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER trg_update_updated_at_requests BEFORE UPDATE ON public.requests FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
+
+
+--
+-- TOC entry 6463 (class 2620 OID 19981)
+-- Name: service_owners trg_update_updated_at_service_owners; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER trg_update_updated_at_service_owners BEFORE UPDATE ON public.service_owners FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
+
+
+--
+-- TOC entry 6471 (class 2620 OID 19977)
+-- Name: temp_contract_terms trg_update_updated_at_temp_contract_terms; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER trg_update_updated_at_temp_contract_terms BEFORE UPDATE ON public.temp_contract_terms FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
+
+
+--
+-- TOC entry 6470 (class 2620 OID 19976)
+-- Name: temp_contracts trg_update_updated_at_temp_contracts; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER trg_update_updated_at_temp_contracts BEFORE UPDATE ON public.temp_contracts FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
+
+
+--
+-- TOC entry 6462 (class 2620 OID 19980)
+-- Name: venue_owners trg_update_updated_at_venue_owners; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER trg_update_updated_at_venue_owners BEFORE UPDATE ON public.venue_owners FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
+
+
+--
+-- TOC entry 6437 (class 2620 OID 18339)
 -- Name: actors trg_validate_actor_type_integrity; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -10208,7 +12909,7 @@ CREATE TRIGGER trg_validate_actor_type_integrity BEFORE INSERT OR UPDATE OF acto
 
 
 --
--- TOC entry 6177 (class 2620 OID 18354)
+-- TOC entry 6439 (class 2620 OID 18354)
 -- Name: communities trg_validate_community_integrity; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -10216,7 +12917,7 @@ CREATE TRIGGER trg_validate_community_integrity BEFORE INSERT OR UPDATE ON publi
 
 
 --
--- TOC entry 6183 (class 2620 OID 18355)
+-- TOC entry 6445 (class 2620 OID 18355)
 -- Name: organizations trg_validate_organization_integrity; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -10224,7 +12925,7 @@ CREATE TRIGGER trg_validate_organization_integrity BEFORE INSERT OR UPDATE ON pu
 
 
 --
--- TOC entry 6186 (class 2620 OID 18353)
+-- TOC entry 6448 (class 2620 OID 18353)
 -- Name: persons trg_validate_person_integrity; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -10232,7 +12933,7 @@ CREATE TRIGGER trg_validate_person_integrity BEFORE INSERT OR UPDATE ON public.p
 
 
 --
--- TOC entry 6176 (class 2620 OID 17482)
+-- TOC entry 6438 (class 2620 OID 17482)
 -- Name: actors update_actors_updated_at; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -10240,7 +12941,7 @@ CREATE TRIGGER update_actors_updated_at BEFORE UPDATE ON public.actors FOR EACH 
 
 
 --
--- TOC entry 6178 (class 2620 OID 17483)
+-- TOC entry 6440 (class 2620 OID 17483)
 -- Name: communities update_communities_updated_at; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -10248,7 +12949,7 @@ CREATE TRIGGER update_communities_updated_at BEFORE UPDATE ON public.communities
 
 
 --
--- TOC entry 6180 (class 2620 OID 17484)
+-- TOC entry 6442 (class 2620 OID 17484)
 -- Name: events update_events_updated_at; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -10256,7 +12957,7 @@ CREATE TRIGGER update_events_updated_at BEFORE UPDATE ON public.events FOR EACH 
 
 
 --
--- TOC entry 6182 (class 2620 OID 17485)
+-- TOC entry 6444 (class 2620 OID 17485)
 -- Name: ideas update_ideas_updated_at; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -10264,7 +12965,7 @@ CREATE TRIGGER update_ideas_updated_at BEFORE UPDATE ON public.ideas FOR EACH RO
 
 
 --
--- TOC entry 6184 (class 2620 OID 17486)
+-- TOC entry 6446 (class 2620 OID 17486)
 -- Name: organizations update_organizations_updated_at; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -10272,7 +12973,7 @@ CREATE TRIGGER update_organizations_updated_at BEFORE UPDATE ON public.organizat
 
 
 --
--- TOC entry 6187 (class 2620 OID 17487)
+-- TOC entry 6449 (class 2620 OID 17487)
 -- Name: persons update_persons_updated_at; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -10280,7 +12981,7 @@ CREATE TRIGGER update_persons_updated_at BEFORE UPDATE ON public.persons FOR EAC
 
 
 --
--- TOC entry 6188 (class 2620 OID 17488)
+-- TOC entry 6450 (class 2620 OID 17488)
 -- Name: project_actor_roles update_project_actor_roles_updated_at; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -10288,7 +12989,7 @@ CREATE TRIGGER update_project_actor_roles_updated_at BEFORE UPDATE ON public.pro
 
 
 --
--- TOC entry 6190 (class 2620 OID 17489)
+-- TOC entry 6452 (class 2620 OID 17489)
 -- Name: projects update_projects_updated_at; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -10296,7 +12997,7 @@ CREATE TRIGGER update_projects_updated_at BEFORE UPDATE ON public.projects FOR E
 
 
 --
--- TOC entry 6191 (class 2620 OID 17490)
+-- TOC entry 6453 (class 2620 OID 17490)
 -- Name: tasks update_tasks_updated_at; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -10304,7 +13005,7 @@ CREATE TRIGGER update_tasks_updated_at BEFORE UPDATE ON public.tasks FOR EACH RO
 
 
 --
--- TOC entry 6192 (class 2620 OID 17491)
+-- TOC entry 6454 (class 2620 OID 17491)
 -- Name: templates update_templates_updated_at; Type: TRIGGER; Schema: public; Owner: postgres
 --
 
@@ -10312,7 +13013,7 @@ CREATE TRIGGER update_templates_updated_at BEFORE UPDATE ON public.templates FOR
 
 
 --
--- TOC entry 5956 (class 2606 OID 17492)
+-- TOC entry 6197 (class 2606 OID 17492)
 -- Name: actor_credentials actor_credentials_actor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10321,7 +13022,7 @@ ALTER TABLE ONLY public.actor_credentials
 
 
 --
--- TOC entry 5957 (class 2606 OID 17497)
+-- TOC entry 6198 (class 2606 OID 17497)
 -- Name: actor_current_statuses actor_current_statuses_actor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10330,7 +13031,7 @@ ALTER TABLE ONLY public.actor_current_statuses
 
 
 --
--- TOC entry 5958 (class 2606 OID 17502)
+-- TOC entry 6199 (class 2606 OID 17502)
 -- Name: actor_current_statuses actor_current_statuses_actor_status_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10339,7 +13040,7 @@ ALTER TABLE ONLY public.actor_current_statuses
 
 
 --
--- TOC entry 5959 (class 2606 OID 17507)
+-- TOC entry 6200 (class 2606 OID 17507)
 -- Name: actor_current_statuses actor_current_statuses_created_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10348,7 +13049,7 @@ ALTER TABLE ONLY public.actor_current_statuses
 
 
 --
--- TOC entry 5960 (class 2606 OID 17512)
+-- TOC entry 6201 (class 2606 OID 17512)
 -- Name: actor_current_statuses actor_current_statuses_updated_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10357,7 +13058,7 @@ ALTER TABLE ONLY public.actor_current_statuses
 
 
 --
--- TOC entry 5961 (class 2606 OID 17517)
+-- TOC entry 6202 (class 2606 OID 17517)
 -- Name: actors actors_actor_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10366,7 +13067,7 @@ ALTER TABLE ONLY public.actors
 
 
 --
--- TOC entry 5962 (class 2606 OID 17522)
+-- TOC entry 6203 (class 2606 OID 17522)
 -- Name: actors actors_created_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10375,7 +13076,7 @@ ALTER TABLE ONLY public.actors
 
 
 --
--- TOC entry 5966 (class 2606 OID 17527)
+-- TOC entry 6207 (class 2606 OID 17527)
 -- Name: actors_directions actors_directions_actor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10384,7 +13085,7 @@ ALTER TABLE ONLY public.actors_directions
 
 
 --
--- TOC entry 5967 (class 2606 OID 17532)
+-- TOC entry 6208 (class 2606 OID 17532)
 -- Name: actors_directions actors_directions_direction_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10393,7 +13094,7 @@ ALTER TABLE ONLY public.actors_directions
 
 
 --
--- TOC entry 5968 (class 2606 OID 17537)
+-- TOC entry 6209 (class 2606 OID 17537)
 -- Name: actors_events actors_events_actor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10402,7 +13103,7 @@ ALTER TABLE ONLY public.actors_events
 
 
 --
--- TOC entry 5969 (class 2606 OID 17542)
+-- TOC entry 6210 (class 2606 OID 17542)
 -- Name: actors_events actors_events_event_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10411,7 +13112,7 @@ ALTER TABLE ONLY public.actors_events
 
 
 --
--- TOC entry 5970 (class 2606 OID 17547)
+-- TOC entry 6211 (class 2606 OID 17547)
 -- Name: actors_locations actors_locations_actor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10420,7 +13121,7 @@ ALTER TABLE ONLY public.actors_locations
 
 
 --
--- TOC entry 5971 (class 2606 OID 17552)
+-- TOC entry 6212 (class 2606 OID 17552)
 -- Name: actors_locations actors_locations_location_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10429,7 +13130,7 @@ ALTER TABLE ONLY public.actors_locations
 
 
 --
--- TOC entry 5972 (class 2606 OID 17557)
+-- TOC entry 6213 (class 2606 OID 17557)
 -- Name: actors_messages actors_messages_actor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10438,7 +13139,7 @@ ALTER TABLE ONLY public.actors_messages
 
 
 --
--- TOC entry 5973 (class 2606 OID 17562)
+-- TOC entry 6214 (class 2606 OID 17562)
 -- Name: actors_messages actors_messages_message_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10447,7 +13148,7 @@ ALTER TABLE ONLY public.actors_messages
 
 
 --
--- TOC entry 5974 (class 2606 OID 17567)
+-- TOC entry 6215 (class 2606 OID 17567)
 -- Name: actors_notes actors_notes_actor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10456,7 +13157,7 @@ ALTER TABLE ONLY public.actors_notes
 
 
 --
--- TOC entry 5975 (class 2606 OID 18442)
+-- TOC entry 6216 (class 2606 OID 18442)
 -- Name: actors_notes actors_notes_author_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10465,7 +13166,7 @@ ALTER TABLE ONLY public.actors_notes
 
 
 --
--- TOC entry 5976 (class 2606 OID 17572)
+-- TOC entry 6217 (class 2606 OID 17572)
 -- Name: actors_notes actors_notes_note_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10474,7 +13175,7 @@ ALTER TABLE ONLY public.actors_notes
 
 
 --
--- TOC entry 5977 (class 2606 OID 17577)
+-- TOC entry 6218 (class 2606 OID 17577)
 -- Name: actors_projects actors_projects_actor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10483,7 +13184,7 @@ ALTER TABLE ONLY public.actors_projects
 
 
 --
--- TOC entry 5978 (class 2606 OID 17582)
+-- TOC entry 6219 (class 2606 OID 17582)
 -- Name: actors_projects actors_projects_created_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10492,7 +13193,7 @@ ALTER TABLE ONLY public.actors_projects
 
 
 --
--- TOC entry 5979 (class 2606 OID 17587)
+-- TOC entry 6220 (class 2606 OID 17587)
 -- Name: actors_projects actors_projects_project_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10501,7 +13202,7 @@ ALTER TABLE ONLY public.actors_projects
 
 
 --
--- TOC entry 5980 (class 2606 OID 17592)
+-- TOC entry 6221 (class 2606 OID 17592)
 -- Name: actors_projects actors_projects_updated_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10510,7 +13211,7 @@ ALTER TABLE ONLY public.actors_projects
 
 
 --
--- TOC entry 5963 (class 2606 OID 18651)
+-- TOC entry 6204 (class 2606 OID 18651)
 -- Name: actors actors_rating_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10519,7 +13220,7 @@ ALTER TABLE ONLY public.actors
 
 
 --
--- TOC entry 5981 (class 2606 OID 17597)
+-- TOC entry 6222 (class 2606 OID 17597)
 -- Name: actors_tasks actors_tasks_actor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10528,7 +13229,7 @@ ALTER TABLE ONLY public.actors_tasks
 
 
 --
--- TOC entry 5982 (class 2606 OID 17602)
+-- TOC entry 6223 (class 2606 OID 17602)
 -- Name: actors_tasks actors_tasks_task_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10537,7 +13238,7 @@ ALTER TABLE ONLY public.actors_tasks
 
 
 --
--- TOC entry 5964 (class 2606 OID 17607)
+-- TOC entry 6205 (class 2606 OID 17607)
 -- Name: actors actors_updated_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10546,7 +13247,7 @@ ALTER TABLE ONLY public.actors
 
 
 --
--- TOC entry 6145 (class 2606 OID 18427)
+-- TOC entry 6384 (class 2606 OID 18427)
 -- Name: bookmarks bookmarks_actor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10555,7 +13256,7 @@ ALTER TABLE ONLY public.bookmarks
 
 
 --
--- TOC entry 6146 (class 2606 OID 18432)
+-- TOC entry 6385 (class 2606 OID 18432)
 -- Name: bookmarks bookmarks_theme_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10564,7 +13265,7 @@ ALTER TABLE ONLY public.bookmarks
 
 
 --
--- TOC entry 5983 (class 2606 OID 17612)
+-- TOC entry 6224 (class 2606 OID 17612)
 -- Name: communities communities_actor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10573,7 +13274,7 @@ ALTER TABLE ONLY public.communities
 
 
 --
--- TOC entry 5984 (class 2606 OID 17617)
+-- TOC entry 6225 (class 2606 OID 17617)
 -- Name: communities communities_created_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10582,7 +13283,7 @@ ALTER TABLE ONLY public.communities
 
 
 --
--- TOC entry 5985 (class 2606 OID 17622)
+-- TOC entry 6226 (class 2606 OID 17622)
 -- Name: communities communities_location_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10591,7 +13292,7 @@ ALTER TABLE ONLY public.communities
 
 
 --
--- TOC entry 5986 (class 2606 OID 17627)
+-- TOC entry 6227 (class 2606 OID 17627)
 -- Name: communities communities_updated_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10600,7 +13301,7 @@ ALTER TABLE ONLY public.communities
 
 
 --
--- TOC entry 5988 (class 2606 OID 17632)
+-- TOC entry 6229 (class 2606 OID 17632)
 -- Name: events events_created_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10609,7 +13310,7 @@ ALTER TABLE ONLY public.events
 
 
 --
--- TOC entry 5989 (class 2606 OID 17637)
+-- TOC entry 6230 (class 2606 OID 17637)
 -- Name: events events_event_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10618,7 +13319,7 @@ ALTER TABLE ONLY public.events
 
 
 --
--- TOC entry 5994 (class 2606 OID 18844)
+-- TOC entry 6235 (class 2606 OID 18844)
 -- Name: events_notes events_notes_author_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10627,7 +13328,7 @@ ALTER TABLE ONLY public.events_notes
 
 
 --
--- TOC entry 5995 (class 2606 OID 17642)
+-- TOC entry 6236 (class 2606 OID 17642)
 -- Name: events_notes events_notes_event_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10636,7 +13337,7 @@ ALTER TABLE ONLY public.events_notes
 
 
 --
--- TOC entry 5996 (class 2606 OID 17647)
+-- TOC entry 6237 (class 2606 OID 17647)
 -- Name: events_notes events_notes_note_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10645,7 +13346,7 @@ ALTER TABLE ONLY public.events_notes
 
 
 --
--- TOC entry 5990 (class 2606 OID 18949)
+-- TOC entry 6231 (class 2606 OID 18949)
 -- Name: events events_offering_term_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10654,7 +13355,7 @@ ALTER TABLE ONLY public.events
 
 
 --
--- TOC entry 5991 (class 2606 OID 18646)
+-- TOC entry 6232 (class 2606 OID 18646)
 -- Name: events events_rating_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10663,7 +13364,7 @@ ALTER TABLE ONLY public.events
 
 
 --
--- TOC entry 5992 (class 2606 OID 17652)
+-- TOC entry 6233 (class 2606 OID 17652)
 -- Name: events events_updated_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10672,7 +13373,7 @@ ALTER TABLE ONLY public.events
 
 
 --
--- TOC entry 6144 (class 2606 OID 18408)
+-- TOC entry 6383 (class 2606 OID 18408)
 -- Name: favorites favorites_actor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10681,7 +13382,25 @@ ALTER TABLE ONLY public.favorites
 
 
 --
--- TOC entry 5997 (class 2606 OID 17657)
+-- TOC entry 6414 (class 2606 OID 19572)
+-- Name: finresource_offering_terms finresource_offering_terms_finresource_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.finresource_offering_terms
+    ADD CONSTRAINT finresource_offering_terms_finresource_id_fkey FOREIGN KEY (finresource_id) REFERENCES public.finresources(finresource_id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 6415 (class 2606 OID 19577)
+-- Name: finresource_offering_terms finresource_offering_terms_offering_term_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.finresource_offering_terms
+    ADD CONSTRAINT finresource_offering_terms_offering_term_id_fkey FOREIGN KEY (offering_term_id) REFERENCES public.offering_terms(id);
+
+
+--
+-- TOC entry 6238 (class 2606 OID 17657)
 -- Name: finresource_owners finresource_owners_actor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10690,7 +13409,7 @@ ALTER TABLE ONLY public.finresource_owners
 
 
 --
--- TOC entry 5998 (class 2606 OID 17662)
+-- TOC entry 6239 (class 2606 OID 17662)
 -- Name: finresource_owners finresource_owners_finresource_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10699,7 +13418,7 @@ ALTER TABLE ONLY public.finresource_owners
 
 
 --
--- TOC entry 5999 (class 2606 OID 17667)
+-- TOC entry 6240 (class 2606 OID 17667)
 -- Name: finresources finresources_created_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10708,7 +13427,7 @@ ALTER TABLE ONLY public.finresources
 
 
 --
--- TOC entry 6000 (class 2606 OID 17672)
+-- TOC entry 6241 (class 2606 OID 17672)
 -- Name: finresources finresources_finresource_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10717,7 +13436,7 @@ ALTER TABLE ONLY public.finresources
 
 
 --
--- TOC entry 6150 (class 2606 OID 18541)
+-- TOC entry 6389 (class 2606 OID 18541)
 -- Name: finresources_notes finresources_notes_author_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10726,7 +13445,7 @@ ALTER TABLE ONLY public.finresources_notes
 
 
 --
--- TOC entry 6151 (class 2606 OID 18531)
+-- TOC entry 6390 (class 2606 OID 18531)
 -- Name: finresources_notes finresources_notes_finresource_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10735,7 +13454,7 @@ ALTER TABLE ONLY public.finresources_notes
 
 
 --
--- TOC entry 6152 (class 2606 OID 18536)
+-- TOC entry 6391 (class 2606 OID 18536)
 -- Name: finresources_notes finresources_notes_note_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10744,16 +13463,7 @@ ALTER TABLE ONLY public.finresources_notes
 
 
 --
--- TOC entry 6001 (class 2606 OID 18956)
--- Name: finresources finresources_offering_term_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.finresources
-    ADD CONSTRAINT finresources_offering_term_id_fkey FOREIGN KEY (offering_term_id) REFERENCES public.offering_terms(id);
-
-
---
--- TOC entry 6002 (class 2606 OID 18671)
+-- TOC entry 6242 (class 2606 OID 18671)
 -- Name: finresources finresources_rating_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10762,7 +13472,7 @@ ALTER TABLE ONLY public.finresources
 
 
 --
--- TOC entry 6003 (class 2606 OID 17677)
+-- TOC entry 6243 (class 2606 OID 17677)
 -- Name: finresources finresources_updated_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10771,7 +13481,7 @@ ALTER TABLE ONLY public.finresources
 
 
 --
--- TOC entry 5965 (class 2606 OID 18325)
+-- TOC entry 6206 (class 2606 OID 18325)
 -- Name: actors fk_actors_actor_types; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10780,7 +13490,7 @@ ALTER TABLE ONLY public.actors
 
 
 --
--- TOC entry 5987 (class 2606 OID 18315)
+-- TOC entry 6228 (class 2606 OID 18315)
 -- Name: communities fk_communities_actors; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10789,7 +13499,61 @@ ALTER TABLE ONLY public.communities
 
 
 --
--- TOC entry 5993 (class 2606 OID 19017)
+-- TOC entry 6435 (class 2606 OID 19922)
+-- Name: contract_terms fk_contract_terms_contract; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.contract_terms
+    ADD CONSTRAINT fk_contract_terms_contract FOREIGN KEY (contract_id) REFERENCES public.contracts(contract_id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 6436 (class 2606 OID 19927)
+-- Name: contract_terms fk_contract_terms_offering; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.contract_terms
+    ADD CONSTRAINT fk_contract_terms_offering FOREIGN KEY (offering_term_id) REFERENCES public.offering_terms(id);
+
+
+--
+-- TOC entry 6431 (class 2606 OID 19897)
+-- Name: contracts fk_contracts_owner; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.contracts
+    ADD CONSTRAINT fk_contracts_owner FOREIGN KEY (owner_id) REFERENCES public.actors(actor_id);
+
+
+--
+-- TOC entry 6432 (class 2606 OID 19887)
+-- Name: contracts fk_contracts_request; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.contracts
+    ADD CONSTRAINT fk_contracts_request FOREIGN KEY (request_id) REFERENCES public.requests(request_id);
+
+
+--
+-- TOC entry 6433 (class 2606 OID 19892)
+-- Name: contracts fk_contracts_requester; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.contracts
+    ADD CONSTRAINT fk_contracts_requester FOREIGN KEY (requester_id) REFERENCES public.actors(actor_id);
+
+
+--
+-- TOC entry 6434 (class 2606 OID 19882)
+-- Name: contracts fk_contracts_temp; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.contracts
+    ADD CONSTRAINT fk_contracts_temp FOREIGN KEY (temp_contract_id) REFERENCES public.temp_contracts(temp_contract_id);
+
+
+--
+-- TOC entry 6234 (class 2606 OID 19017)
 -- Name: events fk_events_offering_term; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10798,16 +13562,7 @@ ALTER TABLE ONLY public.events
 
 
 --
--- TOC entry 6004 (class 2606 OID 19023)
--- Name: finresources fk_finresources_offering_term; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.finresources
-    ADD CONSTRAINT fk_finresources_offering_term FOREIGN KEY (offering_term_id) REFERENCES public.offering_terms(id);
-
-
---
--- TOC entry 6042 (class 2606 OID 18320)
+-- TOC entry 6281 (class 2606 OID 18320)
 -- Name: organizations fk_organizations_actors; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10816,7 +13571,7 @@ ALTER TABLE ONLY public.organizations
 
 
 --
--- TOC entry 6047 (class 2606 OID 18310)
+-- TOC entry 6286 (class 2606 OID 18310)
 -- Name: persons fk_persons_actors; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10825,7 +13580,7 @@ ALTER TABLE ONLY public.persons
 
 
 --
--- TOC entry 6059 (class 2606 OID 19041)
+-- TOC entry 6298 (class 2606 OID 19041)
 -- Name: projects fk_projects_offering_term; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10834,7 +13589,142 @@ ALTER TABLE ONLY public.projects
 
 
 --
--- TOC entry 6005 (class 2606 OID 17682)
+-- TOC entry 6423 (class 2606 OID 19777)
+-- Name: request_offering_terms fk_request_terms_offering; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.request_offering_terms
+    ADD CONSTRAINT fk_request_terms_offering FOREIGN KEY (offering_term_id) REFERENCES public.offering_terms(id);
+
+
+--
+-- TOC entry 6424 (class 2606 OID 19772)
+-- Name: request_offering_terms fk_request_terms_request; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.request_offering_terms
+    ADD CONSTRAINT fk_request_terms_request FOREIGN KEY (request_id) REFERENCES public.requests(request_id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 6420 (class 2606 OID 19749)
+-- Name: requests fk_requests_project; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.requests
+    ADD CONSTRAINT fk_requests_project FOREIGN KEY (project_id) REFERENCES public.projects(project_id);
+
+
+--
+-- TOC entry 6421 (class 2606 OID 19739)
+-- Name: requests fk_requests_requester; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.requests
+    ADD CONSTRAINT fk_requests_requester FOREIGN KEY (requester_id) REFERENCES public.actors(actor_id);
+
+
+--
+-- TOC entry 6422 (class 2606 OID 19744)
+-- Name: requests fk_requests_reviewer; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.requests
+    ADD CONSTRAINT fk_requests_reviewer FOREIGN KEY (reviewed_by) REFERENCES public.actors(actor_id);
+
+
+--
+-- TOC entry 6418 (class 2606 OID 19711)
+-- Name: service_owners fk_service_owners_actor; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.service_owners
+    ADD CONSTRAINT fk_service_owners_actor FOREIGN KEY (actor_id) REFERENCES public.actors(actor_id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 6419 (class 2606 OID 19706)
+-- Name: service_owners fk_service_owners_service; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.service_owners
+    ADD CONSTRAINT fk_service_owners_service FOREIGN KEY (service_id) REFERENCES public.services(service_id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 6425 (class 2606 OID 19815)
+-- Name: temp_contracts fk_temp_contracts_owner; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.temp_contracts
+    ADD CONSTRAINT fk_temp_contracts_owner FOREIGN KEY (owner_id) REFERENCES public.actors(actor_id);
+
+
+--
+-- TOC entry 6426 (class 2606 OID 19805)
+-- Name: temp_contracts fk_temp_contracts_request; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.temp_contracts
+    ADD CONSTRAINT fk_temp_contracts_request FOREIGN KEY (request_id) REFERENCES public.requests(request_id);
+
+
+--
+-- TOC entry 6427 (class 2606 OID 19810)
+-- Name: temp_contracts fk_temp_contracts_requester; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.temp_contracts
+    ADD CONSTRAINT fk_temp_contracts_requester FOREIGN KEY (requester_id) REFERENCES public.actors(actor_id);
+
+
+--
+-- TOC entry 6428 (class 2606 OID 19839)
+-- Name: temp_contract_terms fk_temp_terms_contract; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.temp_contract_terms
+    ADD CONSTRAINT fk_temp_terms_contract FOREIGN KEY (temp_contract_id) REFERENCES public.temp_contracts(temp_contract_id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 6429 (class 2606 OID 19849)
+-- Name: temp_contract_terms fk_temp_terms_offering; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.temp_contract_terms
+    ADD CONSTRAINT fk_temp_terms_offering FOREIGN KEY (offering_term_id) REFERENCES public.offering_terms(id);
+
+
+--
+-- TOC entry 6430 (class 2606 OID 19844)
+-- Name: temp_contract_terms fk_temp_terms_request; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.temp_contract_terms
+    ADD CONSTRAINT fk_temp_terms_request FOREIGN KEY (request_term_id) REFERENCES public.request_offering_terms(request_term_id);
+
+
+--
+-- TOC entry 6416 (class 2606 OID 19701)
+-- Name: venue_owners fk_venue_owners_actor; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.venue_owners
+    ADD CONSTRAINT fk_venue_owners_actor FOREIGN KEY (actor_id) REFERENCES public.actors(actor_id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 6417 (class 2606 OID 19696)
+-- Name: venue_owners fk_venue_owners_venue; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.venue_owners
+    ADD CONSTRAINT fk_venue_owners_venue FOREIGN KEY (venue_id) REFERENCES public.venues(venue_id) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 6244 (class 2606 OID 17682)
 -- Name: functions_directions functions_directions_direction_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10843,7 +13733,7 @@ ALTER TABLE ONLY public.functions_directions
 
 
 --
--- TOC entry 6006 (class 2606 OID 17687)
+-- TOC entry 6245 (class 2606 OID 17687)
 -- Name: functions_directions functions_directions_function_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10852,7 +13742,7 @@ ALTER TABLE ONLY public.functions_directions
 
 
 --
--- TOC entry 6007 (class 2606 OID 17692)
+-- TOC entry 6246 (class 2606 OID 17692)
 -- Name: group_tasks group_tasks_project_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10861,7 +13751,7 @@ ALTER TABLE ONLY public.group_tasks
 
 
 --
--- TOC entry 6008 (class 2606 OID 17697)
+-- TOC entry 6247 (class 2606 OID 17697)
 -- Name: group_tasks group_tasks_task_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10870,7 +13760,7 @@ ALTER TABLE ONLY public.group_tasks
 
 
 --
--- TOC entry 6165 (class 2606 OID 19274)
+-- TOC entry 6404 (class 2606 OID 19274)
 -- Name: idea_offering_terms idea_offering_terms_idea_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10879,7 +13769,7 @@ ALTER TABLE ONLY public.idea_offering_terms
 
 
 --
--- TOC entry 6166 (class 2606 OID 19279)
+-- TOC entry 6405 (class 2606 OID 19279)
 -- Name: idea_offering_terms idea_offering_terms_offering_term_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10888,7 +13778,7 @@ ALTER TABLE ONLY public.idea_offering_terms
 
 
 --
--- TOC entry 6009 (class 2606 OID 17702)
+-- TOC entry 6248 (class 2606 OID 17702)
 -- Name: ideas ideas_actor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10897,7 +13787,7 @@ ALTER TABLE ONLY public.ideas
 
 
 --
--- TOC entry 6010 (class 2606 OID 17707)
+-- TOC entry 6249 (class 2606 OID 17707)
 -- Name: ideas ideas_created_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10906,7 +13796,7 @@ ALTER TABLE ONLY public.ideas
 
 
 --
--- TOC entry 6015 (class 2606 OID 17712)
+-- TOC entry 6254 (class 2606 OID 17712)
 -- Name: ideas_directions ideas_directions_direction_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10915,7 +13805,7 @@ ALTER TABLE ONLY public.ideas_directions
 
 
 --
--- TOC entry 6016 (class 2606 OID 17717)
+-- TOC entry 6255 (class 2606 OID 17717)
 -- Name: ideas_directions ideas_directions_idea_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10924,7 +13814,7 @@ ALTER TABLE ONLY public.ideas_directions
 
 
 --
--- TOC entry 6011 (class 2606 OID 17722)
+-- TOC entry 6250 (class 2606 OID 17722)
 -- Name: ideas ideas_idea_category_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10933,7 +13823,7 @@ ALTER TABLE ONLY public.ideas
 
 
 --
--- TOC entry 6012 (class 2606 OID 17727)
+-- TOC entry 6251 (class 2606 OID 17727)
 -- Name: ideas ideas_idea_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10942,7 +13832,7 @@ ALTER TABLE ONLY public.ideas
 
 
 --
--- TOC entry 6017 (class 2606 OID 18849)
+-- TOC entry 6256 (class 2606 OID 18849)
 -- Name: ideas_notes ideas_notes_author_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10951,7 +13841,7 @@ ALTER TABLE ONLY public.ideas_notes
 
 
 --
--- TOC entry 6018 (class 2606 OID 17732)
+-- TOC entry 6257 (class 2606 OID 17732)
 -- Name: ideas_notes ideas_notes_idea_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10960,7 +13850,7 @@ ALTER TABLE ONLY public.ideas_notes
 
 
 --
--- TOC entry 6019 (class 2606 OID 17737)
+-- TOC entry 6258 (class 2606 OID 17737)
 -- Name: ideas_notes ideas_notes_note_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10969,7 +13859,7 @@ ALTER TABLE ONLY public.ideas_notes
 
 
 --
--- TOC entry 6020 (class 2606 OID 17742)
+-- TOC entry 6259 (class 2606 OID 17742)
 -- Name: ideas_projects ideas_projects_idea_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10978,7 +13868,7 @@ ALTER TABLE ONLY public.ideas_projects
 
 
 --
--- TOC entry 6021 (class 2606 OID 17747)
+-- TOC entry 6260 (class 2606 OID 17747)
 -- Name: ideas_projects ideas_projects_project_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10987,7 +13877,7 @@ ALTER TABLE ONLY public.ideas_projects
 
 
 --
--- TOC entry 6013 (class 2606 OID 18656)
+-- TOC entry 6252 (class 2606 OID 18656)
 -- Name: ideas ideas_rating_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -10996,7 +13886,7 @@ ALTER TABLE ONLY public.ideas
 
 
 --
--- TOC entry 6014 (class 2606 OID 17752)
+-- TOC entry 6253 (class 2606 OID 17752)
 -- Name: ideas ideas_updated_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11005,7 +13895,7 @@ ALTER TABLE ONLY public.ideas
 
 
 --
--- TOC entry 6022 (class 2606 OID 17757)
+-- TOC entry 6261 (class 2606 OID 17757)
 -- Name: local_events local_events_created_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11014,7 +13904,7 @@ ALTER TABLE ONLY public.local_events
 
 
 --
--- TOC entry 6023 (class 2606 OID 17762)
+-- TOC entry 6262 (class 2606 OID 17762)
 -- Name: local_events local_events_updated_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11023,7 +13913,7 @@ ALTER TABLE ONLY public.local_events
 
 
 --
--- TOC entry 6167 (class 2606 OID 19301)
+-- TOC entry 6406 (class 2606 OID 19301)
 -- Name: matresource_offering_terms matresource_offering_terms_matresource_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11032,7 +13922,7 @@ ALTER TABLE ONLY public.matresource_offering_terms
 
 
 --
--- TOC entry 6168 (class 2606 OID 19306)
+-- TOC entry 6407 (class 2606 OID 19306)
 -- Name: matresource_offering_terms matresource_offering_terms_offering_term_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11041,7 +13931,7 @@ ALTER TABLE ONLY public.matresource_offering_terms
 
 
 --
--- TOC entry 6024 (class 2606 OID 17767)
+-- TOC entry 6263 (class 2606 OID 17767)
 -- Name: matresource_owners matresource_owners_actor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11050,7 +13940,7 @@ ALTER TABLE ONLY public.matresource_owners
 
 
 --
--- TOC entry 6025 (class 2606 OID 17772)
+-- TOC entry 6264 (class 2606 OID 17772)
 -- Name: matresource_owners matresource_owners_matresource_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11059,7 +13949,7 @@ ALTER TABLE ONLY public.matresource_owners
 
 
 --
--- TOC entry 6026 (class 2606 OID 17777)
+-- TOC entry 6265 (class 2606 OID 17777)
 -- Name: matresources matresources_created_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11068,7 +13958,7 @@ ALTER TABLE ONLY public.matresources
 
 
 --
--- TOC entry 6027 (class 2606 OID 17782)
+-- TOC entry 6266 (class 2606 OID 17782)
 -- Name: matresources matresources_matresource_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11077,7 +13967,7 @@ ALTER TABLE ONLY public.matresources
 
 
 --
--- TOC entry 6030 (class 2606 OID 18854)
+-- TOC entry 6269 (class 2606 OID 18854)
 -- Name: matresources_notes matresources_notes_author_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11086,7 +13976,7 @@ ALTER TABLE ONLY public.matresources_notes
 
 
 --
--- TOC entry 6031 (class 2606 OID 17787)
+-- TOC entry 6270 (class 2606 OID 17787)
 -- Name: matresources_notes matresources_notes_matresource_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11095,7 +13985,7 @@ ALTER TABLE ONLY public.matresources_notes
 
 
 --
--- TOC entry 6032 (class 2606 OID 17792)
+-- TOC entry 6271 (class 2606 OID 17792)
 -- Name: matresources_notes matresources_notes_note_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11104,7 +13994,7 @@ ALTER TABLE ONLY public.matresources_notes
 
 
 --
--- TOC entry 6028 (class 2606 OID 18661)
+-- TOC entry 6267 (class 2606 OID 18661)
 -- Name: matresources matresources_rating_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11113,7 +14003,7 @@ ALTER TABLE ONLY public.matresources
 
 
 --
--- TOC entry 6029 (class 2606 OID 17797)
+-- TOC entry 6268 (class 2606 OID 17797)
 -- Name: matresources matresources_updated_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11122,7 +14012,7 @@ ALTER TABLE ONLY public.matresources
 
 
 --
--- TOC entry 6033 (class 2606 OID 17802)
+-- TOC entry 6272 (class 2606 OID 17802)
 -- Name: messages messages_author_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11131,7 +14021,7 @@ ALTER TABLE ONLY public.messages
 
 
 --
--- TOC entry 6034 (class 2606 OID 17807)
+-- TOC entry 6273 (class 2606 OID 17807)
 -- Name: messages messages_created_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11140,7 +14030,7 @@ ALTER TABLE ONLY public.messages
 
 
 --
--- TOC entry 6035 (class 2606 OID 17812)
+-- TOC entry 6274 (class 2606 OID 17812)
 -- Name: messages messages_updated_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11149,7 +14039,7 @@ ALTER TABLE ONLY public.messages
 
 
 --
--- TOC entry 6036 (class 2606 OID 17817)
+-- TOC entry 6275 (class 2606 OID 17817)
 -- Name: notes notes_author_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11158,7 +14048,7 @@ ALTER TABLE ONLY public.notes
 
 
 --
--- TOC entry 6037 (class 2606 OID 17822)
+-- TOC entry 6276 (class 2606 OID 17822)
 -- Name: notes notes_created_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11167,7 +14057,7 @@ ALTER TABLE ONLY public.notes
 
 
 --
--- TOC entry 6038 (class 2606 OID 17827)
+-- TOC entry 6277 (class 2606 OID 17827)
 -- Name: notes notes_updated_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11176,7 +14066,7 @@ ALTER TABLE ONLY public.notes
 
 
 --
--- TOC entry 6039 (class 2606 OID 17832)
+-- TOC entry 6278 (class 2606 OID 17832)
 -- Name: notifications notifications_created_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11185,7 +14075,7 @@ ALTER TABLE ONLY public.notifications
 
 
 --
--- TOC entry 6040 (class 2606 OID 17837)
+-- TOC entry 6279 (class 2606 OID 17837)
 -- Name: notifications notifications_recipient_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11194,7 +14084,7 @@ ALTER TABLE ONLY public.notifications
 
 
 --
--- TOC entry 6041 (class 2606 OID 17842)
+-- TOC entry 6280 (class 2606 OID 17842)
 -- Name: notifications notifications_updated_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11203,7 +14093,7 @@ ALTER TABLE ONLY public.notifications
 
 
 --
--- TOC entry 6043 (class 2606 OID 17847)
+-- TOC entry 6282 (class 2606 OID 17847)
 -- Name: organizations organizations_actor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11212,7 +14102,7 @@ ALTER TABLE ONLY public.organizations
 
 
 --
--- TOC entry 6044 (class 2606 OID 17852)
+-- TOC entry 6283 (class 2606 OID 17852)
 -- Name: organizations organizations_created_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11221,7 +14111,7 @@ ALTER TABLE ONLY public.organizations
 
 
 --
--- TOC entry 6045 (class 2606 OID 17857)
+-- TOC entry 6284 (class 2606 OID 17857)
 -- Name: organizations organizations_location_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11230,7 +14120,7 @@ ALTER TABLE ONLY public.organizations
 
 
 --
--- TOC entry 6046 (class 2606 OID 17862)
+-- TOC entry 6285 (class 2606 OID 17862)
 -- Name: organizations organizations_updated_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11239,7 +14129,7 @@ ALTER TABLE ONLY public.organizations
 
 
 --
--- TOC entry 6048 (class 2606 OID 17867)
+-- TOC entry 6287 (class 2606 OID 17867)
 -- Name: persons persons_actor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11248,7 +14138,7 @@ ALTER TABLE ONLY public.persons
 
 
 --
--- TOC entry 6049 (class 2606 OID 17872)
+-- TOC entry 6288 (class 2606 OID 17872)
 -- Name: persons persons_created_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11257,7 +14147,7 @@ ALTER TABLE ONLY public.persons
 
 
 --
--- TOC entry 6050 (class 2606 OID 17877)
+-- TOC entry 6289 (class 2606 OID 17877)
 -- Name: persons persons_location_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11266,7 +14156,7 @@ ALTER TABLE ONLY public.persons
 
 
 --
--- TOC entry 6051 (class 2606 OID 17882)
+-- TOC entry 6290 (class 2606 OID 17882)
 -- Name: persons persons_updated_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11275,7 +14165,7 @@ ALTER TABLE ONLY public.persons
 
 
 --
--- TOC entry 6052 (class 2606 OID 17887)
+-- TOC entry 6291 (class 2606 OID 17887)
 -- Name: project_actor_roles project_actor_roles_actor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11284,7 +14174,7 @@ ALTER TABLE ONLY public.project_actor_roles
 
 
 --
--- TOC entry 6053 (class 2606 OID 17892)
+-- TOC entry 6292 (class 2606 OID 17892)
 -- Name: project_actor_roles project_actor_roles_assigned_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11293,7 +14183,7 @@ ALTER TABLE ONLY public.project_actor_roles
 
 
 --
--- TOC entry 6054 (class 2606 OID 17897)
+-- TOC entry 6293 (class 2606 OID 17897)
 -- Name: project_actor_roles project_actor_roles_project_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11302,7 +14192,7 @@ ALTER TABLE ONLY public.project_actor_roles
 
 
 --
--- TOC entry 6055 (class 2606 OID 17902)
+-- TOC entry 6294 (class 2606 OID 17902)
 -- Name: project_groups project_groups_actor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11311,7 +14201,7 @@ ALTER TABLE ONLY public.project_groups
 
 
 --
--- TOC entry 6056 (class 2606 OID 17907)
+-- TOC entry 6295 (class 2606 OID 17907)
 -- Name: project_groups project_groups_created_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11320,7 +14210,7 @@ ALTER TABLE ONLY public.project_groups
 
 
 --
--- TOC entry 6057 (class 2606 OID 17912)
+-- TOC entry 6296 (class 2606 OID 17912)
 -- Name: project_groups project_groups_project_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11329,7 +14219,7 @@ ALTER TABLE ONLY public.project_groups
 
 
 --
--- TOC entry 6058 (class 2606 OID 17917)
+-- TOC entry 6297 (class 2606 OID 17917)
 -- Name: project_groups project_groups_updated_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11338,7 +14228,7 @@ ALTER TABLE ONLY public.project_groups
 
 
 --
--- TOC entry 6060 (class 2606 OID 17922)
+-- TOC entry 6299 (class 2606 OID 17922)
 -- Name: projects projects_author_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11347,7 +14237,7 @@ ALTER TABLE ONLY public.projects
 
 
 --
--- TOC entry 6061 (class 2606 OID 17927)
+-- TOC entry 6300 (class 2606 OID 17927)
 -- Name: projects projects_created_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11356,7 +14246,7 @@ ALTER TABLE ONLY public.projects
 
 
 --
--- TOC entry 6069 (class 2606 OID 17932)
+-- TOC entry 6308 (class 2606 OID 17932)
 -- Name: projects_directions projects_directions_direction_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11365,7 +14255,7 @@ ALTER TABLE ONLY public.projects_directions
 
 
 --
--- TOC entry 6070 (class 2606 OID 17937)
+-- TOC entry 6309 (class 2606 OID 17937)
 -- Name: projects_directions projects_directions_project_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11374,7 +14264,7 @@ ALTER TABLE ONLY public.projects_directions
 
 
 --
--- TOC entry 6062 (class 2606 OID 17942)
+-- TOC entry 6301 (class 2606 OID 17942)
 -- Name: projects projects_director_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11383,7 +14273,7 @@ ALTER TABLE ONLY public.projects
 
 
 --
--- TOC entry 6071 (class 2606 OID 17947)
+-- TOC entry 6310 (class 2606 OID 17947)
 -- Name: projects_functions projects_functions_function_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11392,7 +14282,7 @@ ALTER TABLE ONLY public.projects_functions
 
 
 --
--- TOC entry 6072 (class 2606 OID 17952)
+-- TOC entry 6311 (class 2606 OID 17952)
 -- Name: projects_functions projects_functions_project_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11401,7 +14291,7 @@ ALTER TABLE ONLY public.projects_functions
 
 
 --
--- TOC entry 6073 (class 2606 OID 17957)
+-- TOC entry 6312 (class 2606 OID 17957)
 -- Name: projects_local_events projects_local_events_local_event_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11410,7 +14300,7 @@ ALTER TABLE ONLY public.projects_local_events
 
 
 --
--- TOC entry 6074 (class 2606 OID 17962)
+-- TOC entry 6313 (class 2606 OID 17962)
 -- Name: projects_local_events projects_local_events_project_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11419,7 +14309,7 @@ ALTER TABLE ONLY public.projects_local_events
 
 
 --
--- TOC entry 6075 (class 2606 OID 17967)
+-- TOC entry 6314 (class 2606 OID 17967)
 -- Name: projects_locations projects_locations_location_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11428,7 +14318,7 @@ ALTER TABLE ONLY public.projects_locations
 
 
 --
--- TOC entry 6076 (class 2606 OID 17972)
+-- TOC entry 6315 (class 2606 OID 17972)
 -- Name: projects_locations projects_locations_project_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11437,7 +14327,7 @@ ALTER TABLE ONLY public.projects_locations
 
 
 --
--- TOC entry 6077 (class 2606 OID 18859)
+-- TOC entry 6316 (class 2606 OID 18859)
 -- Name: projects_notes projects_notes_author_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11446,7 +14336,7 @@ ALTER TABLE ONLY public.projects_notes
 
 
 --
--- TOC entry 6078 (class 2606 OID 17977)
+-- TOC entry 6317 (class 2606 OID 17977)
 -- Name: projects_notes projects_notes_note_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11455,7 +14345,7 @@ ALTER TABLE ONLY public.projects_notes
 
 
 --
--- TOC entry 6079 (class 2606 OID 17982)
+-- TOC entry 6318 (class 2606 OID 17982)
 -- Name: projects_notes projects_notes_project_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11464,7 +14354,7 @@ ALTER TABLE ONLY public.projects_notes
 
 
 --
--- TOC entry 6063 (class 2606 OID 18977)
+-- TOC entry 6302 (class 2606 OID 18977)
 -- Name: projects projects_offering_term_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11473,7 +14363,7 @@ ALTER TABLE ONLY public.projects
 
 
 --
--- TOC entry 6064 (class 2606 OID 17987)
+-- TOC entry 6303 (class 2606 OID 17987)
 -- Name: projects projects_project_status_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11482,7 +14372,7 @@ ALTER TABLE ONLY public.projects
 
 
 --
--- TOC entry 6065 (class 2606 OID 17992)
+-- TOC entry 6304 (class 2606 OID 17992)
 -- Name: projects projects_project_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11491,7 +14381,7 @@ ALTER TABLE ONLY public.projects
 
 
 --
--- TOC entry 6066 (class 2606 OID 18437)
+-- TOC entry 6305 (class 2606 OID 18437)
 -- Name: projects projects_rating_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11500,7 +14390,7 @@ ALTER TABLE ONLY public.projects
 
 
 --
--- TOC entry 6080 (class 2606 OID 17997)
+-- TOC entry 6319 (class 2606 OID 17997)
 -- Name: projects_tasks projects_tasks_project_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11509,7 +14399,7 @@ ALTER TABLE ONLY public.projects_tasks
 
 
 --
--- TOC entry 6081 (class 2606 OID 18002)
+-- TOC entry 6320 (class 2606 OID 18002)
 -- Name: projects_tasks projects_tasks_task_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11518,7 +14408,7 @@ ALTER TABLE ONLY public.projects_tasks
 
 
 --
--- TOC entry 6067 (class 2606 OID 18007)
+-- TOC entry 6306 (class 2606 OID 18007)
 -- Name: projects projects_tutor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11527,7 +14417,7 @@ ALTER TABLE ONLY public.projects
 
 
 --
--- TOC entry 6068 (class 2606 OID 18012)
+-- TOC entry 6307 (class 2606 OID 18012)
 -- Name: projects projects_updated_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11536,7 +14426,7 @@ ALTER TABLE ONLY public.projects
 
 
 --
--- TOC entry 6142 (class 2606 OID 18384)
+-- TOC entry 6381 (class 2606 OID 18384)
 -- Name: ratings ratings_actor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11545,7 +14435,7 @@ ALTER TABLE ONLY public.ratings
 
 
 --
--- TOC entry 6143 (class 2606 OID 18389)
+-- TOC entry 6382 (class 2606 OID 18389)
 -- Name: ratings ratings_rating_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11554,7 +14444,7 @@ ALTER TABLE ONLY public.ratings
 
 
 --
--- TOC entry 6169 (class 2606 OID 19333)
+-- TOC entry 6408 (class 2606 OID 19333)
 -- Name: service_offering_terms service_offering_terms_offering_term_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11563,7 +14453,7 @@ ALTER TABLE ONLY public.service_offering_terms
 
 
 --
--- TOC entry 6170 (class 2606 OID 19328)
+-- TOC entry 6409 (class 2606 OID 19328)
 -- Name: service_offering_terms service_offering_terms_service_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11572,7 +14462,7 @@ ALTER TABLE ONLY public.service_offering_terms
 
 
 --
--- TOC entry 6082 (class 2606 OID 18017)
+-- TOC entry 6321 (class 2606 OID 18017)
 -- Name: services services_created_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11581,7 +14471,7 @@ ALTER TABLE ONLY public.services
 
 
 --
--- TOC entry 6085 (class 2606 OID 18864)
+-- TOC entry 6324 (class 2606 OID 18864)
 -- Name: services_notes services_notes_author_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11590,7 +14480,7 @@ ALTER TABLE ONLY public.services_notes
 
 
 --
--- TOC entry 6086 (class 2606 OID 18022)
+-- TOC entry 6325 (class 2606 OID 18022)
 -- Name: services_notes services_notes_note_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11599,7 +14489,7 @@ ALTER TABLE ONLY public.services_notes
 
 
 --
--- TOC entry 6087 (class 2606 OID 18027)
+-- TOC entry 6326 (class 2606 OID 18027)
 -- Name: services_notes services_notes_service_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11608,7 +14498,7 @@ ALTER TABLE ONLY public.services_notes
 
 
 --
--- TOC entry 6083 (class 2606 OID 18676)
+-- TOC entry 6322 (class 2606 OID 18676)
 -- Name: services services_rating_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11617,7 +14507,7 @@ ALTER TABLE ONLY public.services
 
 
 --
--- TOC entry 6084 (class 2606 OID 18032)
+-- TOC entry 6323 (class 2606 OID 18032)
 -- Name: services services_updated_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11626,7 +14516,7 @@ ALTER TABLE ONLY public.services
 
 
 --
--- TOC entry 6088 (class 2606 OID 18037)
+-- TOC entry 6327 (class 2606 OID 18037)
 -- Name: stage_audio stage_audio_created_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11635,7 +14525,7 @@ ALTER TABLE ONLY public.stage_audio
 
 
 --
--- TOC entry 6090 (class 2606 OID 18042)
+-- TOC entry 6329 (class 2606 OID 18042)
 -- Name: stage_audio_set stage_audio_set_stage_audio_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11644,7 +14534,7 @@ ALTER TABLE ONLY public.stage_audio_set
 
 
 --
--- TOC entry 6091 (class 2606 OID 18047)
+-- TOC entry 6330 (class 2606 OID 18047)
 -- Name: stage_audio_set stage_audio_set_stage_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11653,7 +14543,7 @@ ALTER TABLE ONLY public.stage_audio_set
 
 
 --
--- TOC entry 6089 (class 2606 OID 18052)
+-- TOC entry 6328 (class 2606 OID 18052)
 -- Name: stage_audio stage_audio_updated_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11662,7 +14552,7 @@ ALTER TABLE ONLY public.stage_audio
 
 
 --
--- TOC entry 6092 (class 2606 OID 18057)
+-- TOC entry 6331 (class 2606 OID 18057)
 -- Name: stage_effects stage_effects_created_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11671,7 +14561,7 @@ ALTER TABLE ONLY public.stage_effects
 
 
 --
--- TOC entry 6094 (class 2606 OID 18062)
+-- TOC entry 6333 (class 2606 OID 18062)
 -- Name: stage_effects_set stage_effects_set_stage_effects_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11680,7 +14570,7 @@ ALTER TABLE ONLY public.stage_effects_set
 
 
 --
--- TOC entry 6095 (class 2606 OID 18067)
+-- TOC entry 6334 (class 2606 OID 18067)
 -- Name: stage_effects_set stage_effects_set_stage_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11689,7 +14579,7 @@ ALTER TABLE ONLY public.stage_effects_set
 
 
 --
--- TOC entry 6093 (class 2606 OID 18072)
+-- TOC entry 6332 (class 2606 OID 18072)
 -- Name: stage_effects stage_effects_updated_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11698,7 +14588,7 @@ ALTER TABLE ONLY public.stage_effects
 
 
 --
--- TOC entry 6096 (class 2606 OID 18077)
+-- TOC entry 6335 (class 2606 OID 18077)
 -- Name: stage_light stage_light_created_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11707,7 +14597,7 @@ ALTER TABLE ONLY public.stage_light
 
 
 --
--- TOC entry 6098 (class 2606 OID 18082)
+-- TOC entry 6337 (class 2606 OID 18082)
 -- Name: stage_light_set stage_light_set_stage_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11716,7 +14606,7 @@ ALTER TABLE ONLY public.stage_light_set
 
 
 --
--- TOC entry 6099 (class 2606 OID 18087)
+-- TOC entry 6338 (class 2606 OID 18087)
 -- Name: stage_light_set stage_light_set_stage_light_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11725,7 +14615,7 @@ ALTER TABLE ONLY public.stage_light_set
 
 
 --
--- TOC entry 6097 (class 2606 OID 18092)
+-- TOC entry 6336 (class 2606 OID 18092)
 -- Name: stage_light stage_light_updated_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11734,7 +14624,7 @@ ALTER TABLE ONLY public.stage_light
 
 
 --
--- TOC entry 6100 (class 2606 OID 18097)
+-- TOC entry 6339 (class 2606 OID 18097)
 -- Name: stage_video stage_video_created_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11743,7 +14633,7 @@ ALTER TABLE ONLY public.stage_video
 
 
 --
--- TOC entry 6102 (class 2606 OID 18102)
+-- TOC entry 6341 (class 2606 OID 18102)
 -- Name: stage_video_set stage_video_set_stage_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11752,7 +14642,7 @@ ALTER TABLE ONLY public.stage_video_set
 
 
 --
--- TOC entry 6103 (class 2606 OID 18107)
+-- TOC entry 6342 (class 2606 OID 18107)
 -- Name: stage_video_set stage_video_set_stage_video_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11761,7 +14651,7 @@ ALTER TABLE ONLY public.stage_video_set
 
 
 --
--- TOC entry 6101 (class 2606 OID 18112)
+-- TOC entry 6340 (class 2606 OID 18112)
 -- Name: stage_video stage_video_updated_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11770,7 +14660,7 @@ ALTER TABLE ONLY public.stage_video
 
 
 --
--- TOC entry 6104 (class 2606 OID 18117)
+-- TOC entry 6343 (class 2606 OID 18117)
 -- Name: stages stages_created_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11779,7 +14669,7 @@ ALTER TABLE ONLY public.stages
 
 
 --
--- TOC entry 6105 (class 2606 OID 18122)
+-- TOC entry 6344 (class 2606 OID 18122)
 -- Name: stages stages_location_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11788,7 +14678,7 @@ ALTER TABLE ONLY public.stages
 
 
 --
--- TOC entry 6106 (class 2606 OID 18127)
+-- TOC entry 6345 (class 2606 OID 18127)
 -- Name: stages stages_stage_architecture_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11797,7 +14687,7 @@ ALTER TABLE ONLY public.stages
 
 
 --
--- TOC entry 6107 (class 2606 OID 18132)
+-- TOC entry 6346 (class 2606 OID 18132)
 -- Name: stages stages_stage_mobility_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11806,7 +14696,7 @@ ALTER TABLE ONLY public.stages
 
 
 --
--- TOC entry 6108 (class 2606 OID 18137)
+-- TOC entry 6347 (class 2606 OID 18137)
 -- Name: stages stages_stage_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11815,7 +14705,7 @@ ALTER TABLE ONLY public.stages
 
 
 --
--- TOC entry 6109 (class 2606 OID 18142)
+-- TOC entry 6348 (class 2606 OID 18142)
 -- Name: stages stages_updated_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11824,7 +14714,7 @@ ALTER TABLE ONLY public.stages
 
 
 --
--- TOC entry 6110 (class 2606 OID 18147)
+-- TOC entry 6349 (class 2606 OID 18147)
 -- Name: tasks tasks_created_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11833,7 +14723,7 @@ ALTER TABLE ONLY public.tasks
 
 
 --
--- TOC entry 6111 (class 2606 OID 18152)
+-- TOC entry 6350 (class 2606 OID 18152)
 -- Name: tasks tasks_task_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11842,7 +14732,7 @@ ALTER TABLE ONLY public.tasks
 
 
 --
--- TOC entry 6112 (class 2606 OID 18157)
+-- TOC entry 6351 (class 2606 OID 18157)
 -- Name: tasks tasks_updated_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11851,7 +14741,7 @@ ALTER TABLE ONLY public.tasks
 
 
 --
--- TOC entry 6171 (class 2606 OID 19360)
+-- TOC entry 6410 (class 2606 OID 19360)
 -- Name: template_offering_terms template_offering_terms_offering_term_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11860,7 +14750,7 @@ ALTER TABLE ONLY public.template_offering_terms
 
 
 --
--- TOC entry 6172 (class 2606 OID 19355)
+-- TOC entry 6411 (class 2606 OID 19355)
 -- Name: template_offering_terms template_offering_terms_template_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11869,7 +14759,7 @@ ALTER TABLE ONLY public.template_offering_terms
 
 
 --
--- TOC entry 6113 (class 2606 OID 18162)
+-- TOC entry 6352 (class 2606 OID 18162)
 -- Name: templates templates_created_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11878,7 +14768,7 @@ ALTER TABLE ONLY public.templates
 
 
 --
--- TOC entry 6114 (class 2606 OID 18167)
+-- TOC entry 6353 (class 2606 OID 18167)
 -- Name: templates templates_direction_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11887,7 +14777,7 @@ ALTER TABLE ONLY public.templates
 
 
 --
--- TOC entry 6117 (class 2606 OID 18172)
+-- TOC entry 6356 (class 2606 OID 18172)
 -- Name: templates_finresources templates_finresources_finresource_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11896,7 +14786,7 @@ ALTER TABLE ONLY public.templates_finresources
 
 
 --
--- TOC entry 6118 (class 2606 OID 18177)
+-- TOC entry 6357 (class 2606 OID 18177)
 -- Name: templates_finresources templates_finresources_template_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11905,7 +14795,7 @@ ALTER TABLE ONLY public.templates_finresources
 
 
 --
--- TOC entry 6119 (class 2606 OID 18182)
+-- TOC entry 6358 (class 2606 OID 18182)
 -- Name: templates_functions templates_functions_function_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11914,7 +14804,7 @@ ALTER TABLE ONLY public.templates_functions
 
 
 --
--- TOC entry 6120 (class 2606 OID 18187)
+-- TOC entry 6359 (class 2606 OID 18187)
 -- Name: templates_functions templates_functions_template_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11923,7 +14813,7 @@ ALTER TABLE ONLY public.templates_functions
 
 
 --
--- TOC entry 6121 (class 2606 OID 18192)
+-- TOC entry 6360 (class 2606 OID 18192)
 -- Name: templates_matresources templates_matresources_matresource_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11932,7 +14822,7 @@ ALTER TABLE ONLY public.templates_matresources
 
 
 --
--- TOC entry 6122 (class 2606 OID 18197)
+-- TOC entry 6361 (class 2606 OID 18197)
 -- Name: templates_matresources templates_matresources_template_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11941,7 +14831,7 @@ ALTER TABLE ONLY public.templates_matresources
 
 
 --
--- TOC entry 6153 (class 2606 OID 18571)
+-- TOC entry 6392 (class 2606 OID 18571)
 -- Name: templates_notes templates_notes_author_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11950,7 +14840,7 @@ ALTER TABLE ONLY public.templates_notes
 
 
 --
--- TOC entry 6154 (class 2606 OID 18566)
+-- TOC entry 6393 (class 2606 OID 18566)
 -- Name: templates_notes templates_notes_note_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11959,7 +14849,7 @@ ALTER TABLE ONLY public.templates_notes
 
 
 --
--- TOC entry 6155 (class 2606 OID 18561)
+-- TOC entry 6394 (class 2606 OID 18561)
 -- Name: templates_notes templates_notes_template_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11968,7 +14858,7 @@ ALTER TABLE ONLY public.templates_notes
 
 
 --
--- TOC entry 6115 (class 2606 OID 18686)
+-- TOC entry 6354 (class 2606 OID 18686)
 -- Name: templates templates_rating_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11977,7 +14867,7 @@ ALTER TABLE ONLY public.templates
 
 
 --
--- TOC entry 6116 (class 2606 OID 18202)
+-- TOC entry 6355 (class 2606 OID 18202)
 -- Name: templates templates_updated_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11986,7 +14876,7 @@ ALTER TABLE ONLY public.templates
 
 
 --
--- TOC entry 6123 (class 2606 OID 18207)
+-- TOC entry 6362 (class 2606 OID 18207)
 -- Name: templates_venues templates_venues_template_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -11995,7 +14885,7 @@ ALTER TABLE ONLY public.templates_venues
 
 
 --
--- TOC entry 6124 (class 2606 OID 18212)
+-- TOC entry 6363 (class 2606 OID 18212)
 -- Name: templates_venues templates_venues_venue_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -12004,7 +14894,7 @@ ALTER TABLE ONLY public.templates_venues
 
 
 --
--- TOC entry 6162 (class 2606 OID 18742)
+-- TOC entry 6401 (class 2606 OID 18742)
 -- Name: theme_bookmarks theme_bookmarks_actor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -12013,7 +14903,7 @@ ALTER TABLE ONLY public.theme_bookmarks
 
 
 --
--- TOC entry 6163 (class 2606 OID 18747)
+-- TOC entry 6402 (class 2606 OID 18747)
 -- Name: theme_bookmarks theme_bookmarks_last_read_discussion_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -12022,7 +14912,7 @@ ALTER TABLE ONLY public.theme_bookmarks
 
 
 --
--- TOC entry 6164 (class 2606 OID 18737)
+-- TOC entry 6403 (class 2606 OID 18737)
 -- Name: theme_bookmarks theme_bookmarks_theme_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -12031,7 +14921,7 @@ ALTER TABLE ONLY public.theme_bookmarks
 
 
 --
--- TOC entry 6125 (class 2606 OID 18217)
+-- TOC entry 6364 (class 2606 OID 18217)
 -- Name: theme_comments theme_comments_actor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -12040,7 +14930,7 @@ ALTER TABLE ONLY public.theme_comments
 
 
 --
--- TOC entry 6126 (class 2606 OID 18222)
+-- TOC entry 6365 (class 2606 OID 18222)
 -- Name: theme_comments theme_comments_created_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -12049,7 +14939,7 @@ ALTER TABLE ONLY public.theme_comments
 
 
 --
--- TOC entry 6127 (class 2606 OID 18227)
+-- TOC entry 6366 (class 2606 OID 18227)
 -- Name: theme_comments theme_comments_theme_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -12058,7 +14948,7 @@ ALTER TABLE ONLY public.theme_comments
 
 
 --
--- TOC entry 6128 (class 2606 OID 18232)
+-- TOC entry 6367 (class 2606 OID 18232)
 -- Name: theme_comments theme_comments_updated_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -12067,7 +14957,7 @@ ALTER TABLE ONLY public.theme_comments
 
 
 --
--- TOC entry 6159 (class 2606 OID 18716)
+-- TOC entry 6398 (class 2606 OID 18716)
 -- Name: theme_discussions theme_discussions_author_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -12076,7 +14966,7 @@ ALTER TABLE ONLY public.theme_discussions
 
 
 --
--- TOC entry 6160 (class 2606 OID 18711)
+-- TOC entry 6399 (class 2606 OID 18711)
 -- Name: theme_discussions theme_discussions_parent_discussion_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -12085,7 +14975,7 @@ ALTER TABLE ONLY public.theme_discussions
 
 
 --
--- TOC entry 6161 (class 2606 OID 18706)
+-- TOC entry 6400 (class 2606 OID 18706)
 -- Name: theme_discussions theme_discussions_theme_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -12094,7 +14984,7 @@ ALTER TABLE ONLY public.theme_discussions
 
 
 --
--- TOC entry 6156 (class 2606 OID 18641)
+-- TOC entry 6395 (class 2606 OID 18641)
 -- Name: theme_notes theme_notes_author_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -12103,7 +14993,7 @@ ALTER TABLE ONLY public.theme_notes
 
 
 --
--- TOC entry 6157 (class 2606 OID 18636)
+-- TOC entry 6396 (class 2606 OID 18636)
 -- Name: theme_notes theme_notes_note_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -12112,7 +15002,7 @@ ALTER TABLE ONLY public.theme_notes
 
 
 --
--- TOC entry 6158 (class 2606 OID 18631)
+-- TOC entry 6397 (class 2606 OID 18631)
 -- Name: theme_notes theme_notes_theme_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -12121,7 +15011,7 @@ ALTER TABLE ONLY public.theme_notes
 
 
 --
--- TOC entry 6129 (class 2606 OID 18237)
+-- TOC entry 6368 (class 2606 OID 18237)
 -- Name: themes themes_actor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -12130,7 +15020,7 @@ ALTER TABLE ONLY public.themes
 
 
 --
--- TOC entry 6130 (class 2606 OID 18242)
+-- TOC entry 6369 (class 2606 OID 18242)
 -- Name: themes themes_created_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -12139,7 +15029,7 @@ ALTER TABLE ONLY public.themes
 
 
 --
--- TOC entry 6131 (class 2606 OID 18681)
+-- TOC entry 6370 (class 2606 OID 18681)
 -- Name: themes themes_rating_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -12148,7 +15038,7 @@ ALTER TABLE ONLY public.themes
 
 
 --
--- TOC entry 6132 (class 2606 OID 18247)
+-- TOC entry 6371 (class 2606 OID 18247)
 -- Name: themes themes_theme_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -12157,7 +15047,7 @@ ALTER TABLE ONLY public.themes
 
 
 --
--- TOC entry 6133 (class 2606 OID 18252)
+-- TOC entry 6372 (class 2606 OID 18252)
 -- Name: themes themes_updated_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -12166,7 +15056,7 @@ ALTER TABLE ONLY public.themes
 
 
 --
--- TOC entry 6173 (class 2606 OID 19387)
+-- TOC entry 6412 (class 2606 OID 19387)
 -- Name: venue_offering_terms venue_offering_terms_offering_term_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -12175,7 +15065,7 @@ ALTER TABLE ONLY public.venue_offering_terms
 
 
 --
--- TOC entry 6174 (class 2606 OID 19382)
+-- TOC entry 6413 (class 2606 OID 19382)
 -- Name: venue_offering_terms venue_offering_terms_venue_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -12184,7 +15074,7 @@ ALTER TABLE ONLY public.venue_offering_terms
 
 
 --
--- TOC entry 6134 (class 2606 OID 18257)
+-- TOC entry 6373 (class 2606 OID 18257)
 -- Name: venues venues_actor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -12193,7 +15083,7 @@ ALTER TABLE ONLY public.venues
 
 
 --
--- TOC entry 6135 (class 2606 OID 18262)
+-- TOC entry 6374 (class 2606 OID 18262)
 -- Name: venues venues_created_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -12202,7 +15092,7 @@ ALTER TABLE ONLY public.venues
 
 
 --
--- TOC entry 6136 (class 2606 OID 18267)
+-- TOC entry 6375 (class 2606 OID 18267)
 -- Name: venues venues_location_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -12211,7 +15101,7 @@ ALTER TABLE ONLY public.venues
 
 
 --
--- TOC entry 6147 (class 2606 OID 18464)
+-- TOC entry 6386 (class 2606 OID 18464)
 -- Name: venues_notes venues_notes_author_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -12220,7 +15110,7 @@ ALTER TABLE ONLY public.venues_notes
 
 
 --
--- TOC entry 6148 (class 2606 OID 18454)
+-- TOC entry 6387 (class 2606 OID 18454)
 -- Name: venues_notes venues_notes_note_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -12229,7 +15119,7 @@ ALTER TABLE ONLY public.venues_notes
 
 
 --
--- TOC entry 6149 (class 2606 OID 18459)
+-- TOC entry 6388 (class 2606 OID 18459)
 -- Name: venues_notes venues_notes_venue_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -12238,7 +15128,7 @@ ALTER TABLE ONLY public.venues_notes
 
 
 --
--- TOC entry 6137 (class 2606 OID 18666)
+-- TOC entry 6376 (class 2606 OID 18666)
 -- Name: venues venues_rating_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -12247,7 +15137,7 @@ ALTER TABLE ONLY public.venues
 
 
 --
--- TOC entry 6140 (class 2606 OID 18272)
+-- TOC entry 6379 (class 2606 OID 18272)
 -- Name: venues_stages venues_stages_stage_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -12256,7 +15146,7 @@ ALTER TABLE ONLY public.venues_stages
 
 
 --
--- TOC entry 6141 (class 2606 OID 18277)
+-- TOC entry 6380 (class 2606 OID 18277)
 -- Name: venues_stages venues_stages_venue_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -12265,7 +15155,7 @@ ALTER TABLE ONLY public.venues_stages
 
 
 --
--- TOC entry 6138 (class 2606 OID 18282)
+-- TOC entry 6377 (class 2606 OID 18282)
 -- Name: venues venues_updated_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -12274,7 +15164,7 @@ ALTER TABLE ONLY public.venues
 
 
 --
--- TOC entry 6139 (class 2606 OID 18287)
+-- TOC entry 6378 (class 2606 OID 18287)
 -- Name: venues venues_venue_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -12282,15 +15172,15 @@ ALTER TABLE ONLY public.venues
     ADD CONSTRAINT venues_venue_type_id_fkey FOREIGN KEY (venue_type_id) REFERENCES public.venue_types(venue_type_id);
 
 
--- Completed on 2026-01-21 23:16:23
+-- Completed on 2026-01-22 20:57:09
 
 --
 -- PostgreSQL database dump complete
 --
 
-\unrestrict fgrdVFUnsqa4g7NT78DYEqguupVdnUSdvcGJ5vxhIBaz5mPKtyE8jUocfRX3XHi
+\unrestrict 56hOQgs2RWwAOPEPCPgcDE2i7eFVBN0CAkm4hdKZi1N54vEPxHg3LW2H9AjDeyR
 
--- Completed on 2026-01-21 23:16:23
+-- Completed on 2026-01-22 20:57:09
 
 --
 -- PostgreSQL database cluster dump complete
